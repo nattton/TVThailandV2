@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="12A269" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Program" syncable="YES">
+        <attribute name="program_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="program_thumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="program_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="program_title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Program" positionX="160" positionY="192" width="128" height="105"/>
+    </elements>
+</model>
