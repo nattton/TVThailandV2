@@ -5,5 +5,5 @@ TVThailandV2
 
 External Library
 
-[three20]: https://github.com/facebook/three20
+three20 : https://github.com/facebook/three20
 
