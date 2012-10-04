@@ -23,7 +23,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        device = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)?@"ipad":@"iphone";
         delayStart = 5.0;
         delayAd = 5.0;
         [self setHidden:YES];
@@ -57,7 +56,7 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayStart * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:
-                                   [NSURL URLWithString:kMethodInHouseAd(device, [NSString getUnixTimeKey])]];
+                                   [NSURL URLWithString:kMethodInHouseAd([NSString getUnixTimeKey])]];
         request.delegate = self;
         [request startAsynchronous];
     });

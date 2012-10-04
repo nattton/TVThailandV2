@@ -9,18 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ASIHTTPRequest.h"
 
-#define kMethodInHouseAd(device, time) [NSString stringWithFormat:@"http://tv.makathon.com/api/getInHouseAd?device=%@&time=%@", device, time]
+#define kMethodInHouseAd(time) [NSString stringWithFormat:@"http://tv.makathon.com/api/getInHouseAd?device=ios&time=%@", time]
 
 @interface InHouseAdView : UIView <ASIHTTPRequestDelegate,UIWebViewDelegate>
 {
-    NSString *device;
     double delayStart;
     double delayAd;
     NSMutableArray *adLists;
 }
 @property (nonatomic, assign) UIViewController *rootViewController;
 @property (strong, nonatomic) UIWebView *webView;
-@property (strong, nonatomic) NSString *device;
 @property (strong, nonatomic) NSMutableArray *adLists;
 
 - (void)loadRequest;
