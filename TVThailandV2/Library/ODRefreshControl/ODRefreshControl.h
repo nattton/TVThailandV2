@@ -15,9 +15,13 @@
     CAShapeLayer *_shapeLayer;
     CAShapeLayer *_arrowLayer;
     CAShapeLayer *_highlightLayer;
-    UIActivityIndicatorView *_activity;
+    UIView *_activity;
     BOOL _refreshing;
     BOOL _canRefresh;
+    BOOL _ignoreInset;
+    BOOL _ignoreOffset;
+    BOOL _didSetInset;
+    BOOL _hasSectionHeaders;
 }
 
 @property (nonatomic, readonly) BOOL refreshing;
@@ -25,6 +29,9 @@
 @property (nonatomic, assign) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
 
 - (id)initInScrollView:(UIScrollView *)scrollView;
+
+// use custom activity indicator
+- (id)initInScrollView:(UIScrollView *)scrollView activityIndicatorView:(UIView *)activity;
 
 // Tells the control that a refresh operation was started programmatically
 - (void)beginRefreshing;
