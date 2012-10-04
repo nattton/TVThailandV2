@@ -33,12 +33,13 @@
 #define kApiDomain @"http://tv.makathon.com/api"
 
 #define kDeviceToken(udid,devicetoken) [NSString stringWithFormat:@"%@/iosToken/%@/%@",kApiDomain,udid,devicetoken]
-
+#define kRegisterLikeProgram(udid, program_id) [NSString stringWithFormat:@"%@/registerLikeProgram/%@?device=ios&udid=%@",kApiDomain, program_id, udid]
+#define kUnregisterLikeProgram(udid, program_id) [NSString stringWithFormat:@"%@/unregisterLikeProgram/%@?device=ios&udid=%@",kApiDomain, program_id, udid]
 
 #define kGetMessageiOS(time) [NSString stringWithFormat:@"%@/getMessageiOS?time=%@",kApiDomain, time]
 #define kGetCategory(time) [NSString stringWithFormat:@"%@/getCategory?time=%@",kApiDomain, time]
-#define kGetProgram(cat_id,start,time) [NSString stringWithFormat:@"%@/getProgram/%@/%d?time=%@",kApiDomain, cat_id, start, time]
-#define kGetProgramSearch(search,start,time) [[NSString stringWithFormat:@"%@/getProgramSearch/%d/?keyword=%@&time=%@",kApiDomain,start, search, time] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-#define kGetProgramlist(program_id,start,time) [NSString stringWithFormat:@"%@/getProgramlist/%@/%d?time=%@",kApiDomain,program_id, start, time]
+#define kGetProgram(cat_id,start,time) [NSString stringWithFormat:@"%@/getProgram/%@/%d?device=ios&time=%@",kApiDomain, cat_id, start, time]
+#define kGetProgramSearch(search,start,time) [[NSString stringWithFormat:@"%@/getProgramSearch/%d/?keyword=%@&device=ios&time=%@",kApiDomain,start, search, time] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+#define kGetProgramlist(program_id,start,time) [NSString stringWithFormat:@"%@/getProgramlist/%@/%d?device=ios&time=%@",kApiDomain,program_id, start, time]
 #define kGetProgramDetail(program_id) [NSString stringWithFormat:@"%@/getProgramDetail/%@",kApiDomain,program_id]
 #define kViewProgramlist(programlist_id) [NSString stringWithFormat:@"%@/viewProgramlist/%@",kApiDomain,programlist_id]
