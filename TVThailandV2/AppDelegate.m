@@ -6,8 +6,6 @@
 //  Copyright (c) 2555 luciferultram@gmail.com. All rights reserved.
 //
 
-#import <BugSense-iOS/BugSenseCrashController.h>
-
 #import "AppDelegate.h"
 
 #import "IIViewDeckController.h"
@@ -42,10 +40,6 @@ static const NSInteger kGANDispatchPeriodSec = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-////////////////////////////////// BugSense ////////////////////////////////
-    [BugSenseCrashController sharedInstanceWithBugSenseAPIKey:@"eb08d56b"
-                                               userDictionary:nil
-                                              sendImmediately:NO];
     
 //////////////////////////////// Google Analytics ////////////////////////////////
     [[GANTracker sharedTracker] startTrackerWithAccountID:@"UA-22403997-3"
@@ -188,7 +182,7 @@ static const NSInteger kGANDispatchPeriodSec = 10;
                     }
                 }
                 @catch (NSException *exception) {
-                    BUGSENSE_LOG(exception, @"getMessageiOS");
+                    
                 }
                 [alert show];
             }

@@ -16,7 +16,6 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		3BBF507A15DA31ED00CEE8A4 /* BugSense-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBF507915DA31ED00CEE8A4 /* BugSense-iOS.framework */; };
 		F001E60715CB282300C8033F /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F001E60515CB282300C8033F /* FavoriteViewController.m */; };
 		F001E60815CB282300C8033F /* FavoriteViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F001E60615CB282300C8033F /* FavoriteViewController_iPhone.xib */; };
 		F001E61215CB3C6B00C8033F /* FavoriteViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F001E61115CB3C6B00C8033F /* FavoriteViewController_iPad.xib */; };
@@ -89,9 +88,11 @@
 		F0A3C8AA15BBB15C000CD962 /* ProgramViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0A3C8A815BBB15C000CD962 /* ProgramViewController_iPhone.xib */; };
 		F0A95BD615BA1C0800B86B91 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A95BD415BA1C0800B86B91 /* CategoryViewController.m */; };
 		F0A95BD715BA1C0800B86B91 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0A95BD515BA1C0800B86B91 /* CategoryViewController.xib */; };
+		F0B4AC00161DEF9700CF843A /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */; };
+		F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F0B4AC04161DF1B300CF843A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */; };
 		F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C5D15BC2A9200B56EE4 /* AudioToolbox.framework */; };
 		F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C6015BC2A9F00B56EE4 /* MessageUI.framework */; };
-		F0BD0C6D15BC2FB800B56EE4 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C6C15BC2FB800B56EE4 /* libGoogleAdMobAds.a */; };
 		F0BD0CAA15BC3CC800B56EE4 /* ProgramListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BD0CA815BC3CC700B56EE4 /* ProgramListViewController.m */; };
 		F0BD0CAB15BC3CC800B56EE4 /* ProgramListViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0BD0CA915BC3CC700B56EE4 /* ProgramListViewController_iPhone.xib */; };
 		F0BD0CB615BC3EAC00B56EE4 /* EPViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BD0CAE15BC3EAC00B56EE4 /* EPViewCell.m */; };
@@ -278,7 +279,6 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
-		3BBF507915DA31ED00CEE8A4 /* BugSense-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "BugSense-iOS.framework"; path = "TVThailandV2/Framework/BugSense-iOS.framework"; sourceTree = "<group>"; };
 		F001E60415CB282300C8033F /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		F001E60515CB282300C8033F /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		F001E60615CB282300C8033F /* FavoriteViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -395,18 +395,20 @@
 		F0A95BD315BA1C0800B86B91 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		F0A95BD415BA1C0800B86B91 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		F0A95BD515BA1C0800B86B91 /* CategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
+		F0B4ABF5161DEF6000CF843A /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		F0B4ABF6161DEF6000CF843A /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		F0B4ABF7161DEF6000CF843A /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		F0B4ABF8161DEF6000CF843A /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		F0B4ABF9161DEF6000CF843A /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		F0B4ABFA161DEF6000CF843A /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		F0B4ABFB161DEF6000CF843A /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		F0B4ABFC161DEF6000CF843A /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		F0B4ABFD161DEF6000CF843A /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		F0B4AC01161DF0BB00CF843A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
 		F0BD0C5D15BC2A9200B56EE4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F0BD0C6015BC2A9F00B56EE4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		F0BD0C6315BC2FB800B56EE4 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
-		F0BD0C6415BC2FB800B56EE4 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
-		F0BD0C6515BC2FB800B56EE4 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
-		F0BD0C6615BC2FB800B56EE4 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
-		F0BD0C6715BC2FB800B56EE4 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
-		F0BD0C6815BC2FB800B56EE4 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
-		F0BD0C6915BC2FB800B56EE4 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
-		F0BD0C6A15BC2FB800B56EE4 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
-		F0BD0C6B15BC2FB800B56EE4 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
-		F0BD0C6C15BC2FB800B56EE4 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		F0BD0CA715BC3CC700B56EE4 /* ProgramListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramListViewController.h; sourceTree = "<group>"; };
 		F0BD0CA815BC3CC700B56EE4 /* ProgramListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramListViewController.m; sourceTree = "<group>"; };
 		F0BD0CA915BC3CC700B56EE4 /* ProgramListViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgramListViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -476,8 +478,8 @@
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
 				F0A3C89215BB28DA000CD962 /* libGoogleAnalytics.a in Frameworks */,
-				F0BD0C6D15BC2FB800B56EE4 /* libGoogleAdMobAds.a in Frameworks */,
-				3BBF507A15DA31ED00CEE8A4 /* BugSense-iOS.framework in Frameworks */,
+				F0B4AC00161DEF9700CF843A /* libGoogleAdMobAds.a in Frameworks */,
+				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,6 +552,7 @@
 		F042D43715BC875E0037E120 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */,
 				F0D4C5A115CB18D900988376 /* NavBarIconLauncher.png */,
 				F0D4C5A215CB18D900988376 /* NavBarIconLauncher@2x.png */,
 				F07C74F415C0ADE800144EC1 /* 37x-Checkmark.png */,
@@ -708,21 +711,21 @@
 			path = GoogleAnalyticsSDK;
 			sourceTree = "<group>";
 		};
-		F0BD0C6215BC2FB800B56EE4 /* GoogleAdMobAdsSdkiOS-6.1.1 */ = {
+		F0B4ABF4161DEF6000CF843A /* GoogleAdMobAdsSdkiOS-6.2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				F0BD0C6315BC2FB800B56EE4 /* GADAdMobExtras.h */,
-				F0BD0C6415BC2FB800B56EE4 /* GADAdNetworkExtras.h */,
-				F0BD0C6515BC2FB800B56EE4 /* GADAdSize.h */,
-				F0BD0C6615BC2FB800B56EE4 /* GADBannerView.h */,
-				F0BD0C6715BC2FB800B56EE4 /* GADBannerViewDelegate.h */,
-				F0BD0C6815BC2FB800B56EE4 /* GADInterstitial.h */,
-				F0BD0C6915BC2FB800B56EE4 /* GADInterstitialDelegate.h */,
-				F0BD0C6A15BC2FB800B56EE4 /* GADRequest.h */,
-				F0BD0C6B15BC2FB800B56EE4 /* GADRequestError.h */,
-				F0BD0C6C15BC2FB800B56EE4 /* libGoogleAdMobAds.a */,
+				F0B4ABF5161DEF6000CF843A /* GADAdMobExtras.h */,
+				F0B4ABF6161DEF6000CF843A /* GADAdNetworkExtras.h */,
+				F0B4ABF7161DEF6000CF843A /* GADAdSize.h */,
+				F0B4ABF8161DEF6000CF843A /* GADBannerView.h */,
+				F0B4ABF9161DEF6000CF843A /* GADBannerViewDelegate.h */,
+				F0B4ABFA161DEF6000CF843A /* GADInterstitial.h */,
+				F0B4ABFB161DEF6000CF843A /* GADInterstitialDelegate.h */,
+				F0B4ABFC161DEF6000CF843A /* GADRequest.h */,
+				F0B4ABFD161DEF6000CF843A /* GADRequestError.h */,
+				F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */,
 			);
-			path = "GoogleAdMobAdsSdkiOS-6.1.1";
+			path = "GoogleAdMobAdsSdkiOS-6.2.0";
 			sourceTree = "<group>";
 		};
 		F0BD0CAC15BC3EAC00B56EE4 /* TableViewCell */ = {
@@ -771,7 +774,7 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3BBF507915DA31ED00CEE8A4 /* BugSense-iOS.framework */,
+				F0B4AC01161DF0BB00CF843A /* AdSupport.framework */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
 				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
 				320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */,
@@ -830,10 +833,10 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				F0B4ABF4161DEF6000CF843A /* GoogleAdMobAdsSdkiOS-6.2.0 */,
 				F054546E15C06ACC00780CAE /* MBProgressHUD */,
 				F084C89715BFEFA400CD7F70 /* HTMLParser */,
 				F042D50D15BCA5590037E120 /* Base64 */,
-				F0BD0C6215BC2FB800B56EE4 /* GoogleAdMobAdsSdkiOS-6.1.1 */,
 				F0A3C88F15BB28DA000CD962 /* GoogleAnalyticsSDK */,
 				F0A3C86915BB281E000CD962 /* SBJson */,
 				F0A3C83A15BB22BE000CD962 /* ASIHTTPRequest */,
@@ -1124,6 +1127,7 @@
 				F001E60815CB282300C8033F /* FavoriteViewController_iPhone.xib in Resources */,
 				F001E61215CB3C6B00C8033F /* FavoriteViewController_iPad.xib in Resources */,
 				F075B11815D1BD80003A82F0 /* ProgramInfoViewController.xib in Resources */,
+				F0B4AC04161DF1B300CF843A /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1321,6 +1325,7 @@
 					"\"$(SRCROOT)/../three20/Build/Products/Release-iphoneos\"",
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.2.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1358,6 +1363,7 @@
 					"\"$(SRCROOT)/../three20/Build/Products/Release-iphoneos\"",
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.2.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
