@@ -81,7 +81,6 @@
 		F0A3C88C15BB281E000CD962 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A3C87E15BB281E000CD962 /* SBJsonTokeniser.m */; };
 		F0A3C88D15BB281E000CD962 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A3C88015BB281E000CD962 /* SBJsonUTF8Stream.m */; };
 		F0A3C88E15BB281E000CD962 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A3C88215BB281E000CD962 /* SBJsonWriter.m */; };
-		F0A3C89215BB28DA000CD962 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C89115BB28DA000CD962 /* libGoogleAnalytics.a */; };
 		F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C89915BB2D54000CD962 /* libxml2.dylib */; };
 		F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C89B15BB2F96000CD962 /* libsqlite3.0.dylib */; };
 		F0A3C8A915BBB15C000CD962 /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A3C8A715BBB15C000CD962 /* ProgramViewController.m */; };
@@ -91,6 +90,7 @@
 		F0B4AC00161DEF9700CF843A /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */; };
 		F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F0B4AC04161DF1B300CF843A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */; };
+		F0B4AC07161DF55600CF843A /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC06161DF4F500CF843A /* libGoogleAnalytics.a */; };
 		F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C5D15BC2A9200B56EE4 /* AudioToolbox.framework */; };
 		F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C6015BC2A9F00B56EE4 /* MessageUI.framework */; };
 		F0BD0CAA15BC3CC800B56EE4 /* ProgramListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BD0CA815BC3CC700B56EE4 /* ProgramListViewController.m */; };
@@ -385,8 +385,6 @@
 		F0A3C88015BB281E000CD962 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		F0A3C88115BB281E000CD962 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		F0A3C88215BB281E000CD962 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		F0A3C89015BB28DA000CD962 /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
-		F0A3C89115BB28DA000CD962 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		F0A3C89915BB2D54000CD962 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		F0A3C89B15BB2F96000CD962 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		F0A3C8A615BBB15C000CD962 /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
@@ -407,6 +405,8 @@
 		F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		F0B4AC01161DF0BB00CF843A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
+		F0B4AC05161DF4F500CF843A /* GANTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
+		F0B4AC06161DF4F500CF843A /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		F0BD0C5D15BC2A9200B56EE4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F0BD0C6015BC2A9F00B56EE4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		F0BD0CA715BC3CC700B56EE4 /* ProgramListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramListViewController.h; sourceTree = "<group>"; };
@@ -477,7 +477,7 @@
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
-				F0A3C89215BB28DA000CD962 /* libGoogleAnalytics.a in Frameworks */,
+				F0B4AC07161DF55600CF843A /* libGoogleAnalytics.a in Frameworks */,
 				F0B4AC00161DEF9700CF843A /* libGoogleAdMobAds.a in Frameworks */,
 				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 			);
@@ -705,8 +705,8 @@
 		F0A3C88F15BB28DA000CD962 /* GoogleAnalyticsSDK */ = {
 			isa = PBXGroup;
 			children = (
-				F0A3C89015BB28DA000CD962 /* GANTracker.h */,
-				F0A3C89115BB28DA000CD962 /* libGoogleAnalytics.a */,
+				F0B4AC05161DF4F500CF843A /* GANTracker.h */,
+				F0B4AC06161DF4F500CF843A /* libGoogleAnalytics.a */,
 			);
 			path = GoogleAnalyticsSDK;
 			sourceTree = "<group>";
@@ -1321,7 +1321,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAnalyticsSDK\"",
-					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.1.1\"",
 					"\"$(SRCROOT)/../three20/Build/Products/Release-iphoneos\"",
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
@@ -1359,7 +1358,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAnalyticsSDK\"",
-					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.1.1\"",
 					"\"$(SRCROOT)/../three20/Build/Products/Release-iphoneos\"",
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
