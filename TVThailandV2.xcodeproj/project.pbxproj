@@ -774,7 +774,6 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F0B4AC01161DF0BB00CF843A /* AdSupport.framework */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
 				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
 				320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */,
@@ -797,6 +796,7 @@
 				F084C89E15BFF1A500CD7F70 /* MediaPlayer.framework */,
 				320AF8492C47A4D819F7C450 /* QuartzCore.framework */,
 				F0D4C59F15CB028000988376 /* CoreData.framework */,
+				F0B4AC01161DF0BB00CF843A /* AdSupport.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1334,6 +1334,7 @@
 				PRODUCT_NAME = "TV Thailand";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6154F40-9F00-4E95-93FD-DD26BDFCDC0F";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1371,6 +1372,7 @@
 				PRODUCT_NAME = "TV Thailand";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D282A3BB-11CB-4B78-8C45-A2FE7E5AC947";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
