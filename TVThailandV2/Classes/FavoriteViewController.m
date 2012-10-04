@@ -174,8 +174,13 @@ static NSString *programViewcell = @"ProgramViewCell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
         NSManagedObject *toDelete = [self.fetchedResultsController
                                      objectAtIndexPath:indexPath];
+        
+        Program *program = (Program*)toDelete;
+        [self unregisterLikeProgram:program.program_id];
+        
         [self.managedObjectContext deleteObject:toDelete];
         [self.managedObjectContext save:nil];
     }
@@ -293,6 +298,14 @@ static NSString *programViewcell = @"ProgramViewCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return cellHeight;
+}
+
+- (void)unregisterLikeProgram:(NSString *)program_id
+{
+//    NSString *uniqueIdentifier = [[UIDevice currentDevice] uniqueIdentifier];
+//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:kUnregisterLikeProgram(program_id, uniqueIdentifier)]];
+//    [request startAsynchronous];
+//    NSLog(@"%@", request.url.absoluteString);
 }
 
 

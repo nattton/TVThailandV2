@@ -462,6 +462,7 @@ static NSString *programListViewcell = @"ProgramListViewCell";
         program.program_thumbnail = self.program_thumbnail;
         program.program_time = self.program_time;
         [self.managedObjectContext save:nil];
+        [self registerLikeProgram];
     }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -480,6 +481,16 @@ static NSString *programListViewcell = @"ProgramListViewCell";
                                          withError:&error]) {
         // Handle error here
     }
+}
+
+- (void)registerLikeProgram
+{
+    
+//    NSString *uniqueIdentifier = [[UIDevice currentDevice] uniqueIdentifier];
+//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:kRegisterLikeProgram(self.program_id, uniqueIdentifier)]];
+//    [request startAsynchronous];
+//    NSLog(@"%@", request.url.absoluteString);
+    
 }
 
 
