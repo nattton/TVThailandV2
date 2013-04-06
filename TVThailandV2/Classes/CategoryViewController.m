@@ -387,6 +387,13 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption
         }
         
         [self.tableView reloadData];
+        
+        // GANTracker
+        NSError *error;
+        if (![[GANTracker sharedTracker] trackPageview:@"/api/getCategory"
+                                             withError:&error]) {
+            // Handle error here
+        }
     }
     else if (request.tag == kLoadSearchProgram)
     {
@@ -402,13 +409,6 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption
                 // Handle error here
             }
         }
-    }
-
-    // GANTracker
-    NSError *error;
-    if (![[GANTracker sharedTracker] trackPageview:@"/getCategory"
-                                         withError:&error]) {
-        // Handle error here
     }
 }
 
@@ -428,7 +428,7 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption
         
         // GANTracker
         NSError *error;
-        if (![[GANTracker sharedTracker] trackPageview:@"/getCategory/?error=1"
+        if (![[GANTracker sharedTracker] trackPageview:@"/api/getCategory/?error=1"
                                              withError:&error]) {
             // Handle error here
         }
