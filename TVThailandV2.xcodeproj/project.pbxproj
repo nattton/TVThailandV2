@@ -16,6 +16,8 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		3B66A04317109AE900D11FF3 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B669FEE1710993A00D11FF3 /* libGoogleAdMobAds.a */; };
+		3B66A04517109C2E00D11FF3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B66A04417109C2E00D11FF3 /* StoreKit.framework */; };
 		F001E60715CB282300C8033F /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F001E60515CB282300C8033F /* FavoriteViewController.m */; };
 		F001E60815CB282300C8033F /* FavoriteViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F001E60615CB282300C8033F /* FavoriteViewController_iPhone.xib */; };
 		F001E61215CB3C6B00C8033F /* FavoriteViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F001E61115CB3C6B00C8033F /* FavoriteViewController_iPad.xib */; };
@@ -87,7 +89,6 @@
 		F0A3C8AA15BBB15C000CD962 /* ProgramViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0A3C8A815BBB15C000CD962 /* ProgramViewController_iPhone.xib */; };
 		F0A95BD615BA1C0800B86B91 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A95BD415BA1C0800B86B91 /* CategoryViewController.m */; };
 		F0A95BD715BA1C0800B86B91 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0A95BD515BA1C0800B86B91 /* CategoryViewController.xib */; };
-		F0B4AC00161DEF9700CF843A /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */; };
 		F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F0B4AC04161DF1B300CF843A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */; };
 		F0B4AC07161DF55600CF843A /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC06161DF4F500CF843A /* libGoogleAnalytics.a */; };
@@ -279,6 +280,17 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		3B669FE51710993A00D11FF3 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		3B669FE61710993A00D11FF3 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		3B669FE71710993A00D11FF3 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		3B669FE81710993A00D11FF3 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		3B669FE91710993A00D11FF3 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		3B669FEA1710993A00D11FF3 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		3B669FEB1710993A00D11FF3 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		3B669FEC1710993A00D11FF3 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		3B669FED1710993A00D11FF3 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		3B669FEE1710993A00D11FF3 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		3B66A04417109C2E00D11FF3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F001E60415CB282300C8033F /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		F001E60515CB282300C8033F /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		F001E60615CB282300C8033F /* FavoriteViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -393,16 +405,6 @@
 		F0A95BD315BA1C0800B86B91 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		F0A95BD415BA1C0800B86B91 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		F0A95BD515BA1C0800B86B91 /* CategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
-		F0B4ABF5161DEF6000CF843A /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
-		F0B4ABF6161DEF6000CF843A /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
-		F0B4ABF7161DEF6000CF843A /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
-		F0B4ABF8161DEF6000CF843A /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
-		F0B4ABF9161DEF6000CF843A /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
-		F0B4ABFA161DEF6000CF843A /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
-		F0B4ABFB161DEF6000CF843A /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
-		F0B4ABFC161DEF6000CF843A /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
-		F0B4ABFD161DEF6000CF843A /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
-		F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		F0B4AC01161DF0BB00CF843A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		F0B4AC03161DF1B300CF843A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
 		F0B4AC05161DF4F500CF843A /* GANTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
@@ -456,6 +458,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B66A04517109C2E00D11FF3 /* StoreKit.framework in Frameworks */,
+				3B66A04317109AE900D11FF3 /* libGoogleAdMobAds.a in Frameworks */,
 				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
 				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
@@ -478,7 +482,6 @@
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
 				F0B4AC07161DF55600CF843A /* libGoogleAnalytics.a in Frameworks */,
-				F0B4AC00161DEF9700CF843A /* libGoogleAdMobAds.a in Frameworks */,
 				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,6 +550,23 @@
 				F0BD0CEC15BC43D600B56EE4 /* UIUnitTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3B669F891710993A00D11FF3 /* GoogleAdMobAdsSdkiOS-6.3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				3B669FE51710993A00D11FF3 /* GADAdMobExtras.h */,
+				3B669FE61710993A00D11FF3 /* GADAdNetworkExtras.h */,
+				3B669FE71710993A00D11FF3 /* GADAdSize.h */,
+				3B669FE81710993A00D11FF3 /* GADBannerView.h */,
+				3B669FE91710993A00D11FF3 /* GADBannerViewDelegate.h */,
+				3B669FEA1710993A00D11FF3 /* GADInterstitial.h */,
+				3B669FEB1710993A00D11FF3 /* GADInterstitialDelegate.h */,
+				3B669FEC1710993A00D11FF3 /* GADRequest.h */,
+				3B669FED1710993A00D11FF3 /* GADRequestError.h */,
+				3B669FEE1710993A00D11FF3 /* libGoogleAdMobAds.a */,
+			);
+			path = "GoogleAdMobAdsSdkiOS-6.3.0";
 			sourceTree = "<group>";
 		};
 		F042D43715BC875E0037E120 /* Images */ = {
@@ -711,23 +731,6 @@
 			path = GoogleAnalyticsSDK;
 			sourceTree = "<group>";
 		};
-		F0B4ABF4161DEF6000CF843A /* GoogleAdMobAdsSdkiOS-6.2.0 */ = {
-			isa = PBXGroup;
-			children = (
-				F0B4ABF5161DEF6000CF843A /* GADAdMobExtras.h */,
-				F0B4ABF6161DEF6000CF843A /* GADAdNetworkExtras.h */,
-				F0B4ABF7161DEF6000CF843A /* GADAdSize.h */,
-				F0B4ABF8161DEF6000CF843A /* GADBannerView.h */,
-				F0B4ABF9161DEF6000CF843A /* GADBannerViewDelegate.h */,
-				F0B4ABFA161DEF6000CF843A /* GADInterstitial.h */,
-				F0B4ABFB161DEF6000CF843A /* GADInterstitialDelegate.h */,
-				F0B4ABFC161DEF6000CF843A /* GADRequest.h */,
-				F0B4ABFD161DEF6000CF843A /* GADRequestError.h */,
-				F0B4ABFE161DEF6000CF843A /* libGoogleAdMobAds.a */,
-			);
-			path = "GoogleAdMobAdsSdkiOS-6.2.0";
-			sourceTree = "<group>";
-		};
 		F0BD0CAC15BC3EAC00B56EE4 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -797,6 +800,7 @@
 				320AF8492C47A4D819F7C450 /* QuartzCore.framework */,
 				F0D4C59F15CB028000988376 /* CoreData.framework */,
 				F0B4AC01161DF0BB00CF843A /* AdSupport.framework */,
+				3B66A04417109C2E00D11FF3 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -833,7 +837,7 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				F0B4ABF4161DEF6000CF843A /* GoogleAdMobAdsSdkiOS-6.2.0 */,
+				3B669F891710993A00D11FF3 /* GoogleAdMobAdsSdkiOS-6.3.0 */,
 				F054546E15C06ACC00780CAE /* MBProgressHUD */,
 				F084C89715BFEFA400CD7F70 /* HTMLParser */,
 				F042D50D15BCA5590037E120 /* Base64 */,
@@ -1267,7 +1271,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1292,7 +1296,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -1324,7 +1328,7 @@
 					"\"$(SRCROOT)/../three20/Build/Products/Release-iphoneos\"",
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.2.0\"",
+					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.3.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1332,7 +1336,7 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6154F40-9F00-4E95-93FD-DD26BDFCDC0F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1342,7 +1346,7 @@
 		F0DC4E0E15BA012E0009BFCD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nattapong Tonprasert";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/TVThailandV2/Framework\"",
@@ -1362,7 +1366,7 @@
 					"\"$(SRCROOT)/../three20/Build/Products/Release-iphoneos\"",
 					"\"$(SRCROOT)/Library\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.2.0\"",
+					"\"$(SRCROOT)/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.3.0\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1370,7 +1374,7 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D282A3BB-11CB-4B78-8C45-A2FE7E5AC947";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
