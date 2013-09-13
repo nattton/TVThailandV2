@@ -15,8 +15,10 @@
 
 #import <CoreData/CoreData.h>
 
+//#define adUnitID_iPhone @"a15165aa0c7dc79"
 #define adUnitID_iPhone @"a14e1dae2855742"
 #define adUnitID_iPad @"a14e65c0a6e498b"
+
 
 #define kMessageID @"MessageID"
 #define kYoutubeAutoPlay @"YoutubeAutoPlay"

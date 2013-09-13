@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 
 #import "Three20/Three20.h"
-#import "GANTracker.h"
+#import "GAI.h"
 #import "GADBannerView.h"
 #import "InHouseAdView.h"
 
@@ -259,12 +259,7 @@ static NSString *programViewcell = @"ProgramViewCell";
     
     [self loadProgram];
     
-    // GANTracker
-    NSError *error;
-    if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgram/%@/0/?cat_name=%@", self.cat_id, self.cat_name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                         withError:&error]) {
-        // Handle error here
-    }
+
 }
 
 -(void)loadProgram
@@ -315,12 +310,7 @@ static NSString *programViewcell = @"ProgramViewCell";
     
     [hud hide:YES afterDelay:1];
     
-    // GANTracker
-    NSError *error;
-    if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgram/%@/0/?cat_name=%@&error=1", self.cat_id, self.cat_name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                         withError:&error]) {
-        // Handle error here
-    }
+
 }
 
 #pragma mark - ODRefreshControl

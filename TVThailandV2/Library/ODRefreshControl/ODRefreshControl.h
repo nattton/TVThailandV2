@@ -22,11 +22,13 @@
     BOOL _ignoreOffset;
     BOOL _didSetInset;
     BOOL _hasSectionHeaders;
+    CGFloat _lastOffset;
 }
 
 @property (nonatomic, readonly) BOOL refreshing;
 @property (nonatomic, strong) UIColor *tintColor;
 @property (nonatomic, assign) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
+@property (nonatomic, strong) UIColor *activityIndicatorViewColor; // iOS5 or more
 
 - (id)initInScrollView:(UIScrollView *)scrollView;
 

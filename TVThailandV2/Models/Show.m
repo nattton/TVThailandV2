@@ -1,0 +1,100 @@
+//
+//  Show.m
+//  TVThailandV2
+//
+//  Created by Nattapong Tonprasert on 9/12/56 BE.
+//  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
+//
+
+#import "Show.h"
+#import "ApiClient.h"
+
+@implementation Show
+
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        _Id = [dictionary objectForKey:@"id"];
+        _title = [dictionary objectForKey:@"title"];
+        _thumbnailUrl = [dictionary objectForKey:@"thumbnail"];
+        _desc = [dictionary objectForKey:@"description"];
+        _lastEp = [dictionary objectForKey:@"last_epname"];
+        _posterUrl = [dictionary objectForKey:@"poster"];
+        _detail = [dictionary objectForKey:@"detail"];
+    }
+    return self;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Id: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _title, _thumbnailUrl, _desc];
+}
+
+#pragma mark - Load Data
+
++ (void)loadWhatsNewDataWithStart:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
+    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/whatsnew/%d?device=ios", start] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSArray *programs = [JSON valueForKeyPath:@"programs"];
+        
+        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+        for (NSDictionary *dictShow in programs) {
+            Show *show = [[Show alloc] initWithDictionary:dictShow];
+            [mutablePrograms addObject:show];
+        }
+        
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutablePrograms], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
+    
+}
+
++ (void)loadGenreDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
+    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/category/%@/%d?device=ios", Id, start] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSArray *programs = [JSON valueForKeyPath:@"programs"];
+        
+        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+        for (NSDictionary *dictShow in programs) {
+            Show *show = [[Show alloc] initWithDictionary:dictShow];
+            [mutablePrograms addObject:show];
+        }
+        
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutablePrograms], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
+    
+}
+
++ (void)loadChannelDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
+    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/channel/%@/%d?device=ios", Id, start] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSArray *programs = [JSON valueForKeyPath:@"programs"];
+        
+        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+        for (NSDictionary *dictShow in programs) {
+            Show *show = [[Show alloc] initWithDictionary:dictShow];
+            [mutablePrograms addObject:show];
+        }
+        
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutablePrograms], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
+    
+}
+
+@end

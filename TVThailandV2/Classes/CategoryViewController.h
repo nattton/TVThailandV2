@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "ASIHTTPRequest.h"
-@interface CategoryViewController : UIViewController <ASIHTTPRequestDelegate,UISearchDisplayDelegate,UISearchBarDelegate>
+@interface CategoryViewController : UIViewController <ASIHTTPRequestDelegate,UISearchDisplayDelegate,UISearchBarDelegate> {
+    
+}
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, retain) NSArray *catItems;
+@property (nonatomic, retain) NSArray *chItems;
+
 
 - (void)beginSearch;
 @end

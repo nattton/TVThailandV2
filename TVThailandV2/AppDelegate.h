@@ -7,26 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASIHTTPRequest.h"
 
-@class CategoryViewController;
-@class ProgramViewController;
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, ASIHTTPRequestDelegate, UIAlertViewDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) UINavigationController *centerViewController;
-@property (strong, nonatomic) CategoryViewController *categoryViewController;
-@property (strong, nonatomic) ProgramViewController *programViewController;
-@property (strong, nonatomic) UIViewController *rightController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-- (void)sendDeviceToken:(NSData *)deviceToken;
-- (void)notificationToSwitchApplication:(NSDictionary *)userInfo;
-- (void) clearNotifications;
-
 
 @end

@@ -13,7 +13,7 @@
 #import "Program.h"
 #import "ProgramListViewController.h"
 #import "GADBannerView.h"
-#import "GANTracker.h"
+//#import "GANTracker.h"
 #import "Three20/Three20.h"
 #import "IIViewDeckController.h"
 static NSString *programViewcell = @"ProgramViewCell";
@@ -77,12 +77,12 @@ static NSString *programViewcell = @"ProgramViewCell";
     [bannerView loadRequest:[GADRequest request]];
     
     // GANTracker
-    NSError *error;
-    
-    if (![[GANTracker sharedTracker] trackPageview:@"/openFavorite"
-                                         withError:&error]) {
-        // Handle error here
-    }
+//    NSError *error;
+//    
+//    if (![[GANTracker sharedTracker] trackPageview:@"/openFavorite"
+//                                         withError:&error]) {
+//        // Handle error here
+//    }
     
     [self.tableView reloadData];
 }

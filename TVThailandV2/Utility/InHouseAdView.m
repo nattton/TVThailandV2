@@ -11,8 +11,6 @@
 #import "SBJson.h"
 #import "NSString+Utils.h"
 
-#import "Three20/Three20.h"
-
 @implementation InHouseAdView
 
 @synthesize webView = _webView;
@@ -88,15 +86,15 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         if (self.rootViewController) {
             NSString *url = [[request URL] absoluteString];
-            TTWebController *webContrller = [[TTWebController alloc] init];
-            [webContrller openURL:[NSURL URLWithString:url]];
+//            TTWebController *webContrller = [[TTWebController alloc] init];
+//            [webContrller openURL:[NSURL URLWithString:url]];
+//            
+//            webContrller.navigationController.navigationBar.tintColor = [UIColor blackColor];
+//            
+//            UINavigationController *navWeb = [[UINavigationController alloc] initWithRootViewController:webContrller];
+//            webContrller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissModalViewController)];
             
-            webContrller.navigationController.navigationBar.tintColor = [UIColor blackColor];
-            
-            UINavigationController *navWeb = [[UINavigationController alloc] initWithRootViewController:webContrller];
-            webContrller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissModalViewController)];
-            
-            [self.rootViewController presentModalViewController:navWeb animated:YES];
+//            [self.rootViewController presentModalViewController:navWeb animated:YES];
             
         }
         return NO;

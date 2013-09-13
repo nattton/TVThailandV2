@@ -1,0 +1,132 @@
+//
+//  ShowListViewController.m
+//  TVThailandV2
+//
+//  Created by Nattapong Tonprasert on 9/11/56 BE.
+//  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
+//
+
+#import "ShowListViewController.h"
+#import "ShowTableViewCell.h"
+#import "Show.h"
+
+#import "GenreListViewController.h"
+#import "EpisodeListViewController.h"
+
+@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@end
+
+@implementation ShowListViewController {
+    NSArray *_shows;
+    NSString *_Id;
+    ShowModeType _mode;
+}
+
+#pragma mark - Static Variable
+
+static NSString *cellIdentifier = @"ShowCellIdentifier";
+static NSString *showGenreSegue = @"ShowGenreSegue";
+static NSString *showEpisodeSegue = @"showEpisodeSegue";
+
+#pragma mark - Seque Method
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:showGenreSegue]) {
+        GenreListViewController *genreListViewController = segue.destinationViewController;
+        genreListViewController.showListViewController = self;
+    } else if ([segue.identifier isEqualToString:showEpisodeSegue]) {
+        Show *show = (Show *)sender;
+        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
+        episodeListViewController.show = show;
+    }
+}
+
+#pragma mark - UIViewController
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _mode = kWhatsNew;
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	
+    [self reload];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Function
+
+- (void)reload {
+    [self reload:0];
+}
+
+- (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id {
+    _shows = [NSArray array];
+    [self.tableView reloadData];
+    _mode = mode;
+    _Id = Id;
+    [self reload];
+}
+
+- (void)reload:(NSUInteger)start {
+    if (_mode == kWhatsNew) {
+        [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
+            _shows = tempShows;
+            [self.tableView reloadData];
+        }];
+    } else if (_mode == kGenre) {
+        [Show loadGenreDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+            _shows = tempShows;
+            [self.tableView reloadData];
+        }];
+    }
+    
+    if (start == 0) {
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    }
+}
+
+#pragma mark - IBAction
+
+- (IBAction)tappedRefresh:(id)sender {
+    [self reload];
+}
+
+
+#pragma mark - Table Datasource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _shows.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ShowTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (_mode == kWhatsNew) {
+        [cell configureWhatsNewWithShow:_shows[indexPath.row]];
+    } else if (_mode == kGenre) {
+        [cell configureGenreWithShow:_shows[indexPath.row]];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
+}
+
+@end

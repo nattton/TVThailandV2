@@ -9,7 +9,6 @@
 #import "ProgramInfoViewController.h"
 #import "SBJson.h"
 #import "NSString+Utils.h"
-#import "GANTracker.h"
 #import "Three20/Three20.h"
 #import "ASIHTTPRequest.h"
 
@@ -46,12 +45,12 @@
     
     // GANTracker
     
-    NSError *error;
+//    NSError *error;
     
-    if (![[GANTracker sharedTracker] trackPageview:[NSString stringWithFormat:@"/getProgramDetail/%@",self.program_id ]
-                                         withError:&error]) {
-        // Handle error here
-    }
+//    if (![[GANTracker sharedTracker] trackPageview:[NSString stringWithFormat:@"/getProgramDetail/%@",self.program_id ]
+//                                         withError:&error]) {
+//        // Handle error here
+//    }
 }
 
 -(void)requestFinished:(ASIHTTPRequest *)request

@@ -17,11 +17,20 @@
 #import "NSString+Utils.h"
 #import "MBProgressHUD.h"
 
-#import "SBJson.h"
-#import "GANTracker.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
+//#import "SBJson.h"
 #import "ProgramViewCell.h"
 #import "Three20/Three20.h"
 
+#import "AFNetworking.h"
+#import "ApiClient.h"
+#import "Category.h"
+#import "Channel.h"
+
+static NSString *kScreenName = @"Category";
 static const NSInteger kLoadCategory = 1;
 static const NSInteger kLoadSearchProgram = 2;
 static NSString *programViewcell = @"ProgramViewCell";
@@ -31,7 +40,6 @@ static NSString *CellIdentifier = @"CellIdentifier";
 @interface CategoryViewController () <UITableViewDataSource, UITableViewDelegate, IIViewDeckControllerDelegate>
 {
     ProgramViewController *programViewController;
-    NSArray *catItems;
     NSString *keyword;
     
     ASIHTTPRequest *requestSearch;
@@ -47,6 +55,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
 @implementation CategoryViewController
 @synthesize searchBar = _searchBar;
 @synthesize tableView = _tableView;
+@synthesize catItems = _catItems;
+@synthesize chItems = _chItems;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -111,7 +121,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
         return 1;
     }
     
-    return 2;
+    return 3;
     
 }
 
@@ -126,7 +136,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
             case 0:
                 return @"";
             case 1:
-                return @"Category";
+                return @"Categories";
+            case 2:
+                return @"Channels";
             default:
                 return @"";
         }
@@ -144,7 +156,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
             case 0:
                 return 1;
             case 1:
-                return [catItems count];
+                return [self.catItems count];
+            case 2:
+                return [self.chItems count];
             default:
                 return 0;
         }
@@ -216,8 +230,12 @@ static NSString *CellIdentifier = @"CellIdentifier";
             }
         }
         else if (indexPath.section == 1) {
-            NSDictionary *dict = [catItems objectAtIndex:indexPath.row];
-            [cell.textLabel setText:[dict objectForKey:@"category_name"]];
+            Category *cat = [self.catItems objectAtIndex:indexPath.row];
+            [cell.textLabel setText:cat.title];
+        }
+        else if (indexPath.section == 2) {
+            Channel *ch = [self.chItems objectAtIndex:indexPath.row];
+            [cell.textLabel setText:ch.title];
         }
         
          return cell;
@@ -249,6 +267,14 @@ static NSString *CellIdentifier = @"CellIdentifier";
         programController.program_title = [dict objectForKey:@"title"];
         programController.program_time = [dict objectForKey:@"time"];
         programController.program_thumbnail = [NSString stringWithFormat:@"%@%@",thumbnailPath, [dict objectForKey:@"thumbnail"]];
+        
+
+        id tracker = [GAI sharedInstance].defaultTracker; // Get the tracker object.
+        
+        [tracker set:[GAIFields customDimensionForIndex:1]
+               value:[dict objectForKey:@"title"]];
+        
+         [tracker send:[[GAIDictionaryBuilder createAppView] build]];
         
         [self.view endEditing:YES];
         
@@ -283,8 +309,15 @@ static NSString *CellIdentifier = @"CellIdentifier";
         }
         else if (indexPath.section == 1) {
             [self.viewDeckController closeLeftViewAnimated:YES];
-            NSDictionary *dict = [catItems objectAtIndex:indexPath.row];
-            [programViewController loadProgram:[dict objectForKey:@"category_id"] cat_name:[dict objectForKey:@"category_name"]];
+            Category *cat = [self.catItems objectAtIndex:indexPath.row];
+            [programViewController loadProgram:cat.Id
+                                      cat_name:cat.title];
+        }
+        else if (indexPath.section == 2) {
+            [self.viewDeckController closeLeftViewAnimated:YES];
+            Channel *ch = [self.chItems objectAtIndex:indexPath.row];
+            [programViewController loadProgram:ch.Id
+                                      cat_name:ch.title];
         }
     }
 }
@@ -367,50 +400,64 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption
 
 #pragma mark - Load Category Function
 
--(void)loadCategory
-{
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:kGetCategory([NSString getUnixTimeKey])]];
-//    NSLog(@"%@",[request.url absoluteURL]);
-    request.tag = kLoadCategory;
-    request.delegate = self;
-    [request startAsynchronous];
-}
+-(void)loadCategory {
+    [[ApiClient sharedInstance] getPath:@"api/getCategoryV2" parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id JSON) {
+                    NSMutableArray *catResults = [NSMutableArray array];
+                    NSDictionary *catDictionaries = [JSON objectForKey:@"categories"];
+                    for (id catDictionary in catDictionaries) {
+                        Category *category = [[Category alloc] initWithDictionary:catDictionary];
+                        [catResults addObject:category];
+                    }
+                    self.catItems = catResults;
+                    
+                    NSMutableArray *chResults = [NSMutableArray array];
+                    NSDictionary *chDictionaries = [JSON objectForKey:@"channels"];
+                    for (id chDictionary in chDictionaries) {
+                        Channel *category = [[Channel alloc] initWithDictionary:chDictionary];
+                        [chResults addObject:category];
+                    }
+                    self.chItems = chResults;
+                    
+                    [self.tableView reloadData];
 
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    NSDictionary *dict = [[request responseString] JSONValue];
-    
-    if (request.tag == kLoadCategory) {
-        if(dict)
-        {
-            catItems = [dict objectForKey:@"categories"];
-        }
-        
-        [self.tableView reloadData];
-        
-        // GANTracker
-        NSError *error;
-        if (![[GANTracker sharedTracker] trackPageview:@"/api/getCategory"
-                                             withError:&error]) {
-            // Handle error here
-        }
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error fetching!");
+                    NSLog(@"%@", error);
+                }];
     }
-    else if (request.tag == kLoadSearchProgram)
-    {
-        if (dict) {
-            thumbnailPath = [dict objectForKey:@"thumbnail_path"];
-            searchResults = [dict objectForKey:@"programs"];
-            [self.searchDisplayController.searchResultsTableView reloadData];
-            
-            // GANTracker
-            NSError *error;
-            if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgramSearch/0/?keyword=%@&error=1", keyword] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                                 withError:&error]) {
-                // Handle error here
-            }
-        }
-    }
-}
+
+//-(void)loadCategory
+//{
+//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:kGetCategory([NSString getUnixTimeKey])]];
+////    NSLog(@"%@",[request.url absoluteURL]);
+//    request.tag = kLoadCategory;
+//    request.delegate = self;
+//    [request startAsynchronous];
+//}
+
+//- (void)requestFinished:(ASIHTTPRequest *)request
+//{
+//    NSDictionary *dict = [[request responseString] JSONValue];
+//    
+//    if (request.tag == kLoadCategory) {
+//        if(dict)
+//        {
+//            catItems = [dict objectForKey:@"categories"];
+//        }
+//        
+//        [self.tableView reloadData];
+//    }
+//    else if (request.tag == kLoadSearchProgram)
+//    {
+//        if (dict) {
+//            thumbnailPath = [dict objectForKey:@"thumbnail_path"];
+//            searchResults = [dict objectForKey:@"programs"];
+//            [self.searchDisplayController.searchResultsTableView reloadData];
+//        }
+//    }
+//}
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
@@ -425,13 +472,6 @@ shouldReloadTableForSearchScope:(NSInteger)searchOption
         hud.removeFromSuperViewOnHide = YES;
         
         [hud hide:YES afterDelay:1];
-        
-        // GANTracker
-        NSError *error;
-        if (![[GANTracker sharedTracker] trackPageview:@"/api/getCategory/?error=1"
-                                             withError:&error]) {
-            // Handle error here
-        }
     }
     else if (request.tag == kLoadSearchProgram)
     {

@@ -17,7 +17,6 @@
 #import "SBJson.h"
 #import "HTMLparser.h"
 
-#import "Three20/Three20.h"
 #import "MBProgressHUD.h"
 
 #import "ASIHTTPRequest.h"
@@ -53,7 +52,7 @@
     }
     else if([src_type isEqualToString:@"15"])
     {
-        return [NSString stringWithFormat:@"http://video.mthai.com/player.php?id=24M%@M0&sinzaa=1",videoId];
+        return [NSString stringWithFormat:@"http://video.mthai.com/player.php?id=24M%@M0",videoId];
     }
     else
     {
@@ -65,7 +64,7 @@
 {
     if([src_type isEqualToString:@"0"])
     {
-        return [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/1.jpg",videoId];
+        return [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/default.jpg",videoId];
     }
     else if([src_type isEqualToString:@"1"])
     {
@@ -102,17 +101,17 @@
         else if ([srcType isEqualToString:@"2"] || [srcType isEqualToString:@"3"])
         {
             NSString *url = [self videoURLWithVideoId:videoId andSrcType:srcType];
-            TTWebController *webController = [[TTWebController alloc] init];
-            [webController openURL:[NSURL URLWithString:url]];
-            [self.navigationController pushViewController:webController animated:YES];
+//            TTWebController *webController = [[TTWebController alloc] init];
+//            [webController openURL:[NSURL URLWithString:url]];
+//            [self.navigationController pushViewController:webController animated:YES];
         }
         else if ([srcType isEqualToString:@"11"])
         {
             NSURL *urlVideo = [NSURL URLWithString:videoId];
-            TTWebController *webContrller = [[TTWebController alloc] init];
-            [webContrller setTitle:title];
-            [webContrller openURL:urlVideo];
-            [self.navigationController pushViewController:webContrller animated:YES];
+//            TTWebController *webContrller = [[TTWebController alloc] init];
+//            [webContrller setTitle:title];
+//            [webContrller openURL:urlVideo];
+//            [self.navigationController pushViewController:webContrller animated:YES];
             
         }
         else if ([srcType isEqualToString:@"12"])
@@ -138,10 +137,10 @@
         }
         else
         {
-            TTWebController *webController = [[TTWebController alloc] init];
-            [webController setTitle:@"TV Thailand Fan Page"];
-            [webController openURL:[NSURL URLWithString:kWebUrl]];
-            [self.navigationController pushViewController:webController animated:YES];
+//            TTWebController *webController = [[TTWebController alloc] init];
+//            [webController setTitle:@"TV Thailand Fan Page"];
+//            [webController openURL:[NSURL URLWithString:kWebUrl]];
+//            [self.navigationController pushViewController:webController animated:YES];
         }
 }
 

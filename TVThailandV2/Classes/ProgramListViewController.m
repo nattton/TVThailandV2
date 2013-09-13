@@ -20,7 +20,7 @@
 #import "ODRefreshControl.h"
 #import "IIViewDeckController.h"
 
-#import "GANTracker.h"
+//#import "GANTracker.h"
 #import "GADBannerView.h"
 
 #import "SBJson.h"
@@ -337,12 +337,12 @@ static NSString *programListViewcell = @"ProgramListViewCell";
     [request startAsynchronous];
     
     // GANTracker
-    NSError *error;
-    
-    if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/viewProgramlist/%@?program_id=%@&program_title=%@",programlist_id, self.program_id, self.program_title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                         withError:&error]) {
-        // Handle error here
-    }  
+//    NSError *error;
+//    
+//    if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/viewProgramlist/%@?program_id=%@&program_title=%@",programlist_id, self.program_id, self.program_title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+//                                         withError:&error]) {
+//        // Handle error here
+//    }  
 }
 
 #pragma mark - Function
@@ -360,11 +360,11 @@ static NSString *programListViewcell = @"ProgramListViewCell";
     
     [self loadProgramlist];
     
-    NSError *error;
-    if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgramlist/%@/0/?program_title=%@", self.program_id, self.program_title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                         withError:&error]) {
-        // Handle error here
-    }
+//    NSError *error;
+//    if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgramlist/%@/0/?program_title=%@", self.program_id, self.program_title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+//                                         withError:&error]) {
+//        // Handle error here
+//    }
 }
 
 -(void)loadProgramlist
@@ -411,11 +411,11 @@ static NSString *programListViewcell = @"ProgramListViewCell";
         
         [hud hide:YES afterDelay:1];
         
-        NSError *error;
-        if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgramlist/%@/0/?program_title=%@&error=1", self.program_id, self.program_title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                             withError:&error]) {
-            // Handle error here
-        }
+//        NSError *error;
+//        if (![[GANTracker sharedTracker] trackPageview:[[NSString stringWithFormat:@"/api/getProgramlist/%@/0/?program_title=%@&error=1", self.program_id, self.program_title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+//                                             withError:&error]) {
+//            // Handle error here
+//        }
     }
 }
 
@@ -477,10 +477,10 @@ static NSString *programListViewcell = @"ProgramListViewCell";
     [hud hide:YES afterDelay:1];
     // GANTracker
     
-    if (![[GANTracker sharedTracker] trackPageview:[NSString stringWithFormat:@"/insertFavorite/%@",_program_id]
-                                         withError:&error]) {
-        // Handle error here
-    }
+//    if (![[GANTracker sharedTracker] trackPageview:[NSString stringWithFormat:@"/insertFavorite/%@",_program_id]
+//                                         withError:&error]) {
+//        // Handle error here
+//    }
 }
 
 - (void)registerLikeProgram
