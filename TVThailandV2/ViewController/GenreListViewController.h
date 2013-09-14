@@ -11,5 +11,4 @@
 @class ShowListViewController;
 @interface GenreListViewController : UIViewController
 @property (nonatomic, weak) ShowListViewController *showListViewController;
-
 @end

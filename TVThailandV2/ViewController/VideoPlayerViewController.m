@@ -9,6 +9,11 @@
 #import "VideoPlayerViewController.h"
 #import "Episode.h"
 
+#import "UserAgent.h"
+#import "AFJSONRequestOperation.h"
+#import "AFHTTPClient.h"
+#import "HTMLParser.h"
+
 @interface VideoPlayerViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -38,8 +43,12 @@
         [self openWithYoutube];
     } else if ([self.episode.srcType isEqualToString:@"1"]) {
         [self openWithDailymotion];
-    } if ([self.episode.srcType isEqualToString:@""]) {
-        [self openWithYoutube];
+    } else if ([self.episode.srcType isEqualToString:@"13"]) {
+        [self loadMThaiWebVideo];
+    } else if ([self.episode.srcType isEqualToString:@"14"]) {
+        [self loadMThaiWebVideo];
+    } else if ([self.episode.srcType isEqualToString:@"15"]) {
+        [self loadMThaiWebVideoWithPassword:self.episode.password];
     }
 }
 
@@ -76,6 +85,80 @@
     
     [self.webView loadHTMLString:htmlString
                     baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
+}
+
+- (void) OpenWithVideoUrl:(NSString *)videoUrl {
+    // HTML to embed YouTube video
+    NSString *htmlString = @"<html><head>\
+    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no\"/></head>\
+    <body style=\"margin-top:0px;margin-left:0px\">\
+    <div align=\"center\"><video poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" controls autoplay>\
+    <source src=\"%@\" />\
+    </video></div></body></html>";
+    
+    // Populate HTML with the URL and requested frame size
+    NSString *html = [NSString stringWithFormat:htmlString,
+                      [self.episode videoThumbnail:_idx],
+                      _size.height,
+                      _size.width,
+                      videoUrl
+                      ];
+    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
+}
+
+- (void) loadMThaiWebVideo {
+    
+//    NSURL *urlMThai = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/player.php?id=24M%@M0",_videoId]];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
+    [httpClient setDefaultHeader:@"User-Agent" value:[UserAgent defaultUserAgent]];
+    [httpClient getPath:[NSString stringWithFormat:@"player.php?id=24M%@M0",_videoId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self startMThaiVideoFromData:responseObject];
+//        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"str: %@", str);
+       
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
+- (void) loadMThaiWebVideoWithPassword:(NSString *)password {
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
+    [httpClient setDefaultHeader:@"User-Agent" value:[UserAgent defaultUserAgent]];
+    [httpClient postPath:[NSString stringWithFormat:@"player.php?id=24M%@M0",_videoId] parameters:@{@"clip_password": password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self startMThaiVideoFromData:responseObject];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
+- (void) startMThaiVideoFromData:(NSData *)data {
+    NSError *error = nil;
+//    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
+    HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    
+    NSArray *sourceNodes = [bodyNode findChildTags:@"source"];
+    
+    for (HTMLNode *sourceNode in sourceNodes)
+    {
+        if ([sourceNode getAttributeNamed:@"src"]) {
+            NSString *videoUrl = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
+            if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
+                if ([videoUrl hasSuffix:@"flv"]) {
+                    NSLog(@"FLV");
+#warning FLV
+                    return;
+                }else {
+                    [self OpenWithVideoUrl:videoUrl];
+                }
+                return;
+            }
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

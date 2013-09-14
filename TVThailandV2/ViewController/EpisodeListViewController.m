@@ -23,6 +23,7 @@
 
 @implementation EpisodeListViewController {
     NSArray *_episodes;
+    BOOL isLoading;
 }
 
 static NSString *cellIndentifier = @"EpisodeCellIdentifier";
@@ -51,21 +52,32 @@ static NSString *showPartSegue = @"ShowPartSegue";
     self.navigationItem.title = self.show.title;
     
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
-	
-    [Episode loadEpisodeDataWithId:self.show.Id Start:0 Block:^(Show *show, NSArray *episodes, NSError *error) {
-        _episodes = episodes;
-        
+    
+    [self reload:0];
+}
+
+- (void)reload:(NSUInteger)start {
+    if (isLoading) {
+        return;
+    }
+    
+    isLoading = YES;
+    [Episode loadEpisodeDataWithId:self.show.Id Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
         if (show) {
             self.show = show;
         }
         
-        [self.tableView reloadData];
+        if (start == 0) {
+            _episodes = tempEpisodes;
+        } else {
+            NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_episodes];
+            [mergeArray addObjectsFromArray:tempEpisodes];
+            _episodes = [NSArray arrayWithArray:mergeArray];
+        }
         
+        [self.tableView reloadData];
+        isLoading = NO;
     }];
-}
-
-- (void)loadData {
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,6 +100,10 @@ static NSString *showPartSegue = @"ShowPartSegue";
     EpisodeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
     
     [cell configureWithEpisode:_episodes[indexPath.row]];
+    
+    if ((indexPath.row + 5) == _episodes.count) {
+        [self reload:_episodes.count];
+    }
     
     return cell;
 }

@@ -23,6 +23,7 @@
     NSArray *_shows;
     NSString *_Id;
     ShowModeType _mode;
+    bool isLoading;
 }
 
 #pragma mark - Static Variable
@@ -82,15 +83,35 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
 }
 
 - (void)reload:(NSUInteger)start {
+    if (isLoading) {
+        return;
+    }
+    isLoading = YES;
     if (_mode == kWhatsNew) {
         [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
-            _shows = tempShows;
+            if (start == 0) {
+                _shows = tempShows;
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
+                [mergeArray addObjectsFromArray:tempShows];
+                _shows = [NSArray arrayWithArray:mergeArray];
+            }
+            
             [self.tableView reloadData];
+            isLoading = NO;
         }];
     } else if (_mode == kGenre) {
         [Show loadGenreDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
-            _shows = tempShows;
+            if (start == 0) {
+                _shows = tempShows;
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
+                [mergeArray addObjectsFromArray:tempShows];
+                _shows = [NSArray arrayWithArray:mergeArray];
+            }
+            
             [self.tableView reloadData];
+            isLoading = NO;
         }];
     }
     
@@ -119,6 +140,10 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
         [cell configureWhatsNewWithShow:_shows[indexPath.row]];
     } else if (_mode == kGenre) {
         [cell configureGenreWithShow:_shows[indexPath.row]];
+    }
+    
+    if ((indexPath.row + 5) == _shows.count) {
+        [self reload:_shows.count];
     }
     
     return cell;

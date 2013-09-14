@@ -15,10 +15,6 @@
 @implementation Episode {
     NSString *_titleDisplay;
     NSArray *_videos;
-    
-    NSDateFormatter *_df;
-    NSDateFormatter *_thaiFormat;
-    NSNumberFormatter *_numberFormatter;
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -34,10 +30,9 @@
         _parts = [dictionary objectForKey:@"parts"];
         _password = [dictionary objectForKey:@"pwd"];
         
-        
-        _df = [[NSDateFormatter alloc] init];
-        _thaiFormat = [[NSDateFormatter alloc] init];
-        _numberFormatter = [[NSNumberFormatter alloc] init];
+        NSDateFormatter *_df = [[NSDateFormatter alloc] init];
+        NSDateFormatter *_thaiFormat = [[NSDateFormatter alloc] init];
+        NSNumberFormatter *_numberFormatter = [[NSNumberFormatter alloc] init];
         
         [_df setDateFormat:@"yyyy-MM-dd"];
         [_thaiFormat setDateFormat:@"dd MMMM yyyy"];
@@ -47,7 +42,7 @@
         _date = [NSString stringWithFormat:@"ออกอากาศ %@",
                  [_thaiFormat stringFromDate:[_df dateFromString: [dictionary objectForKey:@"date"]]]];
         _viewCount = [NSString stringWithFormat:@"%@ views",
-                      [_numberFormatter stringFromNumber:[NSNumber numberWithInt:[[dictionary objectForKey:@"count"] intValue]]]];
+                      [_numberFormatter stringFromNumber:[NSNumber numberWithInt:[[dictionary objectForKey:@"view_count"] intValue]]]];
         
     }
     return self;
