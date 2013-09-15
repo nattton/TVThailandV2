@@ -24,6 +24,7 @@
     NSString *_Id;
     ShowModeType _mode;
     bool isLoading;
+    UIRefreshControl *_refreshControl;
 }
 
 #pragma mark - Static Variable
@@ -58,6 +59,12 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
 {
     [super viewDidLoad];
 	
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl beginRefreshing];
+    
     [self reload];
 }
 
@@ -99,6 +106,9 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
             
             [self.tableView reloadData];
             isLoading = NO;
+            
+            [_refreshControl endRefreshing];
+            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         }];
     } else if (_mode == kGenre) {
         [Show loadGenreDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
@@ -112,6 +122,9 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
             
             [self.tableView reloadData];
             isLoading = NO;
+            
+            [_refreshControl endRefreshing];
+            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         }];
     }
     
@@ -152,6 +165,12 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
+}
+
+- (void)refreshView:(UIRefreshControl *)refresh {
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
+    
+    [self reload];
 }
 
 @end

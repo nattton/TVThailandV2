@@ -14,10 +14,10 @@
 
 #import "UserAgent.h"
 
-#import "SBJson.h"
+//#import "SBJson.h"
 #import "HTMLparser.h"
 
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
@@ -123,7 +123,7 @@
         else if ([srcType isEqualToString:@"13"])
         {
             NSString *url = [self videoURLWithVideoId:videoId andSrcType:srcType];
-            [self loadMThaiVideo:videoId url:url withTitle:title];
+//            [self loadMThaiVideo:videoId url:url withTitle:title];
         }
         else if ([srcType isEqualToString:@"14"])
         {
@@ -200,16 +200,16 @@
             NSArray *saperateUrl = [videoUrl componentsSeparatedByString:@"/"];
             if ([[saperateUrl lastObject] hasPrefix:videoId]) {
                 if ([[saperateUrl lastObject] hasSuffix:@"flv"]) {
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    
-                    // Configure for text only and offset down
-                    hud.mode = MBProgressHUDModeText;
-                    hud.labelText = [NSString stringWithFormat:@"iOS Cannot Play FLV File"];
-                    hud.margin = 10.f;
-                    hud.yOffset = 150.f;
-                    hud.removeFromSuperViewOnHide = YES;
-                    
-                    [hud hide:YES afterDelay:1];
+//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                    
+//                    // Configure for text only and offset down
+//                    hud.mode = MBProgressHUDModeText;
+//                    hud.labelText = [NSString stringWithFormat:@"iOS Cannot Play FLV File"];
+//                    hud.margin = 10.f;
+//                    hud.yOffset = 150.f;
+//                    hud.removeFromSuperViewOnHide = YES;
+//                    
+//                    [hud hide:YES afterDelay:1];
                     return;
                 }else {
                     [self startVideo:[NSURL URLWithString:videoUrl] withTitle:title andPoster:[self videoThumbnailWithVideoId:videoId andSrcType:@"mthai"]];
@@ -219,82 +219,82 @@
         }
     }
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = [NSString stringWithFormat:@"iOS Cannot Play Video"];
-    hud.margin = 10.f;
-    hud.yOffset = 150.f;
-    hud.removeFromSuperViewOnHide = YES;
-    
-    [hud hide:YES afterDelay:1];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    
+//    // Configure for text only and offset down
+//    hud.mode = MBProgressHUDModeText;
+//    hud.labelText = [NSString stringWithFormat:@"iOS Cannot Play Video"];
+//    hud.margin = 10.f;
+//    hud.yOffset = 150.f;
+//    hud.removeFromSuperViewOnHide = YES;
+//    
+//    [hud hide:YES afterDelay:1];
 }
 
-- (void) loadMThaiVideo:(NSString *)videoId url:(NSString *)videoApiUrl withTitle:(NSString *)title
-{
-    
-    NSURL *urlMThai = [NSURL URLWithString:videoApiUrl];
-    
-    for (NSUInteger i = 0; i < 5; i++) {
-        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:urlMThai];
-        [request setUserAgentString:[UserAgent defaultUserAgent]];
-        [request startSynchronous];
-        
-        NSString *response = [[[request responseString] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""] stringByReplacingOccurrencesOfString:@"\'" withString:@"\""];
-
-        NSDictionary *dict = [response JSONValue];
-        if(dict)
-        {
-            NSString *videoUrl = [[[dict objectForKey:@"playlist"] objectAtIndex:1] objectForKey:@"url"];
-            NSArray *saperateUrl = [videoUrl componentsSeparatedByString:@"/"];
-            NSString *videoFile = [saperateUrl lastObject];
-            if ([videoFile hasPrefix:videoId]) {
-                if ([[saperateUrl lastObject] hasSuffix:@"flv"]) {
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    
-                    // Configure for text only and offset down
-                    hud.mode = MBProgressHUDModeText;
-                    hud.labelText = [NSString stringWithFormat:@"iOS Cannot Play FLV File"];
-                    hud.margin = 10.f;
-                    hud.yOffset = 150.f;
-                    hud.removeFromSuperViewOnHide = YES;
-                    
-                    [hud hide:YES afterDelay:1];
-                    
-                }else {
-                    [self startVideo:[NSURL URLWithString:videoUrl] withTitle:title andPoster:[self videoThumbnailWithVideoId:videoId andSrcType:@"mthai"]];
-                }  
-                return;
-            }
-            else {
-                if (i == 4) {
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    // Configure for text only and offset down
-                    hud.mode = MBProgressHUDModeText;
-                    hud.labelText = [NSString stringWithFormat:@"Video not found"];
-                    hud.margin = 10.f;
-                    hud.yOffset = 150.f;
-                    hud.removeFromSuperViewOnHide = YES;
-                    
-                    [hud hide:YES afterDelay:1];
-                }
-            }        
-        }
-    }
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = [NSString stringWithFormat:@"Cannot Play Video"];
-    hud.margin = 10.f;
-    hud.yOffset = 150.f;
-    hud.removeFromSuperViewOnHide = YES;
-    
-    [hud hide:YES afterDelay:1];
-    
-}
+//- (void) loadMThaiVideo:(NSString *)videoId url:(NSString *)videoApiUrl withTitle:(NSString *)title
+//{
+//    
+//    NSURL *urlMThai = [NSURL URLWithString:videoApiUrl];
+//    
+//    for (NSUInteger i = 0; i < 5; i++) {
+//        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:urlMThai];
+//        [request setUserAgentString:[UserAgent defaultUserAgent]];
+//        [request startSynchronous];
+//        
+//        NSString *response = [[[request responseString] stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""] stringByReplacingOccurrencesOfString:@"\'" withString:@"\""];
+//
+//        NSDictionary *dict = [response JSONValue];
+//        if(dict)
+//        {
+//            NSString *videoUrl = [[[dict objectForKey:@"playlist"] objectAtIndex:1] objectForKey:@"url"];
+//            NSArray *saperateUrl = [videoUrl componentsSeparatedByString:@"/"];
+//            NSString *videoFile = [saperateUrl lastObject];
+//            if ([videoFile hasPrefix:videoId]) {
+//                if ([[saperateUrl lastObject] hasSuffix:@"flv"]) {
+//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                    
+//                    // Configure for text only and offset down
+//                    hud.mode = MBProgressHUDModeText;
+//                    hud.labelText = [NSString stringWithFormat:@"iOS Cannot Play FLV File"];
+//                    hud.margin = 10.f;
+//                    hud.yOffset = 150.f;
+//                    hud.removeFromSuperViewOnHide = YES;
+//                    
+//                    [hud hide:YES afterDelay:1];
+//                    
+//                }else {
+//                    [self startVideo:[NSURL URLWithString:videoUrl] withTitle:title andPoster:[self videoThumbnailWithVideoId:videoId andSrcType:@"mthai"]];
+//                }  
+//                return;
+//            }
+//            else {
+//                if (i == 4) {
+//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                    // Configure for text only and offset down
+//                    hud.mode = MBProgressHUDModeText;
+//                    hud.labelText = [NSString stringWithFormat:@"Video not found"];
+//                    hud.margin = 10.f;
+//                    hud.yOffset = 150.f;
+//                    hud.removeFromSuperViewOnHide = YES;
+//                    
+//                    [hud hide:YES afterDelay:1];
+//                }
+//            }        
+//        }
+//    }
+//    
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    
+//    // Configure for text only and offset down
+//    hud.mode = MBProgressHUDModeText;
+//    hud.labelText = [NSString stringWithFormat:@"Cannot Play Video"];
+//    hud.margin = 10.f;
+//    hud.yOffset = 150.f;
+//    hud.removeFromSuperViewOnHide = YES;
+//    
+//    [hud hide:YES afterDelay:1];
+//    
+//}
 
 - (void) loadMThaiVideoWeb:(NSString *)videoId url:(NSString *)videoApiUrl withTitle:(NSString *)title
 {

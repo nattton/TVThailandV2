@@ -21,19 +21,11 @@
 @implementation GenreListViewController {
     
 @private
+    UIRefreshControl *_refreshControl;
     GenreList *_genreList;
 }
 
 static NSString *cellIdentifier = @"GenreCellIdentifier";
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 #pragma mark - UIViewController
 
@@ -44,15 +36,33 @@ static NSString *cellIdentifier = @"GenreCellIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    _genreList = [[GenreList alloc] initWithSamples];
+    
     _genreList = [[GenreList alloc] init];
+    
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl beginRefreshing];
+    
+    [self reload];
+    
+
+}
+
+- (void)reload {
     [_genreList loadData:^(NSError *error) {
         [self.tableView reloadData];
+        
+        [_refreshControl endRefreshing];
+        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     }];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-
+- (void)refreshView:(UIRefreshControl *)refresh {
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
+    
+    [self reload];
 }
 
 - (void)didReceiveMemoryWarning

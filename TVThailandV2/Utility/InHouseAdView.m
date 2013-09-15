@@ -8,7 +8,7 @@
 
 #import "InHouseAdView.h"
 
-#import "SBJson.h"
+//#import "SBJson.h"
 #import "NSString+Utils.h"
 
 @implementation InHouseAdView
@@ -62,12 +62,12 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSDictionary *dict = [[request responseString] JSONValue];
-    if (dict) {
-        delayStart = [[dict objectForKey:@"delayStart"] doubleValue] / 1000.0f;
-        adLists =  [NSMutableArray arrayWithArray:[dict objectForKey:@"ads"]];
-        [self startRotateAd];
-    }
+//    NSDictionary *dict = [[request responseString] JSONValue];
+//    if (dict) {
+//        delayStart = [[dict objectForKey:@"delayStart"] doubleValue] / 1000.0f;
+//        adLists =  [NSMutableArray arrayWithArray:[dict objectForKey:@"ads"]];
+//        [self startRotateAd];
+//    }
 }
 
 - (void)startRotateAd

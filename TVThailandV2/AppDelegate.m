@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "SBJson.h"
 #import "NSString+Utils.h"
 
 /******* Set your tracking ID here *******/

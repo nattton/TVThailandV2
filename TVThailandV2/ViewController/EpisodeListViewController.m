@@ -24,19 +24,11 @@
 @implementation EpisodeListViewController {
     NSArray *_episodes;
     BOOL isLoading;
+    UIRefreshControl *_refreshControl;
 }
 
 static NSString *cellIndentifier = @"EpisodeCellIdentifier";
 static NSString *showPartSegue = @"ShowPartSegue";
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showPartSegue]) {
@@ -53,7 +45,19 @@ static NSString *showPartSegue = @"ShowPartSegue";
     
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
     
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl beginRefreshing];
+    
     [self reload:0];
+}
+
+- (void)refreshView:(UIRefreshControl *)refresh {
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
+    
+     [self reload:0];
 }
 
 - (void)reload:(NSUInteger)start {
@@ -77,6 +81,9 @@ static NSString *showPartSegue = @"ShowPartSegue";
         
         [self.tableView reloadData];
         isLoading = NO;
+        
+        [_refreshControl endRefreshing];
+        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     }];
 }
 

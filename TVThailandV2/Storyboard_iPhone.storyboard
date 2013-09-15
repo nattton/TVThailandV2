@@ -91,11 +91,6 @@
                                 <segue destination="ogd-vD-Ebg" kind="modal" identifier="ShowGenreSegue" id="Amz-e6-Jug"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Refresh" id="VjJ-V6-ViH">
-                            <connections>
-                                <action selector="tappedRefresh:" destination="gMN-KA-q7K" id="1T4-Vl-64p"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Nbf-MH-J29" id="qqI-32-9XI"/>
@@ -234,13 +229,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-tn-W45">
-                                <rect key="frame" x="0.0" y="120" width="320" height="448"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-tn-W45">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yWV-tn-W45" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="Dx2-EN-n0A"/>
+                            <constraint firstAttribute="trailing" secondItem="yWV-tn-W45" secondAttribute="trailing" id="F47-sF-Yh1"/>
+                            <constraint firstItem="xCx-9O-Do3" firstAttribute="top" secondItem="yWV-tn-W45" secondAttribute="bottom" id="NyU-Qr-vzb"/>
+                            <constraint firstItem="yWV-tn-W45" firstAttribute="top" secondItem="jt5-pg-LSu" secondAttribute="top" id="knb-Kc-w1v"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="webView" destination="yWV-tn-W45" id="stB-sH-JPm"/>
