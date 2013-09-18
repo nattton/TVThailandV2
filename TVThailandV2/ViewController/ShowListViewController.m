@@ -31,7 +31,7 @@
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *showGenreSegue = @"ShowGenreSegue";
-static NSString *showEpisodeSegue = @"showEpisodeSegue";
+static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 
 #pragma mark - Seque Method
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -60,7 +60,7 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
     [super viewDidLoad];
 	
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
     [_refreshControl beginRefreshing];
@@ -133,12 +133,6 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
     }
 }
 
-#pragma mark - IBAction
-
-- (IBAction)tappedRefresh:(id)sender {
-    [self reload];
-}
-
 
 #pragma mark - Table Datasource
 
@@ -163,7 +157,7 @@ static NSString *showEpisodeSegue = @"showEpisodeSegue";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
 }
 

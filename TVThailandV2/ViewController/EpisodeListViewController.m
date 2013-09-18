@@ -17,7 +17,6 @@
 @interface EpisodeListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 
 @end
 
@@ -43,12 +42,11 @@ static NSString *showPartSegue = @"ShowPartSegue";
     
     self.navigationItem.title = self.show.title;
     
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
-    
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
+
     [_refreshControl beginRefreshing];
     
     [self reload:0];

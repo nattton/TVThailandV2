@@ -40,7 +40,7 @@ static NSString *cellIdentifier = @"GenreCellIdentifier";
     _genreList = [[GenreList alloc] init];
     
     _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
     [_refreshControl beginRefreshing];
