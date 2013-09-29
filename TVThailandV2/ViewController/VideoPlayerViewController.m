@@ -9,7 +9,7 @@
 #import "VideoPlayerViewController.h"
 #import "Episode.h"
 
-#import "UserAgent.h"
+#import "SVProgressHUD.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import "HTMLParser.h"
@@ -43,6 +43,8 @@
         [self openWithYoutube];
     } else if ([self.episode.srcType isEqualToString:@"1"]) {
         [self openWithDailymotion];
+    } else if ([self.episode.srcType isEqualToString:@"12"]) {
+        [self openWithVideoUrl:_videoId];
     } else if ([self.episode.srcType isEqualToString:@"13"]) {
         [self loadMThaiWebVideo];
     } else if ([self.episode.srcType isEqualToString:@"14"]) {
@@ -87,7 +89,7 @@
                     baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
 }
 
-- (void) OpenWithVideoUrl:(NSString *)videoUrl {
+- (void) openWithVideoUrl:(NSString *)videoUrl {
     // HTML to embed YouTube video
     NSString *htmlString = @"<html><head>\
     <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no\"/></head>\
@@ -110,7 +112,6 @@
     
 //    NSURL *urlMThai = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/player.php?id=24M%@M0",_videoId]];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
-    [httpClient setDefaultHeader:@"User-Agent" value:[UserAgent defaultUserAgent]];
     [httpClient getPath:[NSString stringWithFormat:@"player.php?id=24M%@M0",_videoId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self startMThaiVideoFromData:responseObject];
 //        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
@@ -123,7 +124,6 @@
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
-    [httpClient setDefaultHeader:@"User-Agent" value:[UserAgent defaultUserAgent]];
     [httpClient postPath:[NSString stringWithFormat:@"player.php?id=24M%@M0",_videoId] parameters:@{@"clip_password": password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self startMThaiVideoFromData:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -150,10 +150,11 @@
             if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
                 if ([videoUrl hasSuffix:@"flv"]) {
                     NSLog(@"FLV");
+                        [SVProgressHUD  showErrorWithStatus:@"Cannot play flv file."];
 #warning FLV
                     return;
                 }else {
-                    [self OpenWithVideoUrl:videoUrl];
+                    [self openWithVideoUrl:videoUrl];
                 }
                 return;
             }

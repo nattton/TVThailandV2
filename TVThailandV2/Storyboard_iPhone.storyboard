@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nbf-MH-J29">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -80,7 +80,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Nbf-MH-J29" secondAttribute="trailing" id="24S-lz-XA3"/>
-                            <constraint firstItem="Nbf-MH-J29" firstAttribute="top" secondItem="oW1-Fu-l0C" secondAttribute="top" constant="20" id="N7Q-ZS-aYX"/>
+                            <constraint firstItem="Nbf-MH-J29" firstAttribute="top" secondItem="oW1-Fu-l0C" secondAttribute="top" id="N7Q-ZS-aYX"/>
                             <constraint firstItem="Nbf-MH-J29" firstAttribute="leading" secondItem="oW1-Fu-l0C" secondAttribute="leading" id="NRy-7N-OAQ"/>
                             <constraint firstItem="bo7-Ud-9cX" firstAttribute="top" secondItem="Nbf-MH-J29" secondAttribute="bottom" id="ezE-gn-wbM"/>
                         </constraints>
@@ -203,7 +203,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-tn-W45">
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-tn-W45">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -224,7 +224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4M-5U-qRV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3075" y="722"/>
+            <point key="canvasLocation" x="2023" y="638"/>
         </scene>
         <!--Part List View Controller - Part-->
         <scene sceneID="zc9-4t-Ih2">
@@ -416,8 +416,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xc8-B9-tJR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xc8-B9-tJR">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -472,9 +472,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Xc8-B9-tJR" firstAttribute="top" secondItem="HJp-al-CWr" secondAttribute="top" constant="20" id="2FW-cc-txx"/>
+                            <constraint firstItem="Xc8-B9-tJR" firstAttribute="top" secondItem="HJp-al-CWr" secondAttribute="top" id="2FW-cc-txx"/>
                             <constraint firstAttribute="trailing" secondItem="Xc8-B9-tJR" secondAttribute="trailing" id="Hdj-9f-A4E"/>
-                            <constraint firstAttribute="bottom" secondItem="Xc8-B9-tJR" secondAttribute="bottom" constant="20" id="IAQ-XW-Qd5"/>
+                            <constraint firstAttribute="bottom" secondItem="Xc8-B9-tJR" secondAttribute="bottom" id="IAQ-XW-Qd5"/>
                             <constraint firstItem="Xc8-B9-tJR" firstAttribute="leading" secondItem="HJp-al-CWr" secondAttribute="leading" id="efS-Jn-0Gw"/>
                         </constraints>
                     </view>
@@ -578,7 +578,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3PO-yq-kuy"/>
-        <segue reference="K3l-i7-YpG"/>
+        <segue reference="fbJ-fx-Z8V"/>
+        <segue reference="aNm-NP-sub"/>
     </inferredMetricsTieBreakers>
 </document>

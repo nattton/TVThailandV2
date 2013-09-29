@@ -42,7 +42,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Storyboard_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>
-	<string>Storyboard_iPad</string>
+	<string>Storyboard_iPhone</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -53,8 +53,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
