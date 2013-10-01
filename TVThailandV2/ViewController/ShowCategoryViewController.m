@@ -105,29 +105,6 @@ static NSString *showListSegue = @"ShowListSegue";
     } else {
         [self performSegueWithIdentifier:showListSegue sender:_genreList[indexPath.row]];
     }
-//    [self dismissViewControllerAnimated:YES completion:^{
-//        if (indexPath.section == 0) {
-//            self.showListViewController.navigationItem.title = @"TV Thailand";
-//            [self.showListViewController reloadWithMode:kWhatsNew Id:nil];
-//            
-//        }
-//        else {
-//            
-//            
-//        }
-//    }];
-//    
-//    if (indexPath.section == 0) {
-//        self.showListViewController.navigationItem.title = @"TV Thailand";
-//        [self.showListViewController reloadWithMode:kWhatsNew Id:nil];
-//        
-//    }
-//    else {
-//        Genre *selectedGenre = _genreList[indexPath.row];
-//        self.showListViewController.navigationItem.title = selectedGenre.title;
-//        [self.showListViewController reloadWithMode:kGenre Id:selectedGenre.Id];
-//        
-//    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -136,7 +113,7 @@ static NSString *showListSegue = @"ShowListSegue";
         if (sender) {
             ShowCategory *selectedGenre = (ShowCategory *)sender;
             showListViewController.navigationItem.title = selectedGenre.title;
-            [showListViewController reloadWithMode:kGenre Id:selectedGenre.Id];
+            [showListViewController reloadWithMode:kCategory Id:selectedGenre.Id];
         } else {
             showListViewController.navigationItem.title = @"TV Thailand";
             [showListViewController reloadWithMode:kWhatsNew Id:nil];

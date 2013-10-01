@@ -12,6 +12,7 @@
 
 #import "ShowCategoryViewController.h"
 #import "EpisodeListViewController.h"
+#import "VideoPlayerViewController.h"
 
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
@@ -32,8 +33,9 @@
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *searchCellIdentifier = @"SearchCellIdentifier";
-static NSString *showGenreSegue = @"ShowGenreSegue";
+
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
+static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 #pragma mark - Seque Method
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -41,6 +43,10 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
         Show *show = (Show *)sender;
         EpisodeListViewController *episodeListViewController = segue.destinationViewController;
         episodeListViewController.show = show;
+    }
+    else if ([segue.identifier isEqualToString:showPlayerSegue]) {
+        VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
+        videoPlayerViewController.videoUrl = self.videoUrl;
     }
 }
 
@@ -100,6 +106,18 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id {
     _mode = mode;
     _Id = Id;
+    
+    if (_mode == kChannel) {
+        if (self.videoUrl != nil && ![self.videoUrl isEqualToString:@""]) {
+            UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
+            self.navigationItem.rightBarButtonItem = liveButton;
+        }
+    }
+
+}
+
+- (void)playLive:(id)sender {
+    [self performSegueWithIdentifier:showPlayerSegue sender:sender];
 }
 
 - (void)reload:(NSUInteger)start {
@@ -123,8 +141,26 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
             [_refreshControl endRefreshing];
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         }];
-    } else if (_mode == kGenre) {
-        [Show loadGenreDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+    }
+    else if (_mode == kCategory) {
+        [Show loadCategoryDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+            if (start == 0) {
+                _shows = tempShows;
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
+                [mergeArray addObjectsFromArray:tempShows];
+                _shows = [NSArray arrayWithArray:mergeArray];
+            }
+            
+            [self.tableView reloadData];
+            isLoading = NO;
+            
+            [_refreshControl endRefreshing];
+            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+        }];
+    }
+    else if (_mode == kChannel) {
+        [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
             if (start == 0) {
                 _shows = tempShows;
             } else {
@@ -170,8 +206,8 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
             ShowTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (_mode == kWhatsNew) {
             [cell configureWhatsNewWithShow:_shows[indexPath.row]];
-        } else if (_mode == kGenre) {
-            [cell configureGenreWithShow:_shows[indexPath.row]];
+        } else if (_mode == kCategory || _mode == kChannel) {
+            [cell configureWithShow:_shows[indexPath.row]];
         }
         
         if ((indexPath.row + 5) == _shows.count) {

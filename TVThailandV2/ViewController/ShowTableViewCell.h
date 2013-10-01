@@ -12,6 +12,6 @@
 @interface ShowTableViewCell : UITableViewCell
 
 - (void)configureWhatsNewWithShow:(Show *)show;
-- (void)configureGenreWithShow:(Show *)show;
+- (void)configureWithShow:(Show *)show;
 
 @end

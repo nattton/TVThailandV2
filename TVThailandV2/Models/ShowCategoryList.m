@@ -48,9 +48,9 @@
         NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
 
         NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
-        for (NSDictionary *dictGenre in jCategories) {
-            ShowCategory * genre = [[ShowCategory alloc] initWithDictionary:dictGenre];
-            [mutableCategories addObject:genre];
+        for (NSDictionary *dictCategory in jCategories) {
+            ShowCategory * category = [[ShowCategory alloc] initWithDictionary:dictCategory];
+            [mutableCategories addObject:category];
         }
         
         categories = [NSArray arrayWithArray:mutableCategories];

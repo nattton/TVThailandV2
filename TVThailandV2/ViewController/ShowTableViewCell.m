@@ -51,7 +51,7 @@
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
 }
 
-- (void)configureGenreWithShow:(Show *)show {
+- (void)configureWithShow:(Show *)show {
     [self roundImage];
     
     self.titleLable.text = show.title;

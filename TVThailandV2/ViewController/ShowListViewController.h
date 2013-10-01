@@ -10,10 +10,13 @@
 
 typedef enum {
     kWhatsNew = 0,
-    kGenre = 1
+    kCategory = 1,
+    kChannel = 2
 } ShowModeType;
 
 @interface ShowListViewController : UIViewController
+
+@property (nonatomic, weak) NSString *videoUrl;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 
