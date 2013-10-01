@@ -11,7 +11,7 @@
 
 //#import "UIImageView+AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import <QuartzCore/QuartzCore.h>
 @interface ShowTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
@@ -38,16 +38,22 @@
     // Configure the view for the selected state
 }
 
+- (void)roundImage {
+    self.imageThumbView.layer.cornerRadius = 10.0;
+    self.imageThumbView.clipsToBounds = YES;
+}
+
 - (void)configureWhatsNewWithShow:(Show *)show {
+    [self roundImage];
+    
     self.titleLable.text = show.title;
     self.detailLabel.text = show.lastEp;
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
-
-    [self setNeedsLayout];
-    
 }
 
 - (void)configureGenreWithShow:(Show *)show {
+    [self roundImage];
+    
     self.titleLable.text = show.title;
     self.detailLabel.text = show.desc;
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];

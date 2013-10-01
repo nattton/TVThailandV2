@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class Genre;
-@interface GenreList : NSObject
+@class ShowCategory;
+@interface ShowCategoryList : NSObject
 @property (nonatomic, readonly) NSUInteger count;
 
 - (id)initWithSamples;
 - (void)loadData:(void (^)(NSError *error))block;
-- (Genre *)genreAtIndex:(NSUInteger)idx;
+- (ShowCategory *)genreAtIndex:(NSUInteger)idx;
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;
 
 @end

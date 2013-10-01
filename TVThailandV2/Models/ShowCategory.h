@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Genre : NSObject
+@interface ShowCategory : NSObject
 
 @property (nonatomic, readonly) NSString *Id;
 @property (nonatomic, readonly) NSString *title;

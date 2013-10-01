@@ -10,10 +10,10 @@
 #import "ShowTableViewCell.h"
 #import "Show.h"
 
-#import "GenreListViewController.h"
+#import "ShowCategoryViewController.h"
 #import "EpisodeListViewController.h"
 
-@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -21,6 +21,7 @@
 
 @implementation ShowListViewController {
     NSArray *_shows;
+    NSArray *_searchShows;
     NSString *_Id;
     ShowModeType _mode;
     bool isLoading;
@@ -30,15 +31,13 @@
 #pragma mark - Static Variable
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
+static NSString *searchCellIdentifier = @"SearchCellIdentifier";
 static NSString *showGenreSegue = @"ShowGenreSegue";
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 
 #pragma mark - Seque Method
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:showGenreSegue]) {
-        GenreListViewController *genreListViewController = segue.destinationViewController;
-        genreListViewController.showListViewController = self;
-    } else if ([segue.identifier isEqualToString:showEpisodeSegue]) {
+    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
         Show *show = (Show *)sender;
         EpisodeListViewController *episodeListViewController = segue.destinationViewController;
         episodeListViewController.show = show;
@@ -55,10 +54,14 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
     return self;
 }
 
+- (void)setTitle:(NSString *)title {
+    self.navigationItem.title = title;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
@@ -66,6 +69,19 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
     [_refreshControl beginRefreshing];
     
     [self reload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+//    [self initHeaderView];
+}
+
+- (void)initHeaderView {
+    CGRect newFrame = self.tableView.tableHeaderView.frame;
+    newFrame.size.height = 0;
+    self.tableView.tableHeaderView.frame = newFrame;
+    [self.tableView setTableHeaderView:self.tableView.tableHeaderView];
 }
 
 
@@ -82,11 +98,8 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 }
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id {
-    _shows = [NSArray array];
-    [self.tableView reloadData];
     _mode = mode;
     _Id = Id;
-    [self reload];
 }
 
 - (void)reload:(NSUInteger)start {
@@ -137,34 +150,94 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 #pragma mark - Table Datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return _searchShows.count;
+    }
     return _shows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ShowTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (_mode == kWhatsNew) {
-        [cell configureWhatsNewWithShow:_shows[indexPath.row]];
-    } else if (_mode == kGenre) {
-        [cell configureGenreWithShow:_shows[indexPath.row]];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:searchCellIdentifier];
+        }
+        Show *show = _searchShows[indexPath.row];
+        cell.textLabel.text = show.title;
+        
+        return cell;
+    } else {
+            ShowTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (_mode == kWhatsNew) {
+            [cell configureWhatsNewWithShow:_shows[indexPath.row]];
+        } else if (_mode == kGenre) {
+            [cell configureGenreWithShow:_shows[indexPath.row]];
+        }
+        
+        if ((indexPath.row + 5) == _shows.count) {
+            [self reload:_shows.count];
+        }
+        
+        return cell;
     }
-    
-    if ((indexPath.row + 5) == _shows.count) {
-        [self reload:_shows.count];
-    }
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        [self.searchDisplayController setActive:NO];
+        [self performSegueWithIdentifier:showEpisodeSegue sender:_searchShows[indexPath.row]];
+    }
+    else {
+        [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
+    }
 }
 
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     
     [self reload];
+}
+
+#pragma mark - Search
+
+//- (IBAction)tappedSearchButton:(id)sender {
+//    [self.searchDisplayController setActive:YES];
+//    [self.searchDisplayController.searchBar becomeFirstResponder];
+//}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self search:searchString];
+    return YES;
+}
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+//    self.searchDisplayController.searchBar.hidden = NO;
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+//        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
+//        [UIView animateWithDuration:0.25 animations:^{
+//            for (UIView *subview in self.view.subviews)
+//                subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height);
+//        }];
+//    }
+}
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+//    self.searchDisplayController.searchBar.hidden = YES;
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+//        [UIView animateWithDuration:0.25 animations:^{
+//            for (UIView *subview in self.view.subviews)
+//                subview.transform = CGAffineTransformIdentity;
+//        }];
+//    }
+}
+
+- (void)search:(NSString *)keyword {
+    if (![keyword isEqualToString:@""]) {
+        [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
+            _searchShows = tempShows;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }];
+    }
 }
 
 @end

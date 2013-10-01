@@ -6,9 +6,9 @@
 //  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "Genre.h"
+#import "ShowCategory.h"
 
-@implementation Genre
+@implementation ShowCategory
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];

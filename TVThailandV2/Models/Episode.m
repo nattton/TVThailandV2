@@ -143,11 +143,11 @@
 {
     if([_srcType isEqualToString:@"0"])
     {
-        return [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/1.jpg",videoId];
+        return [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/0.jpg",videoId];
     }
     else if([_srcType isEqualToString:@"1"])
     {
-        return [NSString stringWithFormat:@"http://www.dailymotion.com/thumbnail/160x120/video/%@",videoId];
+        return [NSString stringWithFormat:@"http://www.dailymotion.com/thumbnail/video/%@",videoId];
     }
     else if([_srcType isEqualToString:@"2"])
     {

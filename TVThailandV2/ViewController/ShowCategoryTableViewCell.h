@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class Genre;
-@interface GenreTableViewCell : UITableViewCell
+@class ShowCategory;
+@interface ShowCategoryTableViewCell : UITableViewCell
 
 - (void)configureAllGenre;
-- (void)configureWithGenre:(Genre *)genre;
+- (void)configureWithGenre:(ShowCategory *)genre;
 
 @end

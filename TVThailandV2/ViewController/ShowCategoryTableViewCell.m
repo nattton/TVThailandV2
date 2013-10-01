@@ -6,19 +6,19 @@
 //  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "GenreTableViewCell.h"
-#import "Genre.h"
+#import "ShowCategoryTableViewCell.h"
+#import "ShowCategory.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface GenreTableViewCell ()
+@interface ShowCategoryTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
 
 @end
 
-@implementation GenreTableViewCell
+@implementation ShowCategoryTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,7 +41,7 @@
     [self.imageThumbView setImage:[UIImage imageNamed:@"ic_cate_empty"]];
 }
 
-- (void)configureWithGenre:(Genre *)genre {
+- (void)configureWithGenre:(ShowCategory *)genre {
     self.titleLabel.text = genre.title;
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:genre.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"ic_cate_empty"]];
 }

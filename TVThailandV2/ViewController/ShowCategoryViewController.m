@@ -6,26 +6,27 @@
 //  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "GenreListViewController.h"
-#import "GenreTableViewCell.h"
-#import "Genre.h"
-#import "GenreList.h"
+#import "ShowCategoryViewController.h"
+#import "ShowCategoryTableViewCell.h"
+#import "ShowCategory.h"
+#import "ShowCategoryList.h"
 
 #import "ShowListViewController.h"
 
-@interface GenreListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@implementation GenreListViewController {
+@implementation ShowCategoryViewController {
     
 @private
     UIRefreshControl *_refreshControl;
-    GenreList *_genreList;
+    ShowCategoryList *_genreList;
 }
 
 static NSString *cellIdentifier = @"GenreCellIdentifier";
+static NSString *showListSegue = @"ShowListSegue";
 
 #pragma mark - UIViewController
 
@@ -37,7 +38,7 @@ static NSString *cellIdentifier = @"GenreCellIdentifier";
 {
     [super viewDidLoad];
     
-    _genreList = [[GenreList alloc] init];
+    _genreList = [[ShowCategoryList alloc] init];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
@@ -71,13 +72,6 @@ static NSString *cellIdentifier = @"GenreCellIdentifier";
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)tappedCancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-    
-}
-
 #pragma mark - Table Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -92,7 +86,7 @@ static NSString *cellIdentifier = @"GenreCellIdentifier";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GenreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    ShowCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (indexPath.section == 0) {
         [cell configureAllGenre];
@@ -106,30 +100,47 @@ static NSString *cellIdentifier = @"GenreCellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self dismissViewControllerAnimated:YES completion:^{
-        if (indexPath.section == 0) {
-            self.showListViewController.navigationItem.title = @"TV Thailand";
-            [self.showListViewController reloadWithMode:kWhatsNew Id:nil];
-            
-        }
-        else {
-            Genre *selectedGenre = _genreList[indexPath.row];
-            self.showListViewController.navigationItem.title = selectedGenre.title;
-            [self.showListViewController reloadWithMode:kGenre Id:selectedGenre.Id];
-            
-        }
-    }];
-    
     if (indexPath.section == 0) {
-        self.showListViewController.navigationItem.title = @"TV Thailand";
-        [self.showListViewController reloadWithMode:kWhatsNew Id:nil];
-        
+        [self performSegueWithIdentifier:showListSegue sender:nil];
+    } else {
+        [self performSegueWithIdentifier:showListSegue sender:_genreList[indexPath.row]];
     }
-    else {
-        Genre *selectedGenre = _genreList[indexPath.row];
-        self.showListViewController.navigationItem.title = selectedGenre.title;
-        [self.showListViewController reloadWithMode:kGenre Id:selectedGenre.Id];
-        
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        if (indexPath.section == 0) {
+//            self.showListViewController.navigationItem.title = @"TV Thailand";
+//            [self.showListViewController reloadWithMode:kWhatsNew Id:nil];
+//            
+//        }
+//        else {
+//            
+//            
+//        }
+//    }];
+//    
+//    if (indexPath.section == 0) {
+//        self.showListViewController.navigationItem.title = @"TV Thailand";
+//        [self.showListViewController reloadWithMode:kWhatsNew Id:nil];
+//        
+//    }
+//    else {
+//        Genre *selectedGenre = _genreList[indexPath.row];
+//        self.showListViewController.navigationItem.title = selectedGenre.title;
+//        [self.showListViewController reloadWithMode:kGenre Id:selectedGenre.Id];
+//        
+//    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:showListSegue]) {
+        ShowListViewController *showListViewController = segue.destinationViewController;
+        if (sender) {
+            ShowCategory *selectedGenre = (ShowCategory *)sender;
+            showListViewController.navigationItem.title = selectedGenre.title;
+            [showListViewController reloadWithMode:kGenre Id:selectedGenre.Id];
+        } else {
+            showListViewController.navigationItem.title = @"TV Thailand";
+            [showListViewController reloadWithMode:kWhatsNew Id:nil];
+        }
     }
 }
 
