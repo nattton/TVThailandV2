@@ -48,7 +48,7 @@
     
     self.titleLable.text = show.title;
     self.detailLabel.text = show.lastEp;
-    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
+    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 
 - (void)configureWithShow:(Show *)show {
@@ -56,7 +56,7 @@
     
     self.titleLable.text = show.title;
     self.detailLabel.text = show.desc;
-    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
+    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 
 @end

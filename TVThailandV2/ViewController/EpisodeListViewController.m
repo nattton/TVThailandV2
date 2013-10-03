@@ -47,7 +47,7 @@ static NSString *showPartSegue = @"ShowPartSegue";
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
 
-    [_refreshControl beginRefreshing];
+//    [_refreshControl beginRefreshing];
     
     [self reload:0];
 }

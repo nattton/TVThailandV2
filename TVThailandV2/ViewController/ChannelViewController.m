@@ -59,8 +59,16 @@ static NSString *showListSegue = @"ShowListSegue";
     Channel *ch = _channels[indexPath.row];
     
     UIImageView *channelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [channelImageView setImageWithURL:[NSURL URLWithString:ch.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
+    [channelImageView setImageWithURL:[NSURL URLWithString:ch.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     [cell addSubview:channelImageView];
+    
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
+    titleLabel.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.5];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.text = ch.title;
+    [titleLabel setFont:[UIFont systemFontOfSize:10]];
+    [cell addSubview:titleLabel];
     
     return cell;
 }

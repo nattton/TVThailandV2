@@ -47,8 +47,10 @@
     } else if ([episode.srcType isEqualToString:@"1"]) {
         [self.imageThumbView setImage:[UIImage imageNamed:@"ic_dailymotion"]];
     }
-    if ([episode.srcType isEqualToString:@"12"]
-        || [episode.srcType isEqualToString:@"13"]
+    else if ([episode.srcType isEqualToString:@"12"]) {
+        [self.imageThumbView setImage:[UIImage imageNamed:@"ic_web"]];
+    }
+     else if ([episode.srcType isEqualToString:@"13"]
         || [episode.srcType isEqualToString:@"14"]
         || [episode.srcType isEqualToString:@"15"]) {
         

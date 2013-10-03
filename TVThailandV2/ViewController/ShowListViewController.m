@@ -72,7 +72,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
-    [_refreshControl beginRefreshing];
+//    [_refreshControl beginRefreshing];
     
     [self reload];
 }

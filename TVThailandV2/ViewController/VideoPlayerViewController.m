@@ -42,21 +42,33 @@
         
         if ([self.episode.srcType isEqualToString:@"0"]) {
             [self openWithYoutube];
-        } else if ([self.episode.srcType isEqualToString:@"1"]) {
+        }
+        else if ([self.episode.srcType isEqualToString:@"1"]) {
             [self openWithDailymotion];
-        } else if ([self.episode.srcType isEqualToString:@"12"]) {
+        }
+        else if ([self.episode.srcType isEqualToString:@"11"]) {
+            [self openWebSite:_videoId];
+        }
+        else if ([self.episode.srcType isEqualToString:@"12"]) {
             [self openWithVideoUrl:_videoId];
-        } else if ([self.episode.srcType isEqualToString:@"13"]) {
+        }
+        else if ([self.episode.srcType isEqualToString:@"13"]) {
             [self loadMThaiWebVideo];
-        } else if ([self.episode.srcType isEqualToString:@"14"]) {
+        }
+        else if ([self.episode.srcType isEqualToString:@"14"]) {
             [self loadMThaiWebVideo];
-        } else if ([self.episode.srcType isEqualToString:@"15"]) {
+        }
+        else if ([self.episode.srcType isEqualToString:@"15"]) {
             [self loadMThaiWebVideoWithPassword:self.episode.password];
         }
     }
     else if (self.videoUrl) {
         [self openWithVideoUrl:self.videoUrl];
     }
+}
+
+- (void)openWebSite:(NSString *)stringUrl {
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
 }
 
 - (void)openWithYoutube {

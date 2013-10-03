@@ -216,7 +216,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-tn-W45">
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-tn-W45">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -327,15 +327,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bS-K4-Znw">
+                                                <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bS-K4-Znw">
                                                     <rect key="frame" x="5" y="5" width="48" height="48"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="48" id="8F3-ac-WkI"/>
-                                                        <constraint firstAttribute="width" constant="48" id="sK3-BE-FL9"/>
-                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8B-tD-aks">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8B-tD-aks">
                                                     <rect key="frame" x="71" y="18" width="229" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -343,15 +339,6 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="F8B-tD-aks" firstAttribute="leading" secondItem="5bS-K4-Znw" secondAttribute="trailing" constant="18" id="64l-PM-EHf"/>
-                                                <constraint firstAttribute="trailing" secondItem="F8B-tD-aks" secondAttribute="trailing" constant="20" id="HVO-zZ-Ail"/>
-                                                <constraint firstItem="5bS-K4-Znw" firstAttribute="top" secondItem="VeH-nv-ZUZ" secondAttribute="top" constant="5" id="TTp-Sh-ITX"/>
-                                                <constraint firstAttribute="bottom" secondItem="F8B-tD-aks" secondAttribute="bottom" constant="18" id="Zt4-YJ-JsV"/>
-                                                <constraint firstItem="5bS-K4-Znw" firstAttribute="leading" secondItem="VeH-nv-ZUZ" secondAttribute="leading" constant="5" id="jpW-cx-Sl0"/>
-                                                <constraint firstItem="F8B-tD-aks" firstAttribute="top" secondItem="VeH-nv-ZUZ" secondAttribute="top" constant="18" id="oco-jH-hdx"/>
-                                                <constraint firstAttribute="bottom" secondItem="5bS-K4-Znw" secondAttribute="bottom" constant="5" id="zmL-uu-tdR"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imageThumbView" destination="5bS-K4-Znw" id="ZyU-Dk-tev"/>
@@ -563,7 +550,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Bc8-PK-1lJ"/>
+        <segue reference="9Rn-Dv-86c"/>
         <segue reference="VVM-kZ-9qj"/>
     </inferredMetricsTieBreakers>
 </document>

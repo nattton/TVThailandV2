@@ -50,7 +50,7 @@ static NSString *showYoutubePlayerSegue = @"ShowYoutubePlayerSegue";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     NSString *imageUrl = [self.episode videoThumbnail:indexPath.section];
-    [cell.imageThumbView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder40"]];
+    [cell.imageThumbView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     return cell;
 }
