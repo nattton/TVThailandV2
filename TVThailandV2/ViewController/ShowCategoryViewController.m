@@ -12,6 +12,7 @@
 #import "ShowCategoryList.h"
 
 #import "ShowListViewController.h"
+#import "SVProgressHUD.h"
 
 @interface ShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,6 +39,8 @@ static NSString *showListSegue = @"ShowListSegue";
 {
     [super viewDidLoad];
     
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
     _genreList = [[ShowCategoryList alloc] init];
     
     _refreshControl = [[UIRefreshControl alloc] init];
@@ -53,6 +56,7 @@ static NSString *showListSegue = @"ShowListSegue";
 
 - (void)reload {
     [_genreList loadData:^(NSError *error) {
+        [SVProgressHUD dismiss];
         [self.tableView reloadData];
         
         [_refreshControl endRefreshing];

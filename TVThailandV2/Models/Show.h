@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class Program;
 @interface Show : NSObject
 
 @property (nonatomic, readonly) NSString *Id;
@@ -19,6 +20,7 @@
 @property (nonatomic, readonly) NSString *detail;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithProgram:(Program *)program;
 
 + (void)loadWhatsNewDataWithStart:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block;
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block;

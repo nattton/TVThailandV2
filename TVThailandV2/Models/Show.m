@@ -8,7 +8,7 @@
 
 #import "Show.h"
 #import "ApiClient.h"
-
+#import "Program.h"
 @implementation Show
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -21,6 +21,17 @@
         _lastEp = [dictionary objectForKey:@"last_epname"];
         _posterUrl = [dictionary objectForKey:@"poster"];
         _detail = [dictionary objectForKey:@"detail"];
+    }
+    return self;
+}
+
+- (id)initWithProgram:(Program *)program {
+    self = [super init];
+    if (self) {
+        _Id = program.program_id;
+        _title = program.program_title;
+        _thumbnailUrl = program.program_thumbnail;
+        _desc = program.program_time;
     }
     return self;
 }

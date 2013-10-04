@@ -8,6 +8,7 @@
 
 #import "ShowTableViewCell.h"
 #import "Show.h"
+#import "Program.h"
 
 //#import "UIImageView+AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -38,25 +39,31 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews {
+    [self roundImage];
+}
+
 - (void)roundImage {
     self.imageThumbView.layer.cornerRadius = 10.0;
     self.imageThumbView.clipsToBounds = YES;
 }
 
 - (void)configureWhatsNewWithShow:(Show *)show {
-    [self roundImage];
-    
     self.titleLable.text = show.title;
     self.detailLabel.text = show.lastEp;
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 
 - (void)configureWithShow:(Show *)show {
-    [self roundImage];
-    
     self.titleLable.text = show.title;
     self.detailLabel.text = show.desc;
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+}
+
+- (void)configureWithProgram:(Program *)program {
+    self.titleLable.text = program.program_title;
+    self.detailLabel.text = program.program_time;
+    [self.imageThumbView setImageWithURL:[NSURL URLWithString:program.program_thumbnail] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 
 @end

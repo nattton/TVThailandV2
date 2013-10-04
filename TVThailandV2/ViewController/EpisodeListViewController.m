@@ -11,12 +11,23 @@
 #import "Episode.h"
 #import "EpisodeTableViewCell.h"
 #import "PartListViewController.h"
+#import "DetailViewController.h"
+
+#import "AppDelegate.h"
+#import "Program.h"
+#import "SVProgressHUD.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <QuartzCore/QuartzCore.h>
+#import "XLMediaZoom.h"
+#import "SVProgressHUD.h"
 
 @interface EpisodeListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *showImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 @end
 
@@ -24,15 +35,21 @@
     NSArray *_episodes;
     BOOL isLoading;
     UIRefreshControl *_refreshControl;
+    XLMediaZoom *_imageZoom;
 }
 
 static NSString *cellIndentifier = @"EpisodeCellIdentifier";
 static NSString *showPartSegue = @"ShowPartSegue";
+static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showPartSegue]) {
         PartListViewController *partListViewController = segue.destinationViewController;
         partListViewController.episode = (Episode *)sender;
+    }
+    else if ([segue.identifier isEqualToString:showDetailSegue]) {
+        DetailViewController *detailViewController = segue.destinationViewController;
+        detailViewController.show = self.show;
     }
 }
 
@@ -40,16 +57,40 @@ static NSString *showPartSegue = @"ShowPartSegue";
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = self.show.title;
+    self.titleLabel.text = self.show.title;
+    [self.showImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    self.showImageView.layer.cornerRadius = 10.0;
+    self.showImageView.clipsToBounds = YES;
+    
+    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.showImageView blurEffect:YES];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTaped:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    [self.showImageView addGestureRecognizer:singleTap];
+    [self.showImageView setUserInteractionEnabled:YES];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
-
-//    [_refreshControl beginRefreshing];
+    
+    [self reloadFavorite];
+    
+    [SVProgressHUD showWithStatus:@"Loading..."];
     
     [self reload:0];
+}
+
+- (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {
+    [self.view addSubview:_imageZoom];
+    [_imageZoom show];
+    if (self.show.posterUrl != nil && self.show.posterUrl.length > 0) {
+        [_imageZoom.imageView setImageWithURL:[NSURL URLWithString:self.show.posterUrl]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            [_imageZoom.imageView setImage:image];
+        }];
+    }
+
 }
 
 - (void)refreshView:(UIRefreshControl *)refresh {
@@ -70,6 +111,9 @@ static NSString *showPartSegue = @"ShowPartSegue";
         }
         
         if (start == 0) {
+            [SVProgressHUD dismiss];
+            
+            self.show = show;
             _episodes = tempEpisodes;
         } else {
             NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_episodes];
@@ -118,6 +162,78 @@ static NSString *showPartSegue = @"ShowPartSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:showPartSegue sender:_episodes[indexPath.row]];
+}
+
+- (IBAction)favoriteButtonTapped:(id)sender {
+    NSArray *bookmarks = [self queyFavorites];
+    if(bookmarks.count == 0) {
+        [self insertFavorite];
+    }
+    else {
+        [self removeFavorite];
+    }
+    [self reloadFavorite];
+}
+
+- (IBAction)detailButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:showDetailSegue sender:self.show];
+}
+
+- (void)reloadFavorite {
+    NSArray *bookmarks = [self queyFavorites];
+    if(bookmarks.count == 0) {
+        [self.favoriteButton setTitle:@"+ Favorite" forState:UIControlStateNormal];
+    } else {
+        [self.favoriteButton setTitle:@"- Favorite" forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - CoreData
+
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return appDelegate.managedObjectContext;
+}
+
+
+- (NSArray *)queyFavorites {
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Program" inManagedObjectContext:self.managedObjectContext];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"program_id like %@", self.show.Id];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *programArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    return programArray;
+}
+
+- (void)insertFavorite
+{
+    Program *program = [NSEntityDescription insertNewObjectForEntityForName:@"Program" inManagedObjectContext:self.managedObjectContext];
+    program.program_id = self.show.Id;
+    program.program_title = self.show.title;
+    program.program_thumbnail = self.show.thumbnailUrl;
+    program.program_time = self.show.desc;
+    [self.managedObjectContext save:nil];
+    
+    [SVProgressHUD showSuccessWithStatus:@"Add to Favorite"];
+}
+
+- (void)removeFavorite {
+    NSArray *programArray = [self queyFavorites];
+    for (Program *toDelete in programArray) {
+        [self.managedObjectContext deleteObject:toDelete];
+        [self.managedObjectContext save:nil];
+    }
+    [SVProgressHUD showErrorWithStatus:@"Remove from Favorite"];
 }
 
 

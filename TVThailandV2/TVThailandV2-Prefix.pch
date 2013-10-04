@@ -15,10 +15,8 @@
 
 #import <CoreData/CoreData.h>
 
-//#define adUnitID_iPhone @"a15165aa0c7dc79"
 #define adUnitID_iPhone @"a14e1dae2855742"
 #define adUnitID_iPad @"a14e65c0a6e498b"
-
 
 #define kMessageID @"MessageID"
 #define kYoutubeAutoPlay @"YoutubeAutoPlay"
@@ -28,20 +26,6 @@
 #define kWebUrl @"http://www.makathon.com"
 #define kEmail @"makathon.labs@gmail.com"
 #define kFBFanPage @"http://goo.gl/LVJOM"
-//#define kFBFanPage @"http://goo.gl/LVJOM"
+
 #define kFBShareUrl @"https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Ftv-thailand-free-version%2Fid458429827%3Fl%3Dth%26ls%3D1%26mt%3D8"
 #define kTweetUrl @"https://twitter.com/intent/tweet?text=%E0%B8%94%E0%B8%B9%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3+TV+%E0%B8%A2%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2+TV+Thailand++iOS+%3A+http%3A%2F%2Fgoo.gl%2F4ToXq%2C+Android+%3A+http%3A%2F%2Fgoo.gl%2FvPq3x"
-
-#define kApiDomain @"http://tv.makathon.com/api"
-
-#define kDeviceToken(udid,devicetoken) [NSString stringWithFormat:@"%@/iosToken/%@/%@",kApiDomain,udid,devicetoken]
-#define kRegisterLikeProgram(udid, program_id) [NSString stringWithFormat:@"%@/registerLikeProgram/%@?device=ios&udid=%@",kApiDomain, program_id, udid]
-#define kUnregisterLikeProgram(udid, program_id) [NSString stringWithFormat:@"%@/unregisterLikeProgram/%@?device=ios&udid=%@",kApiDomain, program_id, udid]
-
-#define kGetMessageiOS(time) [NSString stringWithFormat:@"%@/getMessageiOS?time=%@",kApiDomain, time]
-#define kGetCategory(time) [NSString stringWithFormat:@"%@/getCategory?time=%@",kApiDomain, time]
-#define kGetProgram(cat_id,start,time) [NSString stringWithFormat:@"%@/getProgram/%@/%d?device=ios&time=%@",kApiDomain, cat_id, start, time]
-#define kGetProgramSearch(search,start,time) [[NSString stringWithFormat:@"%@/getProgramSearch/%d/?keyword=%@&device=ios&time=%@",kApiDomain,start, search, time] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-#define kGetProgramlist(program_id,start,time) [NSString stringWithFormat:@"%@/getProgramlist/%@/%d?device=ios&time=%@",kApiDomain,program_id, start, time]
-#define kGetProgramDetail(program_id) [NSString stringWithFormat:@"%@/getProgramDetail/%@",kApiDomain,program_id]
-#define kViewProgramlist(programlist_id) [NSString stringWithFormat:@"%@/viewProgramlist/%@",kApiDomain,programlist_id]

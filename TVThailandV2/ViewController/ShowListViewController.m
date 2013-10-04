@@ -14,9 +14,16 @@
 #import "EpisodeListViewController.h"
 #import "VideoPlayerViewController.h"
 
+#import "SVProgressHUD.h"
+
+#import "MakathonAdView.h"
+
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
+
 
 @end
 
@@ -67,6 +74,10 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.mkAdView requestAd];
+    
+    [SVProgressHUD showWithStatus:@"Loading..."];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
@@ -127,6 +138,9 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     isLoading = YES;
     if (_mode == kWhatsNew) {
         [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
+            
+            [SVProgressHUD dismiss];
+            
             if (start == 0) {
                 _shows = tempShows;
             } else {
@@ -144,6 +158,9 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     }
     else if (_mode == kCategory) {
         [Show loadCategoryDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+            
+            [SVProgressHUD dismiss];
+            
             if (start == 0) {
                 _shows = tempShows;
             } else {
@@ -161,6 +178,9 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     }
     else if (_mode == kChannel) {
         [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+            
+            [SVProgressHUD dismiss];
+            
             if (start == 0) {
                 _shows = tempShows;
             } else {
@@ -221,7 +241,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        [self.searchDisplayController setActive:NO];
         [self performSegueWithIdentifier:showEpisodeSegue sender:_searchShows[indexPath.row]];
     }
     else {
@@ -236,11 +255,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 }
 
 #pragma mark - Search
-
-//- (IBAction)tappedSearchButton:(id)sender {
-//    [self.searchDisplayController setActive:YES];
-//    [self.searchDisplayController.searchBar becomeFirstResponder];
-//}
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     [self search:searchString];

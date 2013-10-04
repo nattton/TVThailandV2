@@ -9,7 +9,9 @@
 #import "ChannelViewController.h"
 #import "Channel.h"
 #import "ShowListViewController.h"
+
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SVProgressHUD.h"
 
 @interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -35,7 +37,20 @@ static NSString *showListSegue = @"ShowListSegue";
 {
     [super viewDidLoad];
 
+    [self refresh];
+}
+
+- (IBAction)refreshButtonTapped:(id)sender {
+    [self refresh];
+}
+
+- (void)refresh {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
     [Channel loadData:^(NSArray *channels, NSError *error) {
+        
+        [SVProgressHUD dismiss];
+        
         _channels = channels;
         [self.collectionView reloadData];
     }];

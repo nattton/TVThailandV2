@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class Show;
+@class Program;
 @interface ShowTableViewCell : UITableViewCell
 
 - (void)configureWhatsNewWithShow:(Show *)show;
 - (void)configureWithShow:(Show *)show;
-
+- (void)configureWithProgram:(Program *)program;
 @end
