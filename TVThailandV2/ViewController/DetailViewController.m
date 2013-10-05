@@ -9,6 +9,10 @@
 #import "DetailViewController.h"
 #import "Show.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface DetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -32,6 +36,11 @@
     [super viewDidLoad];
     self.titleLabel.text = self.show.title;
     self.detailTextView.text = self.show.detail;
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"Detail"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)didReceiveMemoryWarning

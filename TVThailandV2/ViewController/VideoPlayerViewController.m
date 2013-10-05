@@ -14,6 +14,10 @@
 #import "AFHTTPClient.h"
 #import "HTMLParser.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface VideoPlayerViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -22,6 +26,14 @@
 @implementation VideoPlayerViewController {
     NSString *_videoId;
     CGSize _size;
+}
+
+- (BOOL) shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)viewDidLoad
@@ -65,6 +77,11 @@
     else if (self.videoUrl) {
         [self openWithVideoUrl:self.videoUrl];
     }
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"VideoPlayer"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)openWebSite:(NSString *)stringUrl {
@@ -168,7 +185,6 @@
                 if ([videoUrl hasSuffix:@"flv"]) {
                     NSLog(@"FLV");
                         [SVProgressHUD  showErrorWithStatus:@"Cannot play flv file."];
-#warning FLV
                     return;
                 }else {
                     [self openWithVideoUrl:videoUrl];
@@ -177,18 +193,14 @@
             }
         }
     }
+    
+    [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)tappedDone:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
 }
 
 @end

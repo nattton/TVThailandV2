@@ -12,6 +12,10 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "VideoPlayerViewController.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface PartListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
@@ -25,6 +29,11 @@ static NSString *showYoutubePlayerSegue = @"ShowYoutubePlayerSegue";
 {
     [super viewDidLoad];
 	self.navigationItem.title = self.episode.titleDisplay;
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"Favorite"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)didReceiveMemoryWarning

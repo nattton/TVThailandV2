@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "NavBarIconLauncher.png"
+      "filename" : "album.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "album@2x.png"
     }
   ],
   "info" : {

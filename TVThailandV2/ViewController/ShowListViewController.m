@@ -18,16 +18,21 @@
 
 #import "MakathonAdView.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
+@property (strong, nonatomic) IBOutlet MakathonAdView *mkAdView;
 
 
 @end
 
 @implementation ShowListViewController {
+    NSString *_screenName;
     NSArray *_shows;
     NSArray *_searchShows;
     NSString *_Id;
@@ -50,32 +55,30 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         Show *show = (Show *)sender;
         EpisodeListViewController *episodeListViewController = segue.destinationViewController;
         episodeListViewController.show = show;
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName
+               value:_screenName];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
     }
     else if ([segue.identifier isEqualToString:showPlayerSegue]) {
         VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
         videoPlayerViewController.videoUrl = self.videoUrl;
+        videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", self.navigationItem.title];
     }
 }
 
 #pragma mark - UIViewController
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        _mode = kWhatsNew;
-    }
-    return self;
-}
-
-- (void)setTitle:(NSString *)title {
-    self.navigationItem.title = title;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.mkAdView = [[MakathonAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
     [self.mkAdView requestAd];
+    
+//    [self setUpAd];
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
@@ -86,21 +89,58 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 //    [_refreshControl beginRefreshing];
     
     [self reload];
+    
+    
+    switch (_mode) {
+        case kWhatsNew:
+            _screenName = @"WhatsNew";
+            break;
+        case kCategory:
+        case kChannel:
+            _screenName = @"Program";
+            break;
+        default:
+            break;
+    }
+
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:_screenName];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
+- (void)setUpAd {
+    
+//    CGSize viewSize = self.view.bounds.size;
+//    CGSize adSize;
+//    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+//    {
+//        adSize = CGSizeMake(768, 90);
+//    }
+//    else
+//    {
+//        adSize = CGSizeMake(320, 50);
+//    }
+    
+    
+//    if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+//    {
+//        self.mkAdView = [[MakathonAdView alloc] initWithFrame:CGRectMake(0, viewSize.height - adSize.height - 88, viewSize.width, adSize.height)];
+//    }
+//    else
+//    {
+//        self.mkAdView = [[MakathonAdView alloc] initWithFrame:CGRectMake(0, viewSize.height - adSize.height - 48, viewSize.width, adSize.height)];
+//    }
+//    
+//    [self.view addSubview:self.mkAdView];
+//    
+    [self.mkAdView requestAd];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    [self initHeaderView];
 }
-
-- (void)initHeaderView {
-    CGRect newFrame = self.tableView.tableHeaderView.frame;
-    newFrame.size.height = 0;
-    self.tableView.tableHeaderView.frame = newFrame;
-    [self.tableView setTableHeaderView:self.tableView.tableHeaderView];
-}
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -195,10 +235,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             [_refreshControl endRefreshing];
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         }];
-    }
-    
-    if (start == 0) {
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
 }
 

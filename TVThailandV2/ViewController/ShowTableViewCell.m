@@ -40,6 +40,8 @@
 }
 
 - (void)layoutSubviews {
+    [super layoutSubviews];
+    
     [self roundImage];
 }
 

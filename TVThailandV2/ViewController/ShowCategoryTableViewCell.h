@@ -11,7 +11,7 @@
 @class ShowCategory;
 @interface ShowCategoryTableViewCell : UITableViewCell
 
-- (void)configureAllGenre;
+//- (void)configureAllGenre;
 - (void)configureWithGenre:(ShowCategory *)genre;
 
 @end

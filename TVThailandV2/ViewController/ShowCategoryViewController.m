@@ -1,5 +1,5 @@
 //
-//  GenreListViewController.m
+//  ShowCategoryViewController
 //  TVThailandV2
 //
 //  Created by Nattapong Tonprasert on 9/11/56 BE.
@@ -14,6 +14,10 @@
 #import "ShowListViewController.h"
 #import "SVProgressHUD.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface ShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -23,10 +27,10 @@
     
 @private
     UIRefreshControl *_refreshControl;
-    ShowCategoryList *_genreList;
+    ShowCategoryList *_categoryList;
 }
 
-static NSString *cellIdentifier = @"GenreCellIdentifier";
+static NSString *cellIdentifier = @"CategoryCellIdentifier";
 static NSString *showListSegue = @"ShowListSegue";
 
 #pragma mark - UIViewController
@@ -41,7 +45,7 @@ static NSString *showListSegue = @"ShowListSegue";
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    _genreList = [[ShowCategoryList alloc] init];
+    _categoryList = [[ShowCategoryList alloc] init];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
@@ -55,7 +59,7 @@ static NSString *showListSegue = @"ShowListSegue";
 }
 
 - (void)reload {
-    [_genreList loadData:^(NSError *error) {
+    [_categoryList loadData:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self.tableView reloadData];
         
@@ -79,49 +83,39 @@ static NSString *showListSegue = @"ShowListSegue";
 #pragma mark - Table Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    }
-    return _genreList.count;
+    return _categoryList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShowCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (indexPath.section == 0) {
-        [cell configureAllGenre];
-    }
-    else {
-        [cell configureWithGenre:_genreList[indexPath.row]];
-    }
+    [cell configureWithGenre:_categoryList[indexPath.row]];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        [self performSegueWithIdentifier:showListSegue sender:nil];
-    } else {
-        [self performSegueWithIdentifier:showListSegue sender:_genreList[indexPath.row]];
-    }
+    [self performSegueWithIdentifier:showListSegue sender:_categoryList[indexPath.row]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showListSegue]) {
         ShowListViewController *showListViewController = segue.destinationViewController;
-        if (sender) {
-            ShowCategory *selectedGenre = (ShowCategory *)sender;
-            showListViewController.navigationItem.title = selectedGenre.title;
-            [showListViewController reloadWithMode:kCategory Id:selectedGenre.Id];
-        } else {
-            showListViewController.navigationItem.title = @"TV Thailand";
-            [showListViewController reloadWithMode:kWhatsNew Id:nil];
-        }
+        
+        ShowCategory *selectedCat = (ShowCategory *)sender;
+        showListViewController.navigationItem.title = selectedCat.title;
+        [showListViewController reloadWithMode:kCategory Id:selectedCat.Id];
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName
+               value:@"Category"];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedCat.title
+                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
     }
 }
 

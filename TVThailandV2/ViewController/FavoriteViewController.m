@@ -13,6 +13,10 @@
 #import "Show.h"
 #import "EpisodeListViewController.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface FavoriteViewController () <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -33,6 +37,12 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
         Show *show = [[Show alloc] initWithProgram:program];
         EpisodeListViewController *episodeListViewController = segue.destinationViewController;
         episodeListViewController.show = show;
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName
+               value:@"Favorite"];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
     }
 }
 
@@ -48,7 +58,11 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"Favorite"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,7 +103,6 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 

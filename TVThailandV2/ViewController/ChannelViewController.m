@@ -13,6 +13,10 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
@@ -100,6 +104,12 @@ static NSString *showListSegue = @"ShowListSegue";
             showListViewController.navigationItem.title = selectedChannel.title;
             showListViewController.videoUrl = selectedChannel.videoUrl;
             [showListViewController reloadWithMode:kChannel Id:selectedChannel.Id];
+            
+            id tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker set:kGAIScreenName
+                   value:@"Channel"];
+            [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedChannel.title
+                                                              forKey:[GAIFields customDimensionForIndex:5]] build]];
         }
     }
 }

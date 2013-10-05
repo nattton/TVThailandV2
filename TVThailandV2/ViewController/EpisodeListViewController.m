@@ -22,6 +22,10 @@
 #import "XLMediaZoom.h"
 #import "SVProgressHUD.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface EpisodeListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -45,7 +49,14 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showPartSegue]) {
         PartListViewController *partListViewController = segue.destinationViewController;
-        partListViewController.episode = (Episode *)sender;
+        Episode *ep  = (Episode *)sender;
+        partListViewController.episode = ep;
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName
+               value:@"Episode"];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:ep.Id
+                                                          forKey:[GAIFields customDimensionForIndex:3]] build]];
     }
     else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;

@@ -36,11 +36,6 @@
     // Configure the view for the selected state
 }
 
-- (void)configureAllGenre {
-    self.titleLabel.text = @"All Genres";
-    [self.imageThumbView setImage:[UIImage imageNamed:@"ic_cate_empty"]];
-}
-
 - (void)configureWithGenre:(ShowCategory *)genre {
     self.titleLabel.text = genre.title;
     [self.imageThumbView setImageWithURL:[NSURL URLWithString:genre.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"ic_cate_empty"]];
