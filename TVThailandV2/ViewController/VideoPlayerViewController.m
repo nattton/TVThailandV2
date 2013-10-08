@@ -14,12 +14,15 @@
 #import "AFHTTPClient.h"
 #import "HTMLParser.h"
 
+#import "MakathonAdView.h"
+
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
 @interface VideoPlayerViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
 
 @end
 
@@ -28,17 +31,50 @@
     CGSize _size;
 }
 
-- (BOOL) shouldAutorotate {
-    return YES;
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self calulateUI];
+}
+
+- (void)calulateUI
+{
+    CGRect viewFrame = self.view.frame;
+    CGRect adFrame = self.mkAdView.frame;
+    
+    adFrame.size.width = viewFrame.size.width;
+    
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        adFrame.size.height = 90;
+    }
+    else
+    {
+        adFrame.size.height = 50;
+    }
+    
+    if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+    {
+        adFrame.origin.y = viewFrame.size.height - adFrame.size.height;
+    }
+    else
+    {
+        adFrame.origin.y = viewFrame.size.height - adFrame.size.height - 50;
+    }
+    
+    [self.mkAdView setFrame:adFrame];
+    NSLog(@"adFrame, width : %f, hight : %f, x : %f, y : %f", adFrame.size.width, adFrame.size.height, adFrame.origin.x, adFrame.origin.y);
+    
 }
 
 - (NSUInteger) supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    [self.webView.scrollView setScrollEnabled:NO];
+    [self.mkAdView requestAd];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _size = CGSizeMake(768, 460);
@@ -47,6 +83,7 @@
     {
         _size = CGSizeMake(320, 240);
     }
+    
     
     if (self.episode) {
         self.navigationItem.title = [NSString stringWithFormat:@"Part %d", (_idx + 1)];
@@ -77,11 +114,22 @@
     else if (self.videoUrl) {
         [self openWithVideoUrl:self.videoUrl];
     }
+    else
+    {
+        [SVProgressHUD showErrorWithStatus:@"Video not support"];
+    }
     
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"VideoPlayer"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self calulateUI];
 }
 
 - (void)openWebSite:(NSString *)stringUrl {
@@ -110,6 +158,8 @@
     
     NSURL *youtubeUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
     [self.webView loadHTMLString:html baseURL:youtubeUrl];
+    
+    
 }
 
 - (void)openWithDailymotion {

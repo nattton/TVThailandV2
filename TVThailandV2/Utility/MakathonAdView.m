@@ -34,11 +34,31 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+
+    CGRect adFrame = self.frame;
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        adFrame.size = CGSizeMake(adFrame.size.width, 90);
+    }
+    else
+    {
+        adFrame.size = CGSizeMake(adFrame.size.width, 50);
+    }
     
-    [self setHidden:YES];
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    self.webView.delegate = self;
-    [self addSubview:self.webView];
+    if(!self.webView)
+    {
+        self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
+        self.webView.delegate = self;
+        [self.webView.scrollView setScrollEnabled:NO];
+        [self addSubview:self.webView];
+    }
+    else
+    {
+        self.frame = adFrame;
+        [self.webView setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
+    }
+    
+    NSLog(@"width : %f, hight : %f", adFrame.size.width, adFrame.size.height);
 }
 
 - (void)requestAd

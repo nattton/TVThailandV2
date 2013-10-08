@@ -16,8 +16,6 @@
 
 #import "SVProgressHUD.h"
 
-#import "MakathonAdView.h"
-
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
@@ -25,9 +23,6 @@
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong, nonatomic) IBOutlet MakathonAdView *mkAdView;
-
 
 @end
 
@@ -75,21 +70,13 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 {
     [super viewDidLoad];
     
-    self.mkAdView = [[MakathonAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    [self.mkAdView requestAd];
-    
-//    [self setUpAd];
-    
     [SVProgressHUD showWithStatus:@"Loading..."];
+    [self reload];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
-//    [_refreshControl beginRefreshing];
-    
-    [self reload];
-    
     
     switch (_mode) {
         case kWhatsNew:
@@ -109,38 +96,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
-- (void)setUpAd {
-    
-//    CGSize viewSize = self.view.bounds.size;
-//    CGSize adSize;
-//    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-//    {
-//        adSize = CGSizeMake(768, 90);
-//    }
-//    else
-//    {
-//        adSize = CGSizeMake(320, 50);
-//    }
-    
-    
-//    if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
-//    {
-//        self.mkAdView = [[MakathonAdView alloc] initWithFrame:CGRectMake(0, viewSize.height - adSize.height - 88, viewSize.width, adSize.height)];
-//    }
-//    else
-//    {
-//        self.mkAdView = [[MakathonAdView alloc] initWithFrame:CGRectMake(0, viewSize.height - adSize.height - 48, viewSize.width, adSize.height)];
-//    }
-//    
-//    [self.view addSubview:self.mkAdView];
-//    
-    [self.mkAdView requestAd];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
 
 - (void)didReceiveMemoryWarning
 {
