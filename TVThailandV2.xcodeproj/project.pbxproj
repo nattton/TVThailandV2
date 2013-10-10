@@ -14,7 +14,6 @@
 		3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24B17FF346C006FA479 /* MakathonAd.m */; };
 		3B39B09E17E2F1540027B242 /* PartListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B09D17E2F1540027B242 /* PartListViewController.m */; };
 		3B39B0A117E309BE0027B242 /* PartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A017E309BE0027B242 /* PartTableViewCell.m */; };
-		3B39B0A417E322310027B242 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A317E322310027B242 /* SDWebImage.framework */; };
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
@@ -24,7 +23,6 @@
 		3B67F69A17E03A9900C9CD23 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B67F69917E03A9900C9CD23 /* Images.xcassets */; };
 		3B67F69C17E03B3000C9CD23 /* Storyboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B67F69B17E03B3000C9CD23 /* Storyboard_iPhone.storyboard */; };
 		3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B67F74A17E06D5000C9CD23 /* StoreKit.framework */; };
-		3B67F75517E06E1100C9CD23 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B67F74D17E06E1100C9CD23 /* libGoogleAnalyticsServices.a */; };
 		3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67F7A317E09A5200C9CD23 /* ShowCategoryViewController.m */; };
 		3B67F7A717E09C6600C9CD23 /* ShowListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67F7A617E09C6600C9CD23 /* ShowListViewController.m */; };
 		3B67F7AD17E0A08900C9CD23 /* ShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B67F7AC17E0A08900C9CD23 /* ShowTableViewCell.m */; };
@@ -49,7 +47,10 @@
 		3B910C3C17340387008F67ED /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3717340387008F67ED /* ApiClient.m */; };
 		3B910C3D17340387008F67ED /* ShowCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3917340387008F67ED /* ShowCategory.m */; };
 		3B910C3E17340387008F67ED /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3B17340387008F67ED /* Channel.m */; };
+		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
+		3BA59C11180693DD0094D758 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA59C09180693DD0094D758 /* libGoogleAnalyticsServices.a */; };
 		3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6091517FB57D100497D39 /* ChannelViewController.m */; };
+		3BFEDFFC1806A20F0074C130 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFEDFFB1806A20F0074C130 /* SDWebImage.framework */; };
 		F042D51015BCA5590037E120 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F042D50F15BCA5590037E120 /* Base64.m */; };
 		F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F084C89E15BFF1A500CD7F70 /* MediaPlayer.framework */; };
 		F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0927FE015CC4A180045EDBA /* tvthai2.xcdatamodeld */; };
@@ -87,7 +88,6 @@
 		3B39B09D17E2F1540027B242 /* PartListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartListViewController.m; sourceTree = "<group>"; };
 		3B39B09F17E309BE0027B242 /* PartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartTableViewCell.h; sourceTree = "<group>"; };
 		3B39B0A017E309BE0027B242 /* PartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartTableViewCell.m; sourceTree = "<group>"; };
-		3B39B0A317E322310027B242 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		3B39B0A517E322EE0027B242 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
@@ -99,13 +99,6 @@
 		3B67F69917E03A9900C9CD23 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3B67F69B17E03B3000C9CD23 /* Storyboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPhone.storyboard; sourceTree = "<group>"; };
 		3B67F74A17E06D5000C9CD23 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		3B67F74D17E06E1100C9CD23 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		3B67F74F17E06E1100C9CD23 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		3B67F75017E06E1100C9CD23 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		3B67F75117E06E1100C9CD23 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		3B67F75217E06E1100C9CD23 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		3B67F75317E06E1100C9CD23 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		3B67F75417E06E1100C9CD23 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		3B67F7A217E09A5200C9CD23 /* ShowCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowCategoryViewController.h; sourceTree = "<group>"; };
 		3B67F7A317E09A5200C9CD23 /* ShowCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowCategoryViewController.m; sourceTree = "<group>"; };
 		3B67F7A517E09C6600C9CD23 /* ShowListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowListViewController.h; sourceTree = "<group>"; };
@@ -125,7 +118,6 @@
 		3B743BD117E1F7CC0086C519 /* EpisodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeTableViewCell.h; sourceTree = "<group>"; };
 		3B743BD217E1F7CC0086C519 /* EpisodeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeTableViewCell.m; sourceTree = "<group>"; };
 		3B743BD617E25DA40086C519 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
-		3B762F8B17F01B0400A35AA2 /* libPods-Objective-C-HMTL-Parser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Objective-C-HMTL-Parser.a"; path = "Pods/build/Debug-iphoneos/libPods-Objective-C-HMTL-Parser.a"; sourceTree = "<group>"; };
 		3B86572B1805F2EB00BC61AC /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		3B86572C1805F2EB00BC61AC /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		3B86572D1805F2EB00BC61AC /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
@@ -143,8 +135,17 @@
 		3B910C3917340387008F67ED /* ShowCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowCategory.m; sourceTree = "<group>"; };
 		3B910C3A17340387008F67ED /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		3B910C3B17340387008F67ED /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3BA59C09180693DD0094D758 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		3BA59C0B180693DD0094D758 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		3BA59C0C180693DD0094D758 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		3BA59C0D180693DD0094D758 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		3BA59C0E180693DD0094D758 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		3BA59C0F180693DD0094D758 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		3BA59C10180693DD0094D758 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		3BE6091417FB57D100497D39 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		3BE6091517FB57D100497D39 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		3BFEDFFB1806A20F0074C130 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = TVThailandV2/Frameworks/SDWebImage.framework; sourceTree = "<group>"; };
 		A2EB0925A5094553A025770B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F042D50E15BCA5590037E120 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		F042D50F15BCA5590037E120 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
@@ -192,8 +193,9 @@
 				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
 				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
 				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
+				3BFEDFFC1806A20F0074C130 /* SDWebImage.framework in Frameworks */,
 				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
-				3B39B0A417E322310027B242 /* SDWebImage.framework in Frameworks */,
+				3BA59C11180693DD0094D758 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */,
 				F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */,
 				F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */,
@@ -203,7 +205,6 @@
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
-				3B67F75517E06E1100C9CD23 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 				F2A59C82B72E4E7F945E7BD1 /* libPods.a in Frameworks */,
 			);
@@ -212,28 +213,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3B67F74C17E06E1100C9CD23 /* GoogleAnalyticsServicesiOS_3.0 */ = {
-			isa = PBXGroup;
-			children = (
-				3B67F74D17E06E1100C9CD23 /* libGoogleAnalyticsServices.a */,
-				3B67F74E17E06E1100C9CD23 /* Library */,
-			);
-			path = GoogleAnalyticsServicesiOS_3.0;
-			sourceTree = "<group>";
-		};
-		3B67F74E17E06E1100C9CD23 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				3B67F74F17E06E1100C9CD23 /* GAI.h */,
-				3B67F75017E06E1100C9CD23 /* GAIDictionaryBuilder.h */,
-				3B67F75117E06E1100C9CD23 /* GAIFields.h */,
-				3B67F75217E06E1100C9CD23 /* GAILogger.h */,
-				3B67F75317E06E1100C9CD23 /* GAITrackedViewController.h */,
-				3B67F75417E06E1100C9CD23 /* GAITracker.h */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
 		3B67F7A117E09A1D00C9CD23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +280,28 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3BA59C08180693DD0094D758 /* GoogleAnalyticsServicesiOS_3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				3BA59C09180693DD0094D758 /* libGoogleAnalyticsServices.a */,
+				3BA59C0A180693DD0094D758 /* Library */,
+			);
+			path = GoogleAnalyticsServicesiOS_3.0;
+			sourceTree = "<group>";
+		};
+		3BA59C0A180693DD0094D758 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				3BA59C0B180693DD0094D758 /* GAI.h */,
+				3BA59C0C180693DD0094D758 /* GAIDictionaryBuilder.h */,
+				3BA59C0D180693DD0094D758 /* GAIFields.h */,
+				3BA59C0E180693DD0094D758 /* GAILogger.h */,
+				3BA59C0F180693DD0094D758 /* GAITrackedViewController.h */,
+				3BA59C10180693DD0094D758 /* GAITracker.h */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		F042D50D15BCA5590037E120 /* Base64 */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +343,7 @@
 				F0DC4DEE15BA012E0009BFCD /* Frameworks */,
 				F0DC4DEC15BA012E0009BFCD /* Products */,
 				0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */,
+				3BA59C061806930F0094D758 /* Podfile */,
 			);
 			sourceTree = "<group>";
 		};
@@ -356,12 +358,8 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B762F8B17F01B0400A35AA2 /* libPods-Objective-C-HMTL-Parser.a */,
-				F0A3C89B15BB2F96000CD962 /* libsqlite3.0.dylib */,
-				F0A3C89915BB2D54000CD962 /* libxml2.dylib */,
-				F0A3C83815BB21BA000CD962 /* libz.dylib */,
+				3BFEDFFB1806A20F0074C130 /* SDWebImage.framework */,
 				3B39B0A517E322EE0027B242 /* ImageIO.framework */,
-				3B39B0A317E322310027B242 /* SDWebImage.framework */,
 				3B67F74A17E06D5000C9CD23 /* StoreKit.framework */,
 				3B910C331733FE25008F67ED /* CFNetwork.framework */,
 				F0BD0C6015BC2A9F00B56EE4 /* MessageUI.framework */,
@@ -379,6 +377,9 @@
 				3B63C8BC1711CCD8009B4B65 /* Security.framework */,
 				3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */,
 				3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */,
+				F0A3C89B15BB2F96000CD962 /* libsqlite3.0.dylib */,
+				F0A3C89915BB2D54000CD962 /* libxml2.dylib */,
+				F0A3C83815BB21BA000CD962 /* libz.dylib */,
 				A2EB0925A5094553A025770B /* libPods.a */,
 			);
 			name = Frameworks;
@@ -418,7 +419,7 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				3B67F74C17E06E1100C9CD23 /* GoogleAnalyticsServicesiOS_3.0 */,
+				3BA59C08180693DD0094D758 /* GoogleAnalyticsServicesiOS_3.0 */,
 				F042D50D15BCA5590037E120 /* Base64 */,
 			);
 			path = Library;
@@ -497,6 +498,7 @@
 				3B8657371805F2EB00BC61AC /* Default-Portrait@2x~ipad.png in Resources */,
 				3B86573A1805F2EB00BC61AC /* Default@2x.png in Resources */,
 				3B8657381805F2EB00BC61AC /* Default-Portrait~ipad.png in Resources */,
+				3BA59C071806930F0094D758 /* Podfile in Resources */,
 				F0DC4DFA15BA012E0009BFCD /* InfoPlist.strings in Resources */,
 				3B67F69C17E03B3000C9CD23 /* Storyboard_iPhone.storyboard in Resources */,
 				3B8657351805F2EB00BC61AC /* Default-Landscape@2x~ipad.png in Resources */,
@@ -678,6 +680,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/nattapong/github/TVThailandV2,
+					/Users/nattapong/github/TVThailandV2/TVThailandV2/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
@@ -696,10 +699,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/nattapong/github/TVThailandV2/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.5.1",
 					/Users/nattapong/github/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.0,
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -726,6 +728,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/nattapong/github/TVThailandV2,
+					/Users/nattapong/github/TVThailandV2/TVThailandV2/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
@@ -744,10 +747,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/nattapong/github/TVThailandV2/TVThailandV2/Library/GoogleAdMobAdsSdkiOS-6.5.1",
 					/Users/nattapong/github/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.0,
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",

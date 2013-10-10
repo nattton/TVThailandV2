@@ -12,13 +12,6 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
-// JSONKit
-#define COCOAPODS_POD_AVAILABLE_JSONKit
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.5pre.
-
 // Objective-C-HMTL-Parser
 #define COCOAPODS_POD_AVAILABLE_Objective_C_HMTL_Parser
 #define COCOAPODS_VERSION_MAJOR_Objective_C_HMTL_Parser 0
