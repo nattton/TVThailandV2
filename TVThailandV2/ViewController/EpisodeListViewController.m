@@ -193,9 +193,11 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)reloadFavorite {
     NSArray *bookmarks = [self queyFavorites];
     if(bookmarks.count == 0) {
-        [self.favoriteButton setTitle:@"+ Favorite" forState:UIControlStateNormal];
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite"] forState:UIControlStateNormal];
+//        [self.favoriteButton setTitle:@"+ Favorite" forState:UIControlStateNormal];
     } else {
-        [self.favoriteButton setTitle:@"- Favorite" forState:UIControlStateNormal];
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_active"] forState:UIControlStateNormal];
+//        [self.favoriteButton setTitle:@"- Favorite" forState:UIControlStateNormal];
     }
 }
 
@@ -244,7 +246,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         [self.managedObjectContext deleteObject:toDelete];
         [self.managedObjectContext save:nil];
     }
-    [SVProgressHUD showErrorWithStatus:@"Remove from Favorite"];
+//    [SVProgressHUD showErrorWithStatus:@"Remove from Favorite"];
 }
 
 

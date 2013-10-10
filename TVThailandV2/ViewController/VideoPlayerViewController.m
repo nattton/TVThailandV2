@@ -61,7 +61,7 @@
     }
     
     [self.mkAdView setFrame:adFrame];
-    NSLog(@"adFrame, width : %f, hight : %f, x : %f, y : %f", adFrame.size.width, adFrame.size.height, adFrame.origin.x, adFrame.origin.y);
+//    NSLog(@"adFrame, width : %f, hight : %f, x : %f, y : %f", adFrame.size.width, adFrame.size.height, adFrame.origin.x, adFrame.origin.y);
     
 }
 
@@ -75,6 +75,7 @@
     
 //    [self.webView.scrollView setScrollEnabled:NO];
     [self.mkAdView requestAd];
+//    [self.mkAdView setHidden:YES];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _size = CGSizeMake(768, 460);
@@ -136,7 +137,51 @@
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
 }
 
+
+#pragma mark - Youtube
+
 - (void)openWithYoutube {
+    BOOL isWeb = [[NSUserDefaults standardUserDefaults] boolForKey:kYoutubeWeb];
+    [self switchYoutube:isWeb];
+}
+
+- (void)switchYoutube:(BOOL)isWeb
+{
+    NSString *toggleText;
+    if (isWeb)
+    {
+        [self openWithYoutubeWeb];
+        toggleText = @"Embed";
+    }
+    else
+    {
+        [self openWithYoutubeEmbed];
+        toggleText = @"Web";
+    }
+    
+    UIBarButtonItem *youtubeButton = [[UIBarButtonItem alloc] initWithTitle:toggleText style:UIBarButtonItemStylePlain target:self action:@selector(toggleYoutube:)];
+    [self.navigationItem setRightBarButtonItems:@[youtubeButton] animated:YES];
+}
+
+- (void)openWithYoutubeWeb
+{
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]]];
+}
+
+- (void)toggleYoutube:(id)sender
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isWeb = [userDefaults boolForKey:kYoutubeWeb];
+    isWeb = !isWeb;
+    [userDefaults setBool:isWeb forKey:kYoutubeWeb];
+    [userDefaults synchronize];
+    
+    [self switchYoutube:isWeb];
+}
+
+
+- (void)openWithYoutubeEmbed
+{
     NSString *htmlString = @"<html><head>\
     <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
     <body style=\"margin-top:0px;margin-left:0px\">\
@@ -158,11 +203,50 @@
     
     NSURL *youtubeUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
     [self.webView loadHTMLString:html baseURL:youtubeUrl];
-    
-    
 }
 
+#pragma mark - DailyMotion
+
 - (void)openWithDailymotion {
+    BOOL isWeb = [[NSUserDefaults standardUserDefaults] boolForKey:kDailyMotionWeb];
+    [self switchDailymotion:isWeb];
+}
+
+- (void)switchDailymotion:(BOOL)isWeb
+{
+    NSString *toggleText;
+    if (isWeb)
+    {
+        [self openWithDailymotionWeb];
+        toggleText = @"Embed";
+    }
+    else
+    {
+        [self openWithDailymotionEmbed];
+        toggleText = @"Web";
+    }
+    
+    UIBarButtonItem *dmButton = [[UIBarButtonItem alloc] initWithTitle:toggleText style:UIBarButtonItemStylePlain target:self action:@selector(toggleDailymotion:)];
+    [self.navigationItem setRightBarButtonItems:@[dmButton] animated:YES];
+}
+
+- (void)openWithDailymotionWeb
+{
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]]];
+}
+
+- (void)toggleDailymotion:(id)sender
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isWeb = [userDefaults boolForKey:kDailyMotionWeb];
+    isWeb = !isWeb;
+    [userDefaults setBool:isWeb forKey:kDailyMotionWeb];
+    [userDefaults synchronize];
+    
+    [self switchDailymotion:isWeb];
+}
+
+- (void)openWithDailymotionEmbed {
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
                             <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
                             <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\

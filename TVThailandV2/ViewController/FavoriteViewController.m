@@ -153,7 +153,6 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
     }
 }
 
-
 #pragma mark - CoreData
 - (NSManagedObjectContext *)managedObjectContext
 {
@@ -176,8 +175,7 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
     [fetchRequest setEntity:entity];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    //    NSFetchedResultsController *aFetchResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"tvthaiCache"] autorelease];
-    NSFetchedResultsController *aFetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"tvthaiCache"];
+    NSFetchedResultsController *aFetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchResultsController.delegate = self;
     self.fetchedResultsController = aFetchResultsController;
     NSError *error = nil;

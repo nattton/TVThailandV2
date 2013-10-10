@@ -129,13 +129,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="21l-sD-5JZ">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21l-sD-5JZ">
                                 <rect key="frame" x="20" y="61" width="280" height="487"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="458" id="frz-eC-e1Q"/>
-                                </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -153,7 +150,7 @@
                                     <action selector="doneButtonTapped:" destination="cv3-Qr-DMZ" eventType="touchUpInside" id="gOO-mL-Iuu"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="r7A-XR-jtc">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="r7A-XR-jtc">
                                 <rect key="frame" x="20" y="40" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -162,14 +159,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="21l-sD-5JZ" firstAttribute="leading" secondItem="r7A-XR-jtc" secondAttribute="leading" id="6p5-qL-WcO"/>
                             <constraint firstAttribute="trailing" secondItem="r7A-XR-jtc" secondAttribute="trailing" constant="20" id="JRr-5i-Kg5"/>
-                            <constraint firstAttribute="bottom" secondItem="21l-sD-5JZ" secondAttribute="bottom" constant="20" symbolic="YES" id="OKm-nv-lRR"/>
-                            <constraint firstItem="21l-sD-5JZ" firstAttribute="top" secondItem="r7A-XR-jtc" secondAttribute="bottom" id="Ogx-Eo-cAo"/>
+                            <constraint firstItem="21l-sD-5JZ" firstAttribute="top" secondItem="r7A-XR-jtc" secondAttribute="bottom" id="NBI-tg-Hcw"/>
                             <constraint firstItem="r7A-XR-jtc" firstAttribute="top" secondItem="upS-QZ-rxm" secondAttribute="bottom" constant="20" id="S3u-eb-dCZ"/>
                             <constraint firstItem="r7A-XR-jtc" firstAttribute="leading" secondItem="Xm5-0q-gBB" secondAttribute="leading" constant="20" id="XLk-BB-GmX"/>
-                            <constraint firstItem="21l-sD-5JZ" firstAttribute="trailing" secondItem="r7A-XR-jtc" secondAttribute="trailing" id="obi-z8-2z9"/>
+                            <constraint firstItem="21l-sD-5JZ" firstAttribute="leading" secondItem="r7A-XR-jtc" secondAttribute="leading" id="bAG-fm-Zdz"/>
+                            <constraint firstItem="21l-sD-5JZ" firstAttribute="trailing" secondItem="r7A-XR-jtc" secondAttribute="trailing" id="nfX-Kn-LQE"/>
                             <constraint firstItem="gxR-2j-KrL" firstAttribute="top" secondItem="Xm5-0q-gBB" secondAttribute="top" constant="20" symbolic="YES" id="rbI-Fz-YJx"/>
+                            <constraint firstAttribute="bottom" secondItem="21l-sD-5JZ" secondAttribute="bottom" constant="20" symbolic="YES" id="rrH-xT-6vQ"/>
                             <constraint firstItem="gxR-2j-KrL" firstAttribute="trailing" secondItem="r7A-XR-jtc" secondAttribute="trailing" id="xRJ-93-USI"/>
                         </constraints>
                     </view>
@@ -217,15 +214,14 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhH-qN-EIf">
-                                            <rect key="frame" x="211" y="60" width="89" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhH-qN-EIf">
+                                            <rect key="frame" x="270" y="68" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="89" id="XVi-Rx-dIc"/>
-                                                <constraint firstAttribute="height" constant="30" id="tZJ-ub-FYE"/>
+                                                <constraint firstAttribute="height" constant="30" id="idC-DW-MEY"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
-                                            <state key="normal" title="+ Favorite"/>
+                                            <state key="normal" image="favorite"/>
                                             <connections>
                                                 <action selector="favoriteButtonTapped:" destination="Oo4-Sv-THQ" eventType="touchUpInside" id="kqS-7F-gFt"/>
                                             </connections>
@@ -237,10 +233,10 @@
                                         <constraint firstItem="jUr-29-K6k" firstAttribute="leading" secondItem="37T-Lj-5k8" secondAttribute="leading" constant="10" id="HLM-KF-0Cz"/>
                                         <constraint firstItem="jUr-29-K6k" firstAttribute="top" secondItem="37T-Lj-5k8" secondAttribute="top" constant="10" id="IQu-8A-jJF"/>
                                         <constraint firstItem="VbA-6e-AOv" firstAttribute="leading" secondItem="jUr-29-K6k" secondAttribute="trailing" constant="8" id="JOK-fM-PFF"/>
-                                        <constraint firstItem="IhH-qN-EIf" firstAttribute="top" secondItem="VbA-6e-AOv" secondAttribute="bottom" id="S5k-kV-Zb8"/>
+                                        <constraint firstItem="IhH-qN-EIf" firstAttribute="trailing" secondItem="VbA-6e-AOv" secondAttribute="trailing" id="MwC-uC-hqX"/>
                                         <constraint firstItem="VbA-6e-AOv" firstAttribute="top" secondItem="jUr-29-K6k" secondAttribute="top" id="in6-eB-gHo"/>
-                                        <constraint firstAttribute="trailing" secondItem="IhH-qN-EIf" secondAttribute="trailing" constant="20" id="stn-1S-xBo"/>
-                                        <constraint firstAttribute="bottom" secondItem="IhH-qN-EIf" secondAttribute="bottom" constant="10" id="tkC-MV-BaX"/>
+                                        <constraint firstAttribute="bottom" secondItem="IhH-qN-EIf" secondAttribute="bottom" constant="2" id="kVt-pb-bJr"/>
+                                        <constraint firstItem="IhH-qN-EIf" firstAttribute="top" secondItem="VbA-6e-AOv" secondAttribute="bottom" constant="8" symbolic="YES" id="pOs-nI-yHb"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -368,7 +364,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-iu-AU8" customClass="MakathonAdView">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-iu-AU8" customClass="MakathonAdView">
                                 <rect key="frame" x="0.0" y="468" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -376,12 +372,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" constant="404" id="0qT-Vd-bcK"/>
+                            <constraint firstItem="yWV-tn-W45" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="2qa-0y-8qM"/>
                             <constraint firstItem="5cZ-iu-AU8" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="5p2-eR-Jna"/>
                             <constraint firstItem="xCx-9O-Do3" firstAttribute="top" secondItem="5cZ-iu-AU8" secondAttribute="bottom" constant="1" id="BXP-1G-cYW"/>
+                            <constraint firstAttribute="trailing" secondItem="yWV-tn-W45" secondAttribute="trailing" id="T91-BV-rDO"/>
                             <constraint firstAttribute="bottom" secondItem="yWV-tn-W45" secondAttribute="bottom" id="gUs-NB-zQ2"/>
-                            <constraint firstItem="yWV-tn-W45" firstAttribute="leading" secondItem="5cZ-iu-AU8" secondAttribute="leading" id="qwg-vQ-Ov2"/>
-                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="trailing" secondItem="yWV-tn-W45" secondAttribute="trailing" id="rov-MP-Nvi"/>
                             <constraint firstItem="yWV-tn-W45" firstAttribute="top" secondItem="jt5-pg-LSu" secondAttribute="top" id="ve6-Fi-i5L"/>
                             <constraint firstAttribute="trailing" secondItem="5cZ-iu-AU8" secondAttribute="trailing" id="waH-OI-fbK"/>
                         </constraints>
@@ -782,6 +777,7 @@
     </scenes>
     <resources>
         <image name="album" width="30" height="30"/>
+        <image name="favorite" width="30" height="30"/>
         <image name="video-player" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -790,8 +786,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3PO-yq-kuy"/>
         <segue reference="Bc8-PK-1lJ"/>
-        <segue reference="VVM-kZ-9qj"/>
+        <segue reference="3PO-yq-kuy"/>
+        <segue reference="K3l-i7-YpG"/>
     </inferredMetricsTieBreakers>
 </document>

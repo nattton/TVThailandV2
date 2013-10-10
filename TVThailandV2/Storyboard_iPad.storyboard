@@ -202,8 +202,8 @@
                                     <rect key="frame" x="0.0" y="64" width="768" height="100"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pop-AH-eGh">
-                                            <rect key="frame" x="10" y="10" width="528" height="80"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pop-AH-eGh">
+                                            <rect key="frame" x="10" y="10" width="80" height="80"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="80" id="aHW-TD-Dyd"/>
@@ -217,15 +217,11 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpz-3p-WCT">
-                                            <rect key="frame" x="211" y="60" width="89" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpz-3p-WCT">
+                                            <rect key="frame" x="718" y="60" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="0xv-Mf-nyK"/>
-                                                <constraint firstAttribute="width" constant="89" id="YCK-xf-Qve"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
-                                            <state key="normal" title="+ Favorite"/>
+                                            <state key="normal" image="favorite"/>
                                             <connections>
                                                 <action selector="favoriteButtonTapped:" destination="xHf-XC-lQS" eventType="touchUpInside" id="PoS-e5-mT8"/>
                                             </connections>
@@ -233,13 +229,12 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="vpz-3p-WCT" firstAttribute="top" secondItem="zyK-zH-eoL" secondAttribute="bottom" id="BRR-Yh-WGM"/>
                                         <constraint firstItem="zyK-zH-eoL" firstAttribute="leading" secondItem="pop-AH-eGh" secondAttribute="trailing" constant="8" id="ITk-7G-rkM"/>
-                                        <constraint firstAttribute="trailing" secondItem="vpz-3p-WCT" secondAttribute="trailing" constant="20" id="Ksy-vF-QOQ"/>
                                         <constraint firstItem="pop-AH-eGh" firstAttribute="top" secondItem="NJy-No-c8t" secondAttribute="top" constant="10" id="QC7-K6-2kr"/>
                                         <constraint firstAttribute="trailing" secondItem="zyK-zH-eoL" secondAttribute="trailing" constant="20" id="Qq9-Cy-OAr"/>
+                                        <constraint firstItem="vpz-3p-WCT" firstAttribute="bottom" secondItem="pop-AH-eGh" secondAttribute="bottom" id="UvO-OH-NSy"/>
                                         <constraint firstItem="zyK-zH-eoL" firstAttribute="top" secondItem="pop-AH-eGh" secondAttribute="top" id="V1C-Fr-KVB"/>
-                                        <constraint firstAttribute="bottom" secondItem="vpz-3p-WCT" secondAttribute="bottom" constant="10" id="kmM-Qa-mdQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="vpz-3p-WCT" secondAttribute="trailing" constant="20" symbolic="YES" id="W6c-sU-869"/>
                                         <constraint firstItem="pop-AH-eGh" firstAttribute="leading" secondItem="NJy-No-c8t" secondAttribute="leading" constant="10" id="wjz-Gh-C8N"/>
                                     </constraints>
                                 </view>
@@ -349,7 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1om-Xt-7FT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1724" y="-95"/>
+            <point key="canvasLocation" x="2223" y="108"/>
         </scene>
         <!--Video Player View Controller-->
         <scene sceneID="ea7-Rp-PIo">
@@ -394,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WW0-9A-sDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2389" y="1335"/>
+            <point key="canvasLocation" x="3717" y="1447"/>
         </scene>
         <!--Part List View Controller - Part-->
         <scene sceneID="Pik-eV-X15">
@@ -460,7 +455,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcB-Fa-d6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2201" y="-95"/>
+            <point key="canvasLocation" x="3297" y="-183"/>
         </scene>
         <!--Show Category View Controller - Categories-->
         <scene sceneID="A2J-X5-4Gr">
@@ -649,7 +644,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uk8-2v-NKj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1058" y="1289"/>
+            <point key="canvasLocation" x="1498" y="1817"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1io-zJ-Ozm">
@@ -691,7 +686,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHu-h4-mdZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="549" y="1289"/>
+            <point key="canvasLocation" x="397" y="1817"/>
         </scene>
         <!--Channel View Controller - Channels-->
         <scene sceneID="kpp-xU-gGN">
@@ -735,7 +730,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ryp-v5-E52" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1058" y="604"/>
+            <point key="canvasLocation" x="2202" y="1136"/>
         </scene>
         <!--Navigation Controller - Categoties-->
         <scene sceneID="zLo-iE-ZPO">
@@ -777,11 +772,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gAj-S8-ixx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="532" y="604"/>
+            <point key="canvasLocation" x="620" y="748"/>
         </scene>
     </scenes>
     <resources>
         <image name="album" width="30" height="30"/>
+        <image name="favorite" width="30" height="30"/>
         <image name="video-player" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -791,7 +787,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="acJ-5N-zeG"/>
-        <segue reference="gYf-hu-iYC"/>
-        <segue reference="ikQ-Cn-ROo"/>
+        <segue reference="1Y8-4M-iar"/>
+        <segue reference="1WB-LC-pJS"/>
     </inferredMetricsTieBreakers>
 </document>

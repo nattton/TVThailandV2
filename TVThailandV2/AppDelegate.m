@@ -29,10 +29,11 @@ static NSString *const kTrackingId = @"UA-22403997-3";
     [GAI sharedInstance].dispatchInterval = 20;
     
     // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
     // Initialize tracker.
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:kTrackingId];
+    
     
     return YES;
 }
