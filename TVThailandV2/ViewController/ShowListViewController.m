@@ -133,9 +133,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         return;
     }
     isLoading = YES;
-    if (start == 0) {
-        isEnding = NO;
-    }
     if (_mode == kWhatsNew) {
         [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
             
