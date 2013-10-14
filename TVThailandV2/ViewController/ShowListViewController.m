@@ -33,6 +33,7 @@
     NSString *_Id;
     ShowModeType _mode;
     bool isLoading;
+    bool isEnding;
     UIRefreshControl *_refreshControl;
 }
 
@@ -106,6 +107,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 #pragma mark - Function
 
 - (void)reload {
+    isEnding = NO;
     [self reload:0];
 }
 
@@ -127,14 +129,21 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 }
 
 - (void)reload:(NSUInteger)start {
-    if (isLoading) {
+    if (isLoading || isEnding) {
         return;
     }
     isLoading = YES;
+    if (start == 0) {
+        isEnding = NO;
+    }
     if (_mode == kWhatsNew) {
         [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
+            
+            if ([tempShows count] == 0) {
+                isEnding = YES;
+            }
             
             if (start == 0) {
                 _shows = tempShows;
@@ -156,6 +165,10 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             
             [SVProgressHUD dismiss];
             
+            if ([tempShows count] == 0) {
+                isEnding = YES;
+            }
+            
             if (start == 0) {
                 _shows = tempShows;
             } else {
@@ -175,6 +188,10 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
+            
+            if ([tempShows count] == 0) {
+                isEnding = YES;
+            }
             
             if (start == 0) {
                 _shows = tempShows;
