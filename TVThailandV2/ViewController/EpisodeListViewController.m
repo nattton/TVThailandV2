@@ -38,6 +38,7 @@
 @implementation EpisodeListViewController {
     NSArray *_episodes;
     BOOL isLoading;
+    BOOL isEnding;
     UIRefreshControl *_refreshControl;
     XLMediaZoom *_imageZoom;
 }
@@ -90,7 +91,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    [self reload:0];
+    [self reload];
 }
 
 - (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {
@@ -106,12 +107,15 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
-    
-     [self reload:0];
+    [self reload];
 }
 
+- (void)reload {
+    isEnding = NO;
+    [self reload:0];
+}
 - (void)reload:(NSUInteger)start {
-    if (isLoading) {
+    if (isLoading || isEnding) {
         return;
     }
     
@@ -119,6 +123,10 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [Episode loadEpisodeDataWithId:self.show.Id Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
         if (show) {
             self.show = show;
+        }
+        
+        if ([tempEpisodes count] == 0) {
+            isEnding = YES;
         }
         
         if (start == 0) {
