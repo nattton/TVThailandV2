@@ -3,6 +3,7 @@ PODS:
   - Objective-C-HMTL-Parser (0.0.1)
   - Reachability (3.1.1)
   - SVProgressHUD (0.9)
+  - TPKeyboardAvoiding (1.2.1)
   - XLMediaZoom (2.0.1)
 
 DEPENDENCIES:
@@ -10,6 +11,7 @@ DEPENDENCIES:
   - Objective-C-HMTL-Parser
   - Reachability
   - SVProgressHUD
+  - TPKeyboardAvoiding
   - XLMediaZoom
 
 SPEC CHECKSUMS:
@@ -17,6 +19,7 @@ SPEC CHECKSUMS:
   Objective-C-HMTL-Parser: 4fca85e186a829cfe8db8e316e9688571ea4dfed
   Reachability: 2be6bc2fd2bd31d97f5db33e75e4b29c79e95883
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
+  TPKeyboardAvoiding: 0536c563e6c8b8e95a7c4bf87fca9c0991f5e826
   XLMediaZoom: 8b185eaa63bed51fccb0ed3cdf4742000f515065
 
 COCOAPODS: 0.26.2

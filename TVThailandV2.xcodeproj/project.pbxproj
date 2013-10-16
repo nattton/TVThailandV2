@@ -9,6 +9,27 @@
 /* Begin PBXBuildFile section */
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		320B6C86F11D9990244A9731 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 320B6C86F11D9990244A9730 /* Three20.bundle */; };
+		3B07BA90180E401500EF9E53 /* CMApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA63180E401500EF9E53 /* CMApiClient.m */; };
+		3B07BA92180E401500EF9E53 /* CMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA67180E401500EF9E53 /* CMCategory.m */; };
+		3B07BA93180E401500EF9E53 /* CMEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA69180E401500EF9E53 /* CMEpisode.m */; };
+		3B07BA94180E401500EF9E53 /* CMMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA6B180E401500EF9E53 /* CMMovie.m */; };
+		3B07BA95180E401500EF9E53 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA6D180E401500EF9E53 /* CMUser.m */; };
+		3B07BA96180E401500EF9E53 /* CMCateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA70180E401500EF9E53 /* CMCateCell.m */; };
+		3B07BA97180E401500EF9E53 /* CMEpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA72180E401500EF9E53 /* CMEpisodeCell.m */; };
+		3B07BA98180E401500EF9E53 /* CMMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA74180E401500EF9E53 /* CMMovieCell.m */; };
+		3B07BA99180E401500EF9E53 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA77180E401500EF9E53 /* CMAccountViewController.m */; };
+		3B07BA9A180E401500EF9E53 /* CMAddCreditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA79180E401500EF9E53 /* CMAddCreditViewController.m */; };
+		3B07BA9B180E401500EF9E53 /* CMCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA7B180E401500EF9E53 /* CMCategoryViewController.m */; };
+		3B07BA9C180E401500EF9E53 /* CMChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA7D180E401500EF9E53 /* CMChangePasswordViewController.m */; };
+		3B07BA9D180E401500EF9E53 /* CMEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA7F180E401500EF9E53 /* CMEditProfileViewController.m */; };
+		3B07BA9E180E401500EF9E53 /* CMEpisodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA81180E401500EF9E53 /* CMEpisodeViewController.m */; };
+		3B07BA9F180E401500EF9E53 /* CMForgotPWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA83180E401500EF9E53 /* CMForgotPWViewController.m */; };
+		3B07BAA0180E401500EF9E53 /* CMMoreInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA85180E401500EF9E53 /* CMMoreInfoViewController.m */; };
+		3B07BAA1180E401500EF9E53 /* CMMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA87180E401500EF9E53 /* CMMovieViewController.m */; };
+		3B07BAA2180E401500EF9E53 /* CMProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA89180E401500EF9E53 /* CMProfileViewController.m */; };
+		3B07BAA3180E401500EF9E53 /* CMRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA8B180E401500EF9E53 /* CMRegisterViewController.m */; };
+		3B07BAA4180E401500EF9E53 /* CMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA8D180E401500EF9E53 /* CMVideoPlayerViewController.m */; };
+		3B07BAA5180E401500EF9E53 /* CMWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B07BA8F180E401500EF9E53 /* CMWebViewController.m */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
 		3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24817FF328A006FA479 /* MakathonAdView.m */; };
 		3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24B17FF346C006FA479 /* MakathonAd.m */; };
@@ -78,6 +99,48 @@
 		0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		320AF8492C47A4D819F7C450 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.frameworks; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		320B6C86F11D9990244A9730 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = ../three20/src/Three20.bundle; sourceTree = SOURCE_ROOT; };
+		3B07BA62180E401500EF9E53 /* CMApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMApiClient.h; sourceTree = "<group>"; };
+		3B07BA63180E401500EF9E53 /* CMApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMApiClient.m; sourceTree = "<group>"; };
+		3B07BA66180E401500EF9E53 /* CMCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCategory.h; sourceTree = "<group>"; };
+		3B07BA67180E401500EF9E53 /* CMCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCategory.m; sourceTree = "<group>"; };
+		3B07BA68180E401500EF9E53 /* CMEpisode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEpisode.h; sourceTree = "<group>"; };
+		3B07BA69180E401500EF9E53 /* CMEpisode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMEpisode.m; sourceTree = "<group>"; };
+		3B07BA6A180E401500EF9E53 /* CMMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMovie.h; sourceTree = "<group>"; };
+		3B07BA6B180E401500EF9E53 /* CMMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMovie.m; sourceTree = "<group>"; };
+		3B07BA6C180E401500EF9E53 /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
+		3B07BA6D180E401500EF9E53 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
+		3B07BA6F180E401500EF9E53 /* CMCateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCateCell.h; sourceTree = "<group>"; };
+		3B07BA70180E401500EF9E53 /* CMCateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCateCell.m; sourceTree = "<group>"; };
+		3B07BA71180E401500EF9E53 /* CMEpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEpisodeCell.h; sourceTree = "<group>"; };
+		3B07BA72180E401500EF9E53 /* CMEpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMEpisodeCell.m; sourceTree = "<group>"; };
+		3B07BA73180E401500EF9E53 /* CMMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMovieCell.h; sourceTree = "<group>"; };
+		3B07BA74180E401500EF9E53 /* CMMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMovieCell.m; sourceTree = "<group>"; };
+		3B07BA76180E401500EF9E53 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
+		3B07BA77180E401500EF9E53 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
+		3B07BA78180E401500EF9E53 /* CMAddCreditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAddCreditViewController.h; sourceTree = "<group>"; };
+		3B07BA79180E401500EF9E53 /* CMAddCreditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAddCreditViewController.m; sourceTree = "<group>"; };
+		3B07BA7A180E401500EF9E53 /* CMCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCategoryViewController.h; sourceTree = "<group>"; };
+		3B07BA7B180E401500EF9E53 /* CMCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCategoryViewController.m; sourceTree = "<group>"; };
+		3B07BA7C180E401500EF9E53 /* CMChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMChangePasswordViewController.h; sourceTree = "<group>"; };
+		3B07BA7D180E401500EF9E53 /* CMChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChangePasswordViewController.m; sourceTree = "<group>"; };
+		3B07BA7E180E401500EF9E53 /* CMEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEditProfileViewController.h; sourceTree = "<group>"; };
+		3B07BA7F180E401500EF9E53 /* CMEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMEditProfileViewController.m; sourceTree = "<group>"; };
+		3B07BA80180E401500EF9E53 /* CMEpisodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMEpisodeViewController.h; sourceTree = "<group>"; };
+		3B07BA81180E401500EF9E53 /* CMEpisodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMEpisodeViewController.m; sourceTree = "<group>"; };
+		3B07BA82180E401500EF9E53 /* CMForgotPWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMForgotPWViewController.h; sourceTree = "<group>"; };
+		3B07BA83180E401500EF9E53 /* CMForgotPWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMForgotPWViewController.m; sourceTree = "<group>"; };
+		3B07BA84180E401500EF9E53 /* CMMoreInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMoreInfoViewController.h; sourceTree = "<group>"; };
+		3B07BA85180E401500EF9E53 /* CMMoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMoreInfoViewController.m; sourceTree = "<group>"; };
+		3B07BA86180E401500EF9E53 /* CMMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMovieViewController.h; sourceTree = "<group>"; };
+		3B07BA87180E401500EF9E53 /* CMMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMovieViewController.m; sourceTree = "<group>"; };
+		3B07BA88180E401500EF9E53 /* CMProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMProfileViewController.h; sourceTree = "<group>"; };
+		3B07BA89180E401500EF9E53 /* CMProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMProfileViewController.m; sourceTree = "<group>"; };
+		3B07BA8A180E401500EF9E53 /* CMRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRegisterViewController.h; sourceTree = "<group>"; };
+		3B07BA8B180E401500EF9E53 /* CMRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRegisterViewController.m; sourceTree = "<group>"; };
+		3B07BA8C180E401500EF9E53 /* CMVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMVideoPlayerViewController.h; sourceTree = "<group>"; };
+		3B07BA8D180E401500EF9E53 /* CMVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMVideoPlayerViewController.m; sourceTree = "<group>"; };
+		3B07BA8E180E401500EF9E53 /* CMWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebViewController.h; sourceTree = "<group>"; };
+		3B07BA8F180E401500EF9E53 /* CMWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebViewController.m; sourceTree = "<group>"; };
 		3B15D22A17FD86FB006FA479 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3B15D22B17FD86FB006FA479 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		3B15D24717FF328A006FA479 /* MakathonAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakathonAdView.h; sourceTree = "<group>"; };
@@ -213,6 +276,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B07BA60180E401500EF9E53 /* CloudMedia */ = {
+			isa = PBXGroup;
+			children = (
+				3B07BA61180E401500EF9E53 /* Model */,
+				3B07BA6E180E401500EF9E53 /* TableViewCell */,
+				3B07BA75180E401500EF9E53 /* ViewController */,
+			);
+			path = CloudMedia;
+			sourceTree = "<group>";
+		};
+		3B07BA61180E401500EF9E53 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B07BA62180E401500EF9E53 /* CMApiClient.h */,
+				3B07BA63180E401500EF9E53 /* CMApiClient.m */,
+				3B07BA66180E401500EF9E53 /* CMCategory.h */,
+				3B07BA67180E401500EF9E53 /* CMCategory.m */,
+				3B07BA68180E401500EF9E53 /* CMEpisode.h */,
+				3B07BA69180E401500EF9E53 /* CMEpisode.m */,
+				3B07BA6A180E401500EF9E53 /* CMMovie.h */,
+				3B07BA6B180E401500EF9E53 /* CMMovie.m */,
+				3B07BA6C180E401500EF9E53 /* CMUser.h */,
+				3B07BA6D180E401500EF9E53 /* CMUser.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3B07BA6E180E401500EF9E53 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3B07BA6F180E401500EF9E53 /* CMCateCell.h */,
+				3B07BA70180E401500EF9E53 /* CMCateCell.m */,
+				3B07BA71180E401500EF9E53 /* CMEpisodeCell.h */,
+				3B07BA72180E401500EF9E53 /* CMEpisodeCell.m */,
+				3B07BA73180E401500EF9E53 /* CMMovieCell.h */,
+				3B07BA74180E401500EF9E53 /* CMMovieCell.m */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		3B07BA75180E401500EF9E53 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3B07BA76180E401500EF9E53 /* CMAccountViewController.h */,
+				3B07BA77180E401500EF9E53 /* CMAccountViewController.m */,
+				3B07BA78180E401500EF9E53 /* CMAddCreditViewController.h */,
+				3B07BA79180E401500EF9E53 /* CMAddCreditViewController.m */,
+				3B07BA7A180E401500EF9E53 /* CMCategoryViewController.h */,
+				3B07BA7B180E401500EF9E53 /* CMCategoryViewController.m */,
+				3B07BA7C180E401500EF9E53 /* CMChangePasswordViewController.h */,
+				3B07BA7D180E401500EF9E53 /* CMChangePasswordViewController.m */,
+				3B07BA7E180E401500EF9E53 /* CMEditProfileViewController.h */,
+				3B07BA7F180E401500EF9E53 /* CMEditProfileViewController.m */,
+				3B07BA80180E401500EF9E53 /* CMEpisodeViewController.h */,
+				3B07BA81180E401500EF9E53 /* CMEpisodeViewController.m */,
+				3B07BA82180E401500EF9E53 /* CMForgotPWViewController.h */,
+				3B07BA83180E401500EF9E53 /* CMForgotPWViewController.m */,
+				3B07BA84180E401500EF9E53 /* CMMoreInfoViewController.h */,
+				3B07BA85180E401500EF9E53 /* CMMoreInfoViewController.m */,
+				3B07BA86180E401500EF9E53 /* CMMovieViewController.h */,
+				3B07BA87180E401500EF9E53 /* CMMovieViewController.m */,
+				3B07BA88180E401500EF9E53 /* CMProfileViewController.h */,
+				3B07BA89180E401500EF9E53 /* CMProfileViewController.m */,
+				3B07BA8A180E401500EF9E53 /* CMRegisterViewController.h */,
+				3B07BA8B180E401500EF9E53 /* CMRegisterViewController.m */,
+				3B07BA8C180E401500EF9E53 /* CMVideoPlayerViewController.h */,
+				3B07BA8D180E401500EF9E53 /* CMVideoPlayerViewController.m */,
+				3B07BA8E180E401500EF9E53 /* CMWebViewController.h */,
+				3B07BA8F180E401500EF9E53 /* CMWebViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		3B67F7A117E09A1D00C9CD23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +535,7 @@
 				F0D4C5A515CB1D4B00988376 /* CoreData */,
 				F0A3C85F15BB258D000CD962 /* Utility */,
 				F0DC4E0F15BA01DD0009BFCD /* Library */,
+				3B07BA60180E401500EF9E53 /* CloudMedia */,
 				F0DC4DF615BA012E0009BFCD /* Supporting Files */,
 			);
 			path = TVThailandV2;
@@ -549,28 +686,49 @@
 				F0DC4DFC15BA012E0009BFCD /* main.m in Sources */,
 				3B67F7B017E0BFF500C9CD23 /* ShowCategoryList.m in Sources */,
 				F0DC4E0015BA012E0009BFCD /* AppDelegate.m in Sources */,
+				3B07BA9C180E401500EF9E53 /* CMChangePasswordViewController.m in Sources */,
 				3B743BD317E1F7CC0086C519 /* EpisodeTableViewCell.m in Sources */,
+				3B07BA9E180E401500EF9E53 /* CMEpisodeViewController.m in Sources */,
 				3B67F7AD17E0A08900C9CD23 /* ShowTableViewCell.m in Sources */,
 				3B743BD017E1D8060086C519 /* Episode.m in Sources */,
+				3B07BA90180E401500EF9E53 /* CMApiClient.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
+				3B07BAA5180E401500EF9E53 /* CMWebViewController.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
+				3B07BA9A180E401500EF9E53 /* CMAddCreditViewController.m in Sources */,
+				3B07BA99180E401500EF9E53 /* CMAccountViewController.m in Sources */,
 				3B743BCD17E19C9E0086C519 /* EpisodeListViewController.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,
 				3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */,
 				F0A3C86815BB258D000CD962 /* UserAgent.m in Sources */,
+				3B07BA96180E401500EF9E53 /* CMCateCell.m in Sources */,
 				3B39B09E17E2F1540027B242 /* PartListViewController.m in Sources */,
+				3B07BA9B180E401500EF9E53 /* CMCategoryViewController.m in Sources */,
+				3B07BA98180E401500EF9E53 /* CMMovieCell.m in Sources */,
 				3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */,
+				3B07BA95180E401500EF9E53 /* CMUser.m in Sources */,
 				3B67F7A717E09C6600C9CD23 /* ShowListViewController.m in Sources */,
 				F042D51015BCA5590037E120 /* Base64.m in Sources */,
 				3B67F7BA17E0E9A300C9CD23 /* Show.m in Sources */,
+				3B07BAA3180E401500EF9E53 /* CMRegisterViewController.m in Sources */,
+				3B07BA94180E401500EF9E53 /* CMMovie.m in Sources */,
+				3B07BA92180E401500EF9E53 /* CMCategory.m in Sources */,
+				3B07BAA0180E401500EF9E53 /* CMMoreInfoViewController.m in Sources */,
+				3B07BAA2180E401500EF9E53 /* CMProfileViewController.m in Sources */,
 				3B39B0A117E309BE0027B242 /* PartTableViewCell.m in Sources */,
 				F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */,
 				3B910C3C17340387008F67ED /* ApiClient.m in Sources */,
+				3B07BAA4180E401500EF9E53 /* CMVideoPlayerViewController.m in Sources */,
 				3B910C3D17340387008F67ED /* ShowCategory.m in Sources */,
 				3B910C3E17340387008F67ED /* Channel.m in Sources */,
+				3B07BAA1180E401500EF9E53 /* CMMovieViewController.m in Sources */,
+				3B07BA93180E401500EF9E53 /* CMEpisode.m in Sources */,
 				3B67F7B317E0C8A600C9CD23 /* ShowCategoryTableViewCell.m in Sources */,
+				3B07BA9F180E401500EF9E53 /* CMForgotPWViewController.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,
+				3B07BA9D180E401500EF9E53 /* CMEditProfileViewController.m in Sources */,
+				3B07BA97180E401500EF9E53 /* CMEpisodeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +851,7 @@
 					"\"$(PODS_ROOT)/Headers/Objective-C-HMTL-Parser\"",
 					"\"$(PODS_ROOT)/Headers/JSONKit\"",
 					"\"$(PODS_ROOT)/Headers/XLMediaZoom\"",
+					"\"$(PODS_ROOT)/Headers/TPKeyboardAvoiding\"",
 				);
 				INFOPLIST_FILE = "TVThailandV2/TVThailandV2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -741,6 +900,7 @@
 					"\"$(PODS_ROOT)/Headers/Objective-C-HMTL-Parser\"",
 					"\"$(PODS_ROOT)/Headers/JSONKit\"",
 					"\"$(PODS_ROOT)/Headers/XLMediaZoom\"",
+					"\"$(PODS_ROOT)/Headers/TPKeyboardAvoiding\"",
 				);
 				INFOPLIST_FILE = "TVThailandV2/TVThailandV2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

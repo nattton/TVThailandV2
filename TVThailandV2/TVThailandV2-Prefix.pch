@@ -24,7 +24,7 @@
 #define kDailyMotionWeb @"DailyMotionWeb"
 
 #define kWebUrl @"http://www.makathon.com"
-#define kEmail @"makathon.labs@gmail.com"
+#define kEmailSupport @"makathon.labs@gmail.com"
 #define kFBFanPage @"http://goo.gl/LVJOM"
 
 #define kFBShareUrl @"https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Ftv-thailand-free-version%2Fid458429827%3Fl%3Dth%26ls%3D1%26mt%3D8"
