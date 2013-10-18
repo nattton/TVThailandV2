@@ -245,6 +245,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
 				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
 				3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */,
 				3B910C341733FE25008F67ED /* CFNetwork.framework in Frameworks */,
@@ -253,7 +254,6 @@
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
 				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
 				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
-				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
 				3BFEDFFC1806A20F0074C130 /* SDWebImage.framework in Frameworks */,
 				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
 				3BA59C11180693DD0094D758 /* libGoogleAnalyticsServices.a in Frameworks */,

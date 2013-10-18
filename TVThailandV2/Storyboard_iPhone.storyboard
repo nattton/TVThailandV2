@@ -737,7 +737,7 @@
         <scene sceneID="sU9-O4-fYn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zh9-Wa-xdC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Categoties" image="album" id="LJB-Ic-BaY"/>
+                    <tabBarItem key="tabBarItem" title="Categoties" image="tab_cate" id="LJB-Ic-BaY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IgW-qe-jJ8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -760,7 +760,7 @@
         <scene sceneID="DLe-LH-kw0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="his-X6-HWf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Channels" image="video-player" id="IN5-EC-hTr"/>
+                    <tabBarItem key="tabBarItem" title="Channels" image="tab_channel" id="IN5-EC-hTr"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FVq-cM-bfg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2028,9 +2028,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="album" width="30" height="30"/>
         <image name="favorite" width="30" height="30"/>
-        <image name="video-player" width="30" height="30"/>
+        <image name="tab_cate" width="30" height="30"/>
+        <image name="tab_channel" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -2038,10 +2038,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Bc8-PK-1lJ"/>
-        <segue reference="3PO-yq-kuy"/>
-        <segue reference="K3l-i7-YpG"/>
+        <segue reference="9Rn-Dv-86c"/>
         <segue reference="kKp-Ia-npF"/>
         <segue reference="SET-o6-jSQ"/>
+        <segue reference="3PO-yq-kuy"/>
+        <segue reference="K3l-i7-YpG"/>
     </inferredMetricsTieBreakers>
 </document>
