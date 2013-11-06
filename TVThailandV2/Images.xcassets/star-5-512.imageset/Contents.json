@@ -3,12 +3,11 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "favorite.png"
+      "filename" : "star-5-512.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "favorite@2x.png"
+      "scale" : "2x"
     }
   ],
   "info" : {

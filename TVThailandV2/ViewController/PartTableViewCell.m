@@ -15,6 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
     }
     return self;
 }
@@ -27,7 +28,8 @@
 }
 
 - (void)prepareForReuse {
-    self.imageThumbView.frame = CGRectMake(0, 0, 320, 180);
+//    self.imageThumbView.frame = CGRectMake(0, 0, 320, 180);
+
 }
 
 @end

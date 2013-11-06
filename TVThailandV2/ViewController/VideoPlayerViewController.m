@@ -29,6 +29,7 @@
 @implementation VideoPlayerViewController {
     NSString *_videoId;
     CGSize _size;
+    NSString *_spaceTop;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -53,11 +54,13 @@
     
     if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
     {
-        adFrame.origin.y = viewFrame.size.height - adFrame.size.height;
+//        adFrame.origin.y = viewFrame.size.height - adFrame.size.height;
+        adFrame.origin.y = 0;
     }
     else
     {
-        adFrame.origin.y = viewFrame.size.height - adFrame.size.height - 50;
+//        adFrame.origin.y = viewFrame.size.height - adFrame.size.height - 50;
+        adFrame.origin.y = 65;
     }
     
     [self.mkAdView setFrame:adFrame];
@@ -79,10 +82,12 @@
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _size = CGSizeMake(768, 460);
+        _spaceTop = @"80px";
     }
     else
     {
         _size = CGSizeMake(320, 240);
+        _spaceTop = @"50px";
     }
     
     
@@ -184,7 +189,7 @@
 {
     NSString *htmlString = @"<html><head>\
     <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
-    <body style=\"margin-top:0px;margin-left:0px\">\
+    <body style=\"margin-top:%@;margin-left:0px\">\
     <div align=\"center\"><object width=\"%0.0f\" height=\"%0.0f\">\
     <param name=\"movie\" value=\"http://www.youtube.com/v/%@\"></param>\
     <param name=\"wmode\" value=\"transparent\"></param>\
@@ -194,6 +199,7 @@
     
     NSString *html = [NSString stringWithFormat:htmlString,
                       _size.width,
+                      _spaceTop,
                       _size.width,
                       _size.height,
                       _videoId,

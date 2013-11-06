@@ -59,7 +59,13 @@ static NSString *showYoutubePlayerSegue = @"ShowYoutubePlayerSegue";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     NSString *imageUrl = [self.episode videoThumbnail:indexPath.section];
-    [cell.imageThumbView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+//    cell = [[PartTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//    [cell.imageThumbView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+    UIImageView *partImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
+    [partImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [cell addSubview:partImageView];
     
     return cell;
 }
@@ -79,5 +85,7 @@ static NSString *showYoutubePlayerSegue = @"ShowYoutubePlayerSegue";
         youtubePlayer.idx = idx.section;
     }
 }
+
+
 
 @end
