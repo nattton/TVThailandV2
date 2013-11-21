@@ -39,7 +39,7 @@
         [_thaiFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"th"]];
         [_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         
-        _date = [NSString stringWithFormat:@"ออกอากาศ %@",
+        _updatedDate = [NSString stringWithFormat:@"ออกอากาศ %@",
                  [_thaiFormat stringFromDate:[_df dateFromString: [dictionary objectForKey:@"date"]]]];
         _viewCount = [NSString stringWithFormat:@"%@ views",
                       [_numberFormatter stringFromNumber:[NSNumber numberWithInt:[[dictionary objectForKey:@"view_count"] intValue]]]];
@@ -83,7 +83,7 @@
         NSMutableString *display = [NSMutableString string];
         if (_ep > 20000000) {
             if ([_title isEqualToString:@""]) {
-                [display appendString:_date];
+                [display appendString:_updatedDate];
             } else {
                 [display appendString:_title];
             }

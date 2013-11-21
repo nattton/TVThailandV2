@@ -102,6 +102,7 @@
                         <outlet property="tableView" destination="Nbf-MH-J29" id="qqI-32-9XI"/>
                         <segue destination="Oo4-Sv-THQ" kind="push" identifier="ShowEpisodeSegue" id="3PO-yq-kuy"/>
                         <segue destination="Z3x-hJ-NYH" kind="push" identifier="ShowPlayerSegue" id="VVM-kZ-9qj"/>
+                        <segue destination="Jb5-3U-4hm" kind="push" identifier="EPAndPartIdentifier" id="coN-dj-guD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LCC-jr-b3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -116,6 +117,87 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1058" y="-95"/>
+        </scene>
+        <!--EpisodeAND Part View Controller-->
+        <scene sceneID="DVA-hj-FX5">
+            <objects>
+                <viewController id="Jb5-3U-4hm" customClass="EpisodeANDPartViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g48-Jx-ZCl"/>
+                        <viewControllerLayoutGuide type="bottom" id="LCi-Mt-Keb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Gd1-qw-5ZE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ktg-fv-9cs">
+                                <rect key="frame" x="0.0" y="64" width="320" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fxB-0x-UG6">
+                                        <rect key="frame" x="10" y="9" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="bs6-MP-FBx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="215" translatesAutoresizingMaskIntoConstraints="NO" id="htj-ua-326">
+                                        <rect key="frame" x="98" y="12" width="215" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="uKq-Cf-bNA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZS-bu-MRq">
+                                        <rect key="frame" x="271" y="51" width="42" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="42" id="h1R-am-LQs"/>
+                                            <constraint firstAttribute="height" constant="42" id="s0u-we-6jj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
+                                        <state key="normal" image="favorite"/>
+                                        <connections>
+                                            <action selector="favoriteButtonTapped:" destination="Oo4-Sv-THQ" eventType="touchUpInside" id="BN8-1q-6Rs"/>
+                                            <action selector="favoriteButtonTapped:" destination="Jb5-3U-4hm" eventType="touchUpInside" id="gCG-pD-8SK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="NZS-bu-MRq" firstAttribute="trailing" secondItem="htj-ua-326" secondAttribute="trailing" id="1nw-Ip-DSU"/>
+                                    <constraint firstAttribute="bottom" secondItem="NZS-bu-MRq" secondAttribute="bottom" constant="7" id="39X-ke-AYm"/>
+                                    <constraint firstItem="fxB-0x-UG6" firstAttribute="top" secondItem="Ktg-fv-9cs" secondAttribute="top" constant="9" id="ELb-ce-acf"/>
+                                    <constraint firstItem="htj-ua-326" firstAttribute="leading" secondItem="fxB-0x-UG6" secondAttribute="trailing" constant="8" symbolic="YES" id="FcA-uq-4Rt"/>
+                                    <constraint firstItem="htj-ua-326" firstAttribute="top" secondItem="Ktg-fv-9cs" secondAttribute="top" constant="12" id="Ru1-am-hge"/>
+                                    <constraint firstItem="NZS-bu-MRq" firstAttribute="top" secondItem="htj-ua-326" secondAttribute="bottom" constant="8" symbolic="YES" id="ZUV-in-R2I"/>
+                                    <constraint firstItem="fxB-0x-UG6" firstAttribute="leading" secondItem="Ktg-fv-9cs" secondAttribute="leading" constant="10" id="fah-T2-Ydc"/>
+                                    <constraint firstAttribute="bottom" secondItem="fxB-0x-UG6" secondAttribute="bottom" constant="11" id="kXl-Bx-1ne"/>
+                                    <constraint firstAttribute="trailing" secondItem="htj-ua-326" secondAttribute="trailing" constant="7" id="wda-vB-3N9"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ktg-fv-9cs" firstAttribute="leading" secondItem="Gd1-qw-5ZE" secondAttribute="leading" id="EE4-mb-4hr"/>
+                            <constraint firstAttribute="trailing" secondItem="Ktg-fv-9cs" secondAttribute="trailing" id="ois-0D-2hK"/>
+                            <constraint firstItem="Ktg-fv-9cs" firstAttribute="top" secondItem="g48-Jx-ZCl" secondAttribute="bottom" id="pXa-Wk-ymq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hSP-SE-Z3n"/>
+                    <connections>
+                        <outlet property="favoriteButton" destination="NZS-bu-MRq" id="pBE-Y2-BbT"/>
+                        <outlet property="showThumbnailImageView" destination="fxB-0x-UG6" id="UZn-aW-Ja8"/>
+                        <outlet property="showTitleLabel" destination="htj-ua-326" id="Elb-LL-stU"/>
+                        <segue destination="Z3x-hJ-NYH" kind="push" identifier="EPPartShowPlayerSegue" id="saQ-9b-nco"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u3i-no-XfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1449" y="-1620"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="tW7-mx-dZP">
@@ -365,8 +447,8 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-iu-AU8" customClass="MakathonAdView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="72"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-iu-AU8" customClass="MakathonAdView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -642,6 +724,7 @@
                     <connections>
                         <outlet property="tableView" destination="Piz-DP-0nz" id="vKF-xQ-Fjt"/>
                         <segue destination="Oo4-Sv-THQ" kind="push" identifier="ShowEpisodeSegue" id="HVe-sY-Nz3"/>
+                        <segue destination="Jb5-3U-4hm" kind="push" identifier="EPAndPartIdentifier" id="x1u-Y4-edj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYX-Ow-fc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -743,7 +826,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IgW-qe-jJ8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
@@ -2039,10 +2122,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3PO-yq-kuy"/>
+        <segue reference="HVe-sY-Nz3"/>
         <segue reference="9Rn-Dv-86c"/>
-        <segue reference="K3l-i7-YpG"/>
-        <segue reference="kKp-Ia-npF"/>
+        <segue reference="x1u-Y4-edj"/>
+        <segue reference="saQ-9b-nco"/>
         <segue reference="SET-o6-jSQ"/>
+        <segue reference="kKp-Ia-npF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,6 +20,8 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#import "EpisodeANDPartViewController.h"
+
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -41,22 +43,37 @@
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *searchCellIdentifier = @"SearchCellIdentifier";
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
+
 
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 #pragma mark - Seque Method
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
+    // Comment the current version of showEpisodeSegue
+//    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
+//        Show *show = (Show *)sender;
+//        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
+//        episodeListViewController.show = show;
+//        
+//        id tracker = [[GAI sharedInstance] defaultTracker];
+//        [tracker set:kGAIScreenName
+//               value:_screenName];
+//        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+//                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
+//    }
+    if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
         Show *show = (Show *)sender;
-        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
-        episodeListViewController.show = show;
+        EpisodeANDPartViewController *episodeAndPartListViewController = segue.destinationViewController;
+        episodeAndPartListViewController.show = show;
         
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
-               value:_screenName];
+              value:_screenName];
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
-                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
+                                                         forKey:[GAIFields customDimensionForIndex:2]] build]];
+        
     }
     else if ([segue.identifier isEqualToString:showPlayerSegue]) {
         VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
@@ -249,7 +266,9 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         [self performSegueWithIdentifier:showEpisodeSegue sender:_searchShows[indexPath.row]];
     }
     else {
-        [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
+        // Comment the current version of showEpisodeSegue
+//        [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
+        [self performSegueWithIdentifier:EPAndPartIdentifier sender:_shows[indexPath.row]];
     }
 }
 
@@ -294,5 +313,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         }];
     }
 }
+
 
 @end

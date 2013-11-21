@@ -16,7 +16,7 @@
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *videoEncrypt;
 @property (nonatomic, readonly) NSString *srcType;
-@property (nonatomic, readonly) NSString *date;
+@property (nonatomic, readonly) NSString *updatedDate;
 @property (nonatomic, readonly) NSString *viewCount;
 @property (nonatomic, readonly) NSString *parts;
 @property (nonatomic, readonly) NSString *password;

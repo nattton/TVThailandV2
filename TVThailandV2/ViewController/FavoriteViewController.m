@@ -11,7 +11,8 @@
 #import "ShowTableViewCell.h"
 #import "Program.h"
 #import "Show.h"
-#import "EpisodeListViewController.h"
+#import "EpisodeANDPartViewController.h"
+
 
 #import "GAI.h"
 #import "GAIFields.h"
@@ -29,14 +30,32 @@
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
+//    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
+//        Program *program = (Program *)sender;
+//        
+//        Show *show = [[Show alloc] initWithProgram:program];
+//        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
+//        episodeListViewController.show = show;
+//        
+//        id tracker = [[GAI sharedInstance] defaultTracker];
+//        [tracker set:kGAIScreenName
+//               value:@"Favorite"];
+//        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+//                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
+//    }
+    if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
         Program *program = (Program *)sender;
         
         Show *show = [[Show alloc] initWithProgram:program];
-        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
-        episodeListViewController.show = show;
+        EpisodeANDPartViewController *episodeAndPartListViewController = segue.destinationViewController;
+        episodeAndPartListViewController.show = show;
+        
+//        Show *show = [[Show alloc] initWithProgram:program];
+//        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
+//        episodeListViewController.show = show;
         
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
@@ -44,6 +63,8 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
                                                           forKey:[GAIFields customDimensionForIndex:2]] build]];
     }
+    
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -89,7 +110,8 @@ static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      Program *program = (Program*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:showEpisodeSegue sender:program];
+//    [self performSegueWithIdentifier:showEpisodeSegue sender:program];
+    [self performSegueWithIdentifier:EPAndPartIdentifier sender:program];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

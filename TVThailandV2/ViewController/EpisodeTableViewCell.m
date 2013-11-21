@@ -38,7 +38,7 @@
 - (void)configureWithEpisode:(Episode *)episode {
     
     self.titleLabel.text = episode.titleDisplay;
-    self.airedLabel.text = episode.date;
+    self.airedLabel.text = episode.updatedDate;
     self.viewLabel.text = episode.viewCount;
     
     if ([episode.srcType isEqualToString:@"0"]) {
