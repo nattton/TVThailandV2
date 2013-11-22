@@ -71,8 +71,8 @@ UIButton *buttonFavBar;
     
     
     buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite.png"] forState:UIControlStateNormal];
-    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite_selected"] forState:UIControlStateSelected];
+    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite"] forState:UIControlStateNormal];
+    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite_selected"] forState:UIControlStateHighlighted];
     [buttonFavBar addTarget:self action:@selector(addToFavButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
     [buttonFavBar setFrame:CGRectMake(0, 0, 53, 31)];
 
