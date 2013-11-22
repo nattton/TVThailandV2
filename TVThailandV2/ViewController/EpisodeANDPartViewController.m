@@ -12,6 +12,7 @@
 #import "Show.h"
 #import "Episode.h"
 #import "VideoPlayerViewController.h"
+#import "DetailViewController.h"
 #import "Program.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -28,7 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *showThumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *showTitleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
 
 
 
@@ -44,9 +45,11 @@
 
 static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
+static NSString *showDetailSegue = @"ShowDetailSegue";
 static double delayInSeconds = 1.0;
 
 UIButton *buttonFavBar;
+UIButton *buttonInfoBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,17 +74,21 @@ UIButton *buttonFavBar;
     
     
     buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite"] forState:UIControlStateNormal];
-    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite_selected"] forState:UIControlStateHighlighted];
-    [buttonFavBar addTarget:self action:@selector(addToFavButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
-    [buttonFavBar setFrame:CGRectMake(0, 0, 53, 31)];
+    [buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    [buttonFavBar setFrame:CGRectMake(0, 0, 45, 30)];
+    
+    buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
+    [buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    [buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
+
 
     [self reloadFavorite];
     
     UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonFavBar];
     
-    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStylePlain target:self action:@selector(infoButtonTapped:)];
-//    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithTitle:@"+Favorite" style:UIBarButtonItemStylePlain target:self action:@selector(favButtonTapped:)];
+    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonInfoBar];
+
     
     NSArray *barButtonArray = [[NSArray alloc] initWithObjects:infoBarButton, favoriteBarButton, nil];
     
@@ -171,23 +178,7 @@ UIButton *buttonFavBar;
 }
 
 - (IBAction)infoButtonTapped:(id)sender {
-    NSLog(@"info");
-}
-
-- (IBAction)addToFavButtonTapped:(id)sender {
-    NSArray *bookmarks = [self queyFavorites];
-    if(bookmarks.count == 0) {
-        [self insertFavorite];
-    }
-    else {
-        [self removeFavorite];
-    }
-    [self reloadFavorite];
-}
-
-- (IBAction)removeFromFavButtonTapped:(id)sender {
- 
-
+    [self performSegueWithIdentifier:showDetailSegue sender:self.show];
 }
 
 - (IBAction)favoriteButtonTapped:(id)sender {
@@ -201,18 +192,15 @@ UIButton *buttonFavBar;
     [self reloadFavorite];
 }
 
-//- (IBAction)detailButtonTapped:(id)sender {
-//    [self performSegueWithIdentifier:showDetailSegue sender:self.show];
-//}
 
 - (void)reloadFavorite {
     NSArray *bookmarks = [self queyFavorites];
     if(bookmarks.count == 0) {
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite"] forState:UIControlStateNormal];
+        
         [self setFavSelected:NO];
       
     } else {
-        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_active"] forState:UIControlStateNormal];
+        
         [self setFavSelected:YES];
     }
 }
@@ -323,14 +311,6 @@ UIButton *buttonFavBar;
     return _episodes.count;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    
-//    return [_episodes[section] titleDisplay] ;
-//
-//}
-
-
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
@@ -371,13 +351,12 @@ UIButton *buttonFavBar;
     [epviewCountLabel setText:epViewCountString];
     [epviewCountLabel setBackgroundColor:[UIColor clearColor]];
     epviewCountLabel.textAlignment = NSTextAlignmentRight;
-//    [epviewCountLabel setTextColor:[UIColor whiteColor]];
+
     [view addSubview:epviewCountLabel];
     
-    
-//    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:0.7]]; //your background color...
-      [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
-//    [view setBackgroundColor:[UIColor orangeColor]];
+
+    [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
+
     return view;
 }
 
@@ -418,10 +397,6 @@ UIButton *buttonFavBar;
     return 120;
 }
 
-- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    // This will create a "invisible" footer
-    return 0.00f;
-}
 
 
 #pragma mark - UITableViewDelegate
@@ -452,6 +427,10 @@ UIButton *buttonFavBar;
                value:@"Episode"];
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.episode.Id
                                                           forKey:[GAIFields customDimensionForIndex:3]] build]];
+    }else if ([segue.identifier isEqualToString:showDetailSegue]) {
+        DetailViewController *detailViewController = segue.destinationViewController;
+        detailViewController.show = self.show;
+
     }
 }
 
