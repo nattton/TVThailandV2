@@ -742,7 +742,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -754,15 +754,18 @@
             </objects>
             <point key="canvasLocation" x="532" y="-95"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Favorites-->
         <scene sceneID="tMT-bo-vbn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Z2Z-LE-Xbe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="GDf-Qg-Igf"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="tab_favorite" id="GDf-Qg-Igf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NlQ-xs-IZT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -828,7 +831,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -849,6 +852,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FVq-cM-bfg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2115,6 +2121,7 @@
         <image name="favorite" width="49" height="49"/>
         <image name="tab_cate" width="30" height="30"/>
         <image name="tab_channel" width="30" height="30"/>
+        <image name="tab_favorite" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -2122,11 +2129,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="HVe-sY-Nz3"/>
-        <segue reference="9Rn-Dv-86c"/>
-        <segue reference="x1u-Y4-edj"/>
-        <segue reference="saQ-9b-nco"/>
         <segue reference="SET-o6-jSQ"/>
         <segue reference="kKp-Ia-npF"/>
+        <segue reference="c4Z-oT-RfI"/>
+        <segue reference="VVM-kZ-9qj"/>
+        <segue reference="coN-dj-guD"/>
+        <segue reference="3PO-yq-kuy"/>
     </inferredMetricsTieBreakers>
 </document>

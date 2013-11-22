@@ -745,7 +745,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -757,15 +757,18 @@
             </objects>
             <point key="canvasLocation" x="540" y="-183"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Favorites-->
         <scene sceneID="Z2g-MN-rgq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9sd-W1-rnb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="YTB-QV-Hbk"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="tab_favorite" id="YTB-QV-Hbk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fqs-fz-LJF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -824,14 +827,14 @@
         <scene sceneID="zLo-iE-ZPO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TlO-9F-Tc9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Categoties" image="album" id="tmQ-Yf-jd1"/>
+                    <tabBarItem key="tabBarItem" title="Categoties" image="tab_cate" id="tmQ-Yf-jd1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uln-lm-6Ub">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -847,11 +850,14 @@
         <scene sceneID="RcD-u8-PfJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iLL-o4-8YB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Channels" image="video-player" id="dsL-Td-IXK"/>
+                    <tabBarItem key="tabBarItem" title="Channels" image="tab_channel" id="dsL-Td-IXK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="12h-3c-Cbl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -864,9 +870,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="album" width="30" height="30"/>
         <image name="favorite" width="49" height="49"/>
-        <image name="video-player" width="30" height="30"/>
+        <image name="tab_cate" width="30" height="30"/>
+        <image name="tab_channel" width="30" height="30"/>
+        <image name="tab_favorite" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="lightContent"/>
@@ -874,9 +881,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hGq-RM-WL8"/>
-        <segue reference="gYf-hu-iYC"/>
+        <segue reference="PpB-aQ-fTz"/>
         <segue reference="acJ-5N-zeG"/>
+        <segue reference="hGq-RM-WL8"/>
         <segue reference="RnK-NN-E9l"/>
     </inferredMetricsTieBreakers>
 </document>

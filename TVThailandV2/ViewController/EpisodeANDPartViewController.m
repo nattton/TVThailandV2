@@ -46,6 +46,7 @@ static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
 static double delayInSeconds = 1.0;
 
+UIButton *buttonFavBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,10 +65,25 @@ static double delayInSeconds = 1.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
 //    NSLog(@"Plateform: %@",self.platform);
     
     [self reloadFavorite];
+    
+    buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite.png"] forState:UIControlStateNormal];
+    [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite_selected"] forState:UIControlStateSelected];
+    [buttonFavBar addTarget:self action:@selector(addToFavButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    [buttonFavBar setFrame:CGRectMake(0, 0, 53, 31)];
+
+    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonFavBar];
+    
+    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStylePlain target:self action:@selector(infoButtonTapped:)];
+//    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithTitle:@"+Favorite" style:UIBarButtonItemStylePlain target:self action:@selector(favButtonTapped:)];
+    
+    NSArray *barButtonArray = [[NSArray alloc] initWithObjects:infoBarButton, favoriteBarButton, nil];
+    
+    self.navigationItem.rightBarButtonItems = barButtonArray;
     
     
     portable = [[UITableView alloc]init];
@@ -140,6 +156,20 @@ static double delayInSeconds = 1.0;
 
         }
     
+}
+
+- (IBAction)infoButtonTapped:(id)sender {
+    NSLog(@"info");
+}
+
+- (IBAction)addToFavButtonTapped:(id)sender {
+    NSLog(@"fave");
+
+}
+
+- (IBAction)removeFromFavButtonTapped:(id)sender {
+ 
+
 }
 
 - (IBAction)favoriteButtonTapped:(id)sender {
