@@ -68,7 +68,7 @@ UIButton *buttonFavBar;
     
 //    NSLog(@"Plateform: %@",self.platform);
     
-    [self reloadFavorite];
+    
     
     buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite.png"] forState:UIControlStateNormal];
@@ -76,6 +76,8 @@ UIButton *buttonFavBar;
     [buttonFavBar addTarget:self action:@selector(addToFavButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
     [buttonFavBar setFrame:CGRectMake(0, 0, 53, 31)];
 
+    [self reloadFavorite];
+    
     UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonFavBar];
     
     UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStylePlain target:self action:@selector(infoButtonTapped:)];
@@ -123,6 +125,16 @@ UIButton *buttonFavBar;
                                                object: nil];
 }
 
+- (void)setFavSelected:(BOOL)isSelected
+{
+    if (isSelected) {
+        [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite_selected"] forState:UIControlStateNormal];
+    }
+    else {
+        [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite"] forState:UIControlStateNormal];
+    }
+    
+}
 
 - (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {
     [self.view addSubview:_imageZoom];
@@ -163,8 +175,14 @@ UIButton *buttonFavBar;
 }
 
 - (IBAction)addToFavButtonTapped:(id)sender {
-    NSLog(@"fave");
-
+    NSArray *bookmarks = [self queyFavorites];
+    if(bookmarks.count == 0) {
+        [self insertFavorite];
+    }
+    else {
+        [self removeFavorite];
+    }
+    [self reloadFavorite];
 }
 
 - (IBAction)removeFromFavButtonTapped:(id)sender {
@@ -191,10 +209,11 @@ UIButton *buttonFavBar;
     NSArray *bookmarks = [self queyFavorites];
     if(bookmarks.count == 0) {
         [self.favoriteButton setImage:[UIImage imageNamed:@"favorite"] forState:UIControlStateNormal];
+        [self setFavSelected:NO];
       
     } else {
         [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_active"] forState:UIControlStateNormal];
-  
+        [self setFavSelected:YES];
     }
 }
 
