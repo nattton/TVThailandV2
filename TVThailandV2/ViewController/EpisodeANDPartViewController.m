@@ -164,8 +164,8 @@ UIButton *buttonInfoBar;
      CGRect newFrame  = self.view.frame;
      CGSize actualSize = self.view.frame.size;
     
-        if (newFrame.size.height > 500) {
-            NSLog(@"Height > 500");
+        if (newFrame.size.height > 470) {
+            NSLog(@"Height > 470");
 //            NSLog(@"iPhone5, width : %f, hight : %f", self.view.frame.size.width, self.view.frame.size.height);
             portable.frame = CGRectMake(0, 160, actualSize.width, actualSize.height-210);
 //            NSLog(@"Final, width : %f, hight : %f", self.view.frame.size.width, self.view.frame.size.height);
@@ -462,17 +462,5 @@ UIButton *buttonInfoBar;
     });
     
 }
-
-// Check Platform of iPhone/iPad
-- (NSString *) platform {
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithUTF8String:machine];
-    free(machine);
-    return platform;
-}
-
 
 @end
