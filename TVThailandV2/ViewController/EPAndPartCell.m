@@ -114,8 +114,11 @@
         partTitleLabel.textColor = [UIColor whiteColor];
         [partTitleLabel setText:[NSString stringWithFormat:@"Part %d", (indexPath.row+1)]];
         partTitleLabel.numberOfLines = 0;
-//        partTitleLabel.lineBreakMode = UILineBreakModeWordWrap;
-        [cell addSubview:partTitleLabel];
+
+        if (self.episode.videos.count != 1 ){
+            [cell addSubview:partTitleLabel];
+        }
+        
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setBackgroundColor:[UIColor clearColor]];
