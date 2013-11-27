@@ -7,6 +7,8 @@
 //
 
 #import "VideoPlayerViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "Episode.h"
 
 #import "SVProgressHUD.h"
@@ -30,6 +32,7 @@
     NSString *_videoId;
     CGSize _size;
     NSString *_spaceTop;
+    NSString *_videoFile;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -286,7 +289,7 @@
     
 //    NSURL *urlMThai = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/player.php?id=24M%@M0",_videoId]];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
-    [httpClient getPath:[NSString stringWithFormat:@"player.php?id=24M%@M0",_videoId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient getPath:[NSString stringWithFormat:@"cool/player/%@.html",_videoId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self startMThaiVideoFromData:responseObject];
 //        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
 //        NSLog(@"str: %@", str);
@@ -298,7 +301,7 @@
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
-    [httpClient postPath:[NSString stringWithFormat:@"player.php?id=24M%@M0",_videoId] parameters:@{@"clip_password": password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient postPath:[NSString stringWithFormat:@"cool/player/%@.html",_videoId] parameters:@{@"clip_password": password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self startMThaiVideoFromData:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -328,6 +331,14 @@
                     return;
                 }else {
                     [self openWithVideoUrl:videoUrl];
+                    
+//                    _videoFile = videoUrl;
+//                    NSLog(@"videoUrl : %@", _videoFile);
+//                    UIBarButtonItem *playButton = [[UIBarButtonItem alloc] initWithTitle:@"Play"
+//                                                                                   style:UIBarButtonItemStylePlain
+//                                                                                  target:self
+//                                                                                  action:@selector(playVideo:)];
+//                    self.navigationItem.rightBarButtonItem = playButton;
                 }
                 return;
             }
@@ -336,6 +347,28 @@
     
     [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
 }
+
+//- (IBAction)playVideo:(id)sender
+//{
+//    NSLog(@"videoUrl : %@", _videoFile);
+//
+//    NSURL *urlVideo = [NSURL URLWithString: _videoFile];
+//    [[UIApplication sharedApplication] openURL: urlVideo];
+//
+//    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:self.videoUrl]];
+//    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+//    
+//    NSURL *assetURL = [NSURL URLWithString:_videoFile];
+//    MPMoviePlayerViewController *movie = [[MPMoviePlayerViewController alloc] initWithContentURL:assetURL];
+//    [self presentMoviePlayerViewControllerAnimated:movie];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myMovieFinishedCallback:)
+//                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:movie];
+//}
+//
+//- (IBAction)myMovieFinishedCallback:(id)sender
+//{
+//    
+//}
 
 - (void)didReceiveMemoryWarning
 {
