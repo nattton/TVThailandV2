@@ -54,7 +54,8 @@
     
     [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/episode/%@/%d?device=ios", Id, start] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         Show *show;
-        NSDictionary *dictShow = [JSON valueForKey:@"info"];
+        id dictInfo = [JSON valueForKey:@"info"];
+        NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
         if (dictShow) {
             show = [[Show alloc] initWithDictionary:dictShow];
         }
