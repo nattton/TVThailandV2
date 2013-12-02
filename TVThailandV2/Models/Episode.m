@@ -79,6 +79,14 @@
     
 }
 
+- (void)sendViewEpisode {
+    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/view_episode/%@?device=ios", self.Id] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
 -(NSString *)titleDisplay {
     if (_titleDisplay == nil) {
         NSMutableString *display = [NSMutableString string];

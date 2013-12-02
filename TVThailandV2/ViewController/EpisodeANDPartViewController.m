@@ -422,6 +422,8 @@ UIButton *buttonInfoBar;
         NSIndexPath *idx = (NSIndexPath *)sender;
         youtubePlayer.idx = idx.row;
         
+        [self.episode sendViewEpisode];
+        
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
                value:@"Episode"];
