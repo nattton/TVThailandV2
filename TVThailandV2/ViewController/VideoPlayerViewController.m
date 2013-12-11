@@ -57,12 +57,12 @@
     
     if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
     {
-//        adFrame.origin.y = viewFrame.size.height - adFrame.size.height;
+
         adFrame.origin.y = 0;
     }
     else
     {
-//        adFrame.origin.y = viewFrame.size.height - adFrame.size.height - 50;
+
         adFrame.origin.y = 65;
     }
     
@@ -81,7 +81,7 @@
 
 //    [self.webView.scrollView setScrollEnabled:NO];
     [self.mkAdView requestAd];
-//    [self.mkAdView setHidden:YES];
+
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _size = CGSizeMake(768, 460);
@@ -95,7 +95,12 @@
     
     
     if (self.episode) {
-        self.navigationItem.title = [NSString stringWithFormat:@"Part %d", (_idx + 1)];
+        
+        if (self.episode.videos.count != 1 ){
+            self.navigationItem.title = [NSString stringWithFormat:@"Part %d", (_idx + 1)];
+        }
+        
+        
         _videoId = self.episode.videos[self.idx];
         
         if ([self.episode.srcType isEqualToString:@"0"]) {

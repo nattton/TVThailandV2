@@ -24,13 +24,12 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#import "MakathonAdView.h"
+
 @interface EpisodeANDPartViewController ()<UITableViewDataSource, UITableViewDelegate,EPAndPartCellDelegate>
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *showThumbnailImageView;
-@property (weak, nonatomic) IBOutlet UILabel *showTitleLabel;
-
-
+@property (weak, nonatomic) IBOutlet MakathonAdView *makathonAdView;
 
 
 @end
@@ -43,13 +42,17 @@
     XLMediaZoom *_imageZoom;
 }
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
-static double delayInSeconds = 1.0;
+
 
 UIButton *buttonFavBar;
 UIButton *buttonInfoBar;
+
+UILabel *titleLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,13 +66,18 @@ UIButton *buttonInfoBar;
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setUpTableFrame];
+
+    
 }
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-//    NSLog(@"Plateform: %@",self.platform);
+    [self.makathonAdView requestAd];
+    
     
     
     
@@ -95,26 +103,27 @@ UIButton *buttonInfoBar;
     self.navigationItem.rightBarButtonItems = barButtonArray;
     
     
-    portable = [[UITableView alloc]init];
+    titleLabel = [[UILabel alloc] init];
+    titleLabel.text = self.show.title;
+    [titleLabel setBackgroundColor:[UIColor colorWithRed: 25/255.0 green:25/255.0 blue:25/255.0 alpha:0.7]];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    portable = [[UITableView alloc] init];
+    [portable setBackgroundColor:[UIColor clearColor]];
+    [portable setSeparatorColor:[UIColor clearColor]];
+    
     [self setUpTableFrame];
     [portable setDelegate:self];
     [portable setDataSource:self];
-    [self.view addSubview:portable];
-    [portable setBackgroundColor:[UIColor clearColor]];
-    [portable setSeparatorColor:[UIColor clearColor]];
+    
 
-    self.showTitleLabel.text = self.show.title;
-    [self.showThumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    self.showThumbnailImageView.layer.cornerRadius = 10.0;
-    self.showThumbnailImageView.clipsToBounds = YES;
     
-    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.showThumbnailImageView blurEffect:YES];
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTaped:)];
-    singleTap.numberOfTapsRequired = 1;
-    singleTap.numberOfTouchesRequired = 1;
-    [self.showThumbnailImageView addGestureRecognizer:singleTap];
-    [self.showThumbnailImageView setUserInteractionEnabled:YES];
+    [self.view addSubview:titleLabel];
+    [self.view addSubview:portable];
+
+
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
@@ -143,16 +152,7 @@ UIButton *buttonInfoBar;
     
 }
 
-- (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {
-    [self.view addSubview:_imageZoom];
-    [_imageZoom show];
-    if (self.show.posterUrl != nil && self.show.posterUrl.length > 0) {
-        [_imageZoom.imageView setImageWithURL:[NSURL URLWithString:self.show.posterUrl]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            [_imageZoom.imageView setImage:image];
-        }];
-    }
-    
-}
+
 
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
@@ -160,21 +160,50 @@ UIButton *buttonInfoBar;
 }
 
 - (void) setUpTableFrame {
-
+    
      CGRect newFrame  = self.view.frame;
      CGSize actualSize = self.view.frame.size;
     
-        if (newFrame.size.height > 470) {
-            NSLog(@"Height > 470");
-//            NSLog(@"iPhone5, width : %f, hight : %f", self.view.frame.size.width, self.view.frame.size.height);
-            portable.frame = CGRectMake(0, 160, actualSize.width, actualSize.height-210);
-//            NSLog(@"Final, width : %f, hight : %f", self.view.frame.size.width, self.view.frame.size.height);
-        } else {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0.0")) {
 
-            portable.frame = CGRectMake(0, 100, actualSize.width, actualSize.height-100);;
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            /* iPAD */
+            
+                portable.frame = CGRectMake(0, 183, actualSize.width, actualSize.height-240);
+                titleLabel.frame = CGRectMake(0, 153, self.view.frame.size.width, 30);
+            
+        } else {
+            /* iPhone */
+                portable.frame = CGRectMake(0, 143, actualSize.width, actualSize.height-190);
+                titleLabel.frame = CGRectMake(0, 113, self.view.frame.size.width, 30);
+                
+            
+        }
+
+
+    } else {
+        /** OS < 7 **/
+        
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            /* iPAD */
+           
+                portable.frame = CGRectMake(0, 118, actualSize.width, actualSize.height-120);
+                titleLabel.frame = CGRectMake(0, 88, self.view.frame.size.width, 30);
+                
+  
+        } else {
+            /* iPhone */
+
+                portable.frame = CGRectMake(0, 78, actualSize.width, actualSize.height-70);
+                titleLabel.frame = CGRectMake(0, 48, self.view.frame.size.width, 30);
+                
 
         }
+    }
     
+
+
+
 }
 
 - (IBAction)infoButtonTapped:(id)sender {
@@ -436,32 +465,31 @@ UIButton *buttonInfoBar;
     }
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+ 
+    [self setUpTableFrame];
+    [portable reloadData];
+    
+}
+
 
 - (void) orientationDidChange: (NSNotification *) note
 {
     
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
     {
-        // code for landscape orientation
-        NSLog(@"Landscape");
+        
+//        NSLog(@"Landscape");
 
     }
     
     if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
     {
-        // code for Portrait orientation
         
-        NSLog(@"Potrait");
+//        NSLog(@"Potrait");
     }
 
-    // After Oreientation Change, Deley 1 second before setUpTableFrame because after orientaion change, its frame won't change immediately
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            
-        [self setUpTableFrame];
-        [portable reloadData];
-            
-    });
     
 }
 

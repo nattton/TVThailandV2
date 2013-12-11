@@ -13,14 +13,20 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "XLMediaZoom.h"
+
 @interface DetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 
 @end
 
-@implementation DetailViewController
+@implementation DetailViewController {
+    XLMediaZoom *_imageZoom;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,11 +42,33 @@
     [super viewDidLoad];
     self.titleLabel.text = self.show.title;
     self.detailTextView.text = self.show.detail;
+    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    self.thumbnailImageView.layer.cornerRadius = 10.0;
+    self.thumbnailImageView.clipsToBounds = YES;
+    
+    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.thumbnailImageView blurEffect:YES];
+   
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTaped:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    [self.thumbnailImageView addGestureRecognizer:singleTap];
+    [self.thumbnailImageView setUserInteractionEnabled:YES];
     
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"Detail"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
+- (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {
+    [self.view addSubview:_imageZoom];
+    [_imageZoom show];
+    if (self.show.posterUrl != nil && self.show.posterUrl.length > 0) {
+        [_imageZoom.imageView setImageWithURL:[NSURL URLWithString:self.show.posterUrl]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            [_imageZoom.imageView setImage:image];
+        }];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
