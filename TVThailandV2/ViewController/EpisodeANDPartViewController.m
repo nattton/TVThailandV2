@@ -26,6 +26,8 @@
 
 #import "MakathonAdView.h"
 
+
+
 @interface EpisodeANDPartViewController ()<UITableViewDataSource, UITableViewDelegate,EPAndPartCellDelegate>
 
 
@@ -39,10 +41,10 @@
     BOOL isLoading;
     BOOL isEnding;
     UIRefreshControl *_refreshControl;
-    XLMediaZoom *_imageZoom;
+    
 }
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 
 static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
@@ -53,6 +55,7 @@ UIButton *buttonFavBar;
 UIButton *buttonInfoBar;
 
 UILabel *titleLabel;
+MakathonAdView *makathonAdView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,25 +68,77 @@ UILabel *titleLabel;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self calulateUI];
     [self setUpTableFrame];
 
     
 }
 
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self calulateUI];
+    [self setUpTableFrame];
+    [portable reloadData];
+    
+}
+
+- (void)calulateUI
+{
+    CGRect viewFrame = self.view.frame;
+    CGRect adFrame = makathonAdView.frame;
+    
+    adFrame.size.width = viewFrame.size.width;
+    
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        adFrame.size.height = 90;
+        adFrame.size.width = viewFrame.size.width;
+    }
+    else
+    {
+        adFrame.size.height = 50;
+        adFrame.size.width = viewFrame.size.width;
+    }
+    
+    if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+    {
+        
+        adFrame.origin.y = 0;
+    }
+    else
+    {
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            adFrame.origin.y = 64;
+        }else {
+        
+            if(isPortrait)
+            {
+                adFrame.origin.y = 64;
+            }
+            else
+            {
+                adFrame.origin.y = 52;
+            }
+        }
+    }
+    
+    [makathonAdView setFrame:adFrame];
+    
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+     makathonAdView = [[MakathonAdView alloc] init];
     
-    [self.makathonAdView requestAd];
-    
-    
-    
+    [makathonAdView requestAd];
+    [self.view addSubview:makathonAdView];
+
     
     buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
-    [buttonFavBar setFrame:CGRectMake(0, 0, 45, 30)];
+    [buttonFavBar setFrame:CGRectMake(0, 0, 50, 30)];
     
     buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
@@ -171,12 +226,22 @@ UILabel *titleLabel;
             
                 portable.frame = CGRectMake(0, 183, actualSize.width, actualSize.height-240);
                 titleLabel.frame = CGRectMake(0, 153, self.view.frame.size.width, 30);
+
+
             
         } else {
             /* iPhone */
+
+            if(isPortrait)
+            {
                 portable.frame = CGRectMake(0, 143, actualSize.width, actualSize.height-190);
                 titleLabel.frame = CGRectMake(0, 113, self.view.frame.size.width, 30);
-                
+            }
+            else
+            {
+                portable.frame = CGRectMake(0, 131, actualSize.width, actualSize.height-178);
+                titleLabel.frame = CGRectMake(0, 101, self.view.frame.size.width, 30);
+            }
             
         }
 
@@ -465,32 +530,11 @@ UILabel *titleLabel;
     }
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
- 
-    [self setUpTableFrame];
-    [portable reloadData];
-    
-}
 
 
 - (void) orientationDidChange: (NSNotification *) note
 {
-    
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
-    {
-        
-//        NSLog(@"Landscape");
-
-    }
-    
-    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
-    {
-        
-//        NSLog(@"Potrait");
-    }
-
-    
+        //keep this methode, otherwise it will crash
 }
 
 @end

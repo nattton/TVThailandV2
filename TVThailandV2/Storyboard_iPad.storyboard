@@ -561,24 +561,10 @@
                     <view key="view" contentMode="scaleToFill" id="0n4-iE-iUL">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3A-ci-BUH" customClass="MakathonAdView">
-                                <rect key="frame" x="0.0" y="64" width="768" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="L3A-ci-BUH" firstAttribute="top" secondItem="7of-iA-jq0" secondAttribute="bottom" id="7nu-xt-YgX"/>
-                            <constraint firstAttribute="trailing" secondItem="L3A-ci-BUH" secondAttribute="trailing" id="hHf-UE-INJ"/>
-                            <constraint firstItem="L3A-ci-BUH" firstAttribute="leading" secondItem="0n4-iE-iUL" secondAttribute="leading" id="kbJ-Ln-vYs"/>
-                            <constraint firstItem="7vY-e9-7Df" firstAttribute="top" secondItem="L3A-ci-BUH" secondAttribute="bottom" constant="821" id="uPW-sL-MTM"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P8b-rb-b2s"/>
                     <connections>
-                        <outlet property="makathonAdView" destination="L3A-ci-BUH" id="AhK-gY-F0V"/>
                         <segue destination="nWF-q7-qV2" kind="push" identifier="EPPartShowPlayerSegue" id="RnK-NN-E9l"/>
                         <segue destination="GoH-3d-stL" kind="modal" identifier="ShowDetailSegue" id="VxL-lD-BYg"/>
                     </connections>

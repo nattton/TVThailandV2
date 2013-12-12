@@ -29,3 +29,7 @@
 
 #define kFBShareUrl @"https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Ftv-thailand-free-version%2Fid458429827%3Fl%3Dth%26ls%3D1%26mt%3D8"
 #define kTweetUrl @"https://twitter.com/intent/tweet?text=%E0%B8%94%E0%B8%B9%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3+TV+%E0%B8%A2%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2+TV+Thailand++iOS+%3A+http%3A%2F%2Fgoo.gl%2F4ToXq%2C+Android+%3A+http%3A%2F%2Fgoo.gl%2FvPq3x"
+
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define isPortrait [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown
