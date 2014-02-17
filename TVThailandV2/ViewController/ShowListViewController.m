@@ -21,10 +21,14 @@
 #import "GAIDictionaryBuilder.h"
 
 #import "EpisodeANDPartViewController.h"
+#import "Reachability.h"
 
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet UIView *alertTitleView;
+@property (weak, nonatomic) IBOutlet UILabel *alertTitle;
 
 @end
 
@@ -37,6 +41,8 @@
     bool isLoading;
     bool isEnding;
     UIRefreshControl *_refreshControl;
+    Reachability *internetReachableTVThailand;
+    UILabel *noInternetLabel;
 }
 
 #pragma mark - Static Variable
@@ -49,20 +55,11 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
+
+
 #pragma mark - Seque Method
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Comment the current version of showEpisodeSegue
-//    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
-//        Show *show = (Show *)sender;
-//        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
-//        episodeListViewController.show = show;
-//        
-//        id tracker = [[GAI sharedInstance] defaultTracker];
-//        [tracker set:kGAIScreenName
-//               value:_screenName];
-//        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
-//                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
-//    }
+
     if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
         Show *show = (Show *)sender;
         EpisodeANDPartViewController *episodeAndPartListViewController = segue.destinationViewController;
@@ -88,6 +85,30 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 {
     [super viewDidLoad];
     
+    /** Alert View & Refresh Button - connection fail, try again **/
+    self.alertTitleView.alpha = 0;
+    
+    /** Alert Label No Internet Connection **/
+    UIFont * customFont = [UIFont fontWithName:@"Helvetica Neue" size:12]; //custom font
+    NSString * text = @"no internet connection";
+    noInternetLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 20)];
+    noInternetLabel.text = text;
+    noInternetLabel.font = customFont;
+    noInternetLabel.numberOfLines = 1;
+    noInternetLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines; // or UIBaselineAdjustmentAlignCenters, or UIBaselineAdjustmentNone
+    noInternetLabel.adjustsFontSizeToFitWidth = YES;
+    noInternetLabel.adjustsLetterSpacingToFitWidth = YES;
+    noInternetLabel.minimumScaleFactor = 10.0f/12.0f;
+    noInternetLabel.clipsToBounds = YES;
+    noInternetLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.9];
+    noInternetLabel.textColor = [UIColor whiteColor];
+    noInternetLabel.textAlignment = NSTextAlignmentCenter;
+    noInternetLabel.alpha = 0;
+    [self.view addSubview:noInternetLabel];
+    /** ------END------ Alert Label No Internet Connection **/
+    
+    
+    
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         NSLog(@"Load resources for iOS 6.1 or earlier");
         self.navigationController.navigationBar.tintColor = [UIColor grayColor];
@@ -99,6 +120,8 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         
         
     }
+
+
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     [self reload];
@@ -124,6 +147,8 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     [tracker set:kGAIScreenName
            value:_screenName];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
+
 }
 
 
@@ -136,6 +161,9 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 #pragma mark - Function
 
 - (void)reload {
+
+    self.alertTitleView.alpha = 0;
+    [SVProgressHUD showWithStatus:@"Loading..."];
     isEnding = NO;
     [self reload:0];
 }
@@ -163,11 +191,19 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     }
     isLoading = YES;
     if (_mode == kWhatsNew) {
+        [self testInternetConnection];
         [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
             
-            if ([tempShows count] == 0) {
+            [self hideLableOfNoInternetConnection];
+            
+            if (error != nil) {
+                self.alertTitleView.alpha = 0.85;
+            }
+            
+            if ([tempShows count] == 0 ) {
+                self.alertTitleView.alpha = 0.85;
                 isEnding = YES;
             }
             
@@ -182,16 +218,27 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             [self.tableView reloadData];
             isLoading = NO;
             
+            
             [_refreshControl endRefreshing];
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+            
+
         }];
     }
     else if (_mode == kCategory) {
+        [self testInternetConnection];
         [Show loadCategoryDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
             
+            [self hideLableOfNoInternetConnection];
+            
+            if (error != nil) {
+                self.alertTitleView.alpha = 0.85;
+            }
+            
             if ([tempShows count] == 0) {
+                self.alertTitleView.alpha = 0.85;
                 isEnding = YES;
             }
             
@@ -211,11 +258,19 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         }];
     }
     else if (_mode == kChannel) {
+        [self testInternetConnection];
         [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
             
+            [self hideLableOfNoInternetConnection];
+            
+            if (error != nil) {
+                self.alertTitleView.alpha = 0.85;
+            }
+            
             if ([tempShows count] == 0) {
+                self.alertTitleView.alpha = 0.85;
                 isEnding = YES;
             }
             
@@ -290,6 +345,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     [self reload];
 }
 
+
 #pragma mark - Search
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
@@ -325,6 +381,64 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         }];
     }
 }
+
+- (void)testInternetConnection
+{
+    internetReachableTVThailand = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Internet is reachable
+    internetReachableTVThailand.reachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Yayyy, we have the interwebs!");
+            
+            [self hideLableOfNoInternetConnection];
+            
+        });
+    };
+    
+    // Internet is not reachable
+    internetReachableTVThailand.unreachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Nooo, someone broke internet!");
+
+            [self showLableOfNoInternetConnection];
+
+            
+            
+        });
+    };
+    
+    [internetReachableTVThailand startNotifier];
+}
+
+- (IBAction)alertRefreshButtonTouched:(id)sender {
+    NSLog(@"Refresh Click");
+    [self reload];
+
+}
+
+- (void)showLableOfNoInternetConnection
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.6];
+    [noInternetLabel setAlpha:0.9];
+    [UIView commitAnimations];
+    
+}
+
+- (void)hideLableOfNoInternetConnection
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    [noInternetLabel setAlpha:0];
+    [UIView commitAnimations];
+    
+}
+
 
 
 @end

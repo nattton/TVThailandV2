@@ -97,7 +97,7 @@
     if (self.episode) {
         
         if (self.episode.videos.count != 1 ){
-            self.navigationItem.title = [NSString stringWithFormat:@"Part %d", (_idx + 1)];
+            self.navigationItem.title = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
         }
         
         

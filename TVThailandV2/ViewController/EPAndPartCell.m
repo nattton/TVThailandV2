@@ -112,7 +112,7 @@
         UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
         partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
         partTitleLabel.textColor = [UIColor whiteColor];
-        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d", (indexPath.row+1)]];
+        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d/%d", (indexPath.row+1), self.episode.videos.count ]];
         partTitleLabel.numberOfLines = 0;
 
         if (self.episode.videos.count != 1 ){
@@ -143,7 +143,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    NSLog(@"section:%d  row:%d title:%@",[indexPath section],[indexPath row],self.episode.titleDisplay);
+//    NSLog(@"section:%d  row:%d title:%@",[indexPath section],[indexPath row],self.episode.titleDisplay);
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
         [self.delegate playVideoPart:indexPath episode:self.episode];
     }
