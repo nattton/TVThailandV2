@@ -582,7 +582,13 @@
                             <constraint firstAttribute="bottom" secondItem="9Wl-9S-nlR" secondAttribute="bottom" id="j4d-gL-pfd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Categories" id="lNe-SG-YUZ"/>
+                    <navigationItem key="navigationItem" title="Categories" id="lNe-SG-YUZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="HRW-Vr-vHn">
+                            <connections>
+                                <action selector="refreshButtonTapped:" destination="Tfr-F7-a5I" id="df6-TU-NC4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="9Wl-9S-nlR" id="J4B-Of-XmC"/>
                         <segue destination="EuP-qS-lg2" kind="push" identifier="ShowListSegue" id="gYf-hu-iYC"/>
@@ -878,10 +884,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PpB-aQ-fTz"/>
-        <segue reference="ikQ-Cn-ROo"/>
+        <segue reference="gYf-hu-iYC"/>
         <segue reference="P5S-b6-NBQ"/>
         <segue reference="BMW-0E-Gfg"/>
+        <segue reference="ikQ-Cn-ROo"/>
         <segue reference="VxL-lD-BYg"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -605,7 +605,13 @@
                             <constraint firstAttribute="bottom" secondItem="yh3-oW-n4k" secondAttribute="bottom" id="hqx-Hx-zGF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Categories" id="pSf-zr-knd"/>
+                    <navigationItem key="navigationItem" title="Categories" id="pSf-zr-knd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="tqE-FC-Why">
+                            <connections>
+                                <action selector="refreshButtonTapped:" destination="ogd-vD-Ebg" id="JAe-l0-h1m"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="yh3-oW-n4k" id="QsI-Nf-bdw"/>
                         <segue destination="gMN-KA-q7K" kind="push" identifier="ShowListSegue" id="9Rn-Dv-86c"/>
@@ -2129,9 +2135,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="c4Z-oT-RfI"/>
-        <segue reference="VVM-kZ-9qj"/>
         <segue reference="3PO-yq-kuy"/>
+        <segue reference="9Rn-Dv-86c"/>
+        <segue reference="VVM-kZ-9qj"/>
         <segue reference="coN-dj-guD"/>
         <segue reference="E8Q-oG-9nj"/>
         <segue reference="kKp-Ia-npF"/>

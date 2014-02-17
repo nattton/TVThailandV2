@@ -90,6 +90,16 @@ static NSString *showListSegue = @"ShowListSegue";
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)refreshButtonTapped:(id)sender {
+    [self refresh];
+}
+
+- (void)refresh {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
+    [self reload];
+}
+
 #pragma mark - Table Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
