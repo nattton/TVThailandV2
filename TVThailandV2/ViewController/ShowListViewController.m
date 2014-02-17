@@ -184,7 +184,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             }
             
             if ([tempShows count] == 0 ) {
-                self.alertTitleView.alpha = 0.85;
                 isEnding = YES;
             }
             
@@ -218,7 +217,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             }
             
             if ([tempShows count] == 0) {
-                self.alertTitleView.alpha = 0.85;
                 isEnding = YES;
             }
             
@@ -249,7 +247,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             }
             
             if ([tempShows count] == 0) {
-                self.alertTitleView.alpha = 0.85;
                 isEnding = YES;
             }
             
