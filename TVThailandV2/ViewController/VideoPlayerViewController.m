@@ -297,7 +297,14 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    AFHTTPRequestSerializer * requestSerializer = [AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
+             forHTTPHeaderField:@"User-Agent"];
+    manager.requestSerializer = requestSerializer;
+
     [manager GET:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
+//    [manager GET:@"http://cms.makathon.com/user_agent.php"
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -306,7 +313,7 @@
         [self startMThaiVideoFromData:responseObject];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
     }];
 }
 
@@ -314,6 +321,12 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    AFHTTPRequestSerializer * requestSerializer = [AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
+             forHTTPHeaderField:@"User-Agent"];
+    manager.requestSerializer = requestSerializer;
+    
     [manager POST:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
        parameters:@{@"clip_password": password}
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
