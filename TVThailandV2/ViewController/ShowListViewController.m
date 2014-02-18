@@ -91,10 +91,10 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     
     
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        NSLog(@"Load resources for iOS 6.1 or earlier");
+        DLog(@"Load resources for iOS 6.1 or earlier");
         self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     } else {
-        NSLog(@"Load resources for iOS 7 or later");
+        DLog(@"Load resources for iOS 7 or later");
         self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
@@ -367,7 +367,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     {
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-//            NSLog(@"Yayyy, we have the interwebs!");
+//            DLog(@"Yayyy, we have the interwebs!");
             
             self.alertTitle.text = @"connection fail, try again";
             
@@ -391,7 +391,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 }
 
 - (IBAction)alertRefreshButtonTouched:(id)sender {
-    NSLog(@"Refresh Click");
+    DLog(@"Refresh Click");
     [self reload];
 
 }

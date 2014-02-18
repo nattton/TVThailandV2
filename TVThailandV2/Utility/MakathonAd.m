@@ -36,6 +36,7 @@
          for (NSDictionary *dictAd in jAds) {
              MakathonAd * ad = [[MakathonAd alloc] initWithDictionary:dictAd];
              [mutableAdss addObject:ad];
+             DLog(@"ad name : %@, url : %@", ad.name, ad.url);
          }
          
          if (block) {

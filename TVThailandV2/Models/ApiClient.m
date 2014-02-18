@@ -25,11 +25,7 @@ static NSString * const kAPIBaseURLString = @"http://tv.makathon.com";
 - (id) initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (self) {
-        // custom setting
         
-//        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-//        [self setDefaultHeader:@"Accept" value:@"application/json"];
-//        [self setDefaultHeader:@"Accept-Charset" value:@"utf-8"];
     }
     
     return self;

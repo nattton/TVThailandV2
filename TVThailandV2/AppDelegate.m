@@ -80,7 +80,7 @@ static NSString *const kTrackingId = @"UA-22403997-3";
                                                             URL:storeURL
                                                         options:nil error:&error])
     {
-        NSLog(@"Error connecting persistent store: %@, %@", error, [error userInfo]);
+        DLog(@"Error connecting persistent store: %@, %@", error, [error userInfo]);
         abort();
     }
     return _persistentStoreCoordinator;
@@ -102,7 +102,7 @@ static NSString *const kTrackingId = @"UA-22403997-3";
     NSError *error = nil;
     if ([self.managedObjectContext hasChanges] &&
         ![self.managedObjectContext save:&error]) {
-        NSLog(@"Error saving context: %@, %@", error, [error userInfo]);
+        DLog(@"Error saving context: %@, %@", error, [error userInfo]);
         abort();
     }
 }

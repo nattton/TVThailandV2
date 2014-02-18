@@ -70,7 +70,7 @@
     }
     
     [self.mkAdView setFrame:adFrame];
-//    NSLog(@"adFrame, width : %f, hight : %f, x : %f, y : %f", adFrame.size.width, adFrame.size.height, adFrame.origin.x, adFrame.origin.y);
+//    DLog(@"adFrame, width : %f, hight : %f, x : %f, y : %f", adFrame.size.width, adFrame.size.height, adFrame.origin.x, adFrame.origin.y);
     
 }
 
@@ -313,7 +313,7 @@
         [self startMThaiVideoFromData:responseObject];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        DLog(@"Error: %@", error);
     }];
 }
 
@@ -345,7 +345,7 @@
 //    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
     HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
     if (error) {
-        NSLog(@"Error: %@", error);
+        DLog(@"Error: %@", error);
     }
     
     HTMLNode *bodyNode = [parser body];
@@ -358,14 +358,13 @@
             NSString *videoUrl = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
             if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
                 if ([videoUrl hasSuffix:@"flv"]) {
-                    NSLog(@"FLV");
-                        [SVProgressHUD  showErrorWithStatus:@"Cannot play flv file."];
+                    DLog(@"FLV");
+                    [SVProgressHUD  showErrorWithStatus:@"Cannot play flv file."];
                     return;
                 }else {
                     [self openWithVideoUrl:videoUrl];
+                    DLog(@"videoUrl : %@", videoUrl);
                     
-//                    _videoFile = videoUrl;
-//                    NSLog(@"videoUrl : %@", _videoFile);
 //                    UIBarButtonItem *playButton = [[UIBarButtonItem alloc] initWithTitle:@"Play"
 //                                                                                   style:UIBarButtonItemStylePlain
 //                                                                                  target:self
@@ -382,7 +381,7 @@
 
 //- (IBAction)playVideo:(id)sender
 //{
-//    NSLog(@"videoUrl : %@", _videoFile);
+//    DLog(@"videoUrl : %@", _videoFile);
 //
 //    NSURL *urlVideo = [NSURL URLWithString: _videoFile];
 //    [[UIApplication sharedApplication] openURL: urlVideo];

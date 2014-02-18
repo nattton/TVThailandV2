@@ -19,7 +19,7 @@
 {
     NSDate *date = [NSDate date];
     NSTimeInterval ti = [date timeIntervalSince1970];
-//    NSLog(@"getUnixTime : %@",[NSString stringWithFormat:@"%.0f",ti]);
+    DLog(@"getUnixTime : %@",[NSString stringWithFormat:@"%.0f",ti]);
     return [NSString stringWithFormat:@"%.0f",ti];
 }
 
@@ -27,7 +27,7 @@
 {
     NSDate *date = [NSDate date];
     NSTimeInterval ti = [date timeIntervalSince1970];
-//    NSLog(@"getUnixTimeKey : %@",[NSString stringWithFormat:@"%.0f",ti/10.0]);
+    DLog(@"getUnixTimeKey : %@",[NSString stringWithFormat:@"%.0f",ti/10.0]);
     return [NSString stringWithFormat:@"%.0f",ti/10.0];
 }
 

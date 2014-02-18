@@ -498,8 +498,8 @@ MakathonAdView *makathonAdView;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-        NSLog(@"indexPath section%d",[indexPath section]);
-        NSLog(@"rows === %d",[indexPath row]);
+        DLog(@"indexPath section%d",[indexPath section]);
+        DLog(@"rows === %d",[indexPath row]);
 
 }
 
