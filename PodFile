@@ -1,3 +1,5 @@
+workspace 'TVThailandV2.xcworkspace'
+
 platform :ios, '6.0'
 
 pod 'Reachability'
