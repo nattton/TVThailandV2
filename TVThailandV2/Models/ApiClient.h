@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPClient.h"
+#import "AFHTTPSessionManager.h"
 
-@interface ApiClient : AFHTTPClient
+@interface ApiClient : AFHTTPSessionManager
 
 + (id) sharedInstance;
 

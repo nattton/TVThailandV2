@@ -52,39 +52,48 @@
     
     if (!Id) return;
     
-    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/episode/%@/%d?device=ios", Id, start] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        Show *show;
-        id dictInfo = [JSON valueForKey:@"info"];
-        NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
-        if (dictShow) {
-            show = [[Show alloc] initWithDictionary:dictShow];
-        }
-        
-        NSArray *episodes = [JSON valueForKeyPath:@"episodes"];
-        NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[episodes count]];
-        for (NSDictionary *dict in episodes) {
-            Episode *episode = [[Episode alloc] initWithDictionary:dict];
-            [mutableEpisodes addObject:episode];
-        }
-        
-        
-        if (block) {
-            block(show, [NSArray arrayWithArray:mutableEpisodes], nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(nil, [NSArray array], error);
-        }
-    }];
-    
+    [[ApiClient sharedInstance]
+         GET:[NSString stringWithFormat:@"api2/episode/%@/%d?device=ios", Id, start]
+         parameters:nil
+         success:^(NSURLSessionDataTask *task, id JSON) {
+             Show *show;
+             id dictInfo = [JSON valueForKey:@"info"];
+             NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
+             if (dictShow) {
+                 show = [[Show alloc] initWithDictionary:dictShow];
+             }
+             
+             NSArray *episodes = [JSON valueForKeyPath:@"episodes"];
+             NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[episodes count]];
+             for (NSDictionary *dict in episodes) {
+                 Episode *episode = [[Episode alloc] initWithDictionary:dict];
+                 [mutableEpisodes addObject:episode];
+             }
+             
+             
+             if (block) {
+                 block(show, [NSArray arrayWithArray:mutableEpisodes], nil);
+             }
+         }
+         failure:^(NSURLSessionDataTask *task, NSError *error) {
+             if (block) {
+                 block(nil, [NSArray array], error);
+             }
+         }
+     ];
 }
 
 - (void)sendViewEpisode {
-    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/view_episode/%@?device=ios", self.Id] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    [[ApiClient sharedInstance]
+     GET:[NSString stringWithFormat:@"api2/view_episode/%@?device=ios", self.Id]
+     parameters:nil
+     success:^(NSURLSessionDataTask *task, id responseObject) {
+         
+     }
+     failure:^(NSURLSessionDataTask *task, NSError *error) {
+         
+     }
+    ];
 }
 
 -(NSString *)titleDisplay {

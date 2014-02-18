@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *alertTitleView;
-@property (weak, nonatomic) IBOutlet UILabel *alertTitle;
+@property (strong, nonatomic) IBOutlet UILabel *alertTitle;
 
 @end
 
@@ -367,7 +367,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     {
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Yayyy, we have the interwebs!");
+//            NSLog(@"Yayyy, we have the interwebs!");
             
             self.alertTitle.text = @"connection fail, try again";
             
@@ -379,7 +379,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     {
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Nooo, someone broke internet!");
+//            NSLog(@"Nooo, someone broke internet!");
             self.alertTitle.text = @"no internet connection";
             self.alertTitleView.alpha = 0.85;
             

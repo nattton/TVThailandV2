@@ -12,8 +12,11 @@
 #import "Episode.h"
 
 #import "SVProgressHUD.h"
-#import "AFJSONRequestOperation.h"
-#import "AFHTTPClient.h"
+
+#import "AFHTTPSessionManager.h"
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
 #import "HTMLParser.h"
 
 #import "MakathonAdView.h"
@@ -292,24 +295,35 @@
 
 - (void) loadMThaiWebVideo {
     
-//    NSURL *urlMThai = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/player.php?id=24M%@M0",_videoId]];
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
-    [httpClient getPath:[NSString stringWithFormat:@"cool/player/%@.html",_videoId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self startMThaiVideoFromData:responseObject];
-//        NSString *str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSLog(@"str: %@", str);
-       
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+//        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@", string);
+        [self startMThaiVideoFromData:responseObject];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
     }];
 }
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://video.mthai.com"]];
-    [httpClient postPath:[NSString stringWithFormat:@"cool/player/%@.html",_videoId] parameters:@{@"clip_password": password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
+       parameters:@{@"clip_password": password}
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+//        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@", string);
         [self startMThaiVideoFromData:responseObject];
+              
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+//        NSLog(@"Error: %@", error);
     }];
 }
 

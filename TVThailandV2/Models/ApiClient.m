@@ -8,8 +8,6 @@
 
 #import "ApiClient.h"
 
-#import "AFJSONRequestOperation.h"
-
 static NSString * const kAPIBaseURLString = @"http://tv.makathon.com";
 
 @implementation ApiClient
@@ -29,8 +27,8 @@ static NSString * const kAPIBaseURLString = @"http://tv.makathon.com";
     if (self) {
         // custom setting
         
-        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        [self setDefaultHeader:@"Accept" value:@"application/json"];
+//        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+//        [self setDefaultHeader:@"Accept" value:@"application/json"];
 //        [self setDefaultHeader:@"Accept-Charset" value:@"utf-8"];
     }
     

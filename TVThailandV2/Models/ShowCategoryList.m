@@ -44,26 +44,30 @@
 #pragma mark - Load Data
 
 - (void)loadData:(void (^)(NSError *error))block {
-    [[ApiClient sharedInstance] getPath:@"api2/category?device=ios" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
-
-        NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
-        for (NSDictionary *dictCategory in jCategories) {
-            ShowCategory * category = [[ShowCategory alloc] initWithDictionary:dictCategory];
-            [mutableCategories addObject:category];
-        }
-        
-        categories = [NSArray arrayWithArray:mutableCategories];
-        
-        if (block) {
-            block(nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(error);
-        }
-    }];
-    
+    [[ApiClient sharedInstance]
+        GET:@"api2/category?device=ios"
+        parameters:nil
+         success:^(NSURLSessionDataTask *task, id JSON) {
+             NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
+             
+             NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
+             for (NSDictionary *dictCategory in jCategories) {
+                 ShowCategory * category = [[ShowCategory alloc] initWithDictionary:dictCategory];
+                 [mutableCategories addObject:category];
+             }
+             
+             categories = [NSArray arrayWithArray:mutableCategories];
+             
+             if (block) {
+                 block(nil);
+             }
+         }
+         failure:^(NSURLSessionDataTask *task, NSError *error) {
+             if (block) {
+                 block(error);
+             }
+         }
+     ];
 }
 
 @end

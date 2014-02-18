@@ -27,24 +27,27 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/advertise?device=ios&time%@", [df stringFromDate:[NSDate date]]] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSArray *jAds = [JSON valueForKeyPath:@"ads"];
-        
-        NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
-        for (NSDictionary *dictAd in jAds) {
-            MakathonAd * ad = [[MakathonAd alloc] initWithDictionary:dictAd];
-            [mutableAdss addObject:ad];
-        }
-        
-        if (block) {
-            block([NSArray arrayWithArray:mutableAdss], nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block([NSArray array], error);
-        }
-    }];
-    
+    [[ApiClient sharedInstance]
+     GET:[NSString stringWithFormat:@"api2/advertise?device=ios&time%@", [df stringFromDate:[NSDate date]]] parameters:nil
+     success:^(NSURLSessionDataTask *task, id JSON) {
+         NSArray *jAds = [JSON valueForKeyPath:@"ads"];
+         
+         NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
+         for (NSDictionary *dictAd in jAds) {
+             MakathonAd * ad = [[MakathonAd alloc] initWithDictionary:dictAd];
+             [mutableAdss addObject:ad];
+         }
+         
+         if (block) {
+             block([NSArray arrayWithArray:mutableAdss], nil);
+         }
+     }
+     failure:^(NSURLSessionDataTask *task, NSError *error) {
+         if (block) {
+             block([NSArray array], error);
+         }
+     }
+ ];
 }
 
 @end

@@ -45,101 +45,116 @@
 + (void)loadWhatsNewDataWithStart:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    
-    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/whatsnew/%d?device=ios&time%@", start, [df stringFromDate:[NSDate date]]] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSArray *programs = [JSON valueForKeyPath:@"programs"];
-        
-        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-        for (NSDictionary *dictShow in programs) {
-            Show *show = [[Show alloc] initWithDictionary:dictShow];
-            [mutablePrograms addObject:show];
+    [[ApiClient sharedInstance]
+            GET:[NSString stringWithFormat:@"api2/whatsnew/%d?device=ios&time%@",
+                 start, [df stringFromDate:[NSDate date]]]
+        parameters:nil
+        success:^(NSURLSessionDataTask *task, id JSON) {
+            NSArray *programs = [JSON valueForKeyPath:@"programs"];
+            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+            for (NSDictionary *dictShow in programs) {
+                Show *show = [[Show alloc] initWithDictionary:dictShow];
+                [mutablePrograms addObject:show];
+            }
+            
+            if (block) {
+                block([NSArray arrayWithArray:mutablePrograms], nil);
+            }
         }
-        
-        
-        if (block) {
-            block([NSArray arrayWithArray:mutablePrograms], nil);
+        failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (block) {
+                block([NSArray array], error);
+            }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block([NSArray array], error);
-        }
-    }];
-    
+     ];
 }
 
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/category/%@/%d?device=ios&time=%@", Id, start, [df stringFromDate:[NSDate date]]] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSArray *programs = [JSON valueForKeyPath:@"programs"];
-        
-        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-        for (NSDictionary *dictShow in programs) {
-            Show *show = [[Show alloc] initWithDictionary:dictShow];
-            [mutablePrograms addObject:show];
+    [[ApiClient sharedInstance]
+     GET:[NSString stringWithFormat:@"api2/category/%@/%d?device=ios&time=%@",
+          Id, start, [df stringFromDate:[NSDate date]]]
+     parameters:nil
+        success:^(NSURLSessionDataTask *task, id JSON) {
+            NSArray *programs = [JSON valueForKeyPath:@"programs"];
+
+            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+            for (NSDictionary *dictShow in programs) {
+                Show *show = [[Show alloc] initWithDictionary:dictShow];
+                [mutablePrograms addObject:show];
+            }
+
+
+            if (block) {
+                block([NSArray arrayWithArray:mutablePrograms], nil);
+            }
         }
-        
-        
-        if (block) {
-            block([NSArray arrayWithArray:mutablePrograms], nil);
+        failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (block) {
+                block([NSArray array], error);
+            }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block([NSArray array], error);
-        }
-    }];
-    
+     ];
 }
 
 + (void)loadChannelDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    [[ApiClient sharedInstance] getPath:[NSString stringWithFormat:@"api2/channel/%@/%d?device=ios&time=%@", Id, start, [df stringFromDate:[NSDate date]]] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSArray *programs = [JSON valueForKeyPath:@"programs"];
-        
-        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-        for (NSDictionary *dictShow in programs) {
-            Show *show = [[Show alloc] initWithDictionary:dictShow];
-            [mutablePrograms addObject:show];
+    [[ApiClient sharedInstance]
+        GET:[NSString stringWithFormat:@"api2/channel/%@/%d?device=ios&time=%@", Id, start, [df stringFromDate:[NSDate date]]]
+        parameters:nil
+        success:^(NSURLSessionDataTask *task, id JSON) {
+            NSArray *programs = [JSON valueForKeyPath:@"programs"];
+            
+            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+            for (NSDictionary *dictShow in programs) {
+                Show *show = [[Show alloc] initWithDictionary:dictShow];
+                [mutablePrograms addObject:show];
+            }
+            
+            
+            if (block) {
+                block([NSArray arrayWithArray:mutablePrograms], nil);
+            }
         }
-        
-        
-        if (block) {
-            block([NSArray arrayWithArray:mutablePrograms], nil);
+        failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (block) {
+                block([NSArray array], error);
+            }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block([NSArray array], error);
-        }
-    }];
-    
+     ];
 }
 
 + (void)loadSearchDataWithKeyword:(NSString *)keyword Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    [[ApiClient sharedInstance] getPath:[[NSString stringWithFormat:@"api2/search/0?keyword=%@&device=ios&time%@", keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSArray *programs = [JSON valueForKeyPath:@"programs"];
-        
-        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-        for (NSDictionary *dictShow in programs) {
-            Show *show = [[Show alloc] initWithDictionary:dictShow];
-            [mutablePrograms addObject:show];
+    [[ApiClient sharedInstance]
+        GET:[[NSString stringWithFormat:@"api2/search/0?keyword=%@&device=ios&time%@", keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+        parameters:nil
+     
+        success:^(NSURLSessionDataTask *task, id JSON) {
+            NSArray *programs = [JSON valueForKeyPath:@"programs"];
+            
+            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+            for (NSDictionary *dictShow in programs) {
+                Show *show = [[Show alloc] initWithDictionary:dictShow];
+                [mutablePrograms addObject:show];
+            }
+            
+            
+            if (block) {
+                block([NSArray arrayWithArray:mutablePrograms], nil);
+            }
         }
-        
-        
-        if (block) {
-            block([NSArray arrayWithArray:mutablePrograms], nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block([NSArray array], error);
-        }
-    }];
-    
+        failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (block) {
+                block([NSArray array], error);
+            }
+        }];
 }
 
 @end
