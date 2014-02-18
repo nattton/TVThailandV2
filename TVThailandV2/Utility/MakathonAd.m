@@ -29,7 +29,7 @@
     
     [[ApiClient sharedInstance]
      GET:[NSString stringWithFormat:@"api2/advertise?device=ios&time%@", [df stringFromDate:[NSDate date]]] parameters:nil
-     success:^(NSURLSessionDataTask *task, id JSON) {
+     success:^(AFHTTPRequestOperation *operation, id JSON) {
          NSArray *jAds = [JSON valueForKeyPath:@"ads"];
          
          NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
@@ -42,7 +42,7 @@
              block([NSArray arrayWithArray:mutableAdss], nil);
          }
      }
-     failure:^(NSURLSessionDataTask *task, NSError *error) {
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          if (block) {
              block([NSArray array], error);
          }

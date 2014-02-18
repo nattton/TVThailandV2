@@ -49,7 +49,7 @@
             GET:[NSString stringWithFormat:@"api2/whatsnew/%d?device=ios&time%@",
                  start, [df stringFromDate:[NSDate date]]]
         parameters:nil
-        success:^(NSURLSessionDataTask *task, id JSON) {
+        success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];
             NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
             for (NSDictionary *dictShow in programs) {
@@ -61,7 +61,7 @@
                 block([NSArray arrayWithArray:mutablePrograms], nil);
             }
         }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
+        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (block) {
                 block([NSArray array], error);
             }
@@ -77,7 +77,7 @@
      GET:[NSString stringWithFormat:@"api2/category/%@/%d?device=ios&time=%@",
           Id, start, [df stringFromDate:[NSDate date]]]
      parameters:nil
-        success:^(NSURLSessionDataTask *task, id JSON) {
+        success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];
 
             NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
@@ -91,7 +91,7 @@
                 block([NSArray arrayWithArray:mutablePrograms], nil);
             }
         }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
+        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (block) {
                 block([NSArray array], error);
             }
@@ -106,7 +106,7 @@
     [[ApiClient sharedInstance]
         GET:[NSString stringWithFormat:@"api2/channel/%@/%d?device=ios&time=%@", Id, start, [df stringFromDate:[NSDate date]]]
         parameters:nil
-        success:^(NSURLSessionDataTask *task, id JSON) {
+        success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];
             
             NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
@@ -120,7 +120,7 @@
                 block([NSArray arrayWithArray:mutablePrograms], nil);
             }
         }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
+        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (block) {
                 block([NSArray array], error);
             }
@@ -136,7 +136,7 @@
         GET:[[NSString stringWithFormat:@"api2/search/0?keyword=%@&device=ios&time%@", keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
         parameters:nil
      
-        success:^(NSURLSessionDataTask *task, id JSON) {
+        success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];
             
             NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
@@ -150,7 +150,7 @@
                 block([NSArray arrayWithArray:mutablePrograms], nil);
             }
         }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
+        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (block) {
                 block([NSArray array], error);
             }

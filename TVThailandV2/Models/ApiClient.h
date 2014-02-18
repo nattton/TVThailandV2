@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPSessionManager.h"
+#import "AFHTTPRequestOperationManager.h"
 
-@interface ApiClient : AFHTTPSessionManager
+@interface ApiClient : AFHTTPRequestOperationManager
 
 + (id) sharedInstance;
 

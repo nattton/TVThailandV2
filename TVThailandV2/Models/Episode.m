@@ -55,7 +55,7 @@
     [[ApiClient sharedInstance]
          GET:[NSString stringWithFormat:@"api2/episode/%@/%d?device=ios", Id, start]
          parameters:nil
-         success:^(NSURLSessionDataTask *task, id JSON) {
+         success:^(AFHTTPRequestOperation *operation, id JSON) {
              Show *show;
              id dictInfo = [JSON valueForKey:@"info"];
              NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
@@ -75,7 +75,7 @@
                  block(show, [NSArray arrayWithArray:mutableEpisodes], nil);
              }
          }
-         failure:^(NSURLSessionDataTask *task, NSError *error) {
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              if (block) {
                  block(nil, [NSArray array], error);
              }
@@ -87,10 +87,10 @@
     [[ApiClient sharedInstance]
      GET:[NSString stringWithFormat:@"api2/view_episode/%@?device=ios", self.Id]
      parameters:nil
-     success:^(NSURLSessionDataTask *task, id responseObject) {
+     success:^(AFHTTPRequestOperation *operation, id responseObject) {
          
      }
-     failure:^(NSURLSessionDataTask *task, NSError *error) {
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
      }
     ];

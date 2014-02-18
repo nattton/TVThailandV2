@@ -47,7 +47,7 @@
     [[ApiClient sharedInstance]
         GET:@"api2/category?device=ios"
         parameters:nil
-         success:^(NSURLSessionDataTask *task, id JSON) {
+         success:^(AFHTTPRequestOperation *operation, id JSON) {
              NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
              
              NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
@@ -62,7 +62,7 @@
                  block(nil);
              }
          }
-         failure:^(NSURLSessionDataTask *task, NSError *error) {
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              if (block) {
                  block(error);
              }
