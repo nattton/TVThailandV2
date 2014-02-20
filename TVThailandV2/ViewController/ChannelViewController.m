@@ -100,14 +100,16 @@ static NSString *showListSegue = @"ShowListSegue";
     [titleLabel setFont:[UIFont systemFontOfSize:10]];
     [cell addSubview:titleLabel];
     
-    if (ch.videoUrl != nil && ![ch.videoUrl isEqualToString:@""]) {
-        UILabel *liveLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 5, 20, 10)];
-        liveLabel.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
-        liveLabel.textColor = [UIColor whiteColor];
-        liveLabel.text = @"LIVE";
-        liveLabel.textAlignment = NSTextAlignmentCenter;
-        [liveLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:7]];
-        [cell addSubview:liveLabel];
+    UILabel *liveLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 5, 20, 10)];
+    liveLabel.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+    liveLabel.textColor = [UIColor whiteColor];
+    liveLabel.text = @"LIVE";
+    liveLabel.textAlignment = NSTextAlignmentCenter;
+    [liveLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:7]];
+    [cell addSubview:liveLabel];
+    
+    if (ch.videoUrl == nil || [ch.videoUrl length] == 0) {
+        liveLabel.hidden = YES;
     }
     
 
