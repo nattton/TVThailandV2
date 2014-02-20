@@ -263,6 +263,10 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             
             [_refreshControl endRefreshing];
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+            
+            if (_shows.count == 0 ) {
+                [self performSegueWithIdentifier:showPlayerSegue sender:self];
+            }
         }];
     }
 }
