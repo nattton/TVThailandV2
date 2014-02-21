@@ -421,8 +421,8 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HL1-vg-eUL" customClass="MakathonAdView">
-                                <rect key="frame" x="0.0" y="65" width="768" height="100"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HL1-vg-eUL" customClass="MakathonAdView">
+                                <rect key="frame" x="0.0" y="64" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -451,16 +451,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="324-6F-h5I"/>
-                            <constraint firstAttribute="bottom" secondItem="HL1-vg-eUL" secondAttribute="bottom" constant="859" id="DcF-u9-sZa"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="MJu-uP-dfP"/>
-                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="y5d-xr-MWE" secondAttribute="top" id="Map-u7-Joz"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="TAU-4h-Odv" secondAttribute="leading" id="Ned-lm-I8t"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" constant="1" id="SbF-Vo-evX"/>
-                            <constraint firstAttribute="trailing" secondItem="HL1-vg-eUL" secondAttribute="trailing" id="WjX-hI-USR"/>
-                            <constraint firstAttribute="bottom" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="h27-mS-0lx"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="Kzi-HC-BYx"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" id="NPG-Sx-KJE"/>
+                            <constraint firstItem="TAU-4h-Odv" firstAttribute="trailing" secondItem="HL1-vg-eUL" secondAttribute="trailing" id="T8F-lU-yNN"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" id="WgA-vM-PxL"/>
+                            <constraint firstAttribute="bottom" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="WlV-9a-gKt"/>
+                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="y5d-xr-MWE" secondAttribute="top" id="fPc-39-DKk"/>
                             <constraint firstAttribute="trailing" secondItem="dk0-uZ-W0I" secondAttribute="trailing" constant="30" id="hvx-k8-B0w"/>
+                            <constraint firstItem="TAU-4h-Odv" firstAttribute="leading" secondItem="HL1-vg-eUL" secondAttribute="leading" id="qtC-qy-QS4"/>
                             <constraint firstItem="zN9-vE-k7R" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" constant="30" id="r26-SX-2Ix"/>
+                            <constraint firstAttribute="trailing" secondItem="HL1-vg-eUL" secondAttribute="trailing" id="wCW-HE-TMU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>

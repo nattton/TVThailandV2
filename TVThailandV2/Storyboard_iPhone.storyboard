@@ -446,24 +446,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-iu-AU8" customClass="MakathonAdView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5cZ-iu-AU8" customClass="MakathonAdView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqx-Zu-Nj1">
-                                <rect key="frame" x="251" y="357" width="52" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="next >">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonTouched:" destination="Z3x-hJ-NYH" eventType="touchUpInside" id="D3r-hE-y0k"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBY-nD-Jun">
-                                <rect key="frame" x="17" y="357" width="76" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBY-nD-Jun">
+                                <rect key="frame" x="17" y="354" width="76" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="&lt; previous">
@@ -473,25 +462,38 @@
                                     <action selector="previousButtonTouched:" destination="Z3x-hJ-NYH" eventType="touchUpInside" id="m7Y-0E-mF4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH5-lq-DRJ">
+                                <rect key="frame" x="254" y="353" width="50" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="next >">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonTouched:" destination="Z3x-hJ-NYH" eventType="touchUpInside" id="Yn5-2v-Jql"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="5cZ-iu-AU8" secondAttribute="bottom" constant="504" id="6dx-ao-Cm0"/>
-                            <constraint firstAttribute="trailing" secondItem="5cZ-iu-AU8" secondAttribute="trailing" id="Kk0-gG-Vkx"/>
-                            <constraint firstItem="yWV-tn-W45" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="Mld-x1-l2S"/>
-                            <constraint firstItem="yWV-tn-W45" firstAttribute="trailing" secondItem="5cZ-iu-AU8" secondAttribute="trailing" id="Rqg-yu-YDT"/>
-                            <constraint firstItem="PBY-nD-Jun" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" constant="20" id="VuY-Jh-yNu"/>
-                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="leading" secondItem="yWV-tn-W45" secondAttribute="leading" id="aSB-Wt-G5y"/>
-                            <constraint firstAttribute="bottom" secondItem="yWV-tn-W45" secondAttribute="bottom" id="dp4-0e-ZZV"/>
-                            <constraint firstAttribute="trailing" secondItem="qqx-Zu-Nj1" secondAttribute="trailing" constant="20" id="hIb-wQ-yAm"/>
-                            <constraint firstItem="yWV-tn-W45" firstAttribute="top" secondItem="jt5-pg-LSu" secondAttribute="top" id="udf-tb-7yp"/>
-                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" id="vqV-yJ-vgX"/>
+                            <constraint firstItem="PBY-nD-Jun" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" constant="290" id="3Ag-Rs-Th3"/>
+                            <constraint firstItem="yWV-tn-W45" firstAttribute="trailing" secondItem="5cZ-iu-AU8" secondAttribute="trailing" id="6l9-Ua-EKz"/>
+                            <constraint firstItem="yWV-tn-W45" firstAttribute="leading" secondItem="5cZ-iu-AU8" secondAttribute="leading" id="ClN-kX-9Ea"/>
+                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" id="Ehl-Ue-Wl2"/>
+                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="H5z-Nk-jcS"/>
+                            <constraint firstItem="5cZ-iu-AU8" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" id="LfP-CB-u8U"/>
+                            <constraint firstItem="yWV-tn-W45" firstAttribute="top" secondItem="jt5-pg-LSu" secondAttribute="top" id="Q4l-0t-e0J"/>
+                            <constraint firstAttribute="trailing" secondItem="KH5-lq-DRJ" secondAttribute="trailing" constant="15" id="WyV-8h-hsu"/>
+                            <constraint firstAttribute="bottom" secondItem="yWV-tn-W45" secondAttribute="bottom" id="ZcB-ZZ-i7D"/>
+                            <constraint firstItem="PBY-nD-Jun" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" constant="17" id="k3g-MU-lRe"/>
+                            <constraint firstAttribute="trailing" secondItem="5cZ-iu-AU8" secondAttribute="trailing" id="uuO-2z-qNZ"/>
+                            <constraint firstItem="KH5-lq-DRJ" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" constant="289" id="vv2-5H-VSU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Oa2-wk-jY5"/>
                     <connections>
                         <outlet property="mkAdView" destination="5cZ-iu-AU8" id="GYa-Dz-ufG"/>
-                        <outlet property="nextVideoButton" destination="qqx-Zu-Nj1" id="qJO-ZJ-wM0"/>
+                        <outlet property="nextVideoButton" destination="KH5-lq-DRJ" id="rfI-fB-XzW"/>
                         <outlet property="previousVideoButton" destination="PBY-nD-Jun" id="5OG-BK-oLZ"/>
                         <outlet property="webView" destination="yWV-tn-W45" id="stB-sH-JPm"/>
                     </connections>
