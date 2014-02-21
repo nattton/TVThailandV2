@@ -28,6 +28,8 @@
 @interface VideoPlayerViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
+@property (weak, nonatomic) IBOutlet UIButton *nextVideoButton;
+@property (weak, nonatomic) IBOutlet UIButton *previousVideoButton;
 
 @end
 
@@ -96,6 +98,8 @@
         _spaceTop = @"50px";
     }
     
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    [self showAndHideNextPriviousButton];
     
     if (self.episode) {
         
@@ -136,6 +140,9 @@
         [SVProgressHUD showErrorWithStatus:@"Video not support"];
     }
     
+    
+
+    
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"VideoPlayer"];
@@ -148,9 +155,99 @@
     
     [self calulateUI];
 }
+- (IBAction)nextButtonTouched:(id)sender {
+    if (_idx+1 < self.episode.videos.count) {
+        _idx = _idx+1;
+        [self showAndHideNextPriviousButton];
+        if (self.episode) {
+            if (self.episode.videos.count != 1 ){
+                self.navigationItem.title = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+            }
+            
+            
+            _videoId = self.episode.videos[self.idx];
+            
+            if ([self.episode.srcType isEqualToString:@"0"]) {
+                [self openWithYoutube];
+            }
+            else if ([self.episode.srcType isEqualToString:@"1"]) {
+                [self openWithDailymotion];
+            }
+            else if ([self.episode.srcType isEqualToString:@"11"]) {
+                [self openWebSite:_videoId];
+            }
+            else if ([self.episode.srcType isEqualToString:@"12"]) {
+                [self openWithVideoUrl:_videoId];
+            }
+            else if ([self.episode.srcType isEqualToString:@"13"]) {
+                [self loadMThaiWebVideo];
+            }
+            else if ([self.episode.srcType isEqualToString:@"14"]) {
+                [self loadMThaiWebVideo];
+            }
+            else if ([self.episode.srcType isEqualToString:@"15"]) {
+                [self loadMThaiWebVideoWithPassword:self.episode.password];
+            }
+        }
+        else if (self.videoUrl) {
+            [self openWithVideoUrl:self.videoUrl];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"Video not support"];
+        }
+   
+    }
+}
+- (IBAction)previousButtonTouched:(id)sender {
+    if (_idx >= 1) {
+        _idx = _idx-1;
+        [self showAndHideNextPriviousButton];
+        if (self.episode) {
+            if (self.episode.videos.count != 1 ){
+                self.navigationItem.title = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+            }
+            
+            
+            _videoId = self.episode.videos[self.idx];
+            
+            if ([self.episode.srcType isEqualToString:@"0"]) {
+                [self openWithYoutube];
+            }
+            else if ([self.episode.srcType isEqualToString:@"1"]) {
+                [self openWithDailymotion];
+            }
+            else if ([self.episode.srcType isEqualToString:@"11"]) {
+                [self openWebSite:_videoId];
+            }
+            else if ([self.episode.srcType isEqualToString:@"12"]) {
+                [self openWithVideoUrl:_videoId];
+            }
+            else if ([self.episode.srcType isEqualToString:@"13"]) {
+                [self loadMThaiWebVideo];
+            }
+            else if ([self.episode.srcType isEqualToString:@"14"]) {
+                [self loadMThaiWebVideo];
+            }
+            else if ([self.episode.srcType isEqualToString:@"15"]) {
+                [self loadMThaiWebVideoWithPassword:self.episode.password];
+            }
+        }
+        else if (self.videoUrl) {
+            [self openWithVideoUrl:self.videoUrl];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"Video not support"];
+        }
+        
+    }
+    
+}
 
 - (void)openWebSite:(NSString *)stringUrl {
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
+    [SVProgressHUD dismiss];
 }
 
 
@@ -159,6 +256,7 @@
 - (void)openWithYoutube {
     BOOL isWeb = [[NSUserDefaults standardUserDefaults] boolForKey:kYoutubeWeb];
     [self switchYoutube:isWeb];
+    [SVProgressHUD dismiss];
 }
 
 - (void)switchYoutube:(BOOL)isWeb
@@ -177,6 +275,7 @@
     
     UIBarButtonItem *youtubeButton = [[UIBarButtonItem alloc] initWithTitle:toggleText style:UIBarButtonItemStylePlain target:self action:@selector(toggleYoutube:)];
     [self.navigationItem setRightBarButtonItems:@[youtubeButton] animated:YES];
+    
 }
 
 - (void)openWithYoutubeWeb
@@ -227,6 +326,7 @@
 - (void)openWithDailymotion {
     BOOL isWeb = [[NSUserDefaults standardUserDefaults] boolForKey:kDailyMotionWeb];
     [self switchDailymotion:isWeb];
+    [SVProgressHUD dismiss];
 }
 
 - (void)switchDailymotion:(BOOL)isWeb
@@ -291,6 +391,7 @@
                       videoUrl
                       ];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
+    [SVProgressHUD dismiss];
 }
 
 - (void) loadMThaiWebVideo {
@@ -311,9 +412,11 @@
 //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
 //        NSLog(@"%@", string);
         [self startMThaiVideoFromData:responseObject];
+        [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"Error: %@", error);
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -334,9 +437,10 @@
 //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
 //        NSLog(@"%@", string);
         [self startMThaiVideoFromData:responseObject];
-              
+         [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"Error: %@", error);
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -405,6 +509,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+/** Show/Hidden Next&Prvious Button **/
+- (void)showAndHideNextPriviousButton
+{
+    if ( _idx==0 )
+    {
+        self.previousVideoButton.hidden = YES;
+    }else{
+        self.previousVideoButton.hidden = NO;
+    }
+    
+    if ( _idx == self.episode.videos.count - 1 ) {
+        self.nextVideoButton.hidden = YES;
+    }else{
+        self.nextVideoButton.hidden = NO;
+    }
 }
 
 @end

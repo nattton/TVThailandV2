@@ -417,33 +417,57 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAU-4h-Odv">
-                                <rect key="frame" x="0.0" y="199" width="768" height="825"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="825" id="Qg8-2a-L0d"/>
-                                </constraints>
                             </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HL1-vg-eUL" customClass="MakathonAdView">
-                                <rect key="frame" x="0.0" y="65" width="768" height="134"/>
+                                <rect key="frame" x="0.0" y="65" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk0-uZ-W0I">
+                                <rect key="frame" x="665" y="625" width="73" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="next >">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonTouched:" destination="nWF-q7-qV2" eventType="touchUpInside" id="1Wl-Nv-5lZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN9-vE-k7R">
+                                <rect key="frame" x="30" y="625" width="120" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="&lt; previous">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="previousButtonTouched:" destination="nWF-q7-qV2" eventType="touchUpInside" id="bL2-Un-Qwa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="HyN-f8-8nz"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="TAU-4h-Odv" secondAttribute="leading" id="LYO-rr-N2M"/>
-                            <constraint firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="NUU-h4-sOC"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" constant="1" id="RFF-ue-CJ7"/>
-                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="HL1-vg-eUL" secondAttribute="bottom" id="da2-8x-sib"/>
-                            <constraint firstAttribute="bottom" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="gvc-Eb-xte"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="uBi-3f-LNv"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="324-6F-h5I"/>
+                            <constraint firstAttribute="bottom" secondItem="HL1-vg-eUL" secondAttribute="bottom" constant="859" id="DcF-u9-sZa"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="MJu-uP-dfP"/>
+                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="y5d-xr-MWE" secondAttribute="top" id="Map-u7-Joz"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="TAU-4h-Odv" secondAttribute="leading" id="Ned-lm-I8t"/>
+                            <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" constant="1" id="SbF-Vo-evX"/>
+                            <constraint firstAttribute="trailing" secondItem="HL1-vg-eUL" secondAttribute="trailing" id="WjX-hI-USR"/>
+                            <constraint firstAttribute="bottom" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="h27-mS-0lx"/>
+                            <constraint firstAttribute="trailing" secondItem="dk0-uZ-W0I" secondAttribute="trailing" constant="30" id="hvx-k8-B0w"/>
+                            <constraint firstItem="zN9-vE-k7R" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" constant="30" id="r26-SX-2Ix"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>
                     <connections>
                         <outlet property="mkAdView" destination="HL1-vg-eUL" id="n4X-Aw-dqT"/>
+                        <outlet property="nextVideoButton" destination="dk0-uZ-W0I" id="ETW-SG-2xr"/>
+                        <outlet property="previousVideoButton" destination="zN9-vE-k7R" id="ai1-f1-GU5"/>
                         <outlet property="webView" destination="TAU-4h-Odv" id="pml-7E-E3P"/>
                     </connections>
                 </viewController>

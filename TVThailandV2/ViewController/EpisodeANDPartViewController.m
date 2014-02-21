@@ -511,10 +511,10 @@ MakathonAdView *makathonAdView;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {
-        VideoPlayerViewController *youtubePlayer = segue.destinationViewController;
-        youtubePlayer.episode = self.episode;
+        VideoPlayerViewController *videoPlayer = segue.destinationViewController;
+        videoPlayer.episode = self.episode;
         NSIndexPath *idx = (NSIndexPath *)sender;
-        youtubePlayer.idx = idx.row;
+        videoPlayer.idx = idx.row;
         
         [self.episode sendViewEpisode];
         
