@@ -226,8 +226,6 @@ MakathonAdView *makathonAdView;
             
                 portable.frame = CGRectMake(0, 183, actualSize.width, actualSize.height-240);
                 titleLabel.frame = CGRectMake(0, 153, self.view.frame.size.width, 30);
-
-
             
         } else {
             /* iPhone */
@@ -254,15 +252,13 @@ MakathonAdView *makathonAdView;
            
                 portable.frame = CGRectMake(0, 118, actualSize.width, actualSize.height-120);
                 titleLabel.frame = CGRectMake(0, 88, self.view.frame.size.width, 30);
-                
   
         } else {
             /* iPhone */
 
                 portable.frame = CGRectMake(0, 78, actualSize.width, actualSize.height-70);
                 titleLabel.frame = CGRectMake(0, 48, self.view.frame.size.width, 30);
-                
-
+            
         }
     }
     
@@ -432,26 +428,44 @@ MakathonAdView *makathonAdView;
     [epTitleLabel setBackgroundColor:[UIColor clearColor]];
     [view addSubview:epTitleLabel];
     
-    UILabel *epUpdateTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 19, tableView.frame.size.width - 150, 12)];
+    UILabel *epUpdateTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 19, tableView.frame.size.width - 70, 12)];
     [epUpdateTimeLabel setFont:[UIFont systemFontOfSize:10]];
-    NSString *epUpdateTimeString = [_episodes[section] updatedDate];
+    NSString *epUpdateTimeString = [NSString stringWithFormat:@"%@ | %@",[_episodes[section] updatedDate],[_episodes[section] viewCount]];
     [epUpdateTimeLabel setText:epUpdateTimeString];
     [epUpdateTimeLabel setBackgroundColor:[UIColor clearColor]];
     [view addSubview:epUpdateTimeLabel];
     
-    UILabel *epviewCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 110, 19, 100, 12)];
-    [epviewCountLabel setFont:[UIFont systemFontOfSize:10]];
-    NSString *epViewCountString = [_episodes[section] viewCount];
-    [epviewCountLabel setText:epViewCountString];
-    [epviewCountLabel setBackgroundColor:[UIColor clearColor]];
-    epviewCountLabel.textAlignment = NSTextAlignmentRight;
+    
+    UIButton *epSliderButton = [[UIButton alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 45, 19, 40, 12)];
+    [epSliderButton setFont:[UIFont systemFontOfSize:10]];
+    [epSliderButton setTitle:@"slide >>" forState:UIControlStateNormal];
+    [epSliderButton setSelected:YES];
+    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [epSliderButton setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+   
+    epSliderButton.hidden = YES;
+    [view addSubview:epSliderButton];
+    
+    if ([_episodes[section] videos].count*157 > self.view.frame.size.width ) {
+        epSliderButton.hidden = NO;
+    }
+    [epSliderButton addTarget:self action:@selector(slideButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
 
-    [view addSubview:epviewCountLabel];
+//
+ 
+    [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
     
 
-    [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
-
     return view;
+}
+
+- (IBAction)slideButtonTouched:(id)sender {
+    NSLog(@"slide Click");
+    
+    
 }
 
 
@@ -476,6 +490,7 @@ MakathonAdView *makathonAdView;
     }
     
     cell.delegate = self;
+    
     
     return cell;
 }
@@ -532,7 +547,7 @@ MakathonAdView *makathonAdView;
 
 
 
-- (void) orientationDidChange: (NSNotification *) note
+- (void) orientationDidChange: (NSNotification *) notification
 {
         //keep this methode, otherwise it will crash
 }
