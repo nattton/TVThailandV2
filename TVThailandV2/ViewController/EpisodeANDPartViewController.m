@@ -436,25 +436,19 @@ MakathonAdView *makathonAdView;
     [view addSubview:epUpdateTimeLabel];
     
     
-    UIButton *epSliderButton = [[UIButton alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 45, 19, 40, 12)];
-    [epSliderButton setFont:[UIFont systemFontOfSize:10]];
-    [epSliderButton setTitle:@"slide >>" forState:UIControlStateNormal];
-    [epSliderButton setSelected:YES];
-    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [epSliderButton setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
-    [epSliderButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-   
-    epSliderButton.hidden = YES;
-    [view addSubview:epSliderButton];
-    
-    if ([_episodes[section] videos].count*157 > self.view.frame.size.width ) {
-        epSliderButton.hidden = NO;
-    }
-    [epSliderButton addTarget:self action:@selector(slideButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
 
-//
+    
+    UILabel *epSliderLable = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 45, 19, 40, 12)];
+    [epSliderLable setFont:[UIFont systemFontOfSize:10]];
+    [epSliderLable setText:@"slide >>"];
+    [epSliderLable setTextColor:[UIColor grayColor]];
+    [epSliderLable setBackgroundColor:[UIColor clearColor]];
+    epSliderLable.hidden = YES;
+    [view addSubview:epSliderLable];
+
+      if ([_episodes[section] videos].count*157 > self.view.frame.size.width ) {
+          epSliderLable.hidden = NO;
+       }
  
     [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
     
@@ -462,11 +456,7 @@ MakathonAdView *makathonAdView;
     return view;
 }
 
-- (IBAction)slideButtonTouched:(id)sender {
-    NSLog(@"slide Click");
-    
-    
-}
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
