@@ -30,6 +30,10 @@
 @property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
 @property (weak, nonatomic) IBOutlet UIButton *nextVideoButton;
 @property (weak, nonatomic) IBOutlet UIButton *previousVideoButton;
+@property (weak, nonatomic) IBOutlet UIToolbar *videoToolbar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *previousBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *partInfoBarButtonItem;
 
 @end
 
@@ -99,12 +103,19 @@
     }
     
     [SVProgressHUD showWithStatus:@"Loading..."];
-    [self showAndHideNextPriviousButton];
+    
+    [self enableOrDisableNextPreviousButton];
+    
     
     if (self.episode) {
         
+        self.navigationItem.title = self.episode.titleDisplay;
         if (self.episode.videos.count != 1 ){
-            self.navigationItem.title = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+            NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+            
+            self.partInfoBarButtonItem.title = partInfo;
+        }else {
+            self.videoToolbar.hidden = YES;
         }
         
         
@@ -158,10 +169,13 @@
 - (IBAction)nextButtonTouched:(id)sender {
     if (_idx+1 < self.episode.videos.count) {
         _idx = _idx+1;
-        [self showAndHideNextPriviousButton];
+        
+        [self enableOrDisableNextPreviousButton];
         if (self.episode) {
             if (self.episode.videos.count != 1 ){
-                self.navigationItem.title = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+                NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+                
+                self.partInfoBarButtonItem.title = partInfo;
             }
             
             
@@ -202,10 +216,13 @@
 - (IBAction)previousButtonTouched:(id)sender {
     if (_idx >= 1) {
         _idx = _idx-1;
-        [self showAndHideNextPriviousButton];
+        
+        [self enableOrDisableNextPreviousButton];
         if (self.episode) {
             if (self.episode.videos.count != 1 ){
-                self.navigationItem.title = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+                NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+                
+                self.partInfoBarButtonItem.title = partInfo;
             }
             
             
@@ -512,21 +529,23 @@
 }
 
 
-/** Show/Hidden Next&Prvious Button **/
-- (void)showAndHideNextPriviousButton
+
+/** EnableOrDisableNextPreviousButton **/
+- (void)enableOrDisableNextPreviousButton
 {
     if ( _idx==0 )
     {
-        self.previousVideoButton.hidden = YES;
+        [self.previousBarButtonItem setTintColor:[UIColor lightGrayColor]];
     }else{
-        self.previousVideoButton.hidden = NO;
+        [self.previousBarButtonItem setTintColor:[UIColor redColor]];
     }
     
     if ( _idx == self.episode.videos.count - 1 ) {
-        self.nextVideoButton.hidden = YES;
+        [self.nextBarButtonItem setTintColor:[UIColor lightGrayColor]];
     }else{
-        self.nextVideoButton.hidden = NO;
+        [self.nextBarButtonItem setTintColor:[UIColor redColor]];
     }
 }
+
 
 @end

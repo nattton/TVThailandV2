@@ -426,48 +426,50 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dk0-uZ-W0I">
-                                <rect key="frame" x="665" y="625" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="next >">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonTouched:" destination="nWF-q7-qV2" eventType="touchUpInside" id="1Wl-Nv-5lZ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN9-vE-k7R">
-                                <rect key="frame" x="30" y="625" width="120" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="&lt; previous">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="previousButtonTouched:" destination="nWF-q7-qV2" eventType="touchUpInside" id="bL2-Un-Qwa"/>
-                                </connections>
-                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUm-Se-gO6">
+                                <rect key="frame" x="0.0" y="931" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="DWI-kY-CmO">
+                                        <connections>
+                                            <action selector="previousButtonTouched:" destination="nWF-q7-qV2" id="Urw-NZ-VdG"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="K9g-nQ-w0d"/>
+                                    <barButtonItem title="Item" id="pIm-ZD-Zj0">
+                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="zrQ-gp-EIg"/>
+                                    <barButtonItem systemItem="fastForward" id="X1k-vL-je5">
+                                        <connections>
+                                            <action selector="nextButtonTouched:" destination="nWF-q7-qV2" id="vhL-kX-q7K"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="UUm-Se-gO6" secondAttribute="trailing" id="Kwj-rh-0AE"/>
                             <constraint firstItem="HL1-vg-eUL" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="Kzi-HC-BYx"/>
                             <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" id="NPG-Sx-KJE"/>
+                            <constraint firstItem="UUm-Se-gO6" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="QUQ-R8-mnW"/>
+                            <constraint firstItem="Vf9-a1-Xsm" firstAttribute="top" secondItem="UUm-Se-gO6" secondAttribute="bottom" id="Raq-ey-cx0"/>
                             <constraint firstItem="TAU-4h-Odv" firstAttribute="trailing" secondItem="HL1-vg-eUL" secondAttribute="trailing" id="T8F-lU-yNN"/>
                             <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" id="WgA-vM-PxL"/>
                             <constraint firstAttribute="bottom" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="WlV-9a-gKt"/>
                             <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="y5d-xr-MWE" secondAttribute="top" id="fPc-39-DKk"/>
-                            <constraint firstAttribute="trailing" secondItem="dk0-uZ-W0I" secondAttribute="trailing" constant="30" id="hvx-k8-B0w"/>
                             <constraint firstItem="TAU-4h-Odv" firstAttribute="leading" secondItem="HL1-vg-eUL" secondAttribute="leading" id="qtC-qy-QS4"/>
-                            <constraint firstItem="zN9-vE-k7R" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" constant="30" id="r26-SX-2Ix"/>
                             <constraint firstAttribute="trailing" secondItem="HL1-vg-eUL" secondAttribute="trailing" id="wCW-HE-TMU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>
                     <connections>
                         <outlet property="mkAdView" destination="HL1-vg-eUL" id="n4X-Aw-dqT"/>
-                        <outlet property="nextVideoButton" destination="dk0-uZ-W0I" id="ETW-SG-2xr"/>
-                        <outlet property="previousVideoButton" destination="zN9-vE-k7R" id="ai1-f1-GU5"/>
+                        <outlet property="nextBarButtonItem" destination="X1k-vL-je5" id="G33-jL-acT"/>
+                        <outlet property="partInfoBarButtonItem" destination="pIm-ZD-Zj0" id="dwW-Xz-c32"/>
+                        <outlet property="previousBarButtonItem" destination="DWI-kY-CmO" id="1uo-ew-FZ1"/>
+                        <outlet property="videoToolbar" destination="UUm-Se-gO6" id="41o-x4-zwl"/>
                         <outlet property="webView" destination="TAU-4h-Odv" id="pml-7E-E3P"/>
                     </connections>
                 </viewController>
