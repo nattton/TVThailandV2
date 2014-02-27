@@ -17,7 +17,9 @@
 
 @end
 
-@implementation EPAndPartCell
+@implementation EPAndPartCell{
+    UIImageView *goForwardImgSlider;
+}
 
 
 
@@ -70,6 +72,8 @@
         [hortable setSeparatorColor:[UIColor clearColor]];
 		[self addSubview:hortable];
 
+        
+
     }
     return self;
 }
@@ -78,7 +82,46 @@
 - (void)configureWithEpisode:(Episode *)episode {
 
     self.episode = episode;
+    
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    if(orientation == 0) //Default orientation
+    {
+        [self configureWithSlider:episode];
+    }
+    
+    else if(orientation == UIInterfaceOrientationPortrait)
+    {
+        [self configureWithSlider:episode];
+    }
+    
+    else if(orientation == UIInterfaceOrientationLandscapeLeft)
+    {
+        [self configureWithSlider:episode];
+    }
+    
+    else if(orientation == UIInterfaceOrientationLandscapeRight)
+    {
+        [self configureWithSlider:episode];
+    }else{
+        [self configureWithSlider:episode];
+    }
 
+}
+
+- (void)configureWithSlider:(Episode *)episode {
+    CGRect viewFrame = hortable.frame;
+//    NSLog(@"X=%f Y=%f Width=%f Height=%f", viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewFrame.size.height);
+    
+    goForwardImgSlider = [[UIImageView alloc] initWithFrame:CGRectMake(viewFrame.size.width-25, 50, 20, 20)];
+    [goForwardImgSlider setImage:[UIImage animatedImageNamed:@"forwardImg" duration:0.8]];
+    [self addSubview:goForwardImgSlider];
+    
+
+    
+    if (episode.videos.count == 1) {
+        goForwardImgSlider.hidden = YES;
+    }
 }
 
 
@@ -143,7 +186,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-//    NSLog(@"section:%d  row:%d title:%@",[indexPath section],[indexPath row],self.episode.titleDisplay);
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
         [self.delegate playVideoPart:indexPath episode:self.episode];
     }
@@ -159,5 +201,28 @@
 
     
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    NSLog(@"Y=%f | contentHeight=%f | boundsHeight=%f",hortable.contentOffset.y,hortable.contentSize.height,hortable.bounds.size.height);
+    
+    if (hortable.contentOffset.y == 0) {
+
+        [UIView animateWithDuration:0.3 animations:^{
+            [goForwardImgSlider setTransform:CGAffineTransformMakeScale(1, -1)];
+        }];
+        
+    }
+
+    if (hortable.contentOffset.y == floorf(hortable.contentSize.height - hortable.bounds.size.height)) {
+
+        [UIView animateWithDuration:0.3 animations:^{
+            [goForwardImgSlider setTransform:CGAffineTransformMakeScale(-1, 1)];
+        }];
+        
+    }
+}
+
+
+
 
 @end

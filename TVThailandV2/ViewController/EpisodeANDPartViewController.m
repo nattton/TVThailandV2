@@ -434,21 +434,6 @@ MakathonAdView *makathonAdView;
     [epUpdateTimeLabel setText:epUpdateTimeString];
     [epUpdateTimeLabel setBackgroundColor:[UIColor clearColor]];
     [view addSubview:epUpdateTimeLabel];
-    
-    
-
-    
-    UILabel *epSliderLable = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 45, 19, 40, 12)];
-    [epSliderLable setFont:[UIFont systemFontOfSize:10]];
-    [epSliderLable setText:@"slide >>"];
-    [epSliderLable setTextColor:[UIColor grayColor]];
-    [epSliderLable setBackgroundColor:[UIColor clearColor]];
-    epSliderLable.hidden = YES;
-    [view addSubview:epSliderLable];
-
-      if ([_episodes[section] videos].count*157 > self.view.frame.size.width ) {
-          epSliderLable.hidden = NO;
-       }
  
     [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
     
