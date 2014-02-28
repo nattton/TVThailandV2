@@ -455,17 +455,15 @@
                                 <rect key="frame" x="0.0" y="475" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem systemItem="rewind" id="JiG-SV-l60">
+                                    <barButtonItem style="plain" systemItem="rewind" id="JiG-SV-l60">
                                         <connections>
                                             <action selector="previousButtonTouched:" destination="Z3x-hJ-NYH" id="hNU-rh-Juk"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="pR6-za-pkX"/>
-                                    <barButtonItem title="Item" id="IT1-0P-aaK">
-                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </barButtonItem>
+                                    <barButtonItem title="Item" style="plain" id="IT1-0P-aaK"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ne1-eM-IOa"/>
-                                    <barButtonItem systemItem="fastForward" id="bv0-eu-zfZ">
+                                    <barButtonItem style="plain" systemItem="fastForward" id="bv0-eu-zfZ">
                                         <connections>
                                             <action selector="nextButtonTouched:" destination="Z3x-hJ-NYH" id="uSD-au-qkP"/>
                                         </connections>

@@ -114,6 +114,20 @@
             NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
             
             self.partInfoBarButtonItem.title = partInfo;
+            [self.partInfoBarButtonItem setTintColor:[UIColor redColor]];
+
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+
+                self.videoToolbar.tintColor = [UIColor grayColor];
+                [self.previousBarButtonItem setTintColor:[UIColor whiteColor]];
+                [self.nextBarButtonItem setTintColor:[UIColor whiteColor]];
+                
+                [self.partInfoBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIColor whiteColor], UITextAttributeTextColor,nil] forState:UIControlStateNormal];
+            }else{
+                [self.previousBarButtonItem setTintColor:[UIColor redColor]];
+                [self.nextBarButtonItem setTintColor:[UIColor redColor]];
+            }
+            
         }else {
             self.videoToolbar.hidden = YES;
         }
@@ -535,15 +549,15 @@
 {
     if ( _idx==0 )
     {
-        [self.previousBarButtonItem setTintColor:[UIColor lightGrayColor]];
+        self.previousBarButtonItem.enabled = NO;
     }else{
-        [self.previousBarButtonItem setTintColor:[UIColor redColor]];
+        self.previousBarButtonItem.enabled = YES;
     }
     
     if ( _idx == self.episode.videos.count - 1 ) {
-        [self.nextBarButtonItem setTintColor:[UIColor lightGrayColor]];
+        self.nextBarButtonItem.enabled = NO;
     }else{
-        [self.nextBarButtonItem setTintColor:[UIColor redColor]];
+        self.nextBarButtonItem.enabled = YES;
     }
 }
 

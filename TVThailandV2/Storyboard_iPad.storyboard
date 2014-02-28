@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="EmA-df-t9K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="EmA-df-t9K">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
@@ -430,17 +430,15 @@
                                 <rect key="frame" x="0.0" y="931" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem systemItem="rewind" id="DWI-kY-CmO">
+                                    <barButtonItem style="plain" systemItem="rewind" id="DWI-kY-CmO">
                                         <connections>
                                             <action selector="previousButtonTouched:" destination="nWF-q7-qV2" id="Urw-NZ-VdG"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="K9g-nQ-w0d"/>
-                                    <barButtonItem title="Item" id="pIm-ZD-Zj0">
-                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </barButtonItem>
+                                    <barButtonItem title="Item" style="plain" id="pIm-ZD-Zj0"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zrQ-gp-EIg"/>
-                                    <barButtonItem systemItem="fastForward" id="X1k-vL-je5">
+                                    <barButtonItem style="plain" systemItem="fastForward" id="X1k-vL-je5">
                                         <connections>
                                             <action selector="nextButtonTouched:" destination="nWF-q7-qV2" id="vhL-kX-q7K"/>
                                         </connections>

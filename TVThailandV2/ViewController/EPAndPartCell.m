@@ -208,6 +208,10 @@
             [goForwardImgSlider setTransform:CGAffineTransformMakeScale(-1, 1)];
         }];
         
+    }else if ( floorf(hortable.contentSize.height - hortable.bounds.size.height) > hortable.contentOffset.y + 150 ) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [goForwardImgSlider setTransform:CGAffineTransformMakeScale(1, -1)];
+        }];
     }
 }
 
