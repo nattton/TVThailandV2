@@ -82,30 +82,9 @@
 - (void)configureWithEpisode:(Episode *)episode {
 
     self.episode = episode;
+
+    [self configureWithSlider:episode];
     
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    
-    if(orientation == 0) //Default orientation
-    {
-        [self configureWithSlider:episode];
-    }
-    
-    else if(orientation == UIInterfaceOrientationPortrait)
-    {
-        [self configureWithSlider:episode];
-    }
-    
-    else if(orientation == UIInterfaceOrientationLandscapeLeft)
-    {
-        [self configureWithSlider:episode];
-    }
-    
-    else if(orientation == UIInterfaceOrientationLandscapeRight)
-    {
-        [self configureWithSlider:episode];
-    }else{
-        [self configureWithSlider:episode];
-    }
 
 }
 
@@ -122,6 +101,9 @@
     if (episode.videos.count == 1) {
         goForwardImgSlider.hidden = YES;
     }
+    
+
+
 }
 
 
@@ -168,6 +150,13 @@
 
 
 	}
+    
+    if (self.episode.videos.count*157 > self.frame.size.width ) {
+        goForwardImgSlider.hidden = NO;
+    }else{
+        goForwardImgSlider.hidden = YES;
+    }
+    
 	return cell;
 }
 
