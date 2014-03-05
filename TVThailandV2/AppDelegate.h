@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShowListViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -15,5 +17,10 @@
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+
+- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
+- (void)userLoggedIn;
+- (void)userLoggedOut;
 
 @end

@@ -23,12 +23,17 @@
 #import "EpisodeANDPartViewController.h"
 #import "Reachability.h"
 
+#import <FacebookSDK/FacebookSDK.h>
+#import "AppDelegate.h"
+
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *alertTitleView;
 @property (strong, nonatomic) IBOutlet UILabel *alertTitle;
+
+
 
 @end
 
@@ -83,6 +88,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     /** Alert View & Refresh Button - connection fail, try again **/
     self.alertTitleView.alpha = 0;
@@ -127,7 +133,60 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
            value:_screenName];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
+    
+    if (FBSession.activeSession.isOpen)
+    {
+        //Write code to send any message. Here Facebook Session is active
+        self.loginButton.title = @"Log out";
+    }
+    else
+    {
+        self.loginButton.title = @"Log in";
+        //Call the Facebook Login page to login into the Facebook and start new session.
+    }
+   
+    
+    // #handleUpdateLoginTitle Register Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleUpdateLoginTitle:)
+                                                 name:@"UpdateLoginTitle"
+                                               object:nil];
+}
 
+
+
+- (IBAction)buttonLoginTouched:(id)sender {
+    
+    // If the session state is any of the two "open" states when the button is clicked
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        
+        // Close the session and remove the access token from the cache
+        // The session state handler (in the app delegate) will be called automatically
+        [FBSession.activeSession closeAndClearTokenInformation];
+        
+        // If the session state is not any of the two "open" states when the button is clicked
+    } else {
+        // Open a session showing the user the login UI
+        // You must ALWAYS ask for basic_info permissions when opening a session
+        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info", @"email", @"user_birthday", @"user_location"]
+                                           allowLoginUI:YES
+                                      completionHandler:
+         ^(FBSession *session, FBSessionState state, NSError *error) {
+             
+             // Retrieve the app delegate
+             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+             [appDelegate sessionStateChanged:session state:state error:error];
+         }];
+    }
+    
+}
+
+- (void)handleUpdateLoginTitle:(NSNotification *)notification{
+    NSLog(@"Recieved!!");
+    NSString *title = [notification object];
+    [self.loginButton setTitle:title];
 }
 
 
@@ -155,8 +214,14 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         if (self.videoUrl != nil && ![self.videoUrl isEqualToString:@""]) {
             UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
             self.navigationItem.rightBarButtonItem = liveButton;
+        }else{
+            self.navigationItem.rightBarButtonItem = nil;
         }
+    }else if(_mode == kCategory){
+         self.navigationItem.rightBarButtonItem = nil;
     }
+
+    
 
 }
 
@@ -397,7 +462,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     [self reload];
 
 }
-
 
 
 

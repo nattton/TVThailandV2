@@ -136,10 +136,17 @@
                             <constraint firstAttribute="trailing" secondItem="GvZ-ba-EO4" secondAttribute="trailing" id="oZU-kC-Woa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="TV Thailand" id="nYE-iu-J52"/>
+                    <navigationItem key="navigationItem" title="TV Thailand" id="nYE-iu-J52">
+                        <barButtonItem key="rightBarButtonItem" title="Log in" style="plain" id="eKX-bQ-v4C">
+                            <connections>
+                                <action selector="buttonLoginTouched:" destination="gMN-KA-q7K" id="oZD-2J-nzR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="alertTitle" destination="VeO-Qe-QqN" id="H7E-cj-NtT"/>
                         <outlet property="alertTitleView" destination="GvZ-ba-EO4" id="dtb-2k-pNx"/>
+                        <outlet property="loginButton" destination="eKX-bQ-v4C" id="eFv-mI-zyi"/>
                         <outlet property="searchDisplayController" destination="iRg-hC-9fv" id="wPX-Or-mKs"/>
                         <outlet property="tableView" destination="Nbf-MH-J29" id="qqI-32-9XI"/>
                         <segue destination="Oo4-Sv-THQ" kind="push" identifier="ShowEpisodeSegue" id="3PO-yq-kuy"/>
@@ -2161,10 +2168,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="c4Z-oT-RfI"/>
         <segue reference="3PO-yq-kuy"/>
-        <segue reference="9Rn-Dv-86c"/>
-        <segue reference="VVM-kZ-9qj"/>
         <segue reference="coN-dj-guD"/>
+        <segue reference="VVM-kZ-9qj"/>
         <segue reference="E8Q-oG-9nj"/>
         <segue reference="kKp-Ia-npF"/>
         <segue reference="SET-o6-jSQ"/>

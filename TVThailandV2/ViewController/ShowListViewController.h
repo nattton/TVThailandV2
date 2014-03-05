@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 typedef enum {
     kWhatsNew = 0,
@@ -17,6 +18,8 @@ typedef enum {
 @interface ShowListViewController : UIViewController
 
 @property (nonatomic, weak) NSString *videoUrl;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *loginButton;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 

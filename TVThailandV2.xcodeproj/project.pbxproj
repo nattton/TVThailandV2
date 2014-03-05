@@ -10,6 +10,8 @@
 		1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83415BB218A000CD962 /* SystemConfiguration.framework */; };
 		115CDAAA182E19A900402D6B /* EpisodeANDPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */; };
 		11744B1D182E4761003EF6A8 /* EPAndPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11744B1C182E4761003EF6A8 /* EPAndPartCell.m */; };
+		11A263A818C586210059C17D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A263A718C586210059C17D /* FacebookSDK.framework */; };
+		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
 		3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24817FF328A006FA479 /* MakathonAdView.m */; };
@@ -84,6 +86,9 @@
 		115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeANDPartViewController.m; sourceTree = "<group>"; };
 		11744B1B182E4761003EF6A8 /* EPAndPartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPAndPartCell.h; sourceTree = "<group>"; };
 		11744B1C182E4761003EF6A8 /* EPAndPartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPAndPartCell.m; sourceTree = "<group>"; };
+		11A263A718C586210059C17D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
+		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		320AF8492C47A4D819F7C450 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.frameworks; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B15D22A17FD86FB006FA479 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3B15D22B17FD86FB006FA479 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
@@ -217,6 +222,7 @@
 				F0A3C83715BB21AB000CD962 /* MobileCoreServices.framework in Frameworks */,
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
+				11A263A818C586210059C17D /* FacebookSDK.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
 				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 				F2A59C82B72E4E7F945E7BD1 /* libPods.a in Frameworks */,
@@ -293,6 +299,8 @@
 				3B67F7B917E0E9A300C9CD23 /* Show.m */,
 				3B743BCE17E1D8060086C519 /* Episode.h */,
 				3B743BCF17E1D8060086C519 /* Episode.m */,
+				11A263A918C604BB0059C17D /* CMUser.h */,
+				11A263AA18C604BB0059C17D /* CMUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -375,6 +383,7 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11A263A718C586210059C17D /* FacebookSDK.framework */,
 				3B688EC518B239EC0009050B /* libxml2.2.dylib */,
 				3B688EC318B239DF0009050B /* libz.1.1.3.dylib */,
 				3B688EC118B2399B0009050B /* CoreLocation.framework */,
@@ -572,6 +581,7 @@
 				3B743BD017E1D8060086C519 /* Episode.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
+				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
 				3B743BCD17E19C9E0086C519 /* EpisodeListViewController.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,
@@ -695,6 +705,8 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(SRCROOT)/TVThailandV2/Frameworks",
+					/Users/april/iOSProject/CodeMobi/TVThailandV2/TVThailandV2/Library,
+					/Users/april/iOSProject/CodeMobi/TVThailandV2/TVThailandV2/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
@@ -746,6 +758,8 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(SRCROOT)/TVThailandV2/Frameworks",
+					/Users/april/iOSProject/CodeMobi/TVThailandV2/TVThailandV2/Library,
+					/Users/april/iOSProject/CodeMobi/TVThailandV2/TVThailandV2/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
