@@ -669,6 +669,7 @@
                         <segue destination="Zh9-Wa-xdC" kind="relationship" relationship="viewControllers" id="G3y-F7-XSL"/>
                         <segue destination="his-X6-HWf" kind="relationship" relationship="viewControllers" id="DW1-wS-2TP"/>
                         <segue destination="Z2Z-LE-Xbe" kind="relationship" relationship="viewControllers" id="wap-Qg-DTp"/>
+                        <segue destination="NnU-rF-M6h" kind="relationship" relationship="viewControllers" id="tx1-nb-Qhl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJ6-en-N4v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -917,7 +918,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="72y-q2-4t6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="598" y="3431"/>
+            <point key="canvasLocation" x="846" y="4415"/>
         </scene>
         <!--Category View Controller-->
         <scene sceneID="ha6-Hc-8Z0">
@@ -1017,7 +1018,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rm8-YG-f6x" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1099" y="3431"/>
+            <point key="canvasLocation" x="1347" y="4415"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="969-we-dQs">
@@ -1105,7 +1106,76 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wVm-E5-wsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1099" y="2716"/>
+            <point key="canvasLocation" x="1347" y="3700"/>
+        </scene>
+        <!--Account View Controller-->
+        <scene sceneID="22A-iq-nCH">
+            <objects>
+                <viewController id="Wsq-yc-ue4" customClass="CMAccountViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mi7-F9-SCm"/>
+                        <viewControllerLayoutGuide type="bottom" id="EwW-PY-zGd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nmU-JZ-NoC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TV Thailand" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLZ-wu-p1z">
+                                <rect key="frame" x="65" y="206" width="190" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dXj-NV-ao7" customClass="FBLoginView">
+                                <rect key="frame" x="37" y="305" width="246" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Wsq-yc-ue4" id="Zen-QG-rrp"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't worry, we'll never post to Facebook without asking you first" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="246" translatesAutoresizingMaskIntoConstraints="NO" id="q8S-R1-IJ5">
+                                <rect key="frame" x="37" y="357" width="246" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lym-SN-5dI" customClass="FBProfilePictureView">
+                                <rect key="frame" x="110" y="87" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mVz-fo-WlA"/>
+                    <connections>
+                        <outlet property="displayNameLabel" destination="SLZ-wu-p1z" id="b5Q-AC-oHh"/>
+                        <outlet property="fbAgreementLabel" destination="q8S-R1-IJ5" id="3BD-Q6-3uT"/>
+                        <outlet property="profilePictureView" destination="Lym-SN-5dI" id="jgs-yS-zwg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbb-GS-ttQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1083" y="2077"/>
+        </scene>
+        <!--Navigation Controller - Account-->
+        <scene sceneID="NcI-vL-PgC">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="NnU-rF-M6h" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Account" image="tab_cm_account" id="pf3-dx-3Y9"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jIv-bR-1if">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Wsq-yc-ue4" kind="relationship" relationship="rootViewController" id="L0W-q7-Hqr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MlY-k1-Efb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="552" y="2077"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="m8W-QA-JnR">
@@ -1294,7 +1364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oLc-NV-wxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="2048"/>
+            <point key="canvasLocation" x="1323" y="3032"/>
         </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="WFr-uZ-iNj">
@@ -1478,7 +1548,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zCF-1C-2aQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1449" y="2048"/>
+            <point key="canvasLocation" x="1697" y="3032"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="WID-p3-jdl">
@@ -1515,7 +1585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhg-ea-wM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2677" y="2048"/>
+            <point key="canvasLocation" x="2925" y="3032"/>
         </scene>
         <!--Add Credit View Controller-->
         <scene sceneID="kC6-uQ-s9X">
@@ -1597,7 +1667,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rc5-gA-QXe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1828" y="2048"/>
+            <point key="canvasLocation" x="2076" y="3032"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="DDH-S1-llK">
@@ -1698,7 +1768,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cv-Rx-WUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2202" y="2048"/>
+            <point key="canvasLocation" x="2450" y="3032"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="zqg-Fr-DUY">
@@ -1787,7 +1857,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVw-mE-cxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1539" y="2716"/>
+            <point key="canvasLocation" x="1787" y="3700"/>
         </scene>
         <!--ForgotPW View Controller-->
         <scene sceneID="7Rg-Hp-MZu">
@@ -1862,7 +1932,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H05-Cw-ejg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1973" y="2717"/>
+            <point key="canvasLocation" x="2221" y="3701"/>
         </scene>
         <!--Movie View Controller-->
         <scene sceneID="a51-U6-sR9">
@@ -1938,7 +2008,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z01-oL-EF2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608" y="3431"/>
+            <point key="canvasLocation" x="1856" y="4415"/>
         </scene>
         <!--Episode View Controller-->
         <scene sceneID="edK-RN-MHm">
@@ -2086,7 +2156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T5H-24-bvr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2078" y="3431"/>
+            <point key="canvasLocation" x="2326" y="4415"/>
         </scene>
         <!--More Info View Controller-->
         <scene sceneID="1ij-Ao-oYG">
@@ -2123,7 +2193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfz-Zx-uEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3105" y="2637"/>
+            <point key="canvasLocation" x="3353" y="3621"/>
         </scene>
         <!--Video Player View Controller-->
         <scene sceneID="xtR-2y-inE">
@@ -2152,7 +2222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GUP-8e-TIJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2538" y="3431"/>
+            <point key="canvasLocation" x="2786" y="4415"/>
         </scene>
     </scenes>
     <resources>
@@ -2160,6 +2230,7 @@
         <image name="ic_refresh_white" width="50" height="51"/>
         <image name="tab_cate" width="30" height="30"/>
         <image name="tab_channel" width="30" height="30"/>
+        <image name="tab_cm_account" width="30" height="30"/>
         <image name="tab_favorite" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -2168,12 +2239,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="c4Z-oT-RfI"/>
-        <segue reference="3PO-yq-kuy"/>
-        <segue reference="coN-dj-guD"/>
-        <segue reference="VVM-kZ-9qj"/>
+        <segue reference="67l-Yd-BAi"/>
+        <segue reference="vG8-c4-ff0"/>
         <segue reference="E8Q-oG-9nj"/>
-        <segue reference="kKp-Ia-npF"/>
-        <segue reference="SET-o6-jSQ"/>
+        <segue reference="3PO-yq-kuy"/>
+        <segue reference="c4Z-oT-RfI"/>
+        <segue reference="VVM-kZ-9qj"/>
+        <segue reference="coN-dj-guD"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83415BB218A000CD962 /* SystemConfiguration.framework */; };
 		115CDAAA182E19A900402D6B /* EpisodeANDPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */; };
+		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
 		11744B1D182E4761003EF6A8 /* EPAndPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11744B1C182E4761003EF6A8 /* EPAndPartCell.m */; };
 		11A263A818C586210059C17D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A263A718C586210059C17D /* FacebookSDK.framework */; };
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
@@ -84,6 +85,8 @@
 		0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		115CDAA8182E19A900402D6B /* EpisodeANDPartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeANDPartViewController.h; sourceTree = "<group>"; };
 		115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeANDPartViewController.m; sourceTree = "<group>"; };
+		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
+		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
 		11744B1B182E4761003EF6A8 /* EPAndPartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPAndPartCell.h; sourceTree = "<group>"; };
 		11744B1C182E4761003EF6A8 /* EPAndPartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPAndPartCell.m; sourceTree = "<group>"; };
 		11A263A718C586210059C17D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -263,6 +266,8 @@
 				115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */,
 				11744B1B182E4761003EF6A8 /* EPAndPartCell.h */,
 				11744B1C182E4761003EF6A8 /* EPAndPartCell.m */,
+				117388B218C8364000D4F187 /* CMAccountViewController.h */,
+				117388B318C8364000D4F187 /* CMAccountViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				3B67F7BA17E0E9A300C9CD23 /* Show.m in Sources */,
 				3B39B0A117E309BE0027B242 /* PartTableViewCell.m in Sources */,
 				F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */,
+				117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */,
 				3B910C3C17340387008F67ED /* ApiClient.m in Sources */,
 				3B910C3D17340387008F67ED /* ShowCategory.m in Sources */,
 				3B910C3E17340387008F67ED /* Channel.m in Sources */,
