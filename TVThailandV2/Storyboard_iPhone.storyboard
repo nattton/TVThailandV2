@@ -136,17 +136,10 @@
                             <constraint firstAttribute="trailing" secondItem="GvZ-ba-EO4" secondAttribute="trailing" id="oZU-kC-Woa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="TV Thailand" id="nYE-iu-J52">
-                        <barButtonItem key="rightBarButtonItem" title="Log in" style="plain" id="eKX-bQ-v4C">
-                            <connections>
-                                <action selector="buttonLoginTouched:" destination="gMN-KA-q7K" id="oZD-2J-nzR"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="TV Thailand" id="nYE-iu-J52"/>
                     <connections>
                         <outlet property="alertTitle" destination="VeO-Qe-QqN" id="H7E-cj-NtT"/>
                         <outlet property="alertTitleView" destination="GvZ-ba-EO4" id="dtb-2k-pNx"/>
-                        <outlet property="loginButton" destination="eKX-bQ-v4C" id="eFv-mI-zyi"/>
                         <outlet property="searchDisplayController" destination="iRg-hC-9fv" id="wPX-Or-mKs"/>
                         <outlet property="tableView" destination="Nbf-MH-J29" id="qqI-32-9XI"/>
                         <segue destination="Oo4-Sv-THQ" kind="push" identifier="ShowEpisodeSegue" id="3PO-yq-kuy"/>
@@ -779,9 +772,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SSS-3h-MXD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -802,8 +795,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NlQ-xs-IZT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -870,7 +864,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -891,8 +885,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FVq-cM-bfg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1108,7 +1103,7 @@
             </objects>
             <point key="canvasLocation" x="1347" y="3700"/>
         </scene>
-        <!--Account View Controller-->
+        <!--Account View Controller - Account-->
         <scene sceneID="22A-iq-nCH">
             <objects>
                 <viewController id="Wsq-yc-ue4" customClass="CMAccountViewController" sceneMemberID="viewController">
@@ -1150,7 +1145,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="mVz-fo-WlA"/>
+                    <navigationItem key="navigationItem" title="Account" id="mVz-fo-WlA"/>
                     <connections>
                         <outlet property="displayNameLabel" destination="SLZ-wu-p1z" id="b5Q-AC-oHh"/>
                         <outlet property="fbAgreementLabel" destination="q8S-R1-IJ5" id="3BD-Q6-3uT"/>
@@ -1164,10 +1159,14 @@
         <!--Navigation Controller - Account-->
         <scene sceneID="NcI-vL-PgC">
             <objects>
-                <navigationController definesPresentationContext="YES" id="NnU-rF-M6h" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NnU-rF-M6h" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Account" image="tab_cm_account" id="pf3-dx-3Y9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jIv-bR-1if">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Wsq-yc-ue4" kind="relationship" relationship="rootViewController" id="L0W-q7-Hqr"/>
@@ -2239,12 +2238,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="67l-Yd-BAi"/>
-        <segue reference="vG8-c4-ff0"/>
-        <segue reference="E8Q-oG-9nj"/>
-        <segue reference="3PO-yq-kuy"/>
         <segue reference="c4Z-oT-RfI"/>
-        <segue reference="VVM-kZ-9qj"/>
-        <segue reference="coN-dj-guD"/>
+        <segue reference="x1u-Y4-edj"/>
+        <segue reference="HVe-sY-Nz3"/>
+        <segue reference="E8Q-oG-9nj"/>
+        <segue reference="K3l-i7-YpG"/>
+        <segue reference="vG8-c4-ff0"/>
+        <segue reference="67l-Yd-BAi"/>
     </inferredMetricsTieBreakers>
 </document>

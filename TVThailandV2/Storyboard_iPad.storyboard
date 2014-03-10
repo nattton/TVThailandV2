@@ -660,6 +660,7 @@
                         <segue destination="TlO-9F-Tc9" kind="relationship" relationship="viewControllers" id="49m-uh-uV8"/>
                         <segue destination="iLL-o4-8YB" kind="relationship" relationship="viewControllers" id="EmU-k9-gx6"/>
                         <segue destination="9sd-W1-rnb" kind="relationship" relationship="viewControllers" id="1Ez-Eu-X4s"/>
+                        <segue destination="q5X-jE-5vb" kind="relationship" relationship="viewControllers" id="fOz-bH-0c6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5iQ-Ew-2RH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -760,6 +761,79 @@
             </objects>
             <point key="canvasLocation" x="1594" y="2273"/>
         </scene>
+        <!--Navigation Controller - Account-->
+        <scene sceneID="7S9-XF-A2m">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="q5X-jE-5vb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Account" image="tab_cm_account" id="b2L-eu-4ko"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WFO-Jq-evL">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="UNP-74-LiD" kind="relationship" relationship="rootViewController" id="Vig-3s-GJu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AET-5u-hVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="548" y="3678"/>
+        </scene>
+        <!--Account View Controller - Account-->
+        <scene sceneID="Zy7-YA-1oZ">
+            <objects>
+                <viewController id="UNP-74-LiD" customClass="CMAccountViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iyi-iN-1Ds"/>
+                        <viewControllerLayoutGuide type="bottom" id="xOq-mw-NGB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1gw-Ao-JGB">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TV Thailand" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17D-R5-bDQ">
+                                <rect key="frame" x="88" y="382" width="593" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLl-83-cke" customClass="FBProfilePictureView">
+                                <rect key="frame" x="284" y="149" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BYF-mt-cYR" customClass="FBLoginView">
+                                <rect key="frame" x="170" y="612" width="428" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="UNP-74-LiD" id="bLf-NT-biv"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't worry, we'll never post to Facebook without asking you first" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3R-sd-vdh">
+                                <rect key="frame" x="55" y="692" width="658" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Account" id="RhX-DG-0Tf"/>
+                    <connections>
+                        <outlet property="displayNameLabel" destination="17D-R5-bDQ" id="PPb-4w-PRM"/>
+                        <outlet property="fbAgreementLabel" destination="X3R-sd-vdh" id="nNM-su-mqE"/>
+                        <outlet property="profilePictureView" destination="qLl-83-cke" id="GQw-hT-0tn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BE6-ZN-rPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1602" y="3678"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1io-zJ-Ozm">
             <objects>
@@ -769,9 +843,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ESt-Aq-085">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -792,8 +866,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fqs-fz-LJF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -858,9 +933,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uln-lm-6Ub">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -881,8 +956,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="12h-3c-Cbl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -900,6 +976,7 @@
         <image name="ic_refresh_white" width="50" height="51"/>
         <image name="tab_cate" width="30" height="30"/>
         <image name="tab_channel" width="30" height="30"/>
+        <image name="tab_cm_account" width="30" height="30"/>
         <image name="tab_favorite" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -908,10 +985,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gYf-hu-iYC"/>
-        <segue reference="P5S-b6-NBQ"/>
-        <segue reference="BMW-0E-Gfg"/>
+        <segue reference="PpB-aQ-fTz"/>
         <segue reference="ikQ-Cn-ROo"/>
+        <segue reference="BMW-0E-Gfg"/>
+        <segue reference="P5S-b6-NBQ"/>
         <segue reference="VxL-lD-BYg"/>
     </inferredMetricsTieBreakers>
 </document>

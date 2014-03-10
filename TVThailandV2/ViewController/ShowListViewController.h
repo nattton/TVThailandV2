@@ -19,7 +19,6 @@ typedef enum {
 
 @property (nonatomic, weak) NSString *videoUrl;
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *loginButton;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 

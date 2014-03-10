@@ -19,8 +19,4 @@
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 
-//- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
-//- (void)userLoggedIn;
-//- (void)userLoggedOut;
-
 @end
