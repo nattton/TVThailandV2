@@ -14,6 +14,8 @@
 		1136AC4918D81DC4004BFE4D /* OTVEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4818D81DC4004BFE4D /* OTVEpisode.m */; };
 		1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4B18D81DD7004BFE4D /* OTVPart.m */; };
 		1136AC4F18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4E18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.m */; };
+		1136AC5218D94229004BFE4D /* OTVShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC5118D94229004BFE4D /* OTVShowViewController.m */; };
+		1136AC5518D964C7004BFE4D /* OTVShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC5418D964C7004BFE4D /* OTVShowTableViewCell.m */; };
 		1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83415BB218A000CD962 /* SystemConfiguration.framework */; };
 		115CDAAA182E19A900402D6B /* EpisodeANDPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */; };
 		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
@@ -104,6 +106,10 @@
 		1136AC4B18D81DD7004BFE4D /* OTVPart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVPart.m; sourceTree = "<group>"; };
 		1136AC4D18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVShowCategoryTableViewCell.h; sourceTree = "<group>"; };
 		1136AC4E18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVShowCategoryTableViewCell.m; sourceTree = "<group>"; };
+		1136AC5018D94229004BFE4D /* OTVShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVShowViewController.h; sourceTree = "<group>"; };
+		1136AC5118D94229004BFE4D /* OTVShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVShowViewController.m; sourceTree = "<group>"; };
+		1136AC5318D964C7004BFE4D /* OTVShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVShowTableViewCell.h; sourceTree = "<group>"; };
+		1136AC5418D964C7004BFE4D /* OTVShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVShowTableViewCell.m; sourceTree = "<group>"; };
 		115CDAA8182E19A900402D6B /* EpisodeANDPartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeANDPartViewController.h; sourceTree = "<group>"; };
 		115CDAA9182E19A900402D6B /* EpisodeANDPartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeANDPartViewController.m; sourceTree = "<group>"; };
 		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
@@ -293,6 +299,10 @@
 				1136AC3C18D7F9FE004BFE4D /* OTVShowCategoryViewController.m */,
 				1136AC4D18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.h */,
 				1136AC4E18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.m */,
+				1136AC5018D94229004BFE4D /* OTVShowViewController.h */,
+				1136AC5118D94229004BFE4D /* OTVShowViewController.m */,
+				1136AC5318D964C7004BFE4D /* OTVShowTableViewCell.h */,
+				1136AC5418D964C7004BFE4D /* OTVShowTableViewCell.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -620,6 +630,7 @@
 				3B67F7AD17E0A08900C9CD23 /* ShowTableViewCell.m in Sources */,
 				3B743BD017E1D8060086C519 /* Episode.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
+				1136AC5518D964C7004BFE4D /* OTVShowTableViewCell.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
@@ -647,6 +658,7 @@
 				3B910C3D17340387008F67ED /* ShowCategory.m in Sources */,
 				3B910C3E17340387008F67ED /* Channel.m in Sources */,
 				1136AC4F18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.m in Sources */,
+				1136AC5218D94229004BFE4D /* OTVShowViewController.m in Sources */,
 				3B67F7B317E0C8A600C9CD23 /* ShowCategoryTableViewCell.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,
 			);

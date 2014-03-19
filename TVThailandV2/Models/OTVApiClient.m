@@ -28,7 +28,7 @@ static NSString * const kAPIBaseURLString = @"http://www.otv.co.th/api/index.php
     self = [super initWithBaseURL:url];
     
     if (self) {
-        self.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+//        self.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     }
     
     return self;

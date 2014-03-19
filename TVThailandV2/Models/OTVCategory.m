@@ -15,7 +15,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"idCate:%@, title:%@, thumbnail:%@", self.IdCate, self.title, self.thumbnailUrl];
+    return [NSString stringWithFormat:@"idCate:%@, cateName:%@, title:%@, thumbnail:%@", self.IdCate, self.cateName, self.title, self.thumbnailUrl];
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -23,35 +23,20 @@
     self = [super init];
     if (self) {
         _IdCate = [dictionary objectForKey:@"id"];
+        _cateName = [dictionary objectForKey:@"api_name"];
         _title = [dictionary objectForKey:@"name_th"];
         _thumbnailUrl = [dictionary objectForKey:@"icon"];
     }
     return self;
 }
 
-- (id) initWithIdOfOTV:(NSString *)newID
-                 title:(NSString *)newTitle
-             thumbnail:(NSString *)newThumbnail {
-    self = [super init];
-    if (self) {
-        self.IdCate = newID;
-        self.title = newTitle;
-        self.thumbnailUrl = newThumbnail;
-    }
-    
-    return self;
-}
 
-+ (OTVCategory *)categoryWithIdOfOTV:(NSString *)newID
-                               title:(NSString *)newTitle
-                           thumbnail:(NSString *)newThumbnail {
-    
-    return [[OTVCategory alloc] initWithIdOfOTV:newID title:newTitle thumbnail:newThumbnail];
-}
 
 + (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block {
     
     OTVApiClient *client = [OTVApiClient sharedInstance];
+    
+    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION ] parameters:nil
         success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -1,32 +1,34 @@
 //
-//  OTVShowCategoryViewController.m
+//  OTVShowViewController.m
 //  TVThailandV2
 //
-//  Created by April Smith on 3/18/2557 BE.
+//  Created by April Smith on 3/19/2557 BE.
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "OTVShowCategoryViewController.h"
-#import "OTVShowCategoryTableViewCell.h"
-#import "SVProgressHUD.h"
-#import "OTVCategory.h"
 #import "OTVShowViewController.h"
+#import "SVProgressHUD.h"
+#import "OTVShow.h"
+#import "OTVShowTableViewCell.h"
+#import "OTVCategory.h"
 
-@interface OTVShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@interface OTVShowViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@implementation OTVShowCategoryViewController {
+@implementation OTVShowViewController {
     @private
     UIRefreshControl *_refreshControl;
-    NSArray *_categories;
+    NSArray *_shows;
+    
 }
 
-
 #pragma mark - Static Variable
-static NSString *cellIdentifier = @"OTVShowCategoryCellIdentifier";
-static NSString *OTVShowListSegue = @"OTVShowListSegue";
+
+static NSString *cellIdentifier = @"OTVShowCellIdentifier";
+//static NSString *OTVShowDetailListSegue = @"OTVShowDetailListSegue";
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -41,6 +43,7 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         DLog(@"Load resources for iOS 6.1 or earlier");
@@ -50,8 +53,6 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
         //        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
         self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     }
-    
-    
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     _refreshControl = [[UIRefreshControl alloc] init];
@@ -63,9 +64,11 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
 }
 
 - (void)reload {
-    [OTVCategory loadOTVCategory:^(NSArray *otvCategories, NSError *error) {
+    
+    [OTVShow loadOTVShow:self.otvCategory.cateName Start:0 Block:^(NSArray *otvShows, NSError *error) {
+        
         [SVProgressHUD dismiss];
-        _categories = otvCategories;
+        _shows = otvShows;
         
         [self.tableView reloadData];
         
@@ -80,16 +83,13 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
     [self reload];
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)refreshButtonTapped:(id)sender {
-    [self refresh];
-}
+
 
 - (void)refresh {
     [SVProgressHUD showWithStatus:@"Loading..."];
@@ -97,17 +97,17 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
     [self reload];
 }
 
+
+
+#pragma mark - Navigation
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:OTVShowListSegue]) {
-        OTVCategory *otvCategory = (OTVCategory *)sender;
-        
-        OTVShowViewController *otvShowController = segue.destinationViewController;
-        otvShowController.navigationItem.title = otvCategory.title;
-    
-        otvShowController.otvCategory = otvCategory;
-    }
+  
 }
+
+
 
 
 #pragma mark - Table Datasource
@@ -117,23 +117,20 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _categories.count;
+    return _shows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    OTVShowCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    OTVShowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    [cell configureWithOTVCate:_categories[indexPath.row]];
+    [cell configWithOTVShow:_shows[indexPath.row]];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self performSegueWithIdentifier:OTVShowListSegue sender:_categories[indexPath.row]];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [self performSegueWithIdentifier:OTVShowDetailListSegue sender:_shows[indexPath.row]];
 }
-
-
-
 
 @end

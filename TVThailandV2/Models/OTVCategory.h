@@ -10,21 +10,13 @@
 
 @interface OTVCategory : NSObject
 
-@property (strong, nonatomic) NSString *IdCate;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *thumbnailUrl;
+@property (nonatomic, readonly) NSString *IdCate;
+@property (nonatomic, readonly) NSString *cateName;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *thumbnailUrl;
 
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
-
-- (id) initWithIdOfOTV:(NSString *)newID
-                 title:(NSString *)newTitle
-             thumbnail:(NSString *)newThumbnail;
-
-+ (OTVCategory *)categoryWithIdOfOTV:(NSString *)newID
-                               title:(NSString *)newTitle
-                           thumbnail:(NSString *)newThumbnail;
-
 
 + (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block;
 
