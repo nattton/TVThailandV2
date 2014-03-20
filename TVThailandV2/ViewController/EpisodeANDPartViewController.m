@@ -199,10 +199,10 @@ MakathonAdView *makathonAdView;
 - (void)setFavSelected:(BOOL)isSelected
 {
     if (isSelected) {
-        [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite_selected"] forState:UIControlStateNormal];
+        [buttonFavBar setImage:[UIImage imageNamed:@"icb_fav_selected"] forState:UIControlStateNormal];
     }
     else {
-        [buttonFavBar setImage:[UIImage imageNamed:@"icb_favorite"] forState:UIControlStateNormal];
+        [buttonFavBar setImage:[UIImage imageNamed:@"icb_fav"] forState:UIControlStateNormal];
     }
     
 }

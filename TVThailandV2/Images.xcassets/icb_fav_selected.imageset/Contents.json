@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "icb_favorite.png"
+      "filename" : "icb_fav_selected.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "icb_favorite@2x.png"
+      "filename" : "icb_fav_selected@2x.png"
     }
   ],
   "info" : {

@@ -816,6 +816,7 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="iJI-It-Xac">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.8980392814" green="0.8980392814" blue="0.8980392814" alpha="1" colorSpace="deviceRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RUb-2F-znh">
                             <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1180,7 +1181,7 @@
         <scene sceneID="axz-SB-qjj">
             <objects>
                 <navigationController definesPresentationContext="YES" id="li5-ag-Vwk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="OTV" image="tab_more" id="Jjg-K6-fii"/>
+                    <tabBarItem key="tabBarItem" title="OTV" image="tab_otv" id="Jjg-K6-fii"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vat-D0-7uX">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2411,7 +2412,7 @@
         <image name="tab_channel" width="30" height="30"/>
         <image name="tab_cm_account" width="30" height="30"/>
         <image name="tab_favorite" width="30" height="30"/>
-        <image name="tab_more" width="30" height="30"/>
+        <image name="tab_otv" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -2419,12 +2420,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Bc8-PK-1lJ"/>
+        <segue reference="coN-dj-guD"/>
+        <segue reference="3PO-yq-kuy"/>
+        <segue reference="46G-Qc-OaU"/>
+        <segue reference="saQ-9b-nco"/>
         <segue reference="67l-Yd-BAi"/>
         <segue reference="vG8-c4-ff0"/>
-        <segue reference="coN-dj-guD"/>
-        <segue reference="9Rn-Dv-86c"/>
-        <segue reference="3PO-yq-kuy"/>
-        <segue reference="VVM-kZ-9qj"/>
-        <segue reference="E8Q-oG-9nj"/>
     </inferredMetricsTieBreakers>
 </document>
