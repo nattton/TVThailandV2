@@ -18,12 +18,13 @@
         _title = [dictionary objectForKey:@"title"];
         _thumbnailUrl = [dictionary objectForKey:@"thumbnail"];
         _videoUrl = [dictionary objectForKey:@"url"];
+        _isHasEp = [dictionary objectForKey:@"has_show"];
     }
     return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Id: %@, Title: %@, Thumbnail: %@, URL: %@", _Id, _title, _thumbnailUrl, _videoUrl];
+    return [NSString stringWithFormat:@"Id: %@, Title: %@, Thumbnail: %@, URL: %@, isHasEp: %@", _Id, _title, _thumbnailUrl, _videoUrl, _isHasEp];
 }
 
 #pragma mark - Load Data

@@ -28,8 +28,7 @@
 @interface VideoPlayerViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
-@property (weak, nonatomic) IBOutlet UIButton *nextVideoButton;
-@property (weak, nonatomic) IBOutlet UIButton *previousVideoButton;
+
 @property (weak, nonatomic) IBOutlet UIToolbar *videoToolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previousBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *nextBarButtonItem;
@@ -104,13 +103,24 @@
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
+    NSLog(@"++++%s", self.isHidenToolbarPlayer ? "true" : "false");
+    if (self.isHidenToolbarPlayer) {
+        self.videoToolbar.hidden = YES;
+    }
+    
     [self enableOrDisableNextPreviousButton];
     
+    //if key = channel --> hide videoToolbar
+    
+
     
     if (self.episode) {
         
         self.navigationItem.title = self.episode.titleDisplay;
-        if (self.episode.videos.count != 1 ){
+        
+
+        
+        if (self.episode.videos.count != 1  ){
             NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
             
             self.partInfoBarButtonItem.title = partInfo;

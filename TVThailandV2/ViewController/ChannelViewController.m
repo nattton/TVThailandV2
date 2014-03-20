@@ -17,17 +17,21 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#import "VideoPlayerViewController.h"
+
 @interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
 
 @implementation ChannelViewController {
     NSArray *_channels;
+    UIAlertView *alert;
+    Channel *channelSelected;
 }
 
 static NSString *cellIdentifier = @"ChannelCellIdentifier";
 static NSString *showListSegue = @"ShowListSegue";
-
+static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +45,8 @@ static NSString *showListSegue = @"ShowListSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+      alert = [[UIAlertView alloc] initWithTitle:@"Please choose the program" message:@"" delegate:self cancelButtonTitle:@"ดูย้อนหลัง" otherButtonTitles:@"LIVE", nil];
     
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         DLog(@"Load resources for iOS 6.1 or earlier");
@@ -116,26 +122,63 @@ static NSString *showListSegue = @"ShowListSegue";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+     channelSelected = _channels[indexPath.row];
+    NSLog(@"channelSelected.isHasEp:%@",channelSelected.isHasEp);
+        if (channelSelected.videoUrl == nil || [channelSelected.videoUrl length] == 0) {
+            [self performSegueWithIdentifier:showListSegue sender:channelSelected];
+        } else {
+            if ([channelSelected.isHasEp  isEqual: @"1"]) {
+                [alert show];
+            } else {
+                [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+            }
 
-        [self performSegueWithIdentifier:showListSegue sender:_channels[indexPath.row]];
+            
+        }
+    
+    
     }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0){
+        //Watch on demand program
+        [self performSegueWithIdentifier:showListSegue sender:channelSelected];
+    }
+    if (buttonIndex == 1) {
+        //Watch on LIVE program
+        [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+
+    }
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showListSegue]) {
         ShowListViewController *showListViewController = segue.destinationViewController;
         if (sender) {
-            Channel *selectedChannel = (Channel *)sender;
-            showListViewController.navigationItem.title = selectedChannel.title;
-            showListViewController.videoUrl = selectedChannel.videoUrl;
-            [showListViewController reloadWithMode:kChannel Id:selectedChannel.Id];
+            Channel *channel = (Channel *)sender;
+            showListViewController.navigationItem.title = channel.title;
+            showListViewController.videoUrl = channel.videoUrl;
+            [showListViewController reloadWithMode:kChannel Id:channel.Id];
             
             id tracker = [[GAI sharedInstance] defaultTracker];
             [tracker set:kGAIScreenName
                    value:@"Channel"];
-            [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedChannel.title
+            [tracker send:[[[GAIDictionaryBuilder createAppView] set:channel.title
                                                               forKey:[GAIFields customDimensionForIndex:5]] build]];
         }
     }
+    
+    if ([segue.identifier isEqual:showPlayerSegue]) {
+        VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
+        if (sender) {
+            Channel *channel = (Channel *)sender;
+            videoPlayerViewController.videoUrl = channel.videoUrl;
+            videoPlayerViewController.isHidenToolbarPlayer = YES;
+            videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", channel.title];
+        }
+    }
+    
 }
 
 @end

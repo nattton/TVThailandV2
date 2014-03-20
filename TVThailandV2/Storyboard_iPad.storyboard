@@ -886,6 +886,7 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="PHX-cM-vFR">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.8980392814" green="0.8980392814" blue="0.8980392814" alpha="1" colorSpace="deviceRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vqF-S1-whM">
                             <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -917,6 +918,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="EuP-qS-lg2" kind="push" identifier="ShowListSegue" id="1Y8-4M-iar"/>
+                        <segue destination="nWF-q7-qV2" kind="push" identifier="ShowPlayerSegue" id="BT3-5H-jeh"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ryp-v5-E52" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -984,8 +986,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PpB-aQ-fTz"/>
-        <segue reference="ikQ-Cn-ROo"/>
+        <segue reference="1Y8-4M-iar"/>
+        <segue reference="BT3-5H-jeh"/>
         <segue reference="BMW-0E-Gfg"/>
         <segue reference="P5S-b6-NBQ"/>
         <segue reference="VxL-lD-BYg"/>

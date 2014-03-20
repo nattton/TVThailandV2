@@ -848,6 +848,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="gMN-KA-q7K" kind="push" identifier="ShowListSegue" id="Bc8-PK-1lJ"/>
+                        <segue destination="Z3x-hJ-NYH" kind="push" identifier="ShowPlayerSegue" id="vZG-1A-zbp"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rfb-gN-J7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2421,10 +2422,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Bc8-PK-1lJ"/>
+        <segue reference="vZG-1A-zbp"/>
         <segue reference="coN-dj-guD"/>
         <segue reference="3PO-yq-kuy"/>
         <segue reference="46G-Qc-OaU"/>
-        <segue reference="saQ-9b-nco"/>
         <segue reference="67l-Yd-BAi"/>
         <segue reference="vG8-c4-ff0"/>
     </inferredMetricsTieBreakers>

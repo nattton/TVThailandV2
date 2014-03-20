@@ -79,6 +79,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     else if ([segue.identifier isEqualToString:showPlayerSegue]) {
         VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
         videoPlayerViewController.videoUrl = self.videoUrl;
+        videoPlayerViewController.isHidenToolbarPlayer = YES;
         videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", self.navigationItem.title];
     }
 }

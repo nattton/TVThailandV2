@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *thumbnailUrl;
 @property (nonatomic, readonly) NSString *videoUrl;
+@property (nonatomic, readonly) NSString *isHasEp;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

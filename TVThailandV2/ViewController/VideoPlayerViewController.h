@@ -14,4 +14,7 @@
 @property (nonatomic, weak) Episode *episode;
 @property (nonatomic, unsafe_unretained) NSUInteger idx;
 @property (nonatomic, weak) NSString *videoUrl;
+
+@property (nonatomic) BOOL isHidenToolbarPlayer;
+
 @end
