@@ -10,4 +10,15 @@
 
 @interface OTVPart : NSObject
 
+@property (nonatomic, readonly) NSString *partId;
+@property (nonatomic, readonly) NSString *nameTh;
+@property (nonatomic, readonly) NSString *nameEn;
+@property (nonatomic, readonly) NSString *thumbnail;
+@property (nonatomic, readonly) NSString *cover;
+@property (nonatomic, readonly) NSString *streamURL;
+@property (nonatomic, strong) NSString *vastURL;
+@property (nonatomic, readonly) NSString *playerCode;
+
+- (id)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

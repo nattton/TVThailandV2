@@ -22,10 +22,13 @@
     
     self = [super init];
     if (self) {
-        _IdCate = [dictionary objectForKey:@"id"];
-        _cateName = [dictionary objectForKey:@"api_name"];
-        _title = [dictionary objectForKey:@"name_th"];
-        _thumbnailUrl = [dictionary objectForKey:@"icon"];
+        _IdCate = ([dictionary objectForKey:@"id"]?[dictionary objectForKey:@"id"]:[NSString string]);
+        _cateName = ([dictionary objectForKey:@"api_name"]?[dictionary objectForKey:@"api_name"]:[NSString string]);
+        _title = ([dictionary objectForKey:@"name_th"]?[dictionary objectForKey:@"name_th"]:[NSString string]);
+        _thumbnailUrl = ([dictionary objectForKey:@"icon"]?[dictionary objectForKey:@"icon"]:[NSString string]);
+        if ([_thumbnailUrl isKindOfClass:[NSNull class]]) {
+            _thumbnailUrl = [NSString string];
+        }
     }
     return self;
 }

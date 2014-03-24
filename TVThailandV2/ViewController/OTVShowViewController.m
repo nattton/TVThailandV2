@@ -11,6 +11,7 @@
 #import "OTVShow.h"
 #import "OTVShowTableViewCell.h"
 #import "OTVCategory.h"
+#import "OTVEpAndPartViewController.h"
 
 
 @interface OTVShowViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -26,8 +27,9 @@
 }
 
 #pragma mark - Static Variable
-
 static NSString *cellIdentifier = @"OTVShowCellIdentifier";
+static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
+
 //static NSString *OTVShowDetailListSegue = @"OTVShowDetailListSegue";
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -104,7 +106,17 @@ static NSString *cellIdentifier = @"OTVShowCellIdentifier";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-  
+    if ([segue.identifier isEqualToString:otvEPAndPartIdentifier ]) {
+        
+        OTVShow *otvShow = (OTVShow *)sender;
+        
+        OTVEpAndPartViewController *otvEpAndPartViewController = segue.destinationViewController;
+        otvEpAndPartViewController.navigationItem.title = otvShow.title;
+        
+        otvEpAndPartViewController.otvCategory = self.otvCategory;
+        otvEpAndPartViewController.otvShow = otvShow;
+
+    }
 }
 
 
@@ -129,8 +141,8 @@ static NSString *cellIdentifier = @"OTVShowCellIdentifier";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [self performSegueWithIdentifier:OTVShowDetailListSegue sender:_shows[indexPath.row]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:otvEPAndPartIdentifier sender:_shows[indexPath.row]];
 }
 
 @end

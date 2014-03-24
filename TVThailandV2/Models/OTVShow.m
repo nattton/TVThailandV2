@@ -20,10 +20,13 @@
     
     self = [super init];
     if (self) {
-        _idShow = [dictionary objectForKey:@"id"];
-        _title = [dictionary objectForKey:@"name_th"];
-        _detail = [dictionary objectForKey:@"detail"];
-        _thumbnail = [dictionary objectForKey:@"thumbnail"];
+        _idShow = ([dictionary objectForKey:@"id"]?[dictionary objectForKey:@"id"]:[NSString string]);
+        _title = ([dictionary objectForKey:@"name_th"]?[dictionary objectForKey:@"name_th"]:[NSString string]);
+        _detail = ([dictionary objectForKey:@"detail"]?[dictionary objectForKey:@"detail"]:[NSString string]);
+        _thumbnail = ([dictionary objectForKey:@"thumbnail"]?[dictionary objectForKey:@"thumbnail"]:[NSString string]);
+        if ([_thumbnail isKindOfClass:[NSNull class]]) {
+            _thumbnail = [NSString string];
+        }
     }
     return self;
 }

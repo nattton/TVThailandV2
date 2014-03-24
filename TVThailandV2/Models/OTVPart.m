@@ -10,4 +10,27 @@
 
 @implementation OTVPart
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"partId:%@, nameTh:%@, thumbnail:%@, streamURL:%@ vastURL:%@", _partId, _nameTh, _thumbnail, _streamURL, _vastURL];
+}
+
+
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    
+    self = [super init];
+    if (self) {
+        
+        _partId = ([dictionary objectForKey:@"id"] ? [dictionary objectForKey:@"id"] : [NSString string]);
+        _nameTh = ([dictionary objectForKey:@"name_th"] ? [dictionary objectForKey:@"name_th"] : [NSString string]);
+        _thumbnail = ([dictionary objectForKey:@"thumbnail"] ? [dictionary objectForKey:@"thumbnail"] : [NSString string]);
+        if ([_thumbnail isKindOfClass:[NSNull class]]) {
+            _thumbnail = [NSString string];
+        }
+        _streamURL = ([dictionary objectForKey:@"stream_url"] ? [dictionary objectForKey:@"stream_url"] : [NSString string]);
+        
+    }
+    
+    return self;
+}
+
 @end

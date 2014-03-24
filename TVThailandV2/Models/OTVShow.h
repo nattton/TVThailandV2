@@ -10,10 +10,10 @@
 
 @interface OTVShow : NSObject
 
-@property (strong, nonatomic) NSString *idShow;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *detail;
-@property (strong, nonatomic) NSString *thumbnail;
+@property (nonatomic, readonly) NSString *idShow;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *detail;
+@property (nonatomic, readonly) NSString *thumbnail;
 
 
 - (id) initWithDictionary:(NSDictionary *) dictionary;

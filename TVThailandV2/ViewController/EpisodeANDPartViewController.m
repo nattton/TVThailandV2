@@ -42,6 +42,9 @@
     BOOL isEnding;
     UIRefreshControl *_refreshControl;
     
+    UIButton *buttonFavBar;
+    UIButton *buttonInfoBar;
+    
 }
 
 
@@ -51,8 +54,7 @@ static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
 
-UIButton *buttonFavBar;
-UIButton *buttonInfoBar;
+
 
 UILabel *titleLabel;
 MakathonAdView *makathonAdView;

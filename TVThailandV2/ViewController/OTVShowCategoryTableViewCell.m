@@ -39,9 +39,9 @@
     
     self.titleLabel.text = category.title;
     
-    [self.thumbnailImageView setImage:[UIImage imageNamed:@"ic_cate_empty"]];
-//    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:category.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"ic_cate_empty"]];
-//    self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
+
+    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:category.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"otv_icon"]];
+    self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
 
 }
 
