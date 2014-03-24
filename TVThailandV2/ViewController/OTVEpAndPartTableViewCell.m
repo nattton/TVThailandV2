@@ -139,7 +139,8 @@
         partTitleLabel.textColor = [UIColor whiteColor];
 //        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d/%d", (indexPath.row+1), self.episode.videos.count ]];
         [partTitleLabel setText:[[self.otvEpisode.parts objectAtIndex:indexPath.row] nameTh]];
-        partTitleLabel.numberOfLines = 0;
+        partTitleLabel.numberOfLines = 1;
+
         
         if (self.otvEpisode.parts.count != 1 ){
             [cell addSubview:partTitleLabel];

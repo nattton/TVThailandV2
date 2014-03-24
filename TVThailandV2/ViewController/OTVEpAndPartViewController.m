@@ -113,16 +113,16 @@ static NSString *cellname = @"cell";
 
 
 - (void)reload:(NSUInteger)start {
-    if (isLoading || isEnding) {
-        return;
-    }
+//    if (isLoading || isEnding) {
+//        return;
+//    }
     
-    isLoading = YES;
+//    isLoading = YES;
     [OTVEpisode loadOTVEpisodeAndPart:self.otvCategory.cateName showID:self.otvShow.idShow start:start Block:^(NSArray *tempOtvEpisodes, NSError *error) {
         
-//        if ([tempOtvEpisodes count] == 0) {
-//            isEnding = YES;
-//        }
+        if ([tempOtvEpisodes count] == 0) {
+            isEnding = YES;
+        }
         
         if (start == 0) {
             [SVProgressHUD dismiss];
@@ -130,13 +130,13 @@ static NSString *cellname = @"cell";
             _otvEpisodes = tempOtvEpisodes;
             
         } else {
-//            NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_otvEpisodes];
-//            [mergeArray addObjectsFromArray:tempOtvEpisodes];
-//            _otvEpisodes = [NSArray arrayWithArray:mergeArray];
+            NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_otvEpisodes];
+            [mergeArray addObjectsFromArray:tempOtvEpisodes];
+            _otvEpisodes = [NSArray arrayWithArray:mergeArray];
         }
-
         [portable reloadData];
         isLoading = NO;
+        
         
 //        [_refreshControl endRefreshing];
 //        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
@@ -227,7 +227,7 @@ static NSString *cellname = @"cell";
     
     UILabel *epUpdateTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 19, tableView.frame.size.width - 70, 12)];
     [epUpdateTimeLabel setFont:[UIFont systemFontOfSize:10]];
-    NSString *epUpdateTimeString = [NSString stringWithFormat:@"%@ | %@",[_otvEpisodes[section] date],[_otvEpisodes[section] date]];
+    NSString *epUpdateTimeString = [NSString stringWithFormat:@"%@", [_otvEpisodes[section] date]];
     [epUpdateTimeLabel setText:epUpdateTimeString];
     [epUpdateTimeLabel setBackgroundColor:[UIColor clearColor]];
     [view addSubview:epUpdateTimeLabel];
@@ -252,11 +252,11 @@ static NSString *cellname = @"cell";
     
     [cell configureWithEpisode:_otvEpisodes[indexPath.section]];
     
-    if ((indexPath.section + 5) == _otvEpisodes.count) {
-        
-        [self reload:_otvEpisodes.count];
-        
-    }
+//    if ((indexPath.section + 5) == _otvEpisodes.count) {
+//        
+//        [self reload:_otvEpisodes.count];
+//        
+//    }
     
     cell.delegate = self;
     
