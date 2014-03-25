@@ -1249,8 +1249,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="vmJ-uZ-SEY" id="5qg-yy-n7M"/>
-                                    <outlet property="delegate" destination="vmJ-uZ-SEY" id="JF3-zF-nbi"/>
+                                    <outlet property="dataSource" destination="vmJ-uZ-SEY" id="sa5-A9-Cfl"/>
+                                    <outlet property="delegate" destination="vmJ-uZ-SEY" id="Q9t-NR-qjo"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -2598,10 +2598,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="67l-Yd-BAi"/>
         <segue reference="vG8-c4-ff0"/>
-        <segue reference="coN-dj-guD"/>
-        <segue reference="9Rn-Dv-86c"/>
         <segue reference="VVM-kZ-9qj"/>
-        <segue reference="3PO-yq-kuy"/>
+        <segue reference="9Rn-Dv-86c"/>
+        <segue reference="HVe-sY-Nz3"/>
+        <segue reference="x1u-Y4-edj"/>
         <segue reference="46G-Qc-OaU"/>
     </inferredMetricsTieBreakers>
 </document>

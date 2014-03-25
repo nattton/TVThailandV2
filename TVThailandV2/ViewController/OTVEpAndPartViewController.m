@@ -193,7 +193,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             /* iPAD */
             
-            portable.frame = CGRectMake(0, 100, actualSize.width, actualSize.height-100);
+            portable.frame = CGRectMake(0, 64, actualSize.width, actualSize.height-120);
 //            titleLabel.frame = CGRectMake(0, 153, self.view.frame.size.width, 30);
             
         } else {
@@ -219,7 +219,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             /* iPAD */
             
-            portable.frame = CGRectMake(0, 43, actualSize.width, actualSize.height-120);
+            portable.frame = CGRectMake(0, 0, actualSize.width, actualSize.height);
 //            titleLabel.frame = CGRectMake(0, 88, self.view.frame.size.width, 30);
             
         } else {
