@@ -177,9 +177,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
-//        [self.delegate playVideoPart:indexPath episode:self.otvEpisode];
-//    }
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
+        [self.delegate playVideoPart:indexPath episode:self.otvEpisode];
+    }
     
     
 }

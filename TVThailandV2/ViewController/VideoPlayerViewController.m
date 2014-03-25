@@ -103,7 +103,7 @@
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    NSLog(@"++++%s", self.isHidenToolbarPlayer ? "true" : "false");
+//    NSLog(@"++++%s", self.isHidenToolbarPlayer ? "true" : "false");
     if (self.isHidenToolbarPlayer) {
         self.videoToolbar.hidden = YES;
     }

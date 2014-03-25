@@ -15,6 +15,7 @@
 
 #import "OTVEpAndPartTableViewCell.h"
 #import "OTVMoreDetailViewController.h"
+#import "OTVVideoPlayerViewController.h"
 
 @interface OTVEpAndPartViewController () <UITableViewDataSource, UITableViewDelegate, OTVEpAndPartTableViewCellDelegate>
 
@@ -26,6 +27,7 @@
     BOOL isLoading;
     BOOL isEnding;
     BOOL isInViewDidAppear;
+    OTVEpisode *_otvEpisode;
 }
 
 
@@ -109,9 +111,6 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)infoButtonTapped:(id)sender {
-    [self performSegueWithIdentifier:showDetailSegue sender:self.otvShow];
-}
 
 
 - (void)reload {
@@ -285,6 +284,17 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 
+- (IBAction)infoButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:showDetailSegue sender:self.otvShow];
+}
+
+- (void)playVideoPart:(NSIndexPath *)indexPath episode:(OTVEpisode *)episode{
+    
+    _otvEpisode = episode;
+
+    [self performSegueWithIdentifier:otvEpAndPartToShowPlayerSegue sender:indexPath];
+}
+
 
 #pragma mark - Navigation
 
@@ -292,7 +302,13 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:otvEpAndPartToShowPlayerSegue]) {
+        OTVVideoPlayerViewController *videoPlayer = segue.destinationViewController;
+        videoPlayer.otvCategory = _otvCategory;
+        videoPlayer.otvEpisode = _otvEpisode;
+        NSIndexPath *idx = (NSIndexPath *)sender;
+        videoPlayer.idx = idx.row;
         
+//        [self.otvEpisode sendViewEpisode];
     }
     
     if ([segue.identifier isEqualToString:showDetailSegue]) {

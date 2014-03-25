@@ -1387,11 +1387,73 @@
                     <navigationItem key="navigationItem" id="t13-nQ-q6s"/>
                     <connections>
                         <segue destination="Lkb-P2-gB6" kind="modal" identifier="ShowDetailSegue" id="5Dp-fz-hEf"/>
+                        <segue destination="9O5-r2-TtL" kind="push" identifier="OTVEpAndPartToShowPlayerSegue" id="thT-9Q-0xs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yvC-W4-toP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2053" y="2833"/>
+        </scene>
+        <!--Video Player View Controller-->
+        <scene sceneID="vrf-4m-cZQ">
+            <objects>
+                <viewController id="9O5-r2-TtL" customClass="OTVVideoPlayerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3h3-Xj-ASO"/>
+                        <viewControllerLayoutGuide type="bottom" id="xCc-vF-NkZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G4j-Rf-g7x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0n-s2-eUa">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ya-i1-CbG">
+                                <rect key="frame" x="0.0" y="475" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Item" style="plain" systemItem="rewind" id="K2c-2F-puW">
+                                        <connections>
+                                            <action selector="previousButtonTouched:" destination="9O5-r2-TtL" id="9KF-rR-idi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DRE-pb-ey6"/>
+                                    <barButtonItem title="Item" id="VVv-d4-Mlh"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="QDq-O0-Au4"/>
+                                    <barButtonItem title="Item" style="plain" systemItem="fastForward" id="du6-aP-W71">
+                                        <connections>
+                                            <action selector="nextButtonTouched:" destination="9O5-r2-TtL" id="z9D-vo-Omp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="A0n-s2-eUa" secondAttribute="trailing" id="CGc-jR-8yf"/>
+                            <constraint firstItem="xCc-vF-NkZ" firstAttribute="top" secondItem="3Ya-i1-CbG" secondAttribute="bottom" id="CZp-9s-oZU"/>
+                            <constraint firstItem="A0n-s2-eUa" firstAttribute="top" secondItem="G4j-Rf-g7x" secondAttribute="top" id="It9-3w-XVd"/>
+                            <constraint firstAttribute="bottom" secondItem="A0n-s2-eUa" secondAttribute="bottom" id="N31-77-8Oo"/>
+                            <constraint firstItem="A0n-s2-eUa" firstAttribute="leading" secondItem="G4j-Rf-g7x" secondAttribute="leading" id="Qrp-uR-G2a"/>
+                            <constraint firstItem="3Ya-i1-CbG" firstAttribute="leading" secondItem="G4j-Rf-g7x" secondAttribute="leading" id="ekq-i9-FJp"/>
+                            <constraint firstAttribute="trailing" secondItem="3Ya-i1-CbG" secondAttribute="trailing" id="jIc-Bd-LB0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="CNp-vz-7cK"/>
+                    <connections>
+                        <outlet property="nextBarButtonItem" destination="du6-aP-W71" id="60W-et-SjO"/>
+                        <outlet property="partInfoBarButtonItem" destination="VVv-d4-Mlh" id="gAc-Qv-8y9"/>
+                        <outlet property="previousBarButtonItem" destination="K2c-2F-puW" id="RWS-mr-Qtt"/>
+                        <outlet property="videoToolbar" destination="3Ya-i1-CbG" id="mob-op-He6"/>
+                        <outlet property="webView" destination="A0n-s2-eUa" id="M3L-k0-Aui"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AgW-G0-Gu1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2561" y="2833"/>
         </scene>
         <!--More Detail View Controller-->
         <scene sceneID="mhg-eF-NuI">

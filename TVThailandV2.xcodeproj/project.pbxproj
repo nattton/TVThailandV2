@@ -25,6 +25,7 @@
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11FE022718DBF978004B8ADF /* OTVEpAndPartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FE022618DBF978004B8ADF /* OTVEpAndPartTableViewCell.m */; };
 		11FE022A18E12F43004B8ADF /* OTVMoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FE022918E12F43004B8ADF /* OTVMoreDetailViewController.m */; };
+		11FE022D18E14373004B8ADF /* OTVVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FE022C18E14373004B8ADF /* OTVVideoPlayerViewController.m */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
 		3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24817FF328A006FA479 /* MakathonAdView.m */; };
@@ -128,6 +129,8 @@
 		11FE022618DBF978004B8ADF /* OTVEpAndPartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVEpAndPartTableViewCell.m; sourceTree = "<group>"; };
 		11FE022818E12F43004B8ADF /* OTVMoreDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVMoreDetailViewController.h; sourceTree = "<group>"; };
 		11FE022918E12F43004B8ADF /* OTVMoreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVMoreDetailViewController.m; sourceTree = "<group>"; };
+		11FE022B18E14373004B8ADF /* OTVVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVVideoPlayerViewController.h; sourceTree = "<group>"; };
+		11FE022C18E14373004B8ADF /* OTVVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVVideoPlayerViewController.m; sourceTree = "<group>"; };
 		320AF8492C47A4D819F7C450 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.frameworks; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B15D22A17FD86FB006FA479 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3B15D22B17FD86FB006FA479 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 				11FE022618DBF978004B8ADF /* OTVEpAndPartTableViewCell.m */,
 				11FE022818E12F43004B8ADF /* OTVMoreDetailViewController.h */,
 				11FE022918E12F43004B8ADF /* OTVMoreDetailViewController.m */,
+				11FE022B18E14373004B8ADF /* OTVVideoPlayerViewController.h */,
+				11FE022C18E14373004B8ADF /* OTVVideoPlayerViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -678,6 +683,7 @@
 				1136AC4F18D81E9B004BFE4D /* OTVShowCategoryTableViewCell.m in Sources */,
 				1136AC5218D94229004BFE4D /* OTVShowViewController.m in Sources */,
 				3B67F7B317E0C8A600C9CD23 /* ShowCategoryTableViewCell.m in Sources */,
+				11FE022D18E14373004B8ADF /* OTVVideoPlayerViewController.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

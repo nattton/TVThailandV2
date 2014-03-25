@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) OTVCategory *otvCategory;
 @property (nonatomic, strong) OTVShow *otvShow;
-@property (nonatomic, weak) OTVEpisode *otvEpisode;
+
 
 
 @end
