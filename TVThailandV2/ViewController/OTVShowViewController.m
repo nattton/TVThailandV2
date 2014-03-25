@@ -24,6 +24,9 @@
     UIRefreshControl *_refreshControl;
     NSArray *_shows;
     
+    BOOL isLoading;
+    BOOL isEnding;
+    
 }
 
 #pragma mark - Static Variable
@@ -56,27 +59,81 @@ static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     }
     
-    [SVProgressHUD showWithStatus:@"Loading..."];
+   
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
     
+     [SVProgressHUD showWithStatus:@"Loading..."];
+    
     [self reload];
 }
 
 - (void)reload {
+    isEnding = NO;
+    [self reload:0];
+}
+
+- (void)reload:(NSUInteger)start {
+    if (isLoading || isEnding) {
+        return;
+    }
     
-    [OTVShow loadOTVShow:self.otvCategory.cateName Start:0 Block:^(NSArray *otvShows, NSError *error) {
+    isLoading = YES;
+    if ([_otvCategory.IdCate isEqualToString:kOTV_CH7]) {
+     
+        [OTVShow loadOTVShowWithCH7:self.otvCategory.cateName Start:start Block:^(NSArray *otvShows, NSError *error) {
+            
+            if ([otvShows count] == 0) {
+                isEnding = YES;
+            }
+            
+            if (start == 0) {
+                [SVProgressHUD dismiss];
+                _shows = otvShows;
+                
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
+                [mergeArray addObjectsFromArray:otvShows];
+                _shows = [NSArray arrayWithArray:mergeArray];
+            }
+            
+            
+            [self.tableView reloadData];
+            isLoading = NO;
+            
+            [_refreshControl endRefreshing];
+            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+        }];
         
-        [SVProgressHUD dismiss];
-        _shows = otvShows;
-        
-        [self.tableView reloadData];
-        
-        [_refreshControl endRefreshing];
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-    }];
+    } else {
+        [OTVShow loadOTVShow:self.otvCategory.cateName Start:0 Block:^(NSArray *otvShows, NSError *error) {
+            
+            
+            if ([otvShows count] == 0) {
+                isEnding = YES;
+            }
+            
+            if (start == 0) {
+                [SVProgressHUD dismiss];
+                _shows = otvShows;
+                
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
+                [mergeArray addObjectsFromArray:otvShows];
+                _shows = [NSArray arrayWithArray:mergeArray];
+            }
+            
+
+            [self.tableView reloadData];
+            isLoading = NO;
+            
+            [_refreshControl endRefreshing];
+            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+        }];
+    }
+
 }
 
 - (void)refreshView:(UIRefreshControl *)refresh {

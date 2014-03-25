@@ -121,35 +121,66 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 
 
 - (void)reload:(NSUInteger)start {
-//    if (isLoading || isEnding) {
-//        return;
-//    }
+    if (isLoading || isEnding) {
+        return;
+    }
     
-//    isLoading = YES;
-    [OTVEpisode loadOTVEpisodeAndPart:self.otvCategory.cateName showID:self.otvShow.idShow start:start Block:^(NSArray *tempOtvEpisodes, NSError *error) {
-        
-        if ([tempOtvEpisodes count] == 0) {
-            isEnding = YES;
-        }
-        
-        if (start == 0) {
-            [SVProgressHUD dismiss];
+    isLoading = YES;
+    if ([self.otvCategory.IdCate isEqualToString:kOTV_CH7]) {
+        [OTVEpisode loadOTVEpisodeAndPartOfCH7:self.otvCategory.cateName showID:self.otvShow.idShow start:start Block:^(NSArray *tempOtvEpisodes, NSError *error) {
             
-            _otvEpisodes = tempOtvEpisodes;
+            if ([tempOtvEpisodes count] == 0) {
+                isEnding = YES;
+            }
             
-        } else {
-            NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_otvEpisodes];
-            [mergeArray addObjectsFromArray:tempOtvEpisodes];
-            _otvEpisodes = [NSArray arrayWithArray:mergeArray];
-        }
-        [portable reloadData];
-        isLoading = NO;
+            if (start == 0) {
+                [SVProgressHUD dismiss];
+                
+                _otvEpisodes = tempOtvEpisodes;
+                
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_otvEpisodes];
+                [mergeArray addObjectsFromArray:tempOtvEpisodes];
+                _otvEpisodes = [NSArray arrayWithArray:mergeArray];
+            }
+            
+            [portable reloadData];
+            isLoading = NO;
+            
+            
+            //        [_refreshControl endRefreshing];
+            //        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+            
+        }];
         
-        
-//        [_refreshControl endRefreshing];
-//        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-        
-    }];
+    } else {
+        [OTVEpisode loadOTVEpisodeAndPart:self.otvCategory.cateName showID:self.otvShow.idShow start:start Block:^(NSArray *tempOtvEpisodes, NSError *error) {
+            
+            if ([tempOtvEpisodes count] == 0) {
+                isEnding = YES;
+            }
+            
+            if (start == 0) {
+                [SVProgressHUD dismiss];
+                
+                _otvEpisodes = tempOtvEpisodes;
+                
+            } else {
+                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_otvEpisodes];
+                [mergeArray addObjectsFromArray:tempOtvEpisodes];
+                _otvEpisodes = [NSArray arrayWithArray:mergeArray];
+            }
+            
+            [portable reloadData];
+            isLoading = NO;
+            
+            
+            //        [_refreshControl endRefreshing];
+            //        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+            
+        }];
+    }
+
 }
 
 - (void) setUpTableFrame {

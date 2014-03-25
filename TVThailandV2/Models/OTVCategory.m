@@ -33,7 +33,19 @@
     return self;
 }
 
-
+- (id)initWithId:(NSString *)IdCate CateName:(NSString *)cateName Title:(NSString *)title ThumbnailURL:(NSString *)thubmnailURL {
+    self = [super init];
+    if (self) {
+        _IdCate = IdCate;
+        _cateName = cateName;
+        _title = title;
+        _thumbnailUrl = thubmnailURL;
+    }
+    return self;
+}
++ (OTVCategory *)initWithCH7{
+    return [[OTVCategory alloc]initWithId:kOTV_CH7 CateName:kOTV_CH7 Title:@"ช่อง 7" ThumbnailURL:@""];
+}
 
 + (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block {
     
@@ -44,11 +56,18 @@
     [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION ] parameters:nil
         success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
-            NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count]];
+            
+            // Capacity + (1)Ch7
+            NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count] + 1];
+            OTVCategory * category = [OTVCategory initWithCH7];
+            
+            [mutableCategories addObject:category];
             for (NSDictionary *dictCategory in jcategories){
                 OTVCategory * category = [[OTVCategory alloc] initWithDictionary:dictCategory];
                 [mutableCategories addObject:category];
             }
+            
+
             
             if (block) {
                 block([NSArray arrayWithArray:mutableCategories], nil);

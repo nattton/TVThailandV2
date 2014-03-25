@@ -20,4 +20,7 @@
 
 + (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block;
 
+- (id)initWithId:(NSString *)IdCate CateName:(NSString *)cateName Title:(NSString *)title ThumbnailURL:(NSString *)thubmnailURL;
++ (OTVCategory *)initWithCH7;
+
 @end

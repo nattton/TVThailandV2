@@ -63,4 +63,35 @@
         }];
 }
 
++ (void)loadOTVShowWithCH7:(NSString *)cate_name Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block {
+    
+    OTVApiClient *client = [OTVApiClient sharedInstance];
+    
+    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [client GET:[NSString stringWithFormat:@"%@/drama", cate_name]
+     parameters:nil
+        success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSArray *jShows = [responseObject valueForKeyPath:@"items"];
+            NSMutableArray *mutableShows = [NSMutableArray arrayWithCapacity:[jShows count]];
+            
+            for (NSDictionary *dictShow in jShows) {
+                OTVShow * show = [[OTVShow alloc] initWithDictionary:dictShow];
+                [mutableShows addObject:show];
+            }
+            
+            if (block) {
+                block([NSArray arrayWithArray:mutableShows], nil);
+            }
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (block) {
+                block([NSArray array], error);
+                
+                NSLog(@"failure loadOTVShowWithCH7: %@", error);
+            }
+        }];
+}
+
 @end

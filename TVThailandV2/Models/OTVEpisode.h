@@ -25,4 +25,6 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 + (void)loadOTVEpisodeAndPart:(NSString *)cateName showID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block;
 
++ (void)loadOTVEpisodeAndPartOfCH7:(NSString *)cateName showID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block;
+
 @end
