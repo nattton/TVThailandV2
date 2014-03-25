@@ -1385,15 +1385,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="t13-nQ-q6s"/>
+                    <connections>
+                        <segue destination="Lkb-P2-gB6" kind="modal" identifier="ShowDetailSegue" id="5Dp-fz-hEf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yvC-W4-toP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2053" y="2833"/>
         </scene>
-        <!--View Controller-->
+        <!--More Detail View Controller-->
         <scene sceneID="mhg-eF-NuI">
             <objects>
-                <viewController id="Lkb-P2-gB6" sceneMemberID="viewController">
+                <viewController id="Lkb-P2-gB6" customClass="OTVMoreDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hVu-PW-zCy"/>
                         <viewControllerLayoutGuide type="bottom" id="ohu-as-eLA"/>
@@ -1401,8 +1404,68 @@
                     <view key="view" contentMode="scaleToFill" id="Orf-YH-oNO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xjC-j0-GwA">
+                                <rect key="frame" x="20" y="292" width="280" height="256"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdM-yH-GbF">
+                                <rect key="frame" x="254" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="EyS-pb-ldQ"/>
+                                </constraints>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonTapped:" destination="Lkb-P2-gB6" eventType="touchUpInside" id="2e3-kl-Etj"/>
+                                    <action selector="doneButtonTapped:" destination="cv3-Qr-DMZ" eventType="touchUpInside" id="fJ4-c0-pXG"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="jXg-nV-Akg">
+                                <rect key="frame" x="20" y="58" width="280" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="cKq-Sp-8lu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GdF-5s-dJS">
+                                <rect key="frame" x="40" y="119" width="240" height="162"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="glp-p7-1BC"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jXg-nV-Akg" firstAttribute="leading" secondItem="Orf-YH-oNO" secondAttribute="leading" constant="20" symbolic="YES" id="EyN-yD-RNX"/>
+                            <constraint firstItem="hdM-yH-GbF" firstAttribute="top" secondItem="Orf-YH-oNO" secondAttribute="top" constant="20" symbolic="YES" id="FLV-5v-Ejd"/>
+                            <constraint firstItem="GdF-5s-dJS" firstAttribute="top" secondItem="jXg-nV-Akg" secondAttribute="bottom" constant="16" id="HNZ-lw-Mfo"/>
+                            <constraint firstItem="xjC-j0-GwA" firstAttribute="top" secondItem="GdF-5s-dJS" secondAttribute="bottom" constant="11" id="HkD-9Y-UOJ"/>
+                            <constraint firstItem="jXg-nV-Akg" firstAttribute="top" secondItem="hdM-yH-GbF" secondAttribute="bottom" constant="8" symbolic="YES" id="Mma-uI-LGs"/>
+                            <constraint firstAttribute="bottom" secondItem="xjC-j0-GwA" secondAttribute="bottom" constant="20" symbolic="YES" id="P5A-7m-efW"/>
+                            <constraint firstItem="hdM-yH-GbF" firstAttribute="trailing" secondItem="jXg-nV-Akg" secondAttribute="trailing" id="Psm-cA-bbQ"/>
+                            <constraint firstItem="jXg-nV-Akg" firstAttribute="leading" secondItem="xjC-j0-GwA" secondAttribute="leading" id="dsT-qB-NVe"/>
+                            <constraint firstItem="GdF-5s-dJS" firstAttribute="centerX" secondItem="jXg-nV-Akg" secondAttribute="centerX" id="gY4-PR-TIp"/>
+                            <constraint firstItem="xjC-j0-GwA" firstAttribute="trailing" secondItem="jXg-nV-Akg" secondAttribute="trailing" id="glW-hs-RFK"/>
+                            <constraint firstItem="GdF-5s-dJS" firstAttribute="leading" secondItem="Orf-YH-oNO" secondAttribute="leading" constant="40" id="v3x-Eu-ml9"/>
+                            <constraint firstAttribute="trailing" secondItem="hdM-yH-GbF" secondAttribute="trailing" constant="20" symbolic="YES" id="ya5-hh-aeU"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="SfG-0b-uGH"/>
+                    <connections>
+                        <outlet property="detailTextView" destination="xjC-j0-GwA" id="UHj-jM-oQA"/>
+                        <outlet property="thumbnailImageView" destination="GdF-5s-dJS" id="px6-Kl-uDB"/>
+                        <outlet property="titleLabel" destination="jXg-nV-Akg" id="lQn-Yb-YQl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lNi-Jd-b4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2477,6 +2540,6 @@
         <segue reference="9Rn-Dv-86c"/>
         <segue reference="VVM-kZ-9qj"/>
         <segue reference="3PO-yq-kuy"/>
-        <segue reference="E8Q-oG-9nj"/>
+        <segue reference="46G-Qc-OaU"/>
     </inferredMetricsTieBreakers>
 </document>

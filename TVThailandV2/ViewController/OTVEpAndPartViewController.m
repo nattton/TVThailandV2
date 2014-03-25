@@ -14,6 +14,7 @@
 #import "SVProgressHUD.h"
 
 #import "OTVEpAndPartTableViewCell.h"
+#import "OTVMoreDetailViewController.h"
 
 @interface OTVEpAndPartViewController () <UITableViewDataSource, UITableViewDelegate, OTVEpAndPartTableViewCellDelegate>
 
@@ -24,12 +25,13 @@
     NSArray *_otvEpisodes;
     BOOL isLoading;
     BOOL isEnding;
+    BOOL isInViewDidAppear;
 }
 
 
 static NSString *cellname = @"cell";
-//static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
-//static NSString *showDetailSegue = @"ShowDetailSegue";
+static NSString *otvEpAndPartToShowPlayerSegue = @"OTVEpAndPartToShowPlayerSegue";
+static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,6 +56,13 @@ static NSString *cellname = @"cell";
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    if (isInViewDidAppear) {
+        [self setUpTableFrame];
+        [portable reloadData];
+    }
+    isInViewDidAppear = YES;
+}
 
 - (void)viewDidLoad
 {
@@ -101,7 +110,7 @@ static NSString *cellname = @"cell";
 }
 
 - (IBAction)infoButtonTapped:(id)sender {
-//    [self performSegueWithIdentifier:showDetailSegue sender:self.otvShow];
+    [self performSegueWithIdentifier:showDetailSegue sender:self.otvShow];
 }
 
 
@@ -276,15 +285,22 @@ static NSString *cellname = @"cell";
 }
 
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:otvEpAndPartToShowPlayerSegue]) {
+        
+    }
+    
+    if ([segue.identifier isEqualToString:showDetailSegue]) {
+        OTVMoreDetailViewController *detailViewController = segue.destinationViewController;
+        detailViewController.otvShow = sender;
+    }
 }
-*/
+
+
 
 @end

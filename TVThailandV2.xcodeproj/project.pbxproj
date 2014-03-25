@@ -24,6 +24,7 @@
 		11A263A818C586210059C17D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A263A718C586210059C17D /* FacebookSDK.framework */; };
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11FE022718DBF978004B8ADF /* OTVEpAndPartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FE022618DBF978004B8ADF /* OTVEpAndPartTableViewCell.m */; };
+		11FE022A18E12F43004B8ADF /* OTVMoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FE022918E12F43004B8ADF /* OTVMoreDetailViewController.m */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
 		3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24817FF328A006FA479 /* MakathonAdView.m */; };
@@ -125,6 +126,8 @@
 		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		11FE022518DBF978004B8ADF /* OTVEpAndPartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVEpAndPartTableViewCell.h; sourceTree = "<group>"; };
 		11FE022618DBF978004B8ADF /* OTVEpAndPartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVEpAndPartTableViewCell.m; sourceTree = "<group>"; };
+		11FE022818E12F43004B8ADF /* OTVMoreDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVMoreDetailViewController.h; sourceTree = "<group>"; };
+		11FE022918E12F43004B8ADF /* OTVMoreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVMoreDetailViewController.m; sourceTree = "<group>"; };
 		320AF8492C47A4D819F7C450 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.frameworks; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B15D22A17FD86FB006FA479 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3B15D22B17FD86FB006FA479 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				1136AC5718DB0A12004BFE4D /* OTVEpAndPartViewController.m */,
 				11FE022518DBF978004B8ADF /* OTVEpAndPartTableViewCell.h */,
 				11FE022618DBF978004B8ADF /* OTVEpAndPartTableViewCell.m */,
+				11FE022818E12F43004B8ADF /* OTVMoreDetailViewController.h */,
+				11FE022918E12F43004B8ADF /* OTVMoreDetailViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -656,6 +661,7 @@
 				3B39B09E17E2F1540027B242 /* PartListViewController.m in Sources */,
 				11744B1D182E4761003EF6A8 /* EPAndPartCell.m in Sources */,
 				3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */,
+				11FE022A18E12F43004B8ADF /* OTVMoreDetailViewController.m in Sources */,
 				1136AC4318D81D98004BFE4D /* OTVCategory.m in Sources */,
 				3B67F7A717E09C6600C9CD23 /* ShowListViewController.m in Sources */,
 				115CDAAA182E19A900402D6B /* EpisodeANDPartViewController.m in Sources */,

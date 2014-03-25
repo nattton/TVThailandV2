@@ -44,6 +44,8 @@
     
     UIButton *buttonFavBar;
     UIButton *buttonInfoBar;
+
+    BOOL isInViewDidAppear;
     
 }
 
@@ -68,12 +70,14 @@ MakathonAdView *makathonAdView;
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [self calulateUI];
-    [self setUpTableFrame];
-
+    if (isInViewDidAppear) {
+        [self calulateUI];
+        [self setUpTableFrame];
+    }
     
+    isInViewDidAppear = YES;
 }
 
 
