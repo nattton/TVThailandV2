@@ -27,7 +27,8 @@
         if ([_thumbnail isKindOfClass:[NSNull class]]) {
             _thumbnail = [NSString string];
         }
-//        _date = ([dictionary objectForKey:@"date"]?[dictionary objectForKey:@"date"]:[NSString string]);
+        _date = ([dictionary objectForKey:@"date"]?[dictionary objectForKey:@"date"]:[NSString string]);
+
         _parts = ([dictionary objectForKey:@"item"]?[dictionary objectForKey:@"item"]:[NSString string]);
         
         NSDateFormatter *_df = [[NSDateFormatter alloc] init];
@@ -37,8 +38,9 @@
         [_thaiFormat setDateFormat:@"dd MMMM yyyy"];
         [_thaiFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"th"]];
         
-        _date = [NSString stringWithFormat:@"ออกอากาศ %@",
-                        [_thaiFormat stringFromDate:[_df dateFromString: [dictionary objectForKey:@"date"]]]];
+        _date = [_date isEqualToString:@""] ? _date : [NSString stringWithFormat:@"ออกอากาศ %@",
+                                                       [_thaiFormat stringFromDate:[_df dateFromString: _date]]];
+
         
     }
     
