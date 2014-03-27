@@ -112,7 +112,7 @@
     
     client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-    [client GET:[NSString stringWithFormat:@"%@/content/1/%@",kOTV_CH7,showID]
+    [client GET:[NSString stringWithFormat:@"%@/content/2/%@",kOTV_CH7,showID]
      parameters:nil
         success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
@@ -124,25 +124,35 @@
                 
                 OTVEpisode *episode = [[OTVEpisode alloc]initWithDictionary:dictEp];
                 
-                //                NSLog(@"EP:%@, Part_count: %d", episode.date , [episode.parts count]);
-                
                 NSInteger count = 0;
+
                 NSString *vast_url_temp = @"";
-                NSMutableArray *mutableParts = [NSMutableArray arrayWithCapacity:[episode.parts count]];
+                NSMutableArray *mutableParts = [NSMutableArray arrayWithCapacity:[episode.parts count]/2];
+                
                 for (NSDictionary *dictPart in [episode parts]) {
+                    
                     OTVPart *part = [[OTVPart alloc]initWithDictionary:dictPart];
                     
                     if ((count+1)%2 == 0) {
                         part.vastURL = vast_url_temp;
+                        
                         [mutableParts addObject:part ];
-                        //                        NSLog(@"Part: %@",[part description]);
+
                     } else {
                         vast_url_temp = part.streamURL;
                     }
                     count++;
+
+                    
                 }
                 
-                episode.parts = [NSArray arrayWithArray:mutableParts];
+                NSSortDescriptor *sortById = [NSSortDescriptor sortDescriptorWithKey:@"partId"
+                                                                             ascending:YES];
+                NSArray *sortDescriptors = [NSArray arrayWithObject:sortById];
+                NSArray *sortedArray = [mutableParts sortedArrayUsingDescriptors:sortDescriptors];
+                
+                
+                episode.parts = [NSArray arrayWithArray:sortedArray];
                 
                 [mutableEpisodes addObject:episode];
                 

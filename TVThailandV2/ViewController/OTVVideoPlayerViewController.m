@@ -64,7 +64,13 @@
     
     [self enableOrDisableNextPreviousButton];
     
-    [self openWithVideoUrl:_part.streamURL];
+    if ([self.otvCategory.cateName isEqualToString:kOTV_CH7]) {
+        //iFrame
+        [self openWithIFRAME:_part.streamURL];
+    } else {
+        [self openWithVideoUrl:_part.streamURL];
+    }
+
     
     
 }
@@ -95,6 +101,17 @@
     [SVProgressHUD dismiss];
 }
 
+- (void) openWithIFRAME:(NSString *)iframeText {
+    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
+                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
+                            <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
+                            <iframe src='http://www.bugaboo.tv/embed/110269?w=640&h=360&auto=true&' allowtransparency='true' frameborder='0' width='640' height='360' scrolling='no'></iframe></body></html>", _size.width];
+    
+    [self.webView loadHTMLString:htmlString
+                         baseURL:nil];
+    [SVProgressHUD dismiss];
+}
+
 - (IBAction)previousButtonTouched:(id)sender {
     if (_idx >= 1) {
         _idx = _idx-1;
@@ -107,7 +124,12 @@
             NSString *partInfo = [NSString stringWithFormat:@"%@",[_part nameTh]];
             self.partInfoBarButtonItem.title = partInfo;
             
-            [self openWithVideoUrl:_part.streamURL];
+            if ([self.otvCategory.cateName isEqualToString:kOTV_CH7]) {
+                //iFrame
+                [self openWithIFRAME:_part.streamURL];
+            } else {
+                [self openWithVideoUrl:_part.streamURL];
+            }
 
         } else
         {
@@ -129,7 +151,12 @@
             NSString *partInfo = [NSString stringWithFormat:@"%@",[_part nameTh]];
             self.partInfoBarButtonItem.title = partInfo;
             
-            [self openWithVideoUrl:_part.streamURL];
+            if ([self.otvCategory.cateName isEqualToString:kOTV_CH7]) {
+                //iFrame
+                [self openWithIFRAME:_part.streamURL];
+            } else {
+                [self openWithVideoUrl:_part.streamURL];
+            }
         }
 
         else
