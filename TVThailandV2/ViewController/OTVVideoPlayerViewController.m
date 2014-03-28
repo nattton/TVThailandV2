@@ -23,8 +23,9 @@
 
 @implementation OTVVideoPlayerViewController {
     CGSize _size;
+    CGFloat _widthOfCH7iFrame;
     OTVPart *_part;
-
+    
 }
 
 
@@ -42,9 +43,11 @@
 {
     [super viewDidLoad];
     
+    _widthOfCH7iFrame = 640;
+    
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _size = CGSizeMake(768, 460);
-
+        
     }
     else
     {
@@ -98,18 +101,33 @@
                       videoUrl
                       ];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
+    [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
 }
 
 - (void) openWithIFRAME:(NSString *)iframeText {
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
-                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
+                            <meta name = \"viewport\" content = \"user-scalable = no, width = %0.0f\"/></head>\
                             <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
-                            <iframe src='http://www.bugaboo.tv/embed/110269?w=640&h=360&auto=true&' allowtransparency='true' frameborder='0' width='640' height='360' scrolling='no'></iframe></body></html>", _size.width];
+                            %@</body></html>", _widthOfCH7iFrame, [self htmlEntityDecode:iframeText]];
+    
     
     [self.webView loadHTMLString:htmlString
                          baseURL:nil];
+    [self.webView setScalesPageToFit:YES];
+    [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
+}
+
+-(NSString *)htmlEntityDecode:(NSString *)string
+{
+    string = [string stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+    string = [string stringByReplacingOccurrencesOfString:@"&apos;" withString:@"'"];
+    string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    string = [string stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    string = [string stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    
+    return string;
 }
 
 - (IBAction)previousButtonTouched:(id)sender {

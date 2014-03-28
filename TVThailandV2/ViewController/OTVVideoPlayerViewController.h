@@ -18,4 +18,6 @@
 
 @property (nonatomic, unsafe_unretained) NSUInteger idx;
 
+-(NSString *)htmlEntityDecode:(NSString *)string;
+
 @end
