@@ -6,9 +6,9 @@
 //  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "EpisodeANDPartViewController.h"
+#import "EpisodePartViewController.h"
 #import "AppDelegate.h"
-#import "EPAndPartCell.h"
+#import "EpisodePartCell.h"
 #import "Show.h"
 #import "Episode.h"
 #import "VideoPlayerViewController.h"
@@ -24,42 +24,29 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-#import "MakathonAdView.h"
 
+@interface EpisodePartViewController ()<UITableViewDataSource, UITableViewDelegate,EPPartCellDelegate>
 
-
-@interface EpisodeANDPartViewController ()<UITableViewDataSource, UITableViewDelegate,EPAndPartCellDelegate>
-
-
-@property (weak, nonatomic) IBOutlet MakathonAdView *makathonAdView;
-
+@property (weak, nonatomic) IBOutlet UITableView *portTableView;
 
 @end
 
-@implementation EpisodeANDPartViewController{
+@implementation EpisodePartViewController{
     NSArray *_episodes;
-    BOOL isLoading;
-    BOOL isEnding;
+    BOOL _isLoading;
+    BOOL _isEnding;
     UIRefreshControl *_refreshControl;
     
-    UIButton *buttonFavBar;
-    UIButton *buttonInfoBar;
-
-    BOOL isInViewDidAppear;
+    UIButton *_buttonFavBar;
+    UIButton *_buttonInfoBar;
     
+    UILabel *_titleLabel;
 }
-
-
 
 static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
-
-
-
-UILabel *titleLabel;
-MakathonAdView *makathonAdView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,93 +57,40 @@ MakathonAdView *makathonAdView;
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    if (isInViewDidAppear) {
-        [self calulateUI];
-        [self setUpTableFrame];
-    }
-    
-    isInViewDidAppear = YES;
-}
-
-
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [self calulateUI];
-    [self setUpTableFrame];
-    [portable reloadData];
-    
+    [self.portTableView reloadData];
 }
 
-- (void)calulateUI
+- (void)viewWillAppear:(BOOL)animated
 {
-    CGRect viewFrame = self.view.frame;
-    CGRect adFrame = makathonAdView.frame;
-    
-    adFrame.size.width = viewFrame.size.width;
-    
-    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        adFrame.size.height = 90;
-        adFrame.size.width = viewFrame.size.width;
-    }
-    else
-    {
-        adFrame.size.height = 50;
-        adFrame.size.width = viewFrame.size.width;
-    }
-    
-    if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
-    {
-        
-        adFrame.origin.y = 0;
-    }
-    else
-    {
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            adFrame.origin.y = 64;
-        }else {
-        
-            if(isPortrait)
-            {
-                adFrame.origin.y = 64;
-            }
-            else
-            {
-                adFrame.origin.y = 52;
-            }
-        }
-    }
-    
-    [makathonAdView setFrame:adFrame];
-    
+    [self.portTableView reloadData];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-     makathonAdView = [[MakathonAdView alloc] init];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.portTableView.frame), 44.0f)];
+    self.portTableView.tableHeaderView = headerView;
     
-    [makathonAdView requestAd];
-    [self.view addSubview:makathonAdView];
-
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.portTableView.frame), 49.0f)];
+    self.portTableView.tableFooterView = footerView;
     
-    buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
-    [buttonFavBar setFrame:CGRectMake(0, 0, 50, 30)];
+    _buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [_buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    [_buttonFavBar setFrame:CGRectMake(0, 0, 50, 30)];
     
-    buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
-    [buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
-    [buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
+    _buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
+    [_buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    [_buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
 
 
     [self reloadFavorite];
     
-    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonFavBar];
+    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonFavBar];
     
-    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonInfoBar];
+    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonInfoBar];
 
     
     NSArray *barButtonArray = [[NSArray alloc] initWithObjects:infoBarButton, favoriteBarButton, nil];
@@ -164,32 +98,23 @@ MakathonAdView *makathonAdView;
     self.navigationItem.rightBarButtonItems = barButtonArray;
     
     
-    titleLabel = [[UILabel alloc] init];
-    titleLabel.text = self.show.title;
-    [titleLabel setBackgroundColor:[UIColor colorWithRed: 25/255.0 green:25/255.0 blue:25/255.0 alpha:0.7]];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel = [[UILabel alloc] init];
+    _titleLabel.text = self.show.title;
+    [_titleLabel setBackgroundColor:[UIColor colorWithRed: 25/255.0 green:25/255.0 blue:25/255.0 alpha:0.7]];
+    _titleLabel.textColor = [UIColor whiteColor];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
     
-    portable = [[UITableView alloc] init];
-    [portable setBackgroundColor:[UIColor clearColor]];
-    [portable setSeparatorColor:[UIColor clearColor]];
+    [self.portTableView setBackgroundColor:[UIColor clearColor]];
+    [self.portTableView setSeparatorColor:[UIColor clearColor]];
     
-    [self setUpTableFrame];
-    [portable setDelegate:self];
-    [portable setDataSource:self];
-    
-
-    
-    
-    [self.view addSubview:titleLabel];
-    [self.view addSubview:portable];
-
+    [self.view addSubview:_titleLabel];
+    [self.view addSubview:self.portTableView];
 
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
-    [portable addSubview:_refreshControl];
+    [self.portTableView addSubview:_refreshControl];
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
@@ -205,10 +130,10 @@ MakathonAdView *makathonAdView;
 - (void)setFavSelected:(BOOL)isSelected
 {
     if (isSelected) {
-        [buttonFavBar setImage:[UIImage imageNamed:@"icb_fav_selected"] forState:UIControlStateNormal];
+        [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav_selected"] forState:UIControlStateNormal];
     }
     else {
-        [buttonFavBar setImage:[UIImage imageNamed:@"icb_fav"] forState:UIControlStateNormal];
+        [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav"] forState:UIControlStateNormal];
     }
     
 }
@@ -220,58 +145,7 @@ MakathonAdView *makathonAdView;
     [self reload];
 }
 
-- (void) setUpTableFrame {
-    
-     CGRect newFrame  = self.view.frame;
-     CGSize actualSize = self.view.frame.size;
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0.0")) {
 
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            /* iPAD */
-            
-                portable.frame = CGRectMake(0, 183, actualSize.width, actualSize.height-240);
-                titleLabel.frame = CGRectMake(0, 153, self.view.frame.size.width, 30);
-            
-        } else {
-            /* iPhone */
-
-            if(isPortrait)
-            {
-                portable.frame = CGRectMake(0, 143, actualSize.width, actualSize.height-190);
-                titleLabel.frame = CGRectMake(0, 113, self.view.frame.size.width, 30);
-            }
-            else
-            {
-                portable.frame = CGRectMake(0, 131, actualSize.width, actualSize.height-178);
-                titleLabel.frame = CGRectMake(0, 101, self.view.frame.size.width, 30);
-            }
-            
-        }
-
-
-    } else {
-        /** OS < 7 **/
-        
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            /* iPAD */
-           
-                portable.frame = CGRectMake(0, 118, actualSize.width, actualSize.height-120);
-                titleLabel.frame = CGRectMake(0, 88, self.view.frame.size.width, 30);
-  
-        } else {
-            /* iPhone */
-
-                portable.frame = CGRectMake(0, 78, actualSize.width, actualSize.height-70);
-                titleLabel.frame = CGRectMake(0, 48, self.view.frame.size.width, 30);
-            
-        }
-    }
-    
-
-
-
-}
 
 - (IBAction)infoButtonTapped:(id)sender {
     [self performSegueWithIdentifier:showDetailSegue sender:self.show];
@@ -349,25 +223,25 @@ MakathonAdView *makathonAdView;
 }
 
 - (void)reload {
-    isEnding = NO;
+    _isEnding = NO;
     [self reload:0];
 }
 
 
 
 - (void)reload:(NSUInteger)start {
-    if (isLoading || isEnding) {
+    if (_isLoading || _isEnding) {
         return;
     }
     
-    isLoading = YES;
+    _isLoading = YES;
     [Episode loadEpisodeDataWithId:self.show.Id Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
         if (show) {
             self.show = show;
         }
         
         if ([tempEpisodes count] == 0) {
-            isEnding = YES;
+            _isEnding = YES;
         }
         
         if (start == 0) {
@@ -381,8 +255,8 @@ MakathonAdView *makathonAdView;
             _episodes = [NSArray arrayWithArray:mergeArray];
         }
         
-        [portable reloadData];
-        isLoading = NO;
+        [self.portTableView reloadData];
+        _isLoading = NO;
         
         [_refreshControl endRefreshing];
         _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
@@ -453,10 +327,10 @@ MakathonAdView *makathonAdView;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
 
-    EPAndPartCell *cell = (EPAndPartCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
+    EpisodePartCell *cell = (EpisodePartCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
     
     
-    cell = [[EPAndPartCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellname];
+    cell = [[EpisodePartCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellname];
 	
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

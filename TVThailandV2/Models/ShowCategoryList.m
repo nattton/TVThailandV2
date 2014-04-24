@@ -10,6 +10,8 @@
 #import "ShowCategory.h"
 #import "ApiClient.h"
 
+#import "NSString+Utils.h"
+
 @implementation ShowCategoryList {
     NSArray *categories;
 }
@@ -45,8 +47,8 @@
 
 - (void)loadData:(void (^)(NSError *error))block {
     [[ApiClient sharedInstance]
-        GET:@"api2/category?device=ios"
-        parameters:nil
+     GET:[NSString stringWithFormat:@"api2/category?device=ios&time=%@", [NSString getUnixTimeKey]]
+     parameters:nil
          success:^(AFHTTPRequestOperation *operation, id JSON) {
              NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
              

@@ -10,13 +10,13 @@
 @class OTVEpisode;
 @class OTVPart;
 
-@protocol OTVEpAndPartTableViewCellDelegate;
+@protocol OTVEpisodePartTableViewCellDelegate;
 
-@interface OTVEpAndPartTableViewCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate> {
+@interface OTVEpisodePartTableViewCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate> {
     UITableView *hortable;
 }
 @property (nonatomic, weak) OTVEpisode *otvEpisode;
-@property (nonatomic, weak) id <OTVEpAndPartTableViewCellDelegate> delegate;
+@property (nonatomic, weak) id <OTVEpisodePartTableViewCellDelegate> delegate;
 
 - (void) configureWithEpisode:(OTVEpisode *)otvEpisode;
 
@@ -24,7 +24,7 @@
 
 
 
-@protocol OTVEpAndPartTableViewCellDelegate <NSObject>
+@protocol OTVEpisodePartTableViewCellDelegate <NSObject>
 
 - (void)playVideoPart:(NSIndexPath *)indexPath episode:(OTVEpisode *)otvEpisode;
 

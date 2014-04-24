@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <CoreMedia/CoreMedia.h>
+#import <AVFoundation/AVAsset.h>
 
 @class OTVEpisode;
-@class OTVCategory;
+@class Show;
 
 @interface OTVVideoPlayerViewController : UIViewController
 
-@property (nonatomic, weak) OTVCategory *otvCategory;
+@property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) OTVEpisode *otvEpisode;
 
 @property (nonatomic, unsafe_unretained) NSUInteger idx;

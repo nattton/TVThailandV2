@@ -8,15 +8,13 @@
 
 #import "ApiClient.h"
 
-static NSString * const kAPIBaseURLString = @"http://tv.makathon.com";
-
 @implementation ApiClient
 
 + (id) sharedInstance {
     static ApiClient *__sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        __sharedInstance = [[ApiClient alloc] initWithBaseURL:[NSURL URLWithString:kAPIBaseURLString]];
+        __sharedInstance = [[ApiClient alloc] initWithBaseURL:[NSURL URLWithString:kAPI_URL_BASE]];
     });
     
     return __sharedInstance;

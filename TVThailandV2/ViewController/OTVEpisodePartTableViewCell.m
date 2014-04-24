@@ -6,13 +6,13 @@
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "OTVEpAndPartTableViewCell.h"
+#import "OTVEpisodePartTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "OTVEpisode.h"
 #import "OTVPart.h"
 
 
-@implementation OTVEpAndPartTableViewCell {
+@implementation OTVEpisodePartTableViewCell {
     UIImageView *goForwardImgSlider;
 }
 

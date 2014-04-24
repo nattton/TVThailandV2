@@ -21,6 +21,11 @@
         _lastEp = [dictionary objectForKey:@"last_epname"];
         _posterUrl = [dictionary objectForKey:@"poster"];
         _detail = [dictionary objectForKey:@"detail"];
+        
+        _isOTV = [[dictionary objectForKey:@"is_otv"] isEqualToString:@"1"];
+        _otvId = [dictionary objectForKey:@"otv_id"];
+        _otvApiName = [dictionary objectForKey:@"otv_api_name"];
+        
     }
     return self;
 }

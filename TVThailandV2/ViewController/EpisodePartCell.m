@@ -6,18 +6,18 @@
 //  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "EPAndPartCell.h"
+#import "EpisodePartCell.h"
 #import "Episode.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "VideoPlayerViewController.h"
 
 
 
-@interface EPAndPartCell()
+@interface EpisodePartCell()
 
 @end
 
-@implementation EPAndPartCell{
+@implementation EpisodePartCell{
     UIImageView *goForwardImgSlider;
 }
 

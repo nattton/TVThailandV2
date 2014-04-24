@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@class OTVCategory;
-@class OTVShow;
+
+@class Show;
 @class OTVEpisode;
 
 
-@interface OTVEpAndPartViewController : UIViewController {
+@interface OTVEpisodePartViewController : UIViewController {
     UITableView *portable;
 }
 
-@property (nonatomic, strong) OTVCategory *otvCategory;
-@property (nonatomic, strong) OTVShow *otvShow;
+@property (nonatomic, strong) Show *show;
 
 
 

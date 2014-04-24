@@ -11,7 +11,7 @@
 #import "ShowTableViewCell.h"
 #import "Program.h"
 #import "Show.h"
-#import "EpisodeANDPartViewController.h"
+#import "EpisodePartViewController.h"
 
 
 #import "GAI.h"
@@ -50,7 +50,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
         Program *program = (Program *)sender;
         
         Show *show = [[Show alloc] initWithProgram:program];
-        EpisodeANDPartViewController *episodeAndPartListViewController = segue.destinationViewController;
+        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
         episodeAndPartListViewController.show = show;
         
 //        Show *show = [[Show alloc] initWithProgram:program];
@@ -80,14 +80,16 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 {
     [super viewDidLoad];
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        DLog(@"Load resources for iOS 6.1 or earlier");
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    } else {
-        DLog(@"Load resources for iOS 7 or later");
-//        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    }
+    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+    
+//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+//        DLog(@"Load resources for iOS 6.1 or earlier");
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    } else {
+//        DLog(@"Load resources for iOS 7 or later");
+////        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    }
     
 	
     id tracker = [[GAI sharedInstance] defaultTracker];

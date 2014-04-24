@@ -11,7 +11,7 @@
 #import "OTVShow.h"
 #import "OTVShowTableViewCell.h"
 #import "OTVCategory.h"
-#import "OTVEpAndPartViewController.h"
+#import "OTVEpisodePartViewController.h"
 
 
 @interface OTVShowViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -50,14 +50,16 @@ static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        DLog(@"Load resources for iOS 6.1 or earlier");
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    } else {
-        DLog(@"Load resources for iOS 7 or later");
-        //        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    }
+    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+    
+//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+//        DLog(@"Load resources for iOS 6.1 or earlier");
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    } else {
+//        DLog(@"Load resources for iOS 7 or later");
+//        //        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    }
     
    
     _refreshControl = [[UIRefreshControl alloc] init];
@@ -167,11 +169,11 @@ static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         
         OTVShow *otvShow = (OTVShow *)sender;
         
-        OTVEpAndPartViewController *otvEpAndPartViewController = segue.destinationViewController;
+        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
         otvEpAndPartViewController.navigationItem.title = otvShow.title;
         
-        otvEpAndPartViewController.otvCategory = self.otvCategory;
-        otvEpAndPartViewController.otvShow = otvShow;
+//        otvEpAndPartViewController.otvCategory = self.otvCategory;
+//        otvEpAndPartViewController.otvShow = otvShow;
 
     }
 }

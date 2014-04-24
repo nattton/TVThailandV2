@@ -8,9 +8,6 @@
 
 #import "OTVApiClient.h"
 
-static NSString * const kAPIBaseURLString = @"http://www.otv.co.th/api/index.php";
-
-
 @implementation OTVApiClient
 
 + (id) sharedInstance {
@@ -18,7 +15,7 @@ static NSString * const kAPIBaseURLString = @"http://www.otv.co.th/api/index.php
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        __sharedInstance = [[OTVApiClient alloc] initWithBaseURL:[NSURL URLWithString:kAPIBaseURLString]];
+        __sharedInstance = [[OTVApiClient alloc] initWithBaseURL:[NSURL URLWithString:kOTV_URL_BASE]];
     });
     
     return __sharedInstance;

@@ -42,14 +42,16 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
 {
     [super viewDidLoad];
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        DLog(@"Load resources for iOS 6.1 or earlier");
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    } else {
-        DLog(@"Load resources for iOS 7 or later");
-        //        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    }
+    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+    
+//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+//        DLog(@"Load resources for iOS 6.1 or earlier");
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    } else {
+//        DLog(@"Load resources for iOS 7 or later");
+//        //        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    }
     
     
     

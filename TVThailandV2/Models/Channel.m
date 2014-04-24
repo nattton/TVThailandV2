@@ -9,6 +9,8 @@
 #import "Channel.h"
 #import "ApiClient.h"
 
+#import "NSString+Utils.h"
+
 @implementation Channel
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -32,7 +34,7 @@
 + (void)loadData:(void (^)(NSArray *channels ,NSError *error))block {
      
     [[ApiClient sharedInstance]
-         GET:@"api2/channel?device=ios"
+         GET:[NSString stringWithFormat:@"api2/channel?device=ios&time=%@", [NSString getUnixTimeKey]]
          parameters:nil
          success:^(AFHTTPRequestOperation *operation, id JSON) {
              NSArray *jCategories = [JSON valueForKeyPath:@"categories"];

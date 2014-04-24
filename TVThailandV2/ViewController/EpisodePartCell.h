@@ -8,23 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol EPAndPartCellDelegate;
+@protocol EPPartCellDelegate;
 
 @class Episode;
 
-@interface EPAndPartCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>{
+@interface EpisodePartCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>{
         UITableView *hortable;
 }
 
 @property (nonatomic, weak) Episode *episode;
-@property (nonatomic, weak) id <EPAndPartCellDelegate> delegate;
+@property (nonatomic, weak) id <EPPartCellDelegate> delegate;
 
 - (void)configureWithEpisode:(Episode *)episode;
 
 @end
 
 
-@protocol EPAndPartCellDelegate <NSObject>
+@protocol EPPartCellDelegate <NSObject>
 
 - (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode;
 

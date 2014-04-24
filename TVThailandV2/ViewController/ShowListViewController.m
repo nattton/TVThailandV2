@@ -20,11 +20,14 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-#import "EpisodeANDPartViewController.h"
+#import "EpisodePartViewController.h"
 #import "Reachability.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
+#import "OTVShow.h"
+
+#import "OTVEpisodePartViewController.h"
 
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
@@ -55,10 +58,9 @@ static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *searchCellIdentifier = @"SearchCellIdentifier";
 static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 
-
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
-
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 
 #pragma mark - Seque Method
@@ -66,7 +68,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
     if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
         Show *show = (Show *)sender;
-        EpisodeANDPartViewController *episodeAndPartListViewController = segue.destinationViewController;
+        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
         episodeAndPartListViewController.show = show;
         
         id tracker = [[GAI sharedInstance] defaultTracker];
@@ -82,6 +84,16 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         videoPlayerViewController.isHidenToolbarPlayer = YES;
         videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", self.navigationItem.title];
     }
+    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
+        
+        Show *show = (Show *)sender;
+        
+        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
+        otvEpAndPartViewController.navigationItem.title = show.title;
+        
+        otvEpAndPartViewController.show = show;
+        
+    }
 }
 
 #pragma mark - UIViewController
@@ -94,18 +106,17 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     /** Alert View & Refresh Button - connection fail, try again **/
     self.alertTitleView.alpha = 0;
     
+    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     
-    
-    
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        DLog(@"Load resources for iOS 6.1 or earlier");
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    } else {
-        DLog(@"Load resources for iOS 7 or later");
-//        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-        
-    }
+//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+//        DLog(@"Load resources for iOS 6.1 or earlier");
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//    } else {
+//        DLog(@"Load resources for iOS 7 or later");
+////        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
+//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+//        
+//    }
 
 
     
@@ -322,13 +333,47 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        [self performSegueWithIdentifier:EPAndPartIdentifier sender:_searchShows[indexPath.row]];
+        Show *show = _searchShows[indexPath.row];
+        if (show.isOTV)
+            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+        else
+            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
     }
     else {
-        // Comment the current version of showEpisodeSegue
-//        [self performSegueWithIdentifier:showEpisodeSegue sender:_shows[indexPath.row]];
-        [self performSegueWithIdentifier:EPAndPartIdentifier sender:_shows[indexPath.row]];
+        Show *show = _shows[indexPath.row];
+        if (show.isOTV)
+            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+        else
+            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
     }
+}
+
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (self.tableView == self.searchDisplayController.searchResultsTableView)
+        {
+            Show *show = _searchShows[indexPath.row];
+            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+        }
+        else
+        {
+            Show *show = _shows[indexPath.row];
+            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+        }
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Youtube";
 }
 
 - (void)refreshView:(UIRefreshControl *)refresh {

@@ -10,7 +10,7 @@
 @class Show;
 @class Episode;
 
-@interface EpisodeANDPartViewController : UIViewController{
+@interface EpisodePartViewController : UIViewController{
     UITableView *portable;
 }
 
