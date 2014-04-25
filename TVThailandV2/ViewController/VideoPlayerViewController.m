@@ -7,6 +7,7 @@
 //
 
 #import "VideoPlayerViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
 #import "Episode.h"
@@ -176,7 +177,9 @@
     }
     
     
-
+    NSError *setCategoryError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
+    
     
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName

@@ -17,7 +17,7 @@
 @property (nonatomic, readonly) NSString *cover;
 @property (nonatomic, readonly) NSString *streamURL;
 @property (nonatomic, strong) NSString *vastURL;
-@property (nonatomic, readonly) NSString *playerCode;
+@property (nonatomic, readonly) NSString *mediaCode;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

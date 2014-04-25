@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class OTVShow;
 @interface OTVEpisode : NSObject
 
 @property (nonatomic, readonly) NSString *contentId;
@@ -24,7 +25,7 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)loadOTVEpisodeAndPartWithShowID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block;
++ (void)loadOTVEpisodeAndPartWithCateName:(NSString *)cateName ShowID:(NSString *)showID start:(NSInteger)start Block:(void (^)(OTVShow *otvShow, NSArray *otvEpisodes, NSError *error)) block;
 
 //+ (void)loadOTVEpisodeAndPart:(NSString *)cateName showID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block;
 //

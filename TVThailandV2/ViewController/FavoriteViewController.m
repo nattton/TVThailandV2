@@ -11,8 +11,10 @@
 #import "ShowTableViewCell.h"
 #import "Program.h"
 #import "Show.h"
-#import "EpisodePartViewController.h"
+#import "Episode.h"
 
+#import "EpisodePartViewController.h"
+#import "OTVEpisodePartViewController.h"
 
 #import "GAI.h"
 #import "GAIFields.h"
@@ -31,37 +33,30 @@
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:showEpisodeSegue]) {
-//        Program *program = (Program *)sender;
-//        
-//        Show *show = [[Show alloc] initWithProgram:program];
-//        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
-//        episodeListViewController.show = show;
-//        
-//        id tracker = [[GAI sharedInstance] defaultTracker];
-//        [tracker set:kGAIScreenName
-//               value:@"Favorite"];
-//        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
-//                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
-//    }
+    
     if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
-        Program *program = (Program *)sender;
         
-        Show *show = [[Show alloc] initWithProgram:program];
+        Show *show = (Show *)sender;
         EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
         episodeAndPartListViewController.show = show;
-        
-//        Show *show = [[Show alloc] initWithProgram:program];
-//        EpisodeListViewController *episodeListViewController = segue.destinationViewController;
-//        episodeListViewController.show = show;
         
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
                value:@"Favorite"];
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
                                                           forKey:[GAIFields customDimensionForIndex:2]] build]];
+    }
+    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier])
+    {
+        Show *show = (Show *)sender;
+        
+        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
+        otvEpAndPartViewController.navigationItem.title = show.title;
+        
+        otvEpAndPartViewController.show = show;
     }
     
     
@@ -122,8 +117,18 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      Program *program = (Program*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-//    [self performSegueWithIdentifier:showEpisodeSegue sender:program];
-    [self performSegueWithIdentifier:EPAndPartIdentifier sender:program];
+    
+    [Episode loadEpisodeDataWithId:program.program_id
+                             Start:0
+                             Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
+                                 
+         if (show.isOTV)
+             [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+         else
+             [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+    }];
+    
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

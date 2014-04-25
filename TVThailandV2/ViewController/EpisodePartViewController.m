@@ -70,11 +70,6 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.portTableView.frame), 44.0f)];
-    self.portTableView.tableHeaderView = headerView;
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.portTableView.frame), 49.0f)];
-    self.portTableView.tableFooterView = footerView;
     
     _buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
     [_buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
@@ -84,7 +79,6 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [_buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
     [_buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
     [_buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
-
 
     [self reloadFavorite];
     

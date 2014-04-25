@@ -64,7 +64,7 @@
     self.displayNameLabel.text = user.name;
     
     CMUser *cm_user = [CMUser sharedInstance];
-    [cm_user setWithDictionary:user];
+    [cm_user setWithDictionary:(NSDictionary *)user];
     NSLog(@"CMUser= %@", cm_user.description);
 //    NSLog(@"FB user:%@",user.description);
     

@@ -46,7 +46,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 {
     [super viewDidLoad];
     
-      alert = [[UIAlertView alloc] initWithTitle:@"Please choose the program" message:@"" delegate:self cancelButtonTitle:@"ดูย้อนหลัง" otherButtonTitles:@"LIVE", nil];
+      alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ดูย้อนหลัง" otherButtonTitles:@"ดูสด", nil];
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 typedef enum {
     COMPLETE,
@@ -24,25 +23,30 @@ typedef enum {
     UNMUTE
 } kTrackingEventType;
 
+
+@class DVInlineVideoAd;
 @protocol CMVideoAdsDelegate;
 
 @interface CMVideoAds : NSObject
 
 @property (nonatomic, weak) id <CMVideoAdsDelegate> delegate;
 
-@property (nonatomic, strong) NSString *vastURL;
+@property (strong, nonatomic) DVInlineVideoAd *ad;
 
-@property (nonatomic, strong) NSString *adTitle;
-@property (nonatomic, strong) NSString *impression;
-@property (nonatomic, strong) NSString *vastAdTagURI;
-@property (nonatomic, strong) NSString *clickThrough;
-@property (nonatomic, strong) NSString *mediaFile;
-@property (nonatomic, strong) NSDictionary *trackingEvents;
+//@property (nonatomic, strong) NSString *vastURL;
+//
+//@property (nonatomic, strong) NSString *adTitle;
+//@property (nonatomic, strong) NSString *impression;
+//@property (nonatomic, strong) NSString *vastAdTagURI;
+//@property (nonatomic, strong) NSString *clickThrough;
+//@property (nonatomic, strong) NSString *mediaFile;
+//@property (nonatomic, strong) NSDictionary *trackingEvents;
 
 
 - (id)initWithVastTagURL:(NSString *)url;
 - (NSString *) trackingTypeEnumToString:(kTrackingEventType)eventType;
 - (kTrackingEventType) trackingEventTypeStringToEnum:(NSString *)string;
+
 - (void) hitTrackingEvent:(kTrackingEventType)eventType;
 
 @end

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class Show;
+@class OTVShow;
 @interface DetailViewController : UIViewController
 
 @property (nonatomic, weak) Show *show;
+@property (nonatomic, weak) OTVShow *otvShow;
 
 @end

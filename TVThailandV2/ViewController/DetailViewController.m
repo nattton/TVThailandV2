@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "Show.h"
+#import "OTVShow.h"
 
 #import "GAI.h"
 #import "GAIFields.h"
@@ -19,8 +20,9 @@
 @interface DetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
+@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailTextViewHeight;
 
 @end
 
@@ -40,24 +42,59 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.titleLabel.text = self.show.title;
-    self.detailTextView.text = self.show.detail;
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    self.thumbnailImageView.layer.cornerRadius = 10.0;
-    self.thumbnailImageView.clipsToBounds = YES;
+    [self initializeUI];
     
-    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.thumbnailImageView blurEffect:YES];
-   
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTaped:)];
-    singleTap.numberOfTapsRequired = 1;
-    singleTap.numberOfTouchesRequired = 1;
-    [self.thumbnailImageView addGestureRecognizer:singleTap];
-    [self.thumbnailImageView setUserInteractionEnabled:YES];
     
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"Detail"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
+- (void)initializeUI
+{
+    if (self.show) {
+        self.titleLabel.text = self.show.title;
+        self.detailTextView.text = self.show.detail;
+        [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    }
+    else if (self.otvShow)
+    {
+        self.titleLabel.text = self.otvShow.title;
+        self.detailTextView.text = self.otvShow.detail;
+        [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:self.otvShow.thumbnail] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+
+    }
+    
+    self.thumbnailImageView.layer.cornerRadius = 10.0;
+    self.thumbnailImageView.clipsToBounds = YES;
+    
+    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.thumbnailImageView blurEffect:YES];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTaped:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    [self.thumbnailImageView addGestureRecognizer:singleTap];
+    [self.thumbnailImageView setUserInteractionEnabled:YES];
+}
+
+- (void)updateViewConstraints
+{
+    [super updateViewConstraints];
+    self.detailTextViewHeight.constant = [self textViewHeight:self.detailTextView];
+}
+
+- (CGFloat)textViewHeight:(UITextView *)textView
+{
+    if ([textView respondsToSelector:@selector(layoutManager)])
+    {
+        [textView.layoutManager ensureLayoutForTextContainer:textView.textContainer];
+        CGRect usedRect = [textView.layoutManager
+                           usedRectForTextContainer:textView.textContainer];
+        return ceilf(usedRect.size.height) + 10;
+    }
+
+    return 400;
 }
 
 - (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {

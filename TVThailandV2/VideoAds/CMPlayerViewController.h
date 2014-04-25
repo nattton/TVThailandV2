@@ -13,7 +13,6 @@
 {
 @private
     MPMoviePlayerController *moviePlayerController;
-    IBOutlet UIView *backgroundView;
 }
 
 

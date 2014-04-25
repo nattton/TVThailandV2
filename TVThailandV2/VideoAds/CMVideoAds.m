@@ -7,10 +7,15 @@
 //
 
 #import "CMVideoAds.h"
+#import "DDXML.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "NSString+Utils.h"
+#import "DVVideoAdServingTemplate.h"
+#import "DVVideoAdServingTemplate+Parsing.h"
+#import "DVWrapperVideoAd.h"
 
 @interface CMVideoAds () <NSXMLParserDelegate>
+
 
 @end
 
@@ -81,158 +86,65 @@ static NSString *kMediaFileXMP4 = @"video/x-mp4";
 - (void)loadWithVastTagURL:(NSString *)url {
     NSString *vastURL = [url stringByReplacingOccurrencesOfString:@"[timestamp]"
                                                        withString:[NSString getUnixTime]];
-    self.vastAdTagURI = nil;
     
-    self.vastURL = vastURL;
     tempTrackingEvents = [[NSMutableDictionary alloc] init];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
-    
-    AFHTTPRequestSerializer * requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.requestSerializer = requestSerializer;
-    
-    [manager GET:vastURL
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSXMLParser *vastXml = (NSXMLParser *)responseObject;
-             vastXml.delegate = self;
-             BOOL result = [vastXml parse];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"failure with error %@",error);
-             if (self.delegate && [self.delegate respondsToSelector:@selector(didRequestVideoAds:error:)]) {
-                 [self.delegate didRequestVideoAds:self error:error];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:vastURL]];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+     {
+         NSError *error = nil;
+         
+         DVVideoAdServingTemplate *adTemplate = [[DVVideoAdServingTemplate alloc] initWithData:data error:&error];
+         NSArray *ads = adTemplate.ads;
+         for (id ad in ads)
+         {
+             NSLog(@"%@", NSStringFromClass([ad class]));
+             if ([@"DVInlineVideoAd" isEqualToString:NSStringFromClass([ad class])])
+             {
+                 self.ad = (DVInlineVideoAd *)ad;
+             }
+             else if ([@"DVWrapperVideoAd" isEqualToString:NSStringFromClass([ad class])])
+             {
+                 DVWrapperVideoAd *wrapperAd = (DVWrapperVideoAd *)ad;
+                 
+                 [self loadWithVastTagURL:[wrapperAd.URL absoluteString]];
+                 
+                 return;
              }
              
-         }];
+             if (self.delegate && [self.delegate respondsToSelector:@selector(didRequestVideoAds:success:)]) {
+                 
+                 if (self.ad)
+                 {
+                     [self.delegate didRequestVideoAds:self success:YES];
+                 }
+                 else
+                 {
+                     [self.delegate didRequestVideoAds:self success:NO];
+                 }
+                 
+             }
+         }
+     }];
 }
 
-#pragma mark - NSXMLParserDelegate
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    
-    currentTag = elementName;
-    
-    if ([elementName isEqualToString:kTracking]) {
-        currentEvent = [attributeDict objectForKey:kEvent];
-        return;
-    }
-    else if ([elementName isEqualToString:kMediaFile]) {
-        currentMediaFileType = [attributeDict objectForKey:kType];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-//    if ([currentTag isEqualToString:kAdTitle]) {
-//        DLog(@"found char : %@", string);
-//        self.adTitle = string;
-//    }
-}
-
-- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
-{
-    if ([currentTag isEqualToString:kAdTitle]) {
-        self.adTitle = [NSString stringWithUTF8String:[CDATABlock bytes]];
-        return;
-    }
-    else if ([currentTag isEqualToString:kImpression]) {
-        self.impression = [NSString stringWithUTF8String:[CDATABlock bytes]];
-        return;
-    }
-    else if ([currentTag isEqualToString:kVASTAdTagURI]) {
-        self.vastAdTagURI = [NSString stringWithUTF8String:[CDATABlock bytes]];
-        return;
-    }
-    else if ([currentTag isEqualToString:kClickThrough]) {
-        self.clickThrough = [NSString stringWithUTF8String:[CDATABlock bytes]];
-        return;
-    }
-    else if ([currentTag isEqualToString:kTracking]) {
-        if (currentEvent) {
-            [tempTrackingEvents setValue:[NSString stringWithUTF8String:[CDATABlock bytes]] forKey:currentEvent];
-            return;
-        }
-    }
-    else if ([currentTag isEqualToString:kMediaFile]) {
-        if (currentMediaFileType && [currentMediaFileType hasSuffix:kMediaTypeMP4]) {
-            self.mediaFile = [NSString stringWithUTF8String:[CDATABlock bytes]];
-            return;
-        }
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    if ([elementName isEqualToString:kTrackingEvents]) {
-        self.trackingEvents = [[NSDictionary alloc] initWithDictionary:tempTrackingEvents];
-        return;
-    }
-    else if ([elementName isEqualToString:kVast]) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didRequestVideoAds:success:)]) {
-            
-            if (self.mediaFile)
-            {
-                [self.delegate didRequestVideoAds:self success:YES];
-            }
-            else if(self.vastAdTagURI)
-            {
-                [self loadWithVastTagURL:self.vastAdTagURI];
-            }
-            else
-            {
-                [self.delegate didRequestVideoAds:self success:NO];
-            }
-
-        }
-        return;
-    }
-}
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"AdTitle : %@\nImpresion : %@\nVASTAdTagURI : %@\nClickThrough : %@\nMediaFile : %@\nTrackingEvents : %@",
-            self.adTitle, self.impression, self.vastAdTagURI, self.clickThrough, self.mediaFile, self.trackingEvents];
+    return [NSString stringWithFormat:@"Title : %@\nImpresion : %@\nClickThrough : %@\nMediaFile : %@",
+            self.ad.title, [self.ad.impressionURL absoluteString] , [self.ad.clickThroughURL absoluteString], [self.ad.mediaFileURL absoluteString]];
 }
 
 #pragma mark - Hit Request
 
 - (void) hitTrackingEvent:(kTrackingEventType)eventType {
-    if (eventType == START
-        && self.impression != nil
-        && ![self.impression isEqualToString:@""]) {
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.impression]];
-        [NSURLConnection sendAsynchronousRequest:request
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-         {
-//             DLog(@"%@", data);
-         }];
+    if (eventType == START) {
+        [self.ad trackImpressions];
     }
     
     NSString * eventString = [self trackingTypeEnumToString:eventType];
-    NSString *urlEvent = [self.trackingEvents objectForKey:eventString];
-    if (urlEvent) {
-        NSURL *URL = [NSURL URLWithString:urlEvent];
-        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        [NSURLConnection sendAsynchronousRequest:request
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-        {
-//            DLog(@"%@", data);
-        }];
-        
-//        [[AFHTTPRequestOperationManager manager]
-//         GET:urlEvent
-//         parameters:nil
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             
-//         }
-//         ];
-    }
+    [self.ad trackEvent:eventString];
 }
 
 @end

@@ -27,7 +27,7 @@
             _thumbnail = [NSString string];
         }
         _streamURL = ([dictionary objectForKey:@"stream_url"] ? [dictionary objectForKey:@"stream_url"] : [NSString string]);
-        
+        _mediaCode = ([dictionary objectForKey:@"media_code"] ? [dictionary objectForKey:@"media_code"] : [NSString string]);
     }
     
     return self;

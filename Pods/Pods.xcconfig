@@ -1,5 +1,5 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/Objective-C-HMTL-Parser" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/TPKeyboardAvoiding" "${PODS_ROOT}/Headers/XLMediaZoom" $(SDKROOT)/usr/include/libxml2
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/Objective-C-HMTL-Parser" -isystem "${PODS_ROOT}/Headers/Reachability" -isystem "${PODS_ROOT}/Headers/SVProgressHUD" -isystem "${PODS_ROOT}/Headers/TPKeyboardAvoiding" -isystem "${PODS_ROOT}/Headers/XLMediaZoom"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/Objective-C-HMTL-Parser" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/XLMediaZoom" $(SDKROOT)/usr/include/libxml2
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/Objective-C-HMTL-Parser" -isystem "${PODS_ROOT}/Headers/Reachability" -isystem "${PODS_ROOT}/Headers/SVProgressHUD" -isystem "${PODS_ROOT}/Headers/XLMediaZoom"
 OTHER_LDFLAGS = -ObjC -lxml2 -framework AVFoundation -framework CoreGraphics -framework Foundation -framework MobileCoreServices -framework QuartzCore -framework Security -framework SystemConfiguration -framework UIKit
 PODS_ROOT = ${SRCROOT}/Pods

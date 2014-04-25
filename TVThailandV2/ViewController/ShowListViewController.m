@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *alertTitleView;
-@property (strong, nonatomic) IBOutlet UILabel *alertTitle;
+@property (weak, nonatomic) IBOutlet UILabel *alertTitle;
 
 
 
@@ -56,10 +56,11 @@
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *searchCellIdentifier = @"SearchCellIdentifier";
-static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 
 static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
+
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 
@@ -351,7 +352,11 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    Show *show = _searchShows[indexPath.row];
+    if (show.isOTV) {
+        return YES;
+    }
+    return NO;
 }
 
 // Override to support editing the table view.
@@ -421,6 +426,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)testInternetConnection
 {
+    __weak typeof(self) weakSelf = self;
     internetReachableTVThailand = [Reachability reachabilityWithHostname:@"www.google.com"];
     
     // Internet is reachable
@@ -430,7 +436,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         dispatch_async(dispatch_get_main_queue(), ^{
 //            DLog(@"Yayyy, we have the interwebs!");
             
-            self.alertTitle.text = @"connection fail, try again";
+            weakSelf.alertTitle.text = @"connection fail, try again";
             
         });
     };
@@ -441,8 +447,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
 //            NSLog(@"Nooo, someone broke internet!");
-            self.alertTitle.text = @"no internet connection";
-            self.alertTitleView.alpha = 0.85;
+            weakSelf.alertTitle.text = @"no internet connection";
+            weakSelf.alertTitleView.alpha = 0.85;
             
             
         });
