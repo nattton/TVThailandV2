@@ -114,11 +114,11 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
     [self reload];
     
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(orientationDidChange:)
-                                                 name: UIApplicationDidChangeStatusBarOrientationNotification
-                                               object: nil];
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"Episode"];
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
+                                                      forKey:[GAIFields customDimensionForIndex:2]] build]];
 }
 
 - (void)setFavSelected:(BOOL)isSelected
@@ -379,26 +379,13 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         videoPlayer.episode = self.episode;
         NSIndexPath *idx = (NSIndexPath *)sender;
         videoPlayer.idx = idx.row;
-        
         [self.episode sendViewEpisode];
         
-        id tracker = [[GAI sharedInstance] defaultTracker];
-        [tracker set:kGAIScreenName
-               value:@"Episode"];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.episode.Id
-                                                          forKey:[GAIFields customDimensionForIndex:3]] build]];
     }else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;
         detailViewController.show = self.show;
 
     }
-}
-
-
-
-- (void) orientationDidChange: (NSNotification *) notification
-{
-        //keep this methode, otherwise it will crash
 }
 
 @end

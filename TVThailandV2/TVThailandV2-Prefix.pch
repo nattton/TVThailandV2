@@ -15,8 +15,8 @@
 
 #import <CoreData/CoreData.h>
 
-#define adUnitID_iPhone @"a14e1dae2855742"
-#define adUnitID_iPad @"a14e65c0a6e498b"
+#define kAppTracker @"UA-22403997-3"
+#define kOTVTracker @"UA-22403997-4"
 
 #define kMessageID @"MessageID"
 #define kYoutubeAutoPlay @"YoutubeAutoPlay"
@@ -41,9 +41,13 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define isPortrait [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown
 
+
+#define kBarTintColor [UIColor colorWithRed:0/255.0 green:108/255.0 blue:146/255.0 alpha:1.0f]
+#define kTintColor [UIColor colorWithRed:244/255.0 green:238/255.0 blue:186/255.0 alpha:1.0f]
+
 #define DEBUG_MODE = 1
 #ifdef DEBUG_MODE
-#define DLog( s, ...) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+    #define DLog( s, ...) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #else
 #define DLog( s, ... )
 #endif

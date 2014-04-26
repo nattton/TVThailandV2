@@ -69,8 +69,6 @@
     self.thumbnailImageView.layer.cornerRadius = 10.0;
     self.thumbnailImageView.clipsToBounds = YES;
     
-    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.thumbnailImageView blurEffect:YES];
-    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTaped:)];
     singleTap.numberOfTapsRequired = 1;
     singleTap.numberOfTouchesRequired = 1;
@@ -98,13 +96,9 @@
 }
 
 - (void)imageTaped:(UIGestureRecognizer *)gestureRecognizer {
+    _imageZoom = [[XLMediaZoom alloc] initWithAnimationTime:@(0.5) image:self.thumbnailImageView blurEffect:YES];
     [self.view addSubview:_imageZoom];
     [_imageZoom show];
-    if (self.show.posterUrl != nil && self.show.posterUrl.length > 0) {
-        [_imageZoom.imageView setImageWithURL:[NSURL URLWithString:self.show.posterUrl]completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            [_imageZoom.imageView setImage:image];
-        }];
-    }
     
 }
 

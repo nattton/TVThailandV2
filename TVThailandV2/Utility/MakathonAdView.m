@@ -57,8 +57,6 @@
         self.frame = adFrame;
         [self.webView setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
     }
-    
-//    NSLog(@"width : %f, hight : %f", adFrame.size.width, adFrame.size.height);
 }
 
 - (void)requestAd

@@ -33,15 +33,7 @@ typedef enum {
 
 @property (strong, nonatomic) DVInlineVideoAd *ad;
 
-//@property (nonatomic, strong) NSString *vastURL;
-//
-//@property (nonatomic, strong) NSString *adTitle;
-//@property (nonatomic, strong) NSString *impression;
-//@property (nonatomic, strong) NSString *vastAdTagURI;
-//@property (nonatomic, strong) NSString *clickThrough;
-//@property (nonatomic, strong) NSString *mediaFile;
-//@property (nonatomic, strong) NSDictionary *trackingEvents;
-
+@property (nonatomic, strong) NSString *URL;
 
 - (id)initWithVastTagURL:(NSString *)url;
 - (NSString *) trackingTypeEnumToString:(kTrackingEventType)eventType;

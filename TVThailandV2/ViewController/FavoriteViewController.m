@@ -16,6 +16,8 @@
 #import "EpisodePartViewController.h"
 #import "OTVEpisodePartViewController.h"
 
+#import "SVProgressHUD.h"
+
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
@@ -31,7 +33,7 @@
 @implementation FavoriteViewController
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
-static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
+//static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
@@ -118,10 +120,12 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      Program *program = (Program*)[self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    [SVProgressHUD showWithStatus:@"Loading"];
     [Episode loadEpisodeDataWithId:program.program_id
                              Start:0
-                             Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
-                                 
+                             Block:^(Show *show, NSArray *tempEpisodes, NSError *error)
+    {
+        [SVProgressHUD dismiss];
          if (show.isOTV)
              [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
          else

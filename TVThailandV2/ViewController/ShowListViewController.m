@@ -57,7 +57,7 @@
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *searchCellIdentifier = @"SearchCellIdentifier";
 
-static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
+//static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
@@ -103,23 +103,13 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
 
+//    self.navigationController.navigationBar.barTintColor = kBarTintColor;
+//    self.navigationController.navigationBar.tintColor = kTintColor;
     
     /** Alert View & Refresh Button - connection fail, try again **/
     self.alertTitleView.alpha = 0;
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    
-//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-//        DLog(@"Load resources for iOS 6.1 or earlier");
-//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-//    } else {
-//        DLog(@"Load resources for iOS 7 or later");
-////        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
-//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-//        
-//    }
-
-
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     [self reload];
@@ -352,7 +342,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Show *show = _searchShows[indexPath.row];
+    Show *show = _shows[indexPath.row];
     if (show.isOTV) {
         return YES;
     }

@@ -19,6 +19,10 @@
 #import "OTVEpisodePartTableViewCell.h"
 #import "OTVVideoPlayerViewController.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface OTVEpisodePartViewController () <UITableViewDataSource, UITableViewDelegate, OTVEpisodePartTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *portTableView;
@@ -42,15 +46,6 @@
 static NSString *cellname = @"cell";
 static NSString *otvEpAndPartToShowPlayerSegue = @"OTVEpAndPartToShowPlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -101,8 +96,22 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [SVProgressHUD showWithStatus:@"Loading..."];
     
     [self reload];
+}
 
+- (void)sendTracker
+{
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"OTVEpisode"];
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
+                                                      forKey:[GAIFields customDimensionForIndex:2]] build]];
     
+    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                         trackingId:kOTVTracker];
+    [tracker2 set:kGAIScreenName
+            value:@"OTVEpisode"];
+    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
+                                                       forKey:[GAIFields customDimensionForIndex:1]] build]];
 }
 
 - (void)didReceiveMemoryWarning

@@ -11,9 +11,6 @@
 #import "NSString+Utils.h"
 #import "CMUser.h"
 
-/******* Set your tracking ID here *******/
-static NSString *const kTrackingId = @"UA-22403997-3";
-
 @implementation AppDelegate
 
 @synthesize managedObjectModel = _managedObjectModel;
@@ -23,6 +20,10 @@ static NSString *const kTrackingId = @"UA-22403997-3";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    [[UINavigationBar appearance] setBarTintColor:kBarTintColor];
+//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
+    
     // Override point for customization after application launch.
     [FBLoginView class];
     
@@ -46,7 +47,7 @@ static NSString *const kTrackingId = @"UA-22403997-3";
 //    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
     // Initialize tracker.
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:kTrackingId];
+    [[GAI sharedInstance] trackerWithTrackingId:kAppTracker];
     
     
     return YES;

@@ -19,6 +19,10 @@
 #import "DVInlineVideoAd.h"
 #import "WebIframeViewController.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface OTVVideoPlayerViewController () <CMVideoAdsDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
@@ -83,11 +87,24 @@ static NSString *kCodeIframe = @"1002";
     }
     
     [self initializeUI];
+    [self sendTracker];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
 }
 
+- (void)sendTracker
+{
+    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                         trackingId:kOTVTracker];
+    
+    [tracker2 set:kGAIScreenName
+            value:@"Player"];
+    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
+                                                       forKey:[GAIFields customDimensionForIndex:2]] build]];
+    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.nameTh
+                                                       forKey:[GAIFields customDimensionForIndex:3]] build]];
+}
 - (void)initializeUI
 {
     _part = [self.otvEpisode.parts objectAtIndex:self.idx];
@@ -102,7 +119,7 @@ static NSString *kCodeIframe = @"1002";
     self.titleLabel.text = self.otvEpisode.nameTh;
     self.detailTextView.text = self.otvEpisode.detail;
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:otvPart.thumbnail]
-                            placeholderImage:[UIImage imageNamed:@"placeholder"]];
+                            placeholderImage:[UIImage imageNamed:@"otv_icon"]];
     
     [self.view setNeedsUpdateConstraints];
 }
@@ -217,15 +234,23 @@ static NSString *kCodeIframe = @"1002";
 
 - (void)didRequestVideoAds:(CMVideoAds *)videoAds success:(BOOL)success {
     [SVProgressHUD dismiss];
-    DLog(@"%@", videoAds);
-    DLog(@"mediaFile : %@", [videoAds.ad.mediaFileURL absoluteString]);
-    DLog(@"streamURL : %@", _part.streamURL);
+//    DLog(@"%@", videoAds);
+//    DLog(@"mediaFile : %@", [videoAds.ad.mediaFileURL absoluteString]);
+//    DLog(@"streamURL : %@", _part.streamURL);
     
     if (success) {
-            [self.videoAds hitTrackingEvent:START];
-            [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
-            [self.videoAds hitTrackingEvent:MIDPOINT];
-            [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
+        [self.videoAds hitTrackingEvent:START];
+        [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
+        [self.videoAds hitTrackingEvent:MIDPOINT];
+        [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
+        
+        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                             trackingId:kOTVTracker];
+        [tracker2 set:kGAIScreenName
+                value:@"Player"];
+        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:videoAds.URL
+                                                           forKey:[GAIFields customDimensionForIndex:4]] build]];
+        
         [self playMovieStream:videoAds.ad.mediaFileURL];
     }
     else
@@ -422,6 +447,12 @@ static NSString *kCodeIframe = @"1002";
 {
     if (!_isContent && self.videoAds) {
         [self.videoAds hitTrackingEvent:COMPLETE];
+        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                             trackingId:kOTVTracker];
+        [tracker2 set:kGAIScreenName
+                value:@"Player"];
+        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.videoAds.URL
+                                                           forKey:[GAIFields customDimensionForIndex:5]] build]];
     }
     
     MPMoviePlayerController *player = [notification object];

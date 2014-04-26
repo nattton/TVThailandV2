@@ -10,15 +10,18 @@
 #import "ShowCategoryTableViewCell.h"
 #import "ShowCategory.h"
 #import "ShowCategoryList.h"
+#import "SVProgressHUD.h"
+#import "Show.h"
 
 #import "ShowListViewController.h"
-#import "SVProgressHUD.h"
+#import "EpisodePartViewController.h"
+#import "OTVEpisodePartViewController.h"
 
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-@interface ShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -28,10 +31,16 @@
 @private
     UIRefreshControl *_refreshControl;
     ShowCategoryList *_categoryList;
+    NSArray *_searchShows;
 }
 
 static NSString *cellIdentifier = @"CategoryCellIdentifier";
+static NSString *searchCellIdentifier = @"SearchCellIdentifier";
+
 static NSString *showListSegue = @"ShowListSegue";
+
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 #pragma mark - UIViewController
 
@@ -43,7 +52,11 @@ static NSString *showListSegue = @"ShowListSegue";
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor redColor];
+//    self.searchBar.barTintColor = kBarTintColor;
+//    self.navigationController.navigationBar.barTintColor = kBarTintColor;
+//    self.navigationController.navigationBar.tintColor = kTintColor;
+    
     
 //    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
 //        DLog(@"Load resources for iOS 6.1 or earlier");
@@ -65,8 +78,19 @@ static NSString *showListSegue = @"ShowListSegue";
 //    [_refreshControl beginRefreshing];
     
     [self reload];
-    
+}
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)reload {
@@ -108,20 +132,43 @@ static NSString *showListSegue = @"ShowListSegue";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return _searchShows.count;
+    }
     return _categoryList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShowCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    [cell configureWithGenre:_categoryList[indexPath.row]];
-    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:searchCellIdentifier];
+        }
+        Show *show = _searchShows[indexPath.row];
+        cell.textLabel.text = show.title;
+        
+        return cell;
+    }
+    else
+    {
+        [cell configureWithGenre:_categoryList[indexPath.row]];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self performSegueWithIdentifier:showListSegue sender:_categoryList[indexPath.row]];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        Show *show = _searchShows[indexPath.row];
+        if (show.isOTV)
+            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+        else
+            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+    }
+    else {
+        [self performSegueWithIdentifier:showListSegue sender:_categoryList[indexPath.row]];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -138,6 +185,52 @@ static NSString *showListSegue = @"ShowListSegue";
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedCat.title
                                                           forKey:[GAIFields customDimensionForIndex:1]] build]];
     }
+    else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
+        Show *show = (Show *)sender;
+        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
+        episodeAndPartListViewController.show = show;
+        
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName
+               value:@"Search"];
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
+        
+    }
+    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
+        
+        Show *show = (Show *)sender;
+        
+        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
+        otvEpAndPartViewController.navigationItem.title = show.title;
+        
+        otvEpAndPartViewController.show = show;
+        
+    }
 }
 
+#pragma mark - Search
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self search:searchString];
+    return YES;
+}
+
+- (void)search:(NSString *)keyword {
+    if (![keyword isEqualToString:@""]) {
+        [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
+            _searchShows = tempShows;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }];
+    }
+}
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+    
+}
+
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    
+}
 @end

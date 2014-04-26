@@ -78,6 +78,7 @@ static NSString *kMediaFileXMP4 = @"video/x-mp4";
 - (id)initWithVastTagURL:(NSString *)url {
     self = [super init];
     if (self) {
+        self.URL = url;
         [self loadWithVastTagURL:url];
     }
     return self;

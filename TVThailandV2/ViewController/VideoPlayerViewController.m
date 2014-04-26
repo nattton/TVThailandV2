@@ -44,46 +44,6 @@
     NSString *_videoFile;
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self calulateUI];
-}
-
-- (void)calulateUI
-{
-    CGRect viewFrame = self.view.frame;
-    CGRect adFrame = self.mkAdView.frame;
-    
-    adFrame.size.width = viewFrame.size.width;
-    
-    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        adFrame.size.height = 90;
-    }
-    else
-    {
-        adFrame.size.height = 50;
-    }
-    
-    if([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
-    {
-
-        adFrame.origin.y = 0;
-    }
-    else
-    {
-
-        adFrame.origin.y = 65;
-    }
-    
-    [self.mkAdView setFrame:adFrame];
-//    DLog(@"adFrame, width : %f, hight : %f, x : %f, y : %f", adFrame.size.width, adFrame.size.height, adFrame.origin.x, adFrame.origin.y);
-    
-}
-
-- (NSUInteger) supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -176,23 +136,21 @@
         [SVProgressHUD showErrorWithStatus:@"Video not support"];
     }
     
+    [self sendTracker];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
-    
-    
+}
+
+- (void)sendTracker
+{
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"VideoPlayer"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.episode.Id
+                                                      forKey:[GAIFields customDimensionForIndex:3]] build]];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self calulateUI];
-}
 - (IBAction)nextButtonTouched:(id)sender {
     if (_idx+1 < self.episode.videos.count) {
         _idx = _idx+1;
