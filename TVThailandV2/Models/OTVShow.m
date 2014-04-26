@@ -58,7 +58,7 @@
             if (block) {
                 block([NSArray array], error);
                 
-                NSLog(@"failure loadOTVShow: %@", error);
+                DLog(@"failure loadOTVShow: %@", error);
             }
         }];
 }
@@ -89,7 +89,7 @@
             if (block) {
                 block([NSArray array], error);
                 
-                NSLog(@"failure loadOTVShowWithCH7: %@", error);
+                DLog(@"failure loadOTVShowWithCH7: %@", error);
             }
         }];
 }

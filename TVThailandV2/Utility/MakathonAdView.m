@@ -34,6 +34,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    self.backgroundColor = [UIColor clearColor];
 
     CGRect adFrame = self.frame;
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)

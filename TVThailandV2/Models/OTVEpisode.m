@@ -196,7 +196,7 @@
             if (block) {
                 block([NSArray array], error);
                 
-                NSLog(@"failure loadOTVEpisode: %@", error);
+                DLog(@"failure loadOTVEpisode: %@", error);
             }
         
     }];

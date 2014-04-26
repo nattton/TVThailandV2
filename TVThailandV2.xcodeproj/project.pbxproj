@@ -46,7 +46,6 @@
 		3B743BD017E1D8060086C519 /* Episode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B743BCF17E1D8060086C519 /* Episode.m */; };
 		3B743BD317E1F7CC0086C519 /* EpisodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B743BD217E1F7CC0086C519 /* EpisodeTableViewCell.m */; };
 		3B743BD717E25DA40086C519 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B743BD617E25DA40086C519 /* Storyboard_iPad.storyboard */; };
-		3B7F1B51190141CD008DA499 /* CMPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F1B4F190111F8008DA499 /* CMPlayerViewController.m */; };
 		3B8657351805F2EB00BC61AC /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B86572B1805F2EB00BC61AC /* Default-Landscape@2x~ipad.png */; };
 		3B8657361805F2EB00BC61AC /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B86572C1805F2EB00BC61AC /* Default-Landscape~ipad.png */; };
 		3B8657371805F2EB00BC61AC /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B86572D1805F2EB00BC61AC /* Default-Portrait@2x~ipad.png */; };
@@ -179,8 +178,6 @@
 		3B743BD117E1F7CC0086C519 /* EpisodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeTableViewCell.h; sourceTree = "<group>"; };
 		3B743BD217E1F7CC0086C519 /* EpisodeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeTableViewCell.m; sourceTree = "<group>"; };
 		3B743BD617E25DA40086C519 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
-		3B7F1B4E190111F8008DA499 /* CMPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPlayerViewController.h; sourceTree = "<group>"; };
-		3B7F1B4F190111F8008DA499 /* CMPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPlayerViewController.m; sourceTree = "<group>"; };
 		3B86572B1805F2EB00BC61AC /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		3B86572C1805F2EB00BC61AC /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		3B86572D1805F2EB00BC61AC /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
@@ -428,8 +425,6 @@
 			children = (
 				3BD0497818ED6B670083C32B /* CMVideoAds.h */,
 				3BD0497918ED6B670083C32B /* CMVideoAds.m */,
-				3B7F1B4E190111F8008DA499 /* CMPlayerViewController.h */,
-				3B7F1B4F190111F8008DA499 /* CMPlayerViewController.m */,
 			);
 			name = CMVideoAds;
 			path = VideoAds;
@@ -872,7 +867,6 @@
 				3B67F7B317E0C8A600C9CD23 /* ShowCategoryTableViewCell.m in Sources */,
 				3BDF836F190A78CC00AD12D0 /* DVVideoMultipleAdPlaylist.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,
-				3B7F1B51190141CD008DA499 /* CMPlayerViewController.m in Sources */,
 				3BDF8369190A78CC00AD12D0 /* DVIABPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1003,10 +997,10 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv6 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1049,10 +1043,10 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv6 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

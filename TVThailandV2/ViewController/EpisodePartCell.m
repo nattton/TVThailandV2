@@ -155,6 +155,7 @@
         goForwardImgSlider.hidden = NO;
     }else{
         goForwardImgSlider.hidden = YES;
+        hortable.scrollEnabled = NO;
     }
     
 	return cell;

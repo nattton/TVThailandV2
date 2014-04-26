@@ -65,7 +65,7 @@
     
     CMUser *cm_user = [CMUser sharedInstance];
     [cm_user setWithDictionary:(NSDictionary *)user];
-    NSLog(@"CMUser= %@", cm_user.description);
+    DLog(@"CMUser= %@", cm_user.description);
 //    NSLog(@"FB user:%@",user.description);
     
 }

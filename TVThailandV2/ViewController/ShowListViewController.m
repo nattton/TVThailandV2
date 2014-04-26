@@ -29,6 +29,8 @@
 
 #import "OTVEpisodePartViewController.h"
 
+#import "MakathonAdView.h"
+
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIView *alertTitleView;
 @property (weak, nonatomic) IBOutlet UILabel *alertTitle;
 
+@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
 
 
 @end
@@ -102,6 +105,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.mkAdView requestAd];
 
 //    self.navigationController.navigationBar.barTintColor = kBarTintColor;
 //    self.navigationController.navigationBar.tintColor = kTintColor;

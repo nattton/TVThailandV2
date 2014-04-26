@@ -12,7 +12,7 @@
 
 @class Episode;
 
-@interface EpisodePartCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>{
+@interface EpisodePartCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate> {
         UITableView *hortable;
 }
 

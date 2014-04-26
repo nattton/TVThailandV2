@@ -25,7 +25,7 @@
 #import "GAIDictionaryBuilder.h"
 
 
-@interface EpisodePartViewController ()<UITableViewDataSource, UITableViewDelegate,EPPartCellDelegate>
+@interface EpisodePartViewController ()<UITableViewDataSource, UITableViewDelegate, EPPartCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *portTableView;
 
@@ -70,6 +70,8 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = self.show.title;
     
     _buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
     [_buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];

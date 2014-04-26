@@ -78,7 +78,7 @@
             if (block) {
                 block([NSArray array], error);
                 
-                NSLog(@"failure loadOTVCategory: %@", error);
+                DLog(@"failure loadOTVCategory: %@", error);
 //                NSLog(@"URL:%@",[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION ]);
             }
      

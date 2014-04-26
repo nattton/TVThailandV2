@@ -101,7 +101,7 @@ static NSString *kMediaFileXMP4 = @"video/x-mp4";
          NSArray *ads = adTemplate.ads;
          for (id ad in ads)
          {
-             NSLog(@"%@", NSStringFromClass([ad class]));
+             DLog(@"%@", NSStringFromClass([ad class]));
              if ([@"DVInlineVideoAd" isEqualToString:NSStringFromClass([ad class])])
              {
                  self.ad = (DVInlineVideoAd *)ad;
@@ -126,6 +126,7 @@ static NSString *kMediaFileXMP4 = @"video/x-mp4";
                      [self.delegate didRequestVideoAds:self success:NO];
                  }
                  
+                 return;
              }
          }
      }];

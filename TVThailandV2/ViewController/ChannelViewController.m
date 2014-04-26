@@ -124,7 +124,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
      channelSelected = _channels[indexPath.row];
-    NSLog(@"channelSelected.isHasEp:%@",channelSelected.isHasEp);
+    DLog(@"channelSelected.isHasEp:%@",channelSelected.isHasEp);
         if (channelSelected.videoUrl == nil || [channelSelected.videoUrl length] == 0) {
             [self performSegueWithIdentifier:showListSegue sender:channelSelected];
         } else {
