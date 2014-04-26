@@ -1012,7 +1012,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOp-aD-QQ7">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOp-aD-QQ7">
                                 <rect key="frame" x="0.0" y="65" width="768" height="862"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1050,12 +1050,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-ew-ZEY">
-                                        <rect key="frame" x="20" y="449" width="728" height="393"/>
+                                        <rect key="frame" x="64" y="449" width="640" height="393"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="393" id="5V5-wM-ZGC"/>
-                                            <constraint firstAttribute="width" constant="728" id="UFc-Gn-oO5"/>
+                                            <constraint firstAttribute="width" constant="640" id="UFc-Gn-oO5"/>
                                         </constraints>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1068,9 +1068,11 @@
                                     </webView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="qc9-ew-ZEY" secondAttribute="trailing" constant="64" id="1q8-2L-OPx"/>
                                     <constraint firstItem="5TJ-of-lIF" firstAttribute="top" secondItem="Pie-9g-dIc" secondAttribute="bottom" constant="34" id="2KN-mr-fxH"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="top" secondItem="BOp-aD-QQ7" secondAttribute="top" constant="26" id="Aos-Gy-K0P"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="height" secondItem="qcu-CB-BTX" secondAttribute="height" id="BgZ-Un-275"/>
+                                    <constraint firstItem="qc9-ew-ZEY" firstAttribute="leading" secondItem="BOp-aD-QQ7" secondAttribute="leading" constant="64" id="Dnr-HS-2qb"/>
                                     <constraint firstAttribute="bottom" secondItem="qc9-ew-ZEY" secondAttribute="bottom" constant="20" id="Ok9-pO-fXK"/>
                                     <constraint firstAttribute="centerX" secondItem="qc9-ew-ZEY" secondAttribute="centerX" id="P55-6J-FNo"/>
                                     <constraint firstItem="SqD-Jm-7Lp" firstAttribute="centerY" secondItem="Pie-9g-dIc" secondAttribute="centerY" id="a09-GA-cgK"/>
@@ -1098,7 +1100,7 @@
                     <navigationItem key="navigationItem" id="1Zf-qM-5S2"/>
                     <connections>
                         <outlet property="detailTextView" destination="qc9-ew-ZEY" id="s7O-iA-dm6"/>
-                        <outlet property="detailTextViewHeight" destination="5V5-wM-ZGC" id="qhX-dc-CRf"/>
+                        <outlet property="detailTextViewHeight" destination="5V5-wM-ZGC" id="hM7-VT-Dwb"/>
                         <outlet property="nextBarButtonItem" destination="V0j-5g-aRS" id="cxQ-DU-syg"/>
                         <outlet property="partInfoBarButtonItem" destination="33x-ma-XWc" id="0sl-Rf-c7r"/>
                         <outlet property="previousBarButtonItem" destination="7aT-BZ-DeZ" id="pee-ch-TaN"/>

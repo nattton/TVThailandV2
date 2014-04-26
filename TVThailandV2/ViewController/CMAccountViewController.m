@@ -60,7 +60,7 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
     self.fbAgreementLabel.hidden = YES;
-    self.profilePictureView.profileID = user.id;
+    self.profilePictureView.profileID = [user objectForKey:@"id"];
     self.displayNameLabel.text = user.name;
     
     CMUser *cm_user = [CMUser sharedInstance];
