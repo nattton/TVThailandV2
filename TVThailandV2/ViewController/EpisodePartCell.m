@@ -29,14 +29,27 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        if (UIInterfaceOrientationIsPortrait([UIDevice currentDevice].orientation))
         {
+            // code for Portrait orientation
+            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, 770) style:UITableViewStylePlain];
+                //                NSLog(@"---iPad Portrait---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
+            }
+            else {
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, 320) style:UITableViewStylePlain];
+                //                NSLog(@"---iPhone Portrait---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
+                //                 NSLog(@"---iPhone Portrait---, width : %f, hight : %f, x : %f, y : %f", [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height, self.frame.origin.x, self.frame.origin.y);
+            }
+            
+        } else {
+            
             // code for landscape orientation
             
             if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
                 hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, 1024) style:UITableViewStylePlain];
-//                NSLog(@"---iPad Land---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
-
+                //                NSLog(@"---iPad Land---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
+                
             }
             else if ([[UIScreen mainScreen] bounds].size.height>500) {
                 hortable = [[UITableView alloc]initWithFrame:CGRectMake(214, -214, 140, 568) style:UITableViewStylePlain];
@@ -44,24 +57,8 @@
             else
             {
                 hortable = [[UITableView alloc]initWithFrame:CGRectMake(170, -170, 140, 480) style:UITableViewStylePlain];
-//                NSLog(@"---iPhone Land---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
+                //                NSLog(@"---iPhone Land---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
             }
-
-            
-            
-        }else      {
-            // code for Portrait orientation
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, 770) style:UITableViewStylePlain];
-//                NSLog(@"---iPad Portrait---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
-            }
-            else {
-                 hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, 320) style:UITableViewStylePlain];
-//                NSLog(@"---iPhone Portrait---, width : %f, hight : %f, x : %f, y : %f", self.frame.size.width, self.frame.size.height, self.frame.origin.x, self.frame.origin.y);
-//                 NSLog(@"---iPhone Portrait---, width : %f, hight : %f, x : %f, y : %f", [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height, self.frame.origin.x, self.frame.origin.y);
-            }
-
-            
         }
 
         
