@@ -78,8 +78,17 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 //    [_refreshControl beginRefreshing];
     
     [self reload];
+    
+    [self sendTracker];
 }
 
+
+- (void)sendTracker {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+            value:@"Main"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -93,7 +102,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
-- (void)reload {
+- (void)reload
+{
     [_categoryList loadData:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self.tableView reloadData];

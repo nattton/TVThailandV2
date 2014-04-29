@@ -59,6 +59,15 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 //    }
 
     [self refresh];
+    
+    [self sendTracker];
+}
+
+- (void)sendTracker {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"Channel"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (IBAction)refreshButtonTapped:(id)sender {

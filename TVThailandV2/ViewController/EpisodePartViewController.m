@@ -47,26 +47,6 @@ static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self.portTableView reloadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.portTableView reloadData];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -116,12 +96,29 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
     [self reload];
     
+    [self sendTracker];
+}
+
+- (void)sendTracker
+{
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"Episode"];
     [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
                                                       forKey:[GAIFields customDimensionForIndex:2]] build]];
 }
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.portTableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.portTableView reloadData];
+}
+
 
 - (void)setFavSelected:(BOOL)isSelected
 {
@@ -131,9 +128,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     else {
         [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav"] forState:UIControlStateNormal];
     }
-    
 }
-
 
 
 - (void)refreshView:(UIRefreshControl *)refresh {
@@ -326,7 +321,9 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     EpisodePartCell *cell = (EpisodePartCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
     
     
-    cell = [[EpisodePartCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellname];
+    cell = [[EpisodePartCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                 reuseIdentifier:cellname
+                                           width:CGRectGetWidth(self.view.frame)];
 	
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

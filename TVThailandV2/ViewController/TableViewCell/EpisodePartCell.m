@@ -24,7 +24,7 @@
 
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {

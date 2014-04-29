@@ -62,7 +62,7 @@
     
     NSString *url = ([cateName isEqualToString:kOTV_CH7])
     ? [NSString stringWithFormat:@"Ch7/content/%@/%@", kOTV_APP_ID, showID]
-    : [NSString stringWithFormat:@"Content/index/%@/%@/%@/%@/", kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION, showID];
+    : [NSString stringWithFormat:@"Content/index/%@/%@/%@/%@/", kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
     
     [client GET:url
      parameters:nil
@@ -132,8 +132,8 @@
 + (void)loadOTVEpisodeAndPart:(NSString *)cateName showID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block{
 
     NSString *url = ([cateName isEqualToString:kOTV_CH7])
-                    ? [NSString stringWithFormat:@"%@/content/2/%@",kOTV_CH7,showID]
-                    : [NSString stringWithFormat:@"%@/detail/%@/%@/%@/%@/",cateName, kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION, showID];
+                    ? [NSString stringWithFormat:@"%@/content/%@/%@", kOTV_CH7, kOTV_APP_ID, showID]
+                    : [NSString stringWithFormat:@"%@/detail/%@/%@/%@/%@/",cateName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
     
     OTVApiClient *client = [OTVApiClient sharedInstance];
     

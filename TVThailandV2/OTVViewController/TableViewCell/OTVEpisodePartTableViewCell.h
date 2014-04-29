@@ -19,6 +19,7 @@
 @property (nonatomic, weak) id <OTVEpisodePartTableViewCellDelegate> delegate;
 
 - (void) configureWithEpisode:(OTVEpisode *)otvEpisode;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width;
 
 @end
 

@@ -448,7 +448,6 @@
 
 - (void) startMThaiVideoFromData:(NSData *)data {
     NSError *error = nil;
-//    HTMLParser *parser = [[HTMLParser alloc] initWithString:html error:&error];
     HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
     if (error) {
         DLog(@"Error: %@", error);
@@ -467,7 +466,9 @@
                     DLog(@"FLV");
                     [SVProgressHUD  showErrorWithStatus:@"Cannot play flv file."];
                     return;
-                }else {
+                }
+                else
+                {
                     [self openWithVideoUrl:videoUrl];
                     DLog(@"videoUrl : %@", videoUrl);
                     

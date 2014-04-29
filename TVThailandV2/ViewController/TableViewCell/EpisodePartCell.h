@@ -20,7 +20,7 @@
 @property (nonatomic, weak) id <EPPartCellDelegate> delegate;
 
 - (void)configureWithEpisode:(Episode *)episode;
-
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width;
 @end
 
 

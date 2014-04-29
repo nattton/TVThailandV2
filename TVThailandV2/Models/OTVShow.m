@@ -37,7 +37,7 @@
     
     client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
-    [client GET:[NSString stringWithFormat:@"%@/index/%@/%@/%@/%d/50/", cate_name, kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION, start]
+    [client GET:[NSString stringWithFormat:@"%@/index/%@/%@/%@/%d/50/", cate_name, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, start]
      parameters:nil
         success:^(AFHTTPRequestOperation *operation, id responseObject) {
             

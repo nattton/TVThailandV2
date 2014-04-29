@@ -53,7 +53,7 @@
     
     client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-    [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION ] parameters:nil
+    [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION ] parameters:nil
         success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
             

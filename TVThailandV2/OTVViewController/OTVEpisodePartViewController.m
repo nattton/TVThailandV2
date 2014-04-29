@@ -47,11 +47,6 @@ static NSString *cellname = @"cell";
 static NSString *otvEpAndPartToShowPlayerSegue = @"OTVEpAndPartToShowPlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.portTableView reloadData];
-}
-
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [self.portTableView reloadData];
@@ -96,6 +91,12 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [SVProgressHUD showWithStatus:@"Loading..."];
     
     [self reload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.portTableView reloadData];
 }
 
 - (void)sendTracker
@@ -230,7 +231,9 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     OTVEpisodePartTableViewCell *cell = (OTVEpisodePartTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
     
     
-    cell = [[OTVEpisodePartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellname];
+    cell = [[OTVEpisodePartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                             reuseIdentifier:cellname
+                                                       width:CGRectGetWidth(self.view.frame)];
 	
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

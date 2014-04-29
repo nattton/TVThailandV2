@@ -1244,10 +1244,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hGq-RM-WL8"/>
         <segue reference="gYf-hu-iYC"/>
-        <segue reference="ikQ-Cn-ROo"/>
-        <segue reference="gEG-KC-iWG"/>
         <segue reference="5fd-qh-Mau"/>
+        <segue reference="hGq-RM-WL8"/>
+        <segue reference="idi-Wp-ZFY"/>
+        <segue reference="ikQ-Cn-ROo"/>
     </inferredMetricsTieBreakers>
 </document>

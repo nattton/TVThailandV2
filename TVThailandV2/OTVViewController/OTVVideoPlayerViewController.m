@@ -10,6 +10,7 @@
 #import "OTVVideoPlayerViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
+#import "HTMLParser.h"
 
 #import "Show.h"
 #import "OTVEpisode.h"
@@ -100,8 +101,6 @@ static NSString *kCodeIframe = @"1002";
     
     [tracker2 set:kGAIScreenName
             value:@"Player"];
-    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
-                                                       forKey:[GAIFields customDimensionForIndex:2]] build]];
     [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.nameTh
                                                        forKey:[GAIFields customDimensionForIndex:3]] build]];
 }
@@ -156,6 +155,13 @@ static NSString *kCodeIframe = @"1002";
         if ([_part.mediaCode isEqualToString:kCodeStream])
         {
             [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
+            
+            id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                                 trackingId:kOTVTracker];
+            [tracker2 set:kGAIScreenName
+                    value:@"OTVEpisode"];
+            [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.streamURL
+                                                               forKey:[GAIFields customDimensionForIndex:6]] build]];
         }
         else if ([_part.mediaCode isEqualToString:kCodeIframe])
         {
@@ -490,16 +496,48 @@ static NSString *kCodeIframe = @"1002";
     self.webView.hidden = NO;
     [SVProgressHUD dismiss];
     
+    
+    NSString *iframeHtml= [self htmlEntityDecode:iframeText];
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
                             <meta name = \"viewport\" content = \"user-scalable = no, width = %0.0f\"/></head>\
                             <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
-                            %@</body></html>", _widthOfCH7iFrame, [self htmlEntityDecode:iframeText]];
+                            %@</body></html>", _widthOfCH7iFrame, iframeHtml];
     
     
     [self.webView loadHTMLString:htmlString
                          baseURL:nil];
     [self.webView setScalesPageToFit:YES];
     [self.webView.scrollView setScrollEnabled:NO];
+    
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:iframeHtml error:&error];
+    
+    if (error)
+    {
+        DLog(@"Error: %@", error);
+    }
+    else
+    {
+        HTMLNode *bodyNode = [parser body];
+        NSArray *sourceNodes = [bodyNode findChildTags:@"iframe"];
+        for (HTMLNode *sourceNode in sourceNodes)
+        {
+            NSString *iframeURL = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
+            if(iframeURL)
+            {
+                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                                     trackingId:kOTVTracker];
+                [tracker2 set:kGAIScreenName
+                        value:@"OTVEpisode"];
+                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:iframeURL
+                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
+            }
+            
+        }
+
+    }
+    
+    
 }
 
 -(NSString *)htmlEntityDecode:(NSString *)string
