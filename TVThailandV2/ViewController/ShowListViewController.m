@@ -7,6 +7,9 @@
 //
 
 #import "ShowListViewController.h"
+
+#import <QuartzCore/QuartzCore.h>
+
 #import "ShowTableViewCell.h"
 #import "Show.h"
 
@@ -31,13 +34,14 @@
 
 #import "MakathonAdView.h"
 
-@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *alertTitleView;
 @property (weak, nonatomic) IBOutlet UILabel *alertTitle;
 
+@property (weak, nonatomic) IBOutlet UIButton *goToTopButton;
 @property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
 
 
@@ -112,6 +116,9 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 //    self.navigationController.navigationBar.tintColor = kTintColor;
     
     /** Alert View & Refresh Button - connection fail, try again **/
+    
+    [self setUpGoToTop];
+    
     self.alertTitleView.alpha = 0;
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
@@ -144,12 +151,37 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     
 }
 
+- (void)setUpGoToTop
+{
+    self.goToTopButton.layer.shadowColor = [UIColor grayColor].CGColor;
+    self.goToTopButton.layer.shadowOpacity = 0.5;
+    self.goToTopButton.layer.shadowRadius = 2;
+    self.goToTopButton.layer.shadowOffset = CGSizeMake(3.0f, 3.0f);
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    self.goToTopButton.hidden = YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    DLog(@"%f", scrollView.contentOffset.y);
+    self.goToTopButton.hidden = !(scrollView.contentOffset.y > 1000);
+}
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - IBAction
+
+- (IBAction)goToTopTapped:(id)sender {
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    
 }
 
 #pragma mark - Function

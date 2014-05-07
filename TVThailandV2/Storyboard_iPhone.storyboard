@@ -125,6 +125,20 @@
                                     <constraint firstItem="VeO-Qe-QqN" firstAttribute="centerX" secondItem="14a-BF-fFY" secondAttribute="centerX" id="uOe-6d-eoO"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="711-Rb-YBJ">
+                                <rect key="frame" x="110" y="68" width="100" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="rNW-yg-E7X"/>
+                                    <constraint firstAttribute="width" constant="100" id="sHa-A7-jVs"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="button_go_to_top">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToTopTapped:" destination="gMN-KA-q7K" eventType="touchUpInside" id="eox-1D-ZOY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -133,6 +147,8 @@
                             <constraint firstAttribute="trailing" secondItem="Nbf-MH-J29" secondAttribute="trailing" id="5AN-5t-aBd"/>
                             <constraint firstAttribute="bottom" secondItem="Nbf-MH-J29" secondAttribute="bottom" constant="49" id="F4r-Tb-YhD"/>
                             <constraint firstItem="bo7-Ud-9cX" firstAttribute="top" secondItem="lDe-3Y-0qH" secondAttribute="bottom" id="HP4-A3-v8Y"/>
+                            <constraint firstAttribute="centerX" secondItem="711-Rb-YBJ" secondAttribute="centerX" id="JTe-2H-5yK"/>
+                            <constraint firstItem="711-Rb-YBJ" firstAttribute="top" secondItem="XHc-YL-AXe" secondAttribute="bottom" constant="4" id="MSh-lw-Syw"/>
                             <constraint firstItem="Nbf-MH-J29" firstAttribute="leading" secondItem="oW1-Fu-l0C" secondAttribute="leading" id="Moa-i0-w3N"/>
                             <constraint firstItem="GvZ-ba-EO4" firstAttribute="top" secondItem="oW1-Fu-l0C" secondAttribute="top" constant="65" id="MrG-NL-ezD"/>
                             <constraint firstItem="Nbf-MH-J29" firstAttribute="top" secondItem="oW1-Fu-l0C" secondAttribute="top" id="dOo-zc-06D"/>
@@ -143,6 +159,7 @@
                     <connections>
                         <outlet property="alertTitle" destination="VeO-Qe-QqN" id="H7E-cj-NtT"/>
                         <outlet property="alertTitleView" destination="GvZ-ba-EO4" id="dtb-2k-pNx"/>
+                        <outlet property="goToTopButton" destination="711-Rb-YBJ" id="xcE-zc-5t8"/>
                         <outlet property="mkAdView" destination="lDe-3Y-0qH" id="IAt-fP-gMK"/>
                         <outlet property="searchDisplayController" destination="iRg-hC-9fv" id="wPX-Or-mKs"/>
                         <outlet property="tableView" destination="Nbf-MH-J29" id="qqI-32-9XI"/>
@@ -1298,6 +1315,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button_go_to_top" width="100" height="30"/>
         <image name="favorite" width="49" height="49"/>
         <image name="ic_refresh_white" width="50" height="51"/>
         <image name="play_alt" width="64" height="64"/>
@@ -1315,7 +1333,7 @@
         <segue reference="Bc8-PK-1lJ"/>
         <segue reference="coN-dj-guD"/>
         <segue reference="UGd-0B-F5j"/>
-        <segue reference="aNm-NP-sub"/>
+        <segue reference="VVM-kZ-9qj"/>
         <segue reference="46G-Qc-OaU"/>
     </inferredMetricsTieBreakers>
 </document>
