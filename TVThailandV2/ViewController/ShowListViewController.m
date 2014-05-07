@@ -106,6 +106,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
+    
     [self.mkAdView requestAd];
 
 //    self.navigationController.navigationBar.barTintColor = kBarTintColor;
@@ -141,7 +142,17 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
            value:_screenName];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
+    self.tableView.separatorColor = [UIColor clearColor];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
+    [self.tableView setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
+    
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        DLog(@"Load resources for iOS 6.1 or earlier");
+        
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        
+    }
 }
 
 
@@ -301,6 +312,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIView *selectedBackgroundViewForCell = [UIView new];
+    [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
+    
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
         if (!cell) {
@@ -308,6 +323,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         }
         Show *show = _searchShows[indexPath.row];
         cell.textLabel.text = show.title;
+        
+        cell.selectedBackgroundView = selectedBackgroundViewForCell;
         
         return cell;
     } else {
@@ -321,6 +338,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         if ((indexPath.row + 5) == _shows.count) {
             [self reload:_shows.count];
         }
+        
+        cell.selectedBackgroundView = selectedBackgroundViewForCell;
         
         return cell;
     }

@@ -14,6 +14,6 @@
 
 @property(nonatomic,strong) SASlideMenuViewController* menuController;
 
--(IBAction)tap:(id)sender;
+
 
 @end

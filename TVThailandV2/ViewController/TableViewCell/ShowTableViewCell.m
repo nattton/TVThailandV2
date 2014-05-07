@@ -13,6 +13,7 @@
 //#import "UIImageView+AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <QuartzCore/QuartzCore.h>
+
 @interface ShowTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
@@ -46,8 +47,13 @@
 }
 
 - (void)roundImage {
-    self.imageThumbView.layer.cornerRadius = 10.0;
+    self.imageThumbView.layer.cornerRadius = 2.0;
     self.imageThumbView.clipsToBounds = YES;
+//    self.imageThumbView.layer.shadowColor = [UIColor grayColor].CGColor;
+//    self.imageThumbView.layer.shadowOffset = CGSizeMake(0, 0.5);
+//    self.imageThumbView.layer.shadowOpacity = 1;
+//    self.imageThumbView.layer.shadowRadius = 1;
+
 }
 
 - (void)configureWhatsNewWithShow:(Show *)show {

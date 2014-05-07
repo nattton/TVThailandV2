@@ -14,24 +14,23 @@
 
 @implementation HomeContentViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
--(IBAction)tap:(id)sender{
-    [self.menuController revealRightMenu];
-}
+
 
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
-    UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [self.view addGestureRecognizer:tapRecognizer];
+    
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        DLog(@"Load resources for iOS 6.1 or earlier");
+        
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+
+    }
+    
+    
+    
     // Do any additional setup after loading the view.
 }
 

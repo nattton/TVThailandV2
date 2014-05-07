@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "SASlideMenuViewController.h"
 
 typedef enum {
     kWhatsNew = 0,
@@ -18,7 +19,7 @@ typedef enum {
 @interface ShowListViewController : UIViewController
 
 @property (nonatomic, weak) NSString *videoUrl;
-
+@property(nonatomic,strong) SASlideMenuViewController* menuController;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 

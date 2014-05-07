@@ -12,8 +12,10 @@
 #import "ShowCategoryTableViewCell.h"
 #import "SVProgressHUD.h"
 
-@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate>
+#import "ShowListViewController.h"
+#import "ShowCategory.h"
 
+@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @end
@@ -27,17 +29,40 @@
     
 }
 
+//** cell Identifier **//
+static NSString *cellIdentifier = @"cellIdentifier";
+static NSString *fbCellIdentifier = @"fbCellIdentifier";
+static NSString *favoriteCellIdentifier = @"favoriteCellIdentifier";
+static NSString *channelCellIdentifier = @"channelCellIdentifier";
 static NSString *cateCellIdentifier = @"cateCellIdentifier";
+
+//** content segue Identifier **//
+static NSString *homeContentSegue = @"homeContentSegue";
+static NSString *FBContentSegue = @"FBContentSegue";
+static NSString *channelContentSegue = @"channelContentSegue";
+static NSString *showListContentSegue = @"showListContentSegue";
+
+//** sending segue **//
+static NSString *showListSegue = @"ShowListSegue";
+
+static NSInteger secFacebook = 0;
+static NSInteger secFavorite = 1;
+static NSInteger secChannel = 2;
+static NSInteger secCategory = 3;
+
 
 -(void)tap:(id)sender{
     
 }
-
+- (void) loadView {
+    [super loadView];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+
     [SVProgressHUD showWithStatus:@"Loading..."];
     
     _categoryList = [[ShowCategoryList alloc] init];
@@ -46,6 +71,7 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
+    self.tableView.separatorColor = [UIColor clearColor];
     
     [self reload];
 
@@ -89,14 +115,15 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
 
 -(void) prepareForSwitchToContentViewController:(UINavigationController *)content{
     UIViewController* controller = [content.viewControllers firstObject];
-//    if ([controller isKindOfClass:[ColoredViewController class]]) {
-//        ColoredViewController* coloredViewController = (ColoredViewController*) controller;
-//        [coloredViewController setBackgroundHue:selectedHue brightness:selectedBrightness];
-//    }else if ([controller isKindOfClass:[GreenViewController class]]) {
-//       
-//    }
-    HomeContentViewController* homeContentViewController = (HomeContentViewController*) controller;
-    homeContentViewController.menuController = self;
+    
+    if ([controller isKindOfClass:[ShowListViewController class]]) {
+        ShowListViewController* showListViewController = (ShowListViewController*) controller;
+        showListViewController.menuController = self;
+        
+    } else {
+        HomeContentViewController* homeContentViewController = (HomeContentViewController*) controller;
+        homeContentViewController.menuController = self;
+    }
 }
 
 // It configure the menu button. The beahviour of the button should not be modified
@@ -114,11 +141,10 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
 
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
-//    if (_categoryList && [_categoryList count] > 0) {
+
         return [NSIndexPath indexPathForRow:0 inSection:0];
-//    }
-//    return nil;
-//    return nil;
+
+
 }
 
 // It maps each indexPath to the segueId to be used. The segue is performed only the first time the controller needs to loaded, subsequent switch to the content controller will use the already loaded controller
@@ -126,17 +152,38 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
 -(NSString*) segueIdForIndexPath:(NSIndexPath *)indexPath{
 //    NSString* result;
 //    switch (indexPath.section) {
-//        case 0:
-//            result = @"red";
-//            break;
 //        case 1:
+//            return FBContentSegue;
+//            break;
+//        case 2:
 //            result = @"green";
 //            break;
 //        default:
 //            result = @"blue";
 //            break;
 //    }
-    return @"homeContentSegue";
+//    return homeContentSegue;
+
+    NSInteger section = indexPath.section;
+    if (section == secFacebook) {
+        return FBContentSegue;
+    } else if (section == secCategory) {
+        return showListContentSegue;
+    } else if (section == secChannel) {
+        return homeContentSegue;
+    } else {
+        return homeContentSegue;
+    }
+//    } else if (section == secFavorite){
+//        return homeContentSegue;
+//    } else if (section == secChannel){
+//        return channelContentSegue;
+//    } else if (section == secCategory){
+//        return showListContentSegue;
+//    }else {
+ 
+//    }
+
 }
 
 -(Boolean) disableContentViewControllerCachingForIndexPath:(NSIndexPath *)indexPath{
@@ -149,54 +196,77 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
 #pragma mark UITableViewDataSource
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 4;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    if (section == 0) {
-//        return @"Red";
-//    }else if (section == 1){
-//        return @"Green";
-//    }else {
-//        return @"Blue";
-//    }
-    return nil;
+
+        return nil;
+    
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (_categoryList && [_categoryList count] > 0) {
-        return [_categoryList count];
+        
+        if (section == secFacebook) {
+            return 1;
+        } else if (section == secFavorite){
+            return 1;
+        } else if (section == secChannel){
+            return 1;
+        } else if (section == secCategory){
+            return [_categoryList count];
+        } else {
+            return 1;
+        }
+  
     }
+    
     return 1;
 }
 
--(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    CGFloat brightness = 1-((double) indexPath.row)/5;
-//    NSInteger section = indexPath.section;
-//    CGFloat hue=0;
-//    if (section == 0) {
-//        hue = 0.0;
-//    }else if (section==1){
-//        hue = 0.33;
-//    }else if (section==2){
-//        hue = 0.66;
-//    }
-//    cell.backgroundColor = [UIColor colorWithHue:hue saturation:1.0 brightness:brightness alpha:1.0];
-}
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"cateCellIdentifier"];
-    ShowCategoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cateCellIdentifier"];
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
+    UITableViewCell* cellOfFavorite = [self.tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
+    UITableViewCell* cellOfChannel = [self.tableView dequeueReusableCellWithIdentifier:channelCellIdentifier];
     
-        [cell configureWithGenre:_categoryList[indexPath.row]];
+    UIView *selectedBackgroundViewForCell = [UIView new];
+    [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
     
-    return cell;
+    ShowCategoryTableViewCell *cellOfCate = [self.tableView dequeueReusableCellWithIdentifier:cateCellIdentifier];
+
+    NSInteger section = indexPath.section;
+    if (section == secFacebook) {
+        cellOfFB.selectedBackgroundView = selectedBackgroundViewForCell;
+        return cellOfFB;
+    } else if (section == secFavorite){
+        cellOfFavorite.selectedBackgroundView = selectedBackgroundViewForCell;
+        return cellOfFavorite;
+    } else if (section == secChannel){
+        cellOfChannel.selectedBackgroundView = selectedBackgroundViewForCell;
+        return cellOfChannel;
+    } else if (section == secCategory){
+        
+        cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
+        
+        [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
+        
+        return cellOfCate;
+        
+    }else {
+        return cell;
+    }
+
 }
 
 -(CGFloat) leftMenuVisibleWidth{
     return 260;
 }
+
+
 
 
 
@@ -208,21 +278,94 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
 
 #pragma mark -
 #pragma mark UITableViewDelegate
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    CGFloat brightness = 1-((double) indexPath.row)/5;
-//    NSInteger section = indexPath.section;
-//    CGFloat hue=0;
-//    if (section == 0) {
-//        hue = 0.0;
-//    }else if (section==1){
-//        hue = 0.33;
-//    }else if (section==2){
-//        hue = 0.66;
-//    }
-//    self.selectedHue = hue;
-//    self.selectedBrightness = brightness;
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//}
+
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+
+    NSInteger section = indexPath.section;
+    if (section == secCategory) {
+        NSLog(@"indexPath.row = %d",indexPath.row);
+        
+        
+        [self performSegueWithIdentifier:showListContentSegue sender:_categoryList[indexPath.row]];
+        
+    }else {
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+    
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:showListContentSegue]) {
+
+        UINavigationController *content = segue.destinationViewController;
+        ShowListViewController* controller = [content.viewControllers firstObject];
+        
+        ShowCategory *selectedCat = (ShowCategory *)sender;
+        controller.navigationItem.title = selectedCat.title;
+        
+        [controller reloadWithMode:kCategory Id:selectedCat.Id];
+        
+    }
+    
+    
+//    if ([segue.identifier isEqualToString:showListContentSegue]) {
+//
+////        ListOfShowViewController *showListViewController = (ListOfShowViewController *)[[segue destinationViewController]topViewController];
+//        ListOfShowViewController *showListViewController = segue.destinationViewController;
+//        showListViewController.menuController = self;
+//        ShowCategory *selectedCat = (ShowCategory *)sender;
+//        showListViewController.navigationItem.title = selectedCat.title;
+//
+//        NSLog(@"kCategory = %d", kCategory);
+//        
+//        NSLog(@"selectedCat.Id = %@", selectedCat.Id);
+//        
+////        [showListViewController reloadWithMode:kCategory Id:selectedCat.Id];
+//        
+//  
+////        id tracker = [[GAI sharedInstance] defaultTracker];
+////        [tracker set:kGAIScreenName
+////               value:@"Category"];
+////        [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedCat.title
+////                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
+//    }
+////    else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
+////        Show *show = (Show *)sender;
+////        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
+////        episodeAndPartListViewController.show = show;
+////        
+////        id tracker = [[GAI sharedInstance] defaultTracker];
+////        [tracker set:kGAIScreenName
+////               value:@"Search"];
+////        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+////                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
+////        
+////    }
+////    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
+////        
+////        Show *show = (Show *)sender;
+////        
+////        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
+////        otvEpAndPartViewController.navigationItem.title = show.title;
+////        
+////        otvEpAndPartViewController.show = show;
+////        
+////    }
+    
+}
+
+
+
+
+
+
 #pragma mark -
 #pragma mark SASlideMenuDelegate
 
@@ -251,6 +394,43 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
     NSLog(@"slideMenuDidSlideToLeft");
 }
 
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    UIView *underline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 5)];
+    
+    [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]];
+    [underline setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]];
+    
+    if (section == secFacebook) {
+        return underline;
+    } else if (section == secFavorite){
+        return underline;
+    } else if (section == secChannel){
+        return underline;
+    } else if (section == secCategory){
+        return view;
+    } else {
+        return nil;
+    }
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == secFacebook) {
+        return 5;
+    } else if (section == secFavorite){
+        return 0;
+    } else if (section == secChannel){
+        return 0;
+    } else if (section == secCategory){
+        return 10;
+    } else {
+        return 0;
+    }
+}
 
 
 @end
