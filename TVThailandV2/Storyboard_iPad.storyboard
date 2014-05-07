@@ -82,6 +82,20 @@
                                     <outlet property="delegate" destination="EuP-qS-lg2" id="OC7-a0-HwQ"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HP1-xq-W12">
+                                <rect key="frame" x="334" y="64" width="100" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="bfS-ac-RI9"/>
+                                    <constraint firstAttribute="height" constant="30" id="pNN-zx-oGn"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="button_go_to_top">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToTopTapped:" destination="EuP-qS-lg2" eventType="touchUpInside" id="qUy-za-Qvk"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Cx-Af-GmY" customClass="MakathonAdView">
                                 <rect key="frame" x="0.0" y="885" width="768" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -138,7 +152,9 @@
                             <constraint firstItem="hNe-C3-Ler" firstAttribute="leading" secondItem="WEM-qI-HoT" secondAttribute="leading" id="DFN-tb-g3z"/>
                             <constraint firstAttribute="centerX" secondItem="2Cx-Af-GmY" secondAttribute="centerX" id="HPf-MJ-mlT"/>
                             <constraint firstItem="c10-np-6f2" firstAttribute="leading" secondItem="WEM-qI-HoT" secondAttribute="leading" id="Jjc-0z-i4P"/>
+                            <constraint firstItem="HP1-xq-W12" firstAttribute="top" secondItem="NLq-rw-SQf" secondAttribute="bottom" id="LWb-rM-D8R"/>
                             <constraint firstItem="1j0-iu-Lol" firstAttribute="top" secondItem="hNe-C3-Ler" secondAttribute="bottom" constant="1" id="QUu-Rg-p3L"/>
+                            <constraint firstAttribute="centerX" secondItem="HP1-xq-W12" secondAttribute="centerX" id="T0b-Wo-yt7"/>
                             <constraint firstAttribute="trailing" secondItem="c10-np-6f2" secondAttribute="trailing" id="Zm4-F0-zF5"/>
                         </constraints>
                     </view>
@@ -146,6 +162,7 @@
                     <connections>
                         <outlet property="alertTitle" destination="da2-YW-FK9" id="rd3-ZD-yH6"/>
                         <outlet property="alertTitleView" destination="c10-np-6f2" id="S8h-ha-TrF"/>
+                        <outlet property="goToTopButton" destination="HP1-xq-W12" id="S6L-9v-t2C"/>
                         <outlet property="mkAdView" destination="2Cx-Af-GmY" id="lar-3m-D20"/>
                         <outlet property="searchDisplayController" destination="Gr7-Ud-ScO" id="41v-Fb-oyD"/>
                         <outlet property="tableView" destination="hNe-C3-Ler" id="o6d-x6-oMN"/>
@@ -1230,6 +1247,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="button_go_to_top" width="100" height="30"/>
         <image name="favorite" width="49" height="49"/>
         <image name="ic_refresh_white" width="50" height="51"/>
         <image name="play_alt" width="64" height="64"/>
@@ -1245,9 +1263,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="gYf-hu-iYC"/>
-        <segue reference="5fd-qh-Mau"/>
-        <segue reference="hGq-RM-WL8"/>
-        <segue reference="idi-Wp-ZFY"/>
         <segue reference="ikQ-Cn-ROo"/>
+        <segue reference="w51-GK-F2u"/>
+        <segue reference="BMW-0E-Gfg"/>
+        <segue reference="idi-Wp-ZFY"/>
     </inferredMetricsTieBreakers>
 </document>

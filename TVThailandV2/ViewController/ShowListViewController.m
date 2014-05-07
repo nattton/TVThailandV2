@@ -159,11 +159,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     self.goToTopButton.layer.shadowOffset = CGSizeMake(3.0f, 3.0f);
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-    self.goToTopButton.hidden = YES;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     DLog(@"%f", scrollView.contentOffset.y);
