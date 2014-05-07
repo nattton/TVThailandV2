@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class VideoPlayerViewController;
 @class Episode;
 @interface PartListViewController : UIViewController
 
 @property (nonatomic, weak) Episode *episode;
+@property (nonatomic, weak) VideoPlayerViewController *videoPlayer;
 
 @end

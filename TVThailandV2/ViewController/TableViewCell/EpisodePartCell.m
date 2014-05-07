@@ -29,7 +29,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        if (UIInterfaceOrientationIsPortrait([UIDevice currentDevice].orientation))
+        if (UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             // code for Portrait orientation
             if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

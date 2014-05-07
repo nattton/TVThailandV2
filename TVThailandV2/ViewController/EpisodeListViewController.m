@@ -10,7 +10,7 @@
 #import "Show.h"
 #import "Episode.h"
 #import "EpisodeTableViewCell.h"
-#import "PartListViewController.h"
+//#import "PartListViewController.h"
 #import "DetailViewController.h"
 
 #import "AppDelegate.h"
@@ -49,9 +49,9 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showPartSegue]) {
-        PartListViewController *partListViewController = segue.destinationViewController;
+//        PartListViewController *partListViewController = segue.destinationViewController;
         Episode *ep  = (Episode *)sender;
-        partListViewController.episode = ep;
+//        partListViewController.episode = ep;
         
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName

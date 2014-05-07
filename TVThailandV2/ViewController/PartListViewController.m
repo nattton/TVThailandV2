@@ -32,7 +32,7 @@ static NSString *showYoutubePlayerSegue = @"ShowYoutubePlayerSegue";
     
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
-           value:@"Favorite"];
+           value:@"PartList"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
@@ -74,7 +74,10 @@ static NSString *showYoutubePlayerSegue = @"ShowYoutubePlayerSegue";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self performSegueWithIdentifier:showYoutubePlayerSegue sender:indexPath];
+//    [self performSegueWithIdentifier:showYoutubePlayerSegue sender:indexPath];
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.videoPlayer.idx = indexPath.section;
+    }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

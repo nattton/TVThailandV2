@@ -471,12 +471,6 @@
                 {
                     [self openWithVideoUrl:videoUrl];
                     DLog(@"videoUrl : %@", videoUrl);
-                    
-//                    UIBarButtonItem *playButton = [[UIBarButtonItem alloc] initWithTitle:@"Play"
-//                                                                                   style:UIBarButtonItemStylePlain
-//                                                                                  target:self
-//                                                                                  action:@selector(playVideo:)];
-//                    self.navigationItem.rightBarButtonItem = playButton;
                 }
                 return;
             }
