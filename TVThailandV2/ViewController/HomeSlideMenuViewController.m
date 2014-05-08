@@ -141,9 +141,8 @@ static NSInteger secCategory = 3;
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
 
-        return [NSIndexPath indexPathForRow:0 inSection:0];
-
-
+        return [NSIndexPath indexPathForRow:0 inSection:3];
+    
 }
 
 
@@ -232,7 +231,11 @@ static NSInteger secCategory = 3;
         
         cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
         
-        [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
+        
+        if ( _categoryList && [_categoryList count] > 0) {
+            [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
+        }
+        
         
         return cellOfCate;
         
@@ -287,7 +290,14 @@ static NSInteger secCategory = 3;
         ShowCategory *selectedCat = (ShowCategory *)sender;
         controller.navigationItem.title = selectedCat.title;
         
-        [controller reloadWithMode:kCategory Id:selectedCat.Id];
+        if ( _categoryList && [_categoryList count] > 0 ) {
+           
+            [controller reloadWithMode:kCategory Id:selectedCat.Id];
+        } else {
+            controller.navigationItem.title = @"รายการล่าสุด";
+            [controller reloadWithMode:kCategory Id:@"recents"];
+        }
+        
         
     }
     
