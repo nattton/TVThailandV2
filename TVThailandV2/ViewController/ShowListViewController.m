@@ -150,7 +150,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         DLog(@"Load resources for iOS 6.1 or earlier");
         
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
         
     }
 }

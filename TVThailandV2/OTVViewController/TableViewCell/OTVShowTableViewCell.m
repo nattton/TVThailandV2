@@ -39,7 +39,7 @@
     self.detailShow.text = otvShow.detail;
     
     self.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:otvShow.thumbnail] placeholderImage:[UIImage imageNamed:@"otv_icon"]];
+    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:otvShow.thumbnail] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"]];
 
     
 }

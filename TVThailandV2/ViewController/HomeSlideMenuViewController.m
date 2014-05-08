@@ -15,6 +15,8 @@
 #import "ShowListViewController.h"
 #import "ShowCategory.h"
 
+#import "FavoriteViewController.h"
+
 @interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
@@ -39,6 +41,7 @@ static NSString *cateCellIdentifier = @"cateCellIdentifier";
 //** content segue Identifier **//
 static NSString *homeContentSegue = @"homeContentSegue";
 static NSString *FBContentSegue = @"FBContentSegue";
+static NSString *favoriteContentSegue = @"favoriteContentSegue";
 static NSString *channelContentSegue = @"channelContentSegue";
 static NSString *showListContentSegue = @"showListContentSegue";
 
@@ -114,16 +117,17 @@ static NSInteger secCategory = 3;
 #pragma mark SASlideMenuDataSource
 
 -(void) prepareForSwitchToContentViewController:(UINavigationController *)content{
-    UIViewController* controller = [content.viewControllers firstObject];
+//    UIViewController* controller = [content.viewControllers firstObject];
     
-    if ([controller isKindOfClass:[ShowListViewController class]]) {
-        ShowListViewController* showListViewController = (ShowListViewController*) controller;
-        showListViewController.menuController = self;
-        
-    } else {
-        HomeContentViewController* homeContentViewController = (HomeContentViewController*) controller;
-        homeContentViewController.menuController = self;
-    }
+//    if ([controller isKindOfClass:[ShowListViewController class]]) {
+//        ShowListViewController* showListViewController = (ShowListViewController*) controller;
+////        showListViewController.menuController = self;
+//        
+//    }
+//    else {
+//        HomeContentViewController* homeContentViewController = (HomeContentViewController*) controller;
+////        homeContentViewController.menuController = self;
+//    }
 }
 
 // It configure the menu button. The beahviour of the button should not be modified
@@ -133,11 +137,6 @@ static NSInteger secCategory = 3;
 }
 
 
-// It configure the right menu button. The beahviour of the button should not be modified
-//-(void) configureRightMenuButton:(UIButton *)menuButton{
-//    menuButton.frame = CGRectMake(0, 0, 40, 29);
-//    [menuButton setImage:[UIImage imageNamed:@"menuiconright"] forState:UIControlStateNormal];
-//}
 
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
@@ -147,42 +146,23 @@ static NSInteger secCategory = 3;
 
 }
 
-// It maps each indexPath to the segueId to be used. The segue is performed only the first time the controller needs to loaded, subsequent switch to the content controller will use the already loaded controller
 
+// It maps each indexPath to the segueId to be used. The segue is performed only the first time the controller needs to loaded, subsequent switch to the content controller will use the already loaded controller
 -(NSString*) segueIdForIndexPath:(NSIndexPath *)indexPath{
-//    NSString* result;
-//    switch (indexPath.section) {
-//        case 1:
-//            return FBContentSegue;
-//            break;
-//        case 2:
-//            result = @"green";
-//            break;
-//        default:
-//            result = @"blue";
-//            break;
-//    }
-//    return homeContentSegue;
+
 
     NSInteger section = indexPath.section;
     if (section == secFacebook) {
         return FBContentSegue;
     } else if (section == secCategory) {
         return showListContentSegue;
+    } else if (section == secFavorite) {
+        return favoriteContentSegue;
     } else if (section == secChannel) {
-        return homeContentSegue;
+        return channelContentSegue;
     } else {
         return homeContentSegue;
     }
-//    } else if (section == secFavorite){
-//        return homeContentSegue;
-//    } else if (section == secChannel){
-//        return channelContentSegue;
-//    } else if (section == secCategory){
-//        return showListContentSegue;
-//    }else {
- 
-//    }
 
 }
 
@@ -268,31 +248,26 @@ static NSInteger secCategory = 3;
 
 
 
-
-
-////restricts pan gesture interation to 50px on the left and right of the view.
-//-(Boolean) shouldRespondToGesture:(UIGestureRecognizer*) gesture forIndexPath:(NSIndexPath*)indexPath {
-//    CGPoint touchPosition = [gesture locationInView:self.view];
-//    return (touchPosition.x < 50.0 || touchPosition.x > self.view.bounds.size.width - 50.0f);
-//}
-
 #pragma mark -
 #pragma mark UITableViewDelegate
-//-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-//}
-
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
 
     NSInteger section = indexPath.section;
     if (section == secCategory) {
-        NSLog(@"indexPath.row = %d",indexPath.row);
-        
         
         [self performSegueWithIdentifier:showListContentSegue sender:_categoryList[indexPath.row]];
+     
+    }else if (section == secFavorite) {
+        
+        [self performSegueWithIdentifier:favoriteContentSegue sender:nil];
+        
+    }else if (section == secChannel) {
+        
+        [self performSegueWithIdentifier:channelContentSegue sender:nil];
+        
+    }else if (section == secFacebook) {
         
     }else {
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
@@ -312,52 +287,37 @@ static NSInteger secCategory = 3;
         
         [controller reloadWithMode:kCategory Id:selectedCat.Id];
         
+    } else if  ([segue.identifier isEqualToString:favoriteContentSegue]) {
+        
+        
+    } else if  ([segue.identifier isEqualToString:channelContentSegue]) {
+    
+    
     }
-    
-    
-//    if ([segue.identifier isEqualToString:showListContentSegue]) {
-//
-////        ListOfShowViewController *showListViewController = (ListOfShowViewController *)[[segue destinationViewController]topViewController];
-//        ListOfShowViewController *showListViewController = segue.destinationViewController;
-//        showListViewController.menuController = self;
-//        ShowCategory *selectedCat = (ShowCategory *)sender;
-//        showListViewController.navigationItem.title = selectedCat.title;
-//
-//        NSLog(@"kCategory = %d", kCategory);
+
+//    else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
+//        Show *show = (Show *)sender;
+//        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
+//        episodeAndPartListViewController.show = show;
 //        
-//        NSLog(@"selectedCat.Id = %@", selectedCat.Id);
+//        id tracker = [[GAI sharedInstance] defaultTracker];
+//        [tracker set:kGAIScreenName
+//               value:@"Search"];
+//        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+//                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
 //        
-////        [showListViewController reloadWithMode:kCategory Id:selectedCat.Id];
-//        
-//  
-////        id tracker = [[GAI sharedInstance] defaultTracker];
-////        [tracker set:kGAIScreenName
-////               value:@"Category"];
-////        [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedCat.title
-////                                                          forKey:[GAIFields customDimensionForIndex:1]] build]];
 //    }
-////    else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
-////        Show *show = (Show *)sender;
-////        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
-////        episodeAndPartListViewController.show = show;
-////        
-////        id tracker = [[GAI sharedInstance] defaultTracker];
-////        [tracker set:kGAIScreenName
-////               value:@"Search"];
-////        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
-////                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
-////        
-////    }
-////    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
-////        
-////        Show *show = (Show *)sender;
-////        
-////        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
-////        otvEpAndPartViewController.navigationItem.title = show.title;
-////        
-////        otvEpAndPartViewController.show = show;
-////        
-////    }
+//    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
+//        
+//        Show *show = (Show *)sender;
+//        
+//        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
+//        otvEpAndPartViewController.navigationItem.title = show.title;
+//        
+//        otvEpAndPartViewController.show = show;
+//        
+//    }
+    
     
 }
 

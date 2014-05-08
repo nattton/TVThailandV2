@@ -108,8 +108,12 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     [cell addSubview:channelImageView];
     
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
-    titleLabel.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.5];
+    UIView *labelBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
+    labelBackgroundView.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.5];
+    [cell addSubview:labelBackgroundView];
+
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 80, 90, 20)];
+    titleLabel.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.text = ch.title;
     [titleLabel setFont:[UIFont systemFontOfSize:10]];

@@ -59,19 +59,19 @@
 - (void)configureWhatsNewWithShow:(Show *)show {
     self.titleLable.text = show.title;
     self.detailLabel.text = show.lastEp;
-    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"]];
 }
 
 - (void)configureWithShow:(Show *)show {
     self.titleLable.text = show.title;
     self.detailLabel.text = show.desc;
-    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.imageThumbView setImageWithURL:[NSURL URLWithString:show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"]];
 }
 
 - (void)configureWithProgram:(Program *)program {
     self.titleLable.text = program.program_title;
     self.detailLabel.text = program.program_time;
-    [self.imageThumbView setImageWithURL:[NSURL URLWithString:program.program_thumbnail] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.imageThumbView setImageWithURL:[NSURL URLWithString:program.program_thumbnail] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"]];
 }
 
 @end

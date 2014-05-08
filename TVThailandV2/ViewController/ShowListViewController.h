@@ -19,7 +19,6 @@ typedef enum {
 @interface ShowListViewController : UIViewController
 
 @property (nonatomic, weak) NSString *videoUrl;
-@property(nonatomic,strong) SASlideMenuViewController* menuController;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 
