@@ -269,6 +269,8 @@ static NSInteger secCategory = 3;
         
     }else if (section == secFacebook) {
         
+        [self performSegueWithIdentifier:FBContentSegue sender:nil];
+        
     }else {
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
@@ -287,13 +289,8 @@ static NSInteger secCategory = 3;
         
         [controller reloadWithMode:kCategory Id:selectedCat.Id];
         
-    } else if  ([segue.identifier isEqualToString:favoriteContentSegue]) {
-        
-        
-    } else if  ([segue.identifier isEqualToString:channelContentSegue]) {
-    
-    
     }
+    
 
 //    else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
 //        Show *show = (Show *)sender;
