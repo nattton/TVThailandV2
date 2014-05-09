@@ -1005,10 +1005,10 @@
 					"$(SRCROOT)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.06",
+					"$(PROJECT_DIR)/TVThailandV2/Library/Vserv",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
-					"-all_load",
 					"-ObjC",
 					"-fno-objc-arc",
 				);
@@ -1052,10 +1052,10 @@
 					"$(SRCROOT)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.06",
+					"$(PROJECT_DIR)/TVThailandV2/Library/Vserv",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
-					"-all_load",
 					"-ObjC",
 					"-fno-objc-arc",
 				);

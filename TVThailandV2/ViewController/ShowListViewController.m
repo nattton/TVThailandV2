@@ -153,6 +153,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)setUpGoToTop
 {
+    self.goToTopButton.hidden = YES;
     self.goToTopButton.layer.shadowColor = [UIColor grayColor].CGColor;
     self.goToTopButton.layer.shadowOpacity = 0.5;
     self.goToTopButton.layer.shadowRadius = 2;
