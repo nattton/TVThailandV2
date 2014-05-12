@@ -467,7 +467,7 @@
                                     <constraint firstAttribute="height" constant="90" id="dGT-NF-5vv"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUm-Se-gO6">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UUm-Se-gO6">
                                 <rect key="frame" x="0.0" y="931" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -1279,6 +1279,7 @@
                     <connections>
                         <outlet property="displayNameLabel" destination="17D-R5-bDQ" id="PPb-4w-PRM"/>
                         <outlet property="fbAgreementLabel" destination="X3R-sd-vdh" id="nNM-su-mqE"/>
+                        <outlet property="loginView" destination="BYF-mt-cYR" id="n9B-5j-5ZW"/>
                         <outlet property="profilePictureView" destination="qLl-83-cke" id="GQw-hT-0tn"/>
                     </connections>
                 </viewController>
@@ -1339,7 +1340,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-ac-S5b">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-ac-S5b">
                                 <rect key="frame" x="0.0" y="927" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -1358,7 +1359,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOp-aD-QQ7">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOp-aD-QQ7">
                                 <rect key="frame" x="0.0" y="65" width="768" height="862"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1651,6 +1652,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="uDB-K5-bJR"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="delegate" destination="hH0-Cn-LH4" id="D2H-rE-Kcp"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1685,6 +1689,7 @@
                     <connections>
                         <outlet property="displayNameLabel" destination="moC-Ne-Quw" id="Pec-Xb-Tsr"/>
                         <outlet property="fbAgreementLabel" destination="haj-La-iTe" id="Lru-dw-SEG"/>
+                        <outlet property="loginView" destination="ngg-Hx-4MS" id="5Hp-lP-B3l"/>
                         <outlet property="profilePictureView" destination="iS7-4t-HKS" id="Set-rJ-oom"/>
                     </connections>
                 </viewController>

@@ -11,6 +11,8 @@
 
 @interface CMAccountViewController ()
 
+@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
+
 @property (strong, nonatomic) IBOutlet FBProfilePictureView *profilePictureView;
 @property (strong, nonatomic) IBOutlet UILabel *displayNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fbAgreementLabel;
@@ -37,6 +39,8 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     
+    self.loginView.readPermissions = @[@"public_profile", @"email"];
+    
 //    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
 //        DLog(@"Load resources for iOS 6.1 or earlier");
 //        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
@@ -46,6 +50,7 @@
 //        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
 //
 //    }
+    
 
 }
 
@@ -129,6 +134,7 @@
                           otherButtonTitles:nil] show];
     }
 }
+
 
 
 

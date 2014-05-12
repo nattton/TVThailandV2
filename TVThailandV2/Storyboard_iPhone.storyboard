@@ -967,6 +967,9 @@
                                     <constraint firstAttribute="height" constant="44" id="K2u-Fn-qp3"/>
                                     <constraint firstAttribute="width" constant="246" id="X4x-Ti-ICp"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Wsq-yc-ue4" id="Bca-dZ-F74"/>
+                                </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry, we'll never post to Facebook without asking you first" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="246" translatesAutoresizingMaskIntoConstraints="NO" id="q8S-R1-IJ5">
                                 <rect key="frame" x="37" y="267" width="246" height="24"/>
@@ -1006,6 +1009,7 @@
                     <connections>
                         <outlet property="displayNameLabel" destination="SLZ-wu-p1z" id="b5Q-AC-oHh"/>
                         <outlet property="fbAgreementLabel" destination="q8S-R1-IJ5" id="3BD-Q6-3uT"/>
+                        <outlet property="loginView" destination="dXj-NV-ao7" id="A3k-D3-RJw"/>
                         <outlet property="profilePictureView" destination="Lym-SN-5dI" id="jgs-yS-zwg"/>
                     </connections>
                 </viewController>
@@ -1753,6 +1757,9 @@
                                             <constraint firstAttribute="height" constant="44" id="DH0-ws-vXg"/>
                                             <constraint firstAttribute="width" constant="246" id="NiH-4b-5AK"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="delegate" destination="VpA-iW-VXI" id="gKL-Yb-R46"/>
+                                        </connections>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, Anonymous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5d-rF-ykP">
                                         <rect key="frame" x="20" y="140" width="280" height="22"/>
@@ -1822,6 +1829,7 @@
                     <connections>
                         <outlet property="displayNameLabel" destination="x5d-rF-ykP" id="cyG-dr-Lvr"/>
                         <outlet property="fbAgreementLabel" destination="e9b-Ra-jCU" id="FQo-aG-P3F"/>
+                        <outlet property="loginView" destination="rlZ-O3-4oy" id="NOw-H8-WVp"/>
                         <outlet property="profilePictureView" destination="ZM8-iA-6U8" id="YBg-Yh-2Gu"/>
                     </connections>
                 </viewController>
