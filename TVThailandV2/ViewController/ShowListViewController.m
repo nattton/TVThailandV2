@@ -31,13 +31,14 @@
 
 #import "MakathonAdView.h"
 
-@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *alertTitleView;
 @property (weak, nonatomic) IBOutlet UILabel *alertTitle;
 
+@property (weak, nonatomic) IBOutlet UIButton *goToTopButton;
 @property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
 
 
@@ -106,6 +107,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
+    [self setUpGoToTop];
     
     [self.mkAdView requestAd];
 
@@ -155,7 +157,27 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
 }
 
+- (void)setUpGoToTop
+{
+    self.goToTopButton.hidden = YES;
+    self.goToTopButton.layer.shadowColor = [UIColor grayColor].CGColor;
+    self.goToTopButton.layer.shadowOpacity = 0.5;
+    self.goToTopButton.layer.shadowRadius = 2;
+    self.goToTopButton.layer.shadowOffset = CGSizeMake(3.0f, 3.0f);
+}
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    DLog(@"%f", scrollView.contentOffset.y);
+    self.goToTopButton.hidden = !(scrollView.contentOffset.y > 1000);
+}
+
+#pragma mark - IBAction
+
+- (IBAction)goToTopTapped:(id)sender {
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
