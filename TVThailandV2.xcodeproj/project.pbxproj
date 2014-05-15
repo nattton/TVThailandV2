@@ -16,6 +16,8 @@
 		115CDAAA182E19A900402D6B /* EpisodePartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodePartViewController.m */; };
 		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
+		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
+		11D011F91924B46E00216898 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F81924B46E00216898 /* RadioViewController.m */; };
 		11D1DCD81910C7B200A51026 /* SASlideMenuContentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCC71910C7B100A51026 /* SASlideMenuContentSegue.m */; };
 		11D1DCD91910C7B200A51026 /* SASlideMenuLeftMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCCB1910C7B100A51026 /* SASlideMenuLeftMenuSegue.m */; };
 		11D1DCDA1910C7B200A51026 /* SASlideMenuNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCCD1910C7B200A51026 /* SASlideMenuNavigationController.m */; };
@@ -141,6 +143,10 @@
 		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
 		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
 		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
+		11D011F41924726300216898 /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
+		11D011F51924726300216898 /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
+		11D011F71924B46E00216898 /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
+		11D011F81924B46E00216898 /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
 		11D1DCC61910C7B100A51026 /* SASlideMenuContentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASlideMenuContentSegue.h; sourceTree = "<group>"; };
 		11D1DCC71910C7B100A51026 /* SASlideMenuContentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASlideMenuContentSegue.m; sourceTree = "<group>"; };
 		11D1DCC81910C7B100A51026 /* SASlideMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASlideMenuDataSource.h; sourceTree = "<group>"; };
@@ -398,6 +404,8 @@
 				3B67F7A317E09A5200C9CD23 /* ShowCategoryViewController.m */,
 				3BE6091417FB57D100497D39 /* ChannelViewController.h */,
 				3BE6091517FB57D100497D39 /* ChannelViewController.m */,
+				11D011F71924B46E00216898 /* RadioViewController.h */,
+				11D011F81924B46E00216898 /* RadioViewController.m */,
 				3B67F7A517E09C6600C9CD23 /* ShowListViewController.h */,
 				3B67F7A617E09C6600C9CD23 /* ShowListViewController.m */,
 				3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */,
@@ -452,6 +460,8 @@
 				3B910C3917340387008F67ED /* ShowCategory.m */,
 				3B910C3A17340387008F67ED /* Channel.h */,
 				3B910C3B17340387008F67ED /* Channel.m */,
+				11D011F41924726300216898 /* Radio.h */,
+				11D011F51924726300216898 /* Radio.m */,
 				3B67F7B817E0E9A300C9CD23 /* Show.h */,
 				3B67F7B917E0E9A300C9CD23 /* Show.m */,
 				3B743BCE17E1D8060086C519 /* Episode.h */,
@@ -899,6 +909,7 @@
 				3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */,
 				11D1DCDB1910C7B200A51026 /* SASlideMenuPushSegue.m in Sources */,
 				3B743BD017E1D8060086C519 /* Episode.m in Sources */,
+				11D011F61924726300216898 /* Radio.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3BDF8350190A74EE00AD12D0 /* DDXMLNode.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
@@ -954,6 +965,7 @@
 				3BD1395A190F6E00004F6785 /* OTVEpisodePartTableViewCell.m in Sources */,
 				3BDF836F190A78CC00AD12D0 /* DVVideoMultipleAdPlaylist.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,
+				11D011F91924B46E00216898 /* RadioViewController.m in Sources */,
 				3BDF8369190A78CC00AD12D0 /* DVIABPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

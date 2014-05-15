@@ -37,21 +37,26 @@ static NSString *fbCellIdentifier = @"fbCellIdentifier";
 static NSString *favoriteCellIdentifier = @"favoriteCellIdentifier";
 static NSString *channelCellIdentifier = @"channelCellIdentifier";
 static NSString *cateCellIdentifier = @"cateCellIdentifier";
+static NSString *radioCellIdentifier = @"radioCellIdentifier";
 
 //** content segue Identifier **//
 static NSString *homeContentSegue = @"homeContentSegue";
 static NSString *FBContentSegue = @"FBContentSegue";
 static NSString *favoriteContentSegue = @"favoriteContentSegue";
 static NSString *channelContentSegue = @"channelContentSegue";
+static NSString *radioContentSegue = @"radioContentSegue";
 static NSString *showListContentSegue = @"showListContentSegue";
 
 //** sending segue **//
 static NSString *showListSegue = @"ShowListSegue";
 
+
+/** sequence of section Header **/
 static NSInteger secFacebook = 0;
 static NSInteger secFavorite = 1;
 static NSInteger secChannel = 2;
-static NSInteger secCategory = 3;
+static NSInteger secRadio = 3;
+static NSInteger secCategory = 4;
 
 
 -(void)tap:(id)sender{
@@ -141,7 +146,7 @@ static NSInteger secCategory = 3;
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
 
-        return [NSIndexPath indexPathForRow:0 inSection:3];
+        return [NSIndexPath indexPathForRow:0 inSection:4];
     
 }
 
@@ -175,7 +180,7 @@ static NSInteger secCategory = 3;
 #pragma mark UITableViewDataSource
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 5;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -194,6 +199,8 @@ static NSInteger secCategory = 3;
             return 1;
         } else if (section == secChannel){
             return 1;
+        }else if (section == secRadio){
+            return 1;
         } else if (section == secCategory){
             return [_categoryList count];
         } else {
@@ -211,6 +218,7 @@ static NSInteger secCategory = 3;
     UITableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
     UITableViewCell* cellOfFavorite = [self.tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
     UITableViewCell* cellOfChannel = [self.tableView dequeueReusableCellWithIdentifier:channelCellIdentifier];
+    UITableViewCell* cellOfRadio = [self.tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
     
     UIView *selectedBackgroundViewForCell = [UIView new];
     [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
@@ -227,6 +235,9 @@ static NSInteger secCategory = 3;
     } else if (section == secChannel){
         cellOfChannel.selectedBackgroundView = selectedBackgroundViewForCell;
         return cellOfChannel;
+    } else if (section == secRadio){
+        cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
+        return cellOfRadio;
     } else if (section == secCategory){
         
         cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
@@ -269,6 +280,10 @@ static NSInteger secCategory = 3;
     }else if (section == secChannel) {
         
         [self performSegueWithIdentifier:channelContentSegue sender:nil];
+        
+    }else if (section == secRadio) {
+        
+        [self performSegueWithIdentifier:radioContentSegue sender:nil];
         
     }else if (section == secFacebook) {
         
@@ -376,6 +391,8 @@ static NSInteger secCategory = 3;
         return underline;
     } else if (section == secChannel){
         return underline;
+    } else if (section == secRadio){
+        return underline;
     } else if (section == secCategory){
         return view;
     } else {
@@ -391,6 +408,8 @@ static NSInteger secCategory = 3;
     } else if (section == secFavorite){
         return 0;
     } else if (section == secChannel){
+        return 0;
+    } else if (section == secRadio){
         return 0;
     } else if (section == secCategory){
         return 10;

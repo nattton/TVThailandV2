@@ -704,8 +704,42 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" id="Ezi-D2-bK4">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="radioCellIdentifier" id="vXy-GJ-1BU">
                                 <rect key="frame" x="0.0" y="285" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vXy-GJ-1BU" id="ae8-at-GAh">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Radio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mG7-CK-guW">
+                                            <rect key="frame" x="49" y="11" width="251" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zwZ-as-767">
+                                            <rect key="frame" x="0.0" y="0.0" width="6" height="45"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.87271355301883469" green="0.87141286450273436" blue="0.89413265306122447" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tab_radio" translatesAutoresizingMaskIntoConstraints="NO" id="K18-j2-PpK">
+                                            <rect key="frame" x="11" y="7" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="BRH-R4-OQv"/>
+                                                <constraint firstAttribute="width" constant="30" id="EZj-l6-mlU"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="K18-j2-PpK" firstAttribute="top" secondItem="ae8-at-GAh" secondAttribute="top" constant="7" id="LtG-BS-YNe"/>
+                                        <constraint firstItem="K18-j2-PpK" firstAttribute="leading" secondItem="ae8-at-GAh" secondAttribute="leading" constant="11" id="cF5-UW-ZPq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" id="Ezi-D2-bK4">
+                                <rect key="frame" x="0.0" y="330" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ezi-D2-bK4" id="Sbo-Qx-IwJ">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -724,6 +758,7 @@
                         <segue destination="iYa-Jl-kdE" kind="custom" identifier="FBContentSegue" customClass="SASlideMenuContentSegue" id="qJg-hQ-eXL"/>
                         <segue destination="3EI-Yz-Rb4" kind="custom" identifier="showListContentSegue" customClass="SASlideMenuContentSegue" id="kV1-1j-w2A"/>
                         <segue destination="wov-GU-knP" kind="custom" identifier="favoriteContentSegue" customClass="SASlideMenuContentSegue" id="t7a-fM-2Tv"/>
+                        <segue destination="2Hd-kn-cA5" kind="custom" identifier="radioContentSegue" customClass="SASlideMenuContentSegue" id="gVi-03-Zg6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fg9-Ep-eSU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -888,7 +923,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Channel" id="y7b-R2-KQd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="4sE-NV-bcf">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="4sE-NV-bcf">
                             <connections>
                                 <action selector="refreshButtonTapped:" destination="OOT-G3-sjt" id="8wW-O6-tbh"/>
                             </connections>
@@ -1522,6 +1557,68 @@
             </objects>
             <point key="canvasLocation" x="545" y="1280"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1h3-Pr-W5h">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="2Hd-kn-cA5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QhT-aQ-d89">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                            <color key="textColor" red="1" green="0.29641866090000002" blue="0.366145787" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6fq-bQ-ihh" kind="relationship" relationship="rootViewController" id="cH7-OY-uzZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ozo-9f-RnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="79" y="2738"/>
+        </scene>
+        <!--Radio View Controller - Radio-->
+        <scene sceneID="HE2-aj-ZGC">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="6fq-bQ-ihh" customClass="RadioViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="rzv-M5-k8A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UNW-Vl-Vo0">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RadioCellIdentifier" id="Aun-Ch-N3s">
+                                <rect key="frame" x="0.0" y="64" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="6fq-bQ-ihh" id="jQo-wl-Rax"/>
+                            <outlet property="delegate" destination="6fq-bQ-ihh" id="2IP-Be-cbi"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Radio" id="40a-mK-bHA">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="D6N-ZT-zvf">
+                            <connections>
+                                <action selector="refreshButtonTapped:" destination="6fq-bQ-ihh" id="e7m-UU-7Z7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="biR-Dv-m8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="545" y="2738"/>
+        </scene>
     </scenes>
     <resources>
         <image name="button_go_to_top" width="100" height="30"/>
@@ -1531,6 +1628,7 @@
         <image name="icb_fav" width="30" height="30"/>
         <image name="play_alt" width="64" height="64"/>
         <image name="tab_channel" width="30" height="30"/>
+        <image name="tab_radio" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1538,10 +1636,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xdc-Rh-odR"/>
-        <segue reference="gcw-2o-Hcb"/>
+        <segue reference="Cgi-Je-4Dr"/>
         <segue reference="tRJ-5v-ocZ"/>
+        <segue reference="gcw-2o-Hcb"/>
         <segue reference="rKb-JG-vfa"/>
-        <segue reference="saQ-9b-nco"/>
+        <segue reference="xdc-Rh-odR"/>
     </inferredMetricsTieBreakers>
 </document>
