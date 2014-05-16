@@ -18,6 +18,7 @@
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D011F91924B46E00216898 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F81924B46E00216898 /* RadioViewController.m */; };
+		11D011FC1925E38300216898 /* RadioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011FB1925E38300216898 /* RadioPlayerViewController.m */; };
 		11D1DCD81910C7B200A51026 /* SASlideMenuContentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCC71910C7B100A51026 /* SASlideMenuContentSegue.m */; };
 		11D1DCD91910C7B200A51026 /* SASlideMenuLeftMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCCB1910C7B100A51026 /* SASlideMenuLeftMenuSegue.m */; };
 		11D1DCDA1910C7B200A51026 /* SASlideMenuNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCCD1910C7B200A51026 /* SASlideMenuNavigationController.m */; };
@@ -147,6 +148,8 @@
 		11D011F51924726300216898 /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
 		11D011F71924B46E00216898 /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
 		11D011F81924B46E00216898 /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
+		11D011FA1925E38300216898 /* RadioPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioPlayerViewController.h; sourceTree = "<group>"; };
+		11D011FB1925E38300216898 /* RadioPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioPlayerViewController.m; sourceTree = "<group>"; };
 		11D1DCC61910C7B100A51026 /* SASlideMenuContentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASlideMenuContentSegue.h; sourceTree = "<group>"; };
 		11D1DCC71910C7B100A51026 /* SASlideMenuContentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASlideMenuContentSegue.m; sourceTree = "<group>"; };
 		11D1DCC81910C7B100A51026 /* SASlideMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASlideMenuDataSource.h; sourceTree = "<group>"; };
@@ -428,6 +431,8 @@
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				11D1DCE31910D23C00A51026 /* HomeContentViewController.h */,
 				11D1DCE41910D23C00A51026 /* HomeContentViewController.m */,
+				11D011FA1925E38300216898 /* RadioPlayerViewController.h */,
+				11D011FB1925E38300216898 /* RadioPlayerViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -912,6 +917,7 @@
 				11D011F61924726300216898 /* Radio.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3BDF8350190A74EE00AD12D0 /* DDXMLNode.m in Sources */,
+				11D011FC1925E38300216898 /* RadioPlayerViewController.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,

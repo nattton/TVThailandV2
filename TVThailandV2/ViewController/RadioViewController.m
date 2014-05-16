@@ -9,6 +9,7 @@
 #import "RadioViewController.h"
 #import "SVProgressHUD.h"
 #import "Radio.h"
+#import "RadioPlayerViewController.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -23,6 +24,8 @@
 }
 
 static NSString *cellIdentifier = @"RadioCellIdentifier";
+static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,8 +41,11 @@ static NSString *cellIdentifier = @"RadioCellIdentifier";
     [super viewDidLoad];
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-
+    
+    
     [self refresh];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,7 +64,7 @@ static NSString *cellIdentifier = @"RadioCellIdentifier";
     [Radio loadData:^(NSArray *radioes, NSError *error) {
         
         [SVProgressHUD dismiss];
-//        NSLog(@"Radioes: %@",radioes);
+        NSLog(@"Radioes: %@",radioes.description);
         _radioes = radioes;
         [self.collectionView reloadData];
     }];
@@ -101,49 +107,31 @@ static NSString *cellIdentifier = @"RadioCellIdentifier";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     radioSelected = _radioes[indexPath.row];
 
-//    if (channelSelected.videoUrl == nil || [channelSelected.videoUrl length] == 0) {
-//        [self performSegueWithIdentifier:showListSegue sender:channelSelected];
-//    } else {
-//        if ([channelSelected.isHasEp  isEqual: @"1"]) {
-//            [alert show];
-//        } else {
-//            [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
-//        }
-//        
-//        
-//    }
+    if (radioSelected.radioUrl == nil || [radioSelected.radioUrl length] == 0) {
+//        [alert show];
+    } else {
+
+        [self performSegueWithIdentifier:showRadioPlayerSegue sender:radioSelected];
+        
+    }
     
     
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-//    if ([segue.identifier isEqualToString:showListSegue]) {
-//        ShowListViewController *showListViewController = segue.destinationViewController;
-//        if (sender) {
-//            Channel *channel = (Channel *)sender;
-//            showListViewController.navigationItem.title = channel.title;
-//            showListViewController.videoUrl = channel.videoUrl;
-//            [showListViewController reloadWithMode:kChannel Id:channel.Id];
-//            
-//            id tracker = [[GAI sharedInstance] defaultTracker];
-//            [tracker set:kGAIScreenName
-//                   value:@"Channel"];
-//            [tracker send:[[[GAIDictionaryBuilder createAppView] set:channel.title
-//                                                              forKey:[GAIFields customDimensionForIndex:5]] build]];
-//        }
-//    }
-//    
-//    if ([segue.identifier isEqual:showPlayerSegue]) {
-//        VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
-//        if (sender) {
-//            Channel *channel = (Channel *)sender;
-//            videoPlayerViewController.videoUrl = channel.videoUrl;
-//            videoPlayerViewController.isHidenToolbarPlayer = YES;
-//            videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", channel.title];
-//        }
-//    }
+
+    if ([segue.identifier isEqual:showRadioPlayerSegue]) {
+        RadioPlayerViewController *radioPlayerViewController = segue.destinationViewController;
+        if (sender) {
+            Radio *radio = (Radio *)sender;
+            radioPlayerViewController.radio = radio;
+            radioPlayerViewController.navigationItem.title = radio.title;
+        }
+    }
     
 }
+
+
 
 @end

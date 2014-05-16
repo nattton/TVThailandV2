@@ -1571,9 +1571,31 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="Wrk-Mm-XKZ" kind="push" identifier="showRadioPlayerSegue" id="HwQ-mq-OGf"/>
+                    </connections>
                 </collectionViewController>
             </objects>
             <point key="canvasLocation" x="818" y="4735"/>
+        </scene>
+        <!--Radio Player View Controller-->
+        <scene sceneID="dkA-QF-P20">
+            <objects>
+                <viewController id="Wrk-Mm-XKZ" customClass="RadioPlayerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a8z-cS-cYJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="eZ7-JI-yH4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WLK-qo-O7O">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JPx-Dc-wSm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y4R-on-kKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1758" y="4735"/>
         </scene>
     </scenes>
     <resources>

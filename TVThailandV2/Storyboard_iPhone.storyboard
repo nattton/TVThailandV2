@@ -1614,10 +1614,76 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="Cj2-Ka-tQ8" kind="push" identifier="showRadioPlayerSegue" id="Bph-dk-UIP"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="biR-Dv-m8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="545" y="2738"/>
+        </scene>
+        <!--Radio Player View Controller-->
+        <scene sceneID="27W-3s-zA3">
+            <objects>
+                <viewController id="Cj2-Ka-tQ8" customClass="RadioPlayerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7HO-B5-mUF"/>
+                        <viewControllerLayoutGuide type="bottom" id="8V3-nx-hnO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="goN-xe-LSc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTE-dS-f4Y">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="part_thumb_wide_s" translatesAutoresizingMaskIntoConstraints="NO" id="dUB-5q-q19">
+                                        <rect key="frame" x="75" y="36" width="170" height="170"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="170" id="MCq-a9-xJ5"/>
+                                            <constraint firstAttribute="height" constant="170" id="xBT-Fc-EIW"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45x-Bu-Ki0">
+                                        <rect key="frame" x="20" y="226" width="280" height="52"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="PT7-mc-boP"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="45x-Bu-Ki0" firstAttribute="centerX" secondItem="dUB-5q-q19" secondAttribute="centerX" id="Alz-zL-Z9U"/>
+                                    <constraint firstAttribute="centerX" secondItem="dUB-5q-q19" secondAttribute="centerX" id="C0B-2x-Ffw"/>
+                                    <constraint firstAttribute="trailing" secondItem="dUB-5q-q19" secondAttribute="trailing" constant="75" id="Eja-GC-NU3"/>
+                                    <constraint firstItem="45x-Bu-Ki0" firstAttribute="leading" secondItem="hTE-dS-f4Y" secondAttribute="leading" constant="20" id="NdY-GX-xnl"/>
+                                    <constraint firstAttribute="trailing" secondItem="45x-Bu-Ki0" secondAttribute="trailing" constant="20" id="TpC-tG-riI"/>
+                                    <constraint firstItem="dUB-5q-q19" firstAttribute="leading" secondItem="hTE-dS-f4Y" secondAttribute="leading" constant="75" id="iQC-XN-zUt"/>
+                                    <constraint firstAttribute="centerY" secondItem="45x-Bu-Ki0" secondAttribute="centerY" id="wWt-p2-K1f"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hTE-dS-f4Y" firstAttribute="leading" secondItem="goN-xe-LSc" secondAttribute="leading" id="5C3-nJ-M1J"/>
+                            <constraint firstAttribute="trailing" secondItem="hTE-dS-f4Y" secondAttribute="trailing" id="QsA-5H-d64"/>
+                            <constraint firstItem="8V3-nx-hnO" firstAttribute="top" secondItem="hTE-dS-f4Y" secondAttribute="bottom" id="Uaa-5r-4ss"/>
+                            <constraint firstItem="hTE-dS-f4Y" firstAttribute="top" secondItem="7HO-B5-mUF" secondAttribute="bottom" id="WYH-Z4-Es7"/>
+                            <constraint firstItem="dUB-5q-q19" firstAttribute="top" secondItem="7HO-B5-mUF" secondAttribute="bottom" constant="36" id="eho-sI-0Ht"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vA7-2d-NK6"/>
+                    <connections>
+                        <outlet property="thumbnailImageView" destination="dUB-5q-q19" id="tmv-m7-1SX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vja-9t-7ub" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1030" y="2733"/>
         </scene>
     </scenes>
     <resources>
@@ -1626,6 +1692,7 @@
         <image name="fb_icon" width="81" height="81"/>
         <image name="ic_cate_empty" width="48" height="48"/>
         <image name="icb_fav" width="30" height="30"/>
+        <image name="part_thumb_wide_s" width="203" height="157"/>
         <image name="play_alt" width="64" height="64"/>
         <image name="tab_channel" width="30" height="30"/>
         <image name="tab_radio" width="30" height="30"/>
