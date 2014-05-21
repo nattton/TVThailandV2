@@ -13,5 +13,7 @@
 @interface RadioPlayerViewController : UIViewController
 
 @property (nonatomic, strong) Radio *radio;
+@property (weak, nonatomic) IBOutlet UIView *radioView;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="H3t-UD-75f">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="H3t-UD-75f">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1515,7 +1515,6 @@
         <!--Navigation Controller-->
         <scene sceneID="nfL-q4-QIT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TEb-Uf-F1L" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="q0T-To-UdH" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uP2-Zr-R4Q">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
@@ -1530,13 +1529,13 @@
                         <segue destination="hn6-ry-MBE" kind="relationship" relationship="rootViewController" id="VQb-j0-tET"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TEb-Uf-F1L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-204" y="4735"/>
         </scene>
         <!--Radio View Controller - Radio-->
         <scene sceneID="GHi-lQ-Wad">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1R8-iW-CB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController autoresizesArchivedViewToFullSize="NO" id="hn6-ry-MBE" customClass="RadioViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="JGX-o3-Qcd">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -1575,6 +1574,7 @@
                         <segue destination="Wrk-Mm-XKZ" kind="push" identifier="showRadioPlayerSegue" id="HwQ-mq-OGf"/>
                     </connections>
                 </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1R8-iW-CB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="818" y="4735"/>
         </scene>
@@ -1589,9 +1589,51 @@
                     <view key="view" contentMode="scaleToFill" id="WLK-qo-O7O">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDY-sx-LFE">
+                                <rect key="frame" x="85" y="65" width="598" height="435"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="part_thumb_wide_s" translatesAutoresizingMaskIntoConstraints="NO" id="2II-jq-nbo">
+                                        <rect key="frame" x="151" y="48" width="297" height="283"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="283" id="jjK-wR-vEm"/>
+                                            <constraint firstAttribute="width" constant="297" id="rlg-jl-dh7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AP0-gQ-IV4">
+                                        <rect key="frame" x="0.0" y="395" width="598" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="fdO-5b-02p"/>
+                                            <constraint firstAttribute="width" constant="598" id="pLr-pf-vl0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="AP0-gQ-IV4" firstAttribute="centerX" secondItem="2II-jq-nbo" secondAttribute="centerX" constant="-0.5" id="12f-Yi-upN"/>
+                                    <constraint firstItem="AP0-gQ-IV4" firstAttribute="top" secondItem="2II-jq-nbo" secondAttribute="bottom" constant="64" id="6Eh-rr-aLs"/>
+                                    <constraint firstAttribute="width" constant="598" id="MAo-gf-vOn"/>
+                                    <constraint firstItem="2II-jq-nbo" firstAttribute="top" secondItem="IDY-sx-LFE" secondAttribute="top" constant="48" id="WbT-nw-LaV"/>
+                                    <constraint firstAttribute="centerX" secondItem="2II-jq-nbo" secondAttribute="centerX" constant="-0.5" id="nzn-kg-peU"/>
+                                    <constraint firstAttribute="height" constant="435" id="zy1-RT-Ws4"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="IDY-sx-LFE" secondAttribute="centerX" id="5Il-w0-Do7"/>
+                            <constraint firstItem="IDY-sx-LFE" firstAttribute="top" secondItem="a8z-cS-cYJ" secondAttribute="bottom" constant="1" id="ihL-77-Pm1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JPx-Dc-wSm"/>
+                    <connections>
+                        <outlet property="radioView" destination="AP0-gQ-IV4" id="dxe-2b-Wao"/>
+                        <outlet property="thumbnailImageView" destination="2II-jq-nbo" id="FlI-I0-nKA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y4R-on-kKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1604,6 +1646,7 @@
         <image name="fb_icon" width="81" height="81"/>
         <image name="ic_cate_empty" width="48" height="48"/>
         <image name="icb_fav" width="30" height="30"/>
+        <image name="part_thumb_wide_s" width="203" height="157"/>
         <image name="play_alt" width="64" height="64"/>
         <image name="tab_channel" width="30" height="30"/>
         <image name="tab_radio" width="30" height="30"/>

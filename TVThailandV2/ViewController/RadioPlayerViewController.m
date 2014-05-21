@@ -10,11 +10,12 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Radio.h"
 
-@interface RadioPlayerViewController ()
+@interface RadioPlayerViewController () {
+        CGRect _frame;
+}
 
 @property (strong, nonatomic) MPMoviePlayerController *movieController;
-@property (weak, nonatomic) IBOutlet UIView *playerView;
-@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
+
 
 -(void)moviePlayBackDidFinish:(NSNotification*)notification;
 -(void)loadStateDidChange:(NSNotification *)notification;
@@ -45,6 +46,15 @@
     
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:_radio.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
 
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _frame = CGRectMake(0, 0, 598 , 40);
+
+    }
+    else
+    {
+        _frame = CGRectMake(0, 0, 320 , 40);
+
+    }
     
     [self playRadioStream:[NSURL URLWithString: _radio.radioUrl ]];
 }
@@ -91,10 +101,13 @@
 //    MPMovieControlStyleFullscreen, // Controls for fullscreen playback
 //    MPMovieControlStyleDefault = MPMovieControlStyleEmbedded
     
-    self.movieController.view.frame = CGRectMake(0, 0, 320 , 480);
-//    [self.playerView addSubview:self.movieController.view];
     
-    [self.view addSubview:self.movieController.view];
+    
+    
+    self.movieController.view.frame = _frame;
+    [self.radioView addSubview:self.movieController.view];
+    
+//    [self.view addSubview:self.movieController.view];
     [self.movieController setFullscreen:YES animated:NO];
 }
 

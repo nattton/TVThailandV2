@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="EbE-5B-lKf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="EbE-5B-lKf">
     <dependencies>
         <deployment version="1536" defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1635,50 +1635,48 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTE-dS-f4Y">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="268"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="part_thumb_wide_s" translatesAutoresizingMaskIntoConstraints="NO" id="dUB-5q-q19">
-                                        <rect key="frame" x="75" y="36" width="170" height="170"/>
+                                        <rect key="frame" x="75" y="20" width="170" height="173"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="170" id="MCq-a9-xJ5"/>
-                                            <constraint firstAttribute="height" constant="170" id="xBT-Fc-EIW"/>
+                                            <constraint firstAttribute="width" constant="170" id="1C7-Jw-YPc"/>
+                                            <constraint firstAttribute="height" constant="173" id="aJ6-b2-qqa"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45x-Bu-Ki0">
-                                        <rect key="frame" x="20" y="226" width="280" height="52"/>
+                                        <rect key="frame" x="0.0" y="228" width="320" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="52" id="PT7-mc-boP"/>
+                                            <constraint firstAttribute="width" constant="320" id="eux-1S-p0j"/>
+                                            <constraint firstAttribute="height" constant="40" id="pMc-TU-sjv"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="45x-Bu-Ki0" firstAttribute="centerX" secondItem="dUB-5q-q19" secondAttribute="centerX" id="Alz-zL-Z9U"/>
-                                    <constraint firstAttribute="centerX" secondItem="dUB-5q-q19" secondAttribute="centerX" id="C0B-2x-Ffw"/>
-                                    <constraint firstAttribute="trailing" secondItem="dUB-5q-q19" secondAttribute="trailing" constant="75" id="Eja-GC-NU3"/>
-                                    <constraint firstItem="45x-Bu-Ki0" firstAttribute="leading" secondItem="hTE-dS-f4Y" secondAttribute="leading" constant="20" id="NdY-GX-xnl"/>
-                                    <constraint firstAttribute="trailing" secondItem="45x-Bu-Ki0" secondAttribute="trailing" constant="20" id="TpC-tG-riI"/>
-                                    <constraint firstItem="dUB-5q-q19" firstAttribute="leading" secondItem="hTE-dS-f4Y" secondAttribute="leading" constant="75" id="iQC-XN-zUt"/>
-                                    <constraint firstAttribute="centerY" secondItem="45x-Bu-Ki0" secondAttribute="centerY" id="wWt-p2-K1f"/>
+                                    <constraint firstItem="45x-Bu-Ki0" firstAttribute="centerX" secondItem="dUB-5q-q19" secondAttribute="centerX" id="7ND-Vi-wXY"/>
+                                    <constraint firstItem="45x-Bu-Ki0" firstAttribute="top" secondItem="dUB-5q-q19" secondAttribute="bottom" constant="35" id="9Si-XL-aLC"/>
+                                    <constraint firstItem="dUB-5q-q19" firstAttribute="top" secondItem="hTE-dS-f4Y" secondAttribute="top" constant="20" id="OMd-jD-K7R"/>
+                                    <constraint firstAttribute="width" constant="320" id="drk-F0-zxX"/>
+                                    <constraint firstAttribute="centerX" secondItem="dUB-5q-q19" secondAttribute="centerX" id="jQf-Yo-ISa"/>
+                                    <constraint firstAttribute="height" constant="268" id="nsM-LL-B8V"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hTE-dS-f4Y" firstAttribute="leading" secondItem="goN-xe-LSc" secondAttribute="leading" id="5C3-nJ-M1J"/>
-                            <constraint firstAttribute="trailing" secondItem="hTE-dS-f4Y" secondAttribute="trailing" id="QsA-5H-d64"/>
-                            <constraint firstItem="8V3-nx-hnO" firstAttribute="top" secondItem="hTE-dS-f4Y" secondAttribute="bottom" id="Uaa-5r-4ss"/>
-                            <constraint firstItem="hTE-dS-f4Y" firstAttribute="top" secondItem="7HO-B5-mUF" secondAttribute="bottom" id="WYH-Z4-Es7"/>
-                            <constraint firstItem="dUB-5q-q19" firstAttribute="top" secondItem="7HO-B5-mUF" secondAttribute="bottom" constant="36" id="eho-sI-0Ht"/>
+                            <constraint firstAttribute="centerX" secondItem="hTE-dS-f4Y" secondAttribute="centerX" id="2rW-n2-niI"/>
+                            <constraint firstItem="hTE-dS-f4Y" firstAttribute="top" secondItem="7HO-B5-mUF" secondAttribute="bottom" id="5Uo-ql-imQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vA7-2d-NK6"/>
                     <connections>
-                        <outlet property="thumbnailImageView" destination="dUB-5q-q19" id="tmv-m7-1SX"/>
+                        <outlet property="radioView" destination="45x-Bu-Ki0" id="rxK-d6-OkY"/>
+                        <outlet property="thumbnailImageView" destination="dUB-5q-q19" id="Fca-gf-zO3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vja-9t-7ub" userLabel="First Responder" sceneMemberID="firstResponder"/>
