@@ -14,10 +14,11 @@
 
 #import "ShowListViewController.h"
 #import "ShowCategory.h"
+#import "Show.h"
 
 #import "FavoriteViewController.h"
 
-@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @end
@@ -28,6 +29,7 @@
 
  UIRefreshControl *_refreshControl;
  ShowCategoryList *_categoryList;
+ NSArray *_searchShows;
     
 }
 
@@ -38,6 +40,7 @@ static NSString *favoriteCellIdentifier = @"favoriteCellIdentifier";
 static NSString *channelCellIdentifier = @"channelCellIdentifier";
 static NSString *cateCellIdentifier = @"cateCellIdentifier";
 static NSString *radioCellIdentifier = @"radioCellIdentifier";
+static NSString *searchCellIdentifier = @"searchCellIdentifier";
 
 //** content segue Identifier **//
 static NSString *homeContentSegue = @"homeContentSegue";
@@ -62,14 +65,21 @@ static NSInteger secCategory = 4;
 -(void)tap:(id)sender{
     
 }
+
 - (void) loadView {
     [super loadView];
 }
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+
+    
+//    UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 45)];
+//    self.tableView.tableHeaderView = search;
 
     [SVProgressHUD showWithStatus:@"Loading..."];
     
@@ -81,9 +91,12 @@ static NSInteger secCategory = 4;
     [self.tableView addSubview:_refreshControl];
     self.tableView.separatorColor = [UIColor clearColor];
     
+    
     [self reload];
 
 }
+
+
 
 - (void)reload
 {
@@ -180,7 +193,12 @@ static NSInteger secCategory = 4;
 #pragma mark UITableViewDataSource
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return 1;
+    } else {
+        return 5;
+    }
+    
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -190,8 +208,9 @@ static NSInteger secCategory = 4;
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (_categoryList && [_categoryList count] > 0) {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return _searchShows.count;
+    } else if (_categoryList && [_categoryList count] > 0) {
         
         if (section == secFacebook) {
             return 1;
@@ -214,44 +233,63 @@ static NSInteger secCategory = 4;
 
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    UITableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
-    UITableViewCell* cellOfFavorite = [self.tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
-    UITableViewCell* cellOfChannel = [self.tableView dequeueReusableCellWithIdentifier:channelCellIdentifier];
-    UITableViewCell* cellOfRadio = [self.tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
+    
+//    UITableViewCell* cellOfSearch = [self.tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
     
     UIView *selectedBackgroundViewForCell = [UIView new];
     [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
     
-    ShowCategoryTableViewCell *cellOfCate = [self.tableView dequeueReusableCellWithIdentifier:cateCellIdentifier];
+    
 
     NSInteger section = indexPath.section;
-    if (section == secFacebook) {
-        cellOfFB.selectedBackgroundView = selectedBackgroundViewForCell;
-        return cellOfFB;
-    } else if (section == secFavorite){
-        cellOfFavorite.selectedBackgroundView = selectedBackgroundViewForCell;
-        return cellOfFavorite;
-    } else if (section == secChannel){
-        cellOfChannel.selectedBackgroundView = selectedBackgroundViewForCell;
-        return cellOfChannel;
-    } else if (section == secRadio){
-        cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
-        return cellOfRadio;
-    } else if (section == secCategory){
-        
-        cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
-        
-        
-        if ( _categoryList && [_categoryList count] > 0) {
-            [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
+    
+
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:searchCellIdentifier];
         }
+        Show *show = _searchShows[indexPath.row];
+        cell.textLabel.text = show.title;
         
+        cell.selectedBackgroundView = selectedBackgroundViewForCell;
         
-        return cellOfCate;
-        
-    }else {
         return cell;
+        
+    } else {
+    
+        if (section == secFacebook) {
+            UITableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
+            cellOfFB.selectedBackgroundView = selectedBackgroundViewForCell;
+            return cellOfFB;
+        } else if (section == secFavorite){
+            UITableViewCell* cellOfFavorite = [self.tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
+            cellOfFavorite.selectedBackgroundView = selectedBackgroundViewForCell;
+            return cellOfFavorite;
+        } else if (section == secChannel){
+            UITableViewCell* cellOfChannel = [self.tableView dequeueReusableCellWithIdentifier:channelCellIdentifier];
+            cellOfChannel.selectedBackgroundView = selectedBackgroundViewForCell;
+            return cellOfChannel;
+        } else if (section == secRadio){
+            UITableViewCell* cellOfRadio = [self.tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
+            cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
+            return cellOfRadio;
+        } else if (section == secCategory){
+            ShowCategoryTableViewCell *cellOfCate = [self.tableView dequeueReusableCellWithIdentifier:cateCellIdentifier];
+            cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
+        
+        
+            if ( _categoryList && [_categoryList count] > 0) {
+                [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
+            }
+        
+        
+            return cellOfCate;
+            
+        }else {
+            UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            return cell;
+        }
     }
 
 }
@@ -269,30 +307,37 @@ static NSInteger secCategory = 4;
    
 
     NSInteger section = indexPath.section;
-    if (section == secCategory) {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        Show *show = _searchShows[indexPath.row];
+//        if (show.isOTV)
+//            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+//        else
+//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+    } else {
+        if (section == secCategory) {
         
-        [self performSegueWithIdentifier:showListContentSegue sender:_categoryList[indexPath.row]];
+            [self performSegueWithIdentifier:showListContentSegue sender:_categoryList[indexPath.row]];
      
-    }else if (section == secFavorite) {
+        }else if (section == secFavorite) {
         
-        [self performSegueWithIdentifier:favoriteContentSegue sender:nil];
+            [self performSegueWithIdentifier:favoriteContentSegue sender:nil];
+            
+        }else if (section == secChannel) {
         
-    }else if (section == secChannel) {
+            [self performSegueWithIdentifier:channelContentSegue sender:nil];
         
-        [self performSegueWithIdentifier:channelContentSegue sender:nil];
+        }else if (section == secRadio) {
         
-    }else if (section == secRadio) {
+            [self performSegueWithIdentifier:radioContentSegue sender:nil];
         
-        [self performSegueWithIdentifier:radioContentSegue sender:nil];
+        }else if (section == secFacebook) {
         
-    }else if (section == secFacebook) {
+            [self performSegueWithIdentifier:FBContentSegue sender:nil];
         
-        [self performSegueWithIdentifier:FBContentSegue sender:nil];
-        
-    }else {
-        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+        }else {
+            [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+        }
     }
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -343,8 +388,30 @@ static NSInteger secCategory = 4;
     
 }
 
+#pragma mark - Search
 
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self search:searchString];
+    return YES;
+}
 
+- (void)search:(NSString *)keyword {
+    if (![keyword isEqualToString:@""]) {
+        [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
+            _searchShows = tempShows;
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        }];
+    }
+}
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
+//    [self.searchBarView setFrame:CGRectMake(0, 36, self.searchBarView.frame.size.width, self.searchBarView.frame.size.height)];
+}
+
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+//    [self.searchBarView setFrame:CGRectMake(0, 36, self.searchBarView.frame.size.width, self.searchBarView.frame.size.height)];
+}
 
 
 

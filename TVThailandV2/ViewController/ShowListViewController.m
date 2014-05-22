@@ -107,6 +107,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
+    
+    
     [self setUpGoToTop];
     
     [self.mkAdView requestAd];
@@ -176,6 +178,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (IBAction)goToTopTapped:(id)sender {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    
+}
+- (IBAction)searchButtonTapped:(id)sender {
+    
     
 }
 

@@ -12,4 +12,6 @@
 
 @interface HomeSlideMenuViewController : SASlideMenuViewController
 
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBarView;
+
 @end
