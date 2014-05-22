@@ -391,37 +391,37 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
 }
 
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Show *show = _shows[indexPath.row];
-    if (show.isOTV) {
-        return YES;
-    }
-    return NO;
-}
+//// Override to support conditional editing of the table view.
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    Show *show = _shows[indexPath.row];
+//    if (show.isOTV) {
+//        return YES;
+//    }
+//    return NO;
+//}
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (self.tableView == self.searchDisplayController.searchResultsTableView)
-        {
-            Show *show = _searchShows[indexPath.row];
-            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
-        }
-        else
-        {
-            Show *show = _shows[indexPath.row];
-            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
-        }
-    }
-}
+//// Override to support editing the table view.
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        if (self.tableView == self.searchDisplayController.searchResultsTableView)
+//        {
+//            Show *show = _searchShows[indexPath.row];
+//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+//        }
+//        else
+//        {
+//            Show *show = _shows[indexPath.row];
+//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+//        }
+//    }
+//}
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"Youtube";
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return @"Youtube";
+//}
 
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
