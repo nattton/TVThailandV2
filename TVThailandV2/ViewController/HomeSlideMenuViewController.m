@@ -10,11 +10,13 @@
 #import "HomeContentViewController.h"
 #import "ShowCategoryList.h"
 #import "ShowCategoryTableViewCell.h"
+#import "FBTableViewCell.h"
 #import "SVProgressHUD.h"
 
 #import "ShowListViewController.h"
 #import "ShowCategory.h"
 #import "Show.h"
+#import "CMUser.h"
 
 #import "FavoriteViewController.h"
 
@@ -259,8 +261,17 @@ static NSInteger secCategory = 4;
     } else {
     
         if (section == secFacebook) {
-            UITableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
+            FBTableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
             cellOfFB.selectedBackgroundView = selectedBackgroundViewForCell;
+            
+            CMUser *cm_user = [CMUser sharedInstance];
+            
+            if (cm_user.fbId == nil || [cm_user.fbId isEqualToString: @""]) {
+                [cellOfFB configureWithTitle:@"Login with Facebook"];
+            }else{
+                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"Hello, %@", cm_user.firstName]];
+            }
+            
             return cellOfFB;
         } else if (section == secFavorite){
             UITableViewCell* cellOfFavorite = [self.tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
@@ -426,6 +437,7 @@ static NSInteger secCategory = 4;
 }
 -(void) slideMenuWillSlideToSide:(UINavigationController *)selectedContent{
     NSLog(@"slideMenuWillSlideToSide");
+    [self.tableView reloadData];
 }
 -(void) slideMenuDidSlideToSide:(UINavigationController *)selectedContent{
     NSLog(@"slideMenuDidSlideToSide");

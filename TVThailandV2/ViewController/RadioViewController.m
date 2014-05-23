@@ -64,7 +64,7 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
     [Radio loadData:^(NSArray *radioes, NSError *error) {
         
         [SVProgressHUD dismiss];
-        NSLog(@"Radioes: %@",radioes.description);
+//        NSLog(@"Radioes: %@",radioes.description);
         _radioes = radioes;
         [self.collectionView reloadData];
     }];

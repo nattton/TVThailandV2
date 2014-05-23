@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1100E2DF192F1354009189C2 /* FBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100E2DE192F1354009189C2 /* FBTableViewCell.m */; };
 		1136AC4018D8158D004BFE4D /* OTVApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC3F18D8158D004BFE4D /* OTVApiClient.m */; };
 		1136AC4318D81D98004BFE4D /* OTVCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4218D81D98004BFE4D /* OTVCategory.m */; };
 		1136AC4618D81DAD004BFE4D /* OTVShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4518D81DAD004BFE4D /* OTVShow.m */; };
@@ -128,6 +129,8 @@
 
 /* Begin PBXFileReference section */
 		0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		1100E2DD192F1354009189C2 /* FBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTableViewCell.h; sourceTree = "<group>"; };
+		1100E2DE192F1354009189C2 /* FBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTableViewCell.m; sourceTree = "<group>"; };
 		1136AC3E18D8158D004BFE4D /* OTVApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVApiClient.h; sourceTree = "<group>"; };
 		1136AC3F18D8158D004BFE4D /* OTVApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVApiClient.m; sourceTree = "<group>"; };
 		1136AC4118D81D98004BFE4D /* OTVCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVCategory.h; sourceTree = "<group>"; };
@@ -539,6 +542,8 @@
 				3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */,
 				3BD13966190F6E46004F6785 /* ShowTableViewCell.h */,
 				3BD13967190F6E46004F6785 /* ShowTableViewCell.m */,
+				1100E2DD192F1354009189C2 /* FBTableViewCell.h */,
+				1100E2DE192F1354009189C2 /* FBTableViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -949,6 +954,7 @@
 				3B67F7BA17E0E9A300C9CD23 /* Show.m in Sources */,
 				3BD1395B190F6E00004F6785 /* OTVShowCategoryTableViewCell.m in Sources */,
 				F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */,
+				1100E2DF192F1354009189C2 /* FBTableViewCell.m in Sources */,
 				117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */,
 				3BDF8371190A78CC00AD12D0 /* DVWrapperVideoAd.m in Sources */,
 				11D1DCDE1910C7B200A51026 /* SASlideMenuRootViewController.m in Sources */,
