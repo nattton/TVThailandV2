@@ -1,21 +1,24 @@
 //
-//  RadioPlayerViewController.m
+//  RadioListViewController.m
 //  TVThailandV2
 //
-//  Created by April Smith on 5/16/2557 BE.
+//  Created by April Smith on 5/23/2557 BE.
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "RadioPlayerViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "RadioListViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "Radio.h"
+#import "RadioTableViewCell.h"
 
-@interface RadioPlayerViewController () {
-        CGRect _frame;
-}
+#import "SVProgressHUD.h"
 
-@property (strong, nonatomic) MPMoviePlayerController *movieController;
+@interface RadioListViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableOfRadio;
+@property (weak, nonatomic) IBOutlet UIView *radioPlayerView;
 
+@property (strong, nonatomic) MPMoviePlayerController *radioController;
 
 -(void)moviePlayBackDidFinish:(NSNotification*)notification;
 -(void)loadStateDidChange:(NSNotification *)notification;
@@ -26,10 +29,22 @@
 -(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
 - (void) movieDurationAvailableDidChange:(NSNotification*)notification;
 
-
 @end
 
-@implementation RadioPlayerViewController
+@implementation RadioListViewController {
+    NSArray *_radioes;
+    Radio *radioSelected;
+    CGRect _frame;
+    UIAlertView *alert;
+}
+
+
+//** cell Identifier **//
+static NSString *radioCellIdentifier = @"radioCellIdentifier";
+
+//** sending segue **//
+static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,71 +59,90 @@
 {
     [super viewDidLoad];
     
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:_radio.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
-
+    alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sorry, this station is currently not available." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+    
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _frame = CGRectMake(0, 0, 598 , 40);
-
+        _frame = CGRectMake(0, 0, 769 , 38);
+        
     }
     else
     {
-        _frame = CGRectMake(0, 0, 320 , 40);
-
+        _frame = CGRectMake(0, 0, 320 , 35);
+        
     }
     
-    [self playRadioStream:[NSURL URLWithString: _radio.radioUrl ]];
+    self.tableOfRadio.separatorColor = [UIColor clearColor];
+    
+    
+    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void) refresh {
+    [SVProgressHUD showWithStatus:@"Loading..."];
     
+    [Radio loadData:^(NSArray *radios, NSError *error) {
+        [SVProgressHUD dismiss];
+        _radioes = radios;
+        [self.tableOfRadio reloadData];
+    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0){
+        //Watch on demand program
+    }
+
 }
 
 
-- (void)playRadioStream:(NSURL *)radioFileURL
-{
+- (void)playRadioStream:(NSURL *)radioStreamURL {
     
     MPMovieSourceType movieSourceType = MPMovieSourceTypeUnknown;
     
-    if ([[radioFileURL pathExtension] compare:@"m3u8" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+    if ([[radioStreamURL pathExtension] compare:@"m3u8" options:NSCaseInsensitiveSearch] == NSOrderedSame)
     {
         movieSourceType = MPMovieSourceTypeStreaming;
     }
-    self.movieController = [[MPMoviePlayerController alloc] initWithContentURL:radioFileURL];
-    [self installMovieNotificationObservers:self.movieController];
+    self.radioController = [[MPMoviePlayerController alloc] initWithContentURL:radioStreamURL];
+    [self installMovieNotificationObservers:self.radioController];
     
-    self.movieController.allowsAirPlay = YES;
-    self.movieController.movieSourceType = movieSourceType;
-    [self.movieController prepareToPlay];
-    [self.movieController play];
+    self.radioController.allowsAirPlay = YES;
+    self.radioController.movieSourceType = movieSourceType;
+    [self.radioController prepareToPlay];
+    [self.radioController play];
     
-    self.movieController.controlStyle = MPMovieControlStyleNone;
+    self.radioController.controlStyle = MPMovieControlStyleNone;
     
-    double delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        //code to be executed on the main queue after delay
-        self.movieController.controlStyle = MPMovieControlStyleFullscreen;
-    });
-    
-    
-    
-    
-    self.movieController.controlStyle = MPMovieControlStyleEmbedded;
-//    MPMovieControlStyleNone,       // No controls
-//    MPMovieControlStyleEmbedded,   // Controls for an embedded view
-//    MPMovieControlStyleFullscreen, // Controls for fullscreen playback
-//    MPMovieControlStyleDefault = MPMovieControlStyleEmbedded
+//    double delayInSeconds = 1.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        //code to be executed on the main queue after delay
+//        self.radioController.controlStyle = MPMovieControlStyleFullscreen;
+//    });
     
     
     
     
-    self.movieController.view.frame = _frame;
-    [self.radioView addSubview:self.movieController.view];
+    self.radioController.controlStyle = MPMovieControlStyleEmbedded;
+    //    MPMovieControlStyleNone,       // No controls
+    //    MPMovieControlStyleEmbedded,   // Controls for an embedded view
+    //    MPMovieControlStyleFullscreen, // Controls for fullscreen playback
+    //    MPMovieControlStyleDefault = MPMovieControlStyleEmbedded
     
-//    [self.view addSubview:self.movieController.view];
-    [self.movieController setFullscreen:YES animated:NO];
+    
+    
+    
+    self.radioController.view.frame = _frame;
+    [self.radioPlayerView addSubview:self.radioController.view];
+    
+    //    [self.view addSubview:self.movieController.view];
+//    [self.radioController setFullscreen:NO animated:NO];
 }
 
 /* Register observers for the various movie object notifications. */
@@ -140,6 +174,7 @@
                                                object:player];
     
 }
+
 
 /* Handle movie load state changes. */
 - (void)loadStateDidChange:(NSNotification *)notification
@@ -243,18 +278,70 @@
 
 - (void) moviePlayBackDidFinish:(NSNotification*)notification
 {
-
+    
     
     MPMoviePlayerController *player = [notification object];
     
     [self removeMovieNotificationHandlers:player];
-    [self.movieController.view removeFromSuperview];
-    self.movieController = nil;
+    [self.radioController.view removeFromSuperview];
+    self.radioController = nil;
     
     
 }
 
 
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return _radioes.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIView *selectedBackgroundViewForCell = [UIView new];
+    [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
+    
+    RadioTableViewCell *cellOfRadio = [tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
+    cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
+    
+    if ( _radioes && [_radioes count] > 0) {
+        [cellOfRadio configureWithRadio:_radioes[indexPath.row]];
+    }
+    
+    return  cellOfRadio;
+    
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    radioSelected = _radioes[indexPath.row];
+    
+    if (radioSelected.radioUrl == nil || [radioSelected.radioUrl length] == 0 )  {
+        [alert show];
+    } else {
+        [self playRadioStream:[NSURL URLWithString:radioSelected.radioUrl]];
+    }
+    
+}
+
+
+
+#pragma mark - Navigation
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+
+}
 
 
 @end

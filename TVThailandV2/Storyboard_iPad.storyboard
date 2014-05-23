@@ -1542,118 +1542,103 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="hn6-ry-MBE" kind="relationship" relationship="rootViewController" id="VQb-j0-tET"/>
+                        <segue destination="kmH-7V-hcI" kind="relationship" relationship="rootViewController" id="hFw-Ze-oeA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TEb-Uf-F1L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-204" y="4735"/>
         </scene>
-        <!--Radio View Controller - Radio-->
-        <scene sceneID="GHi-lQ-Wad">
+        <!--Radio List View Controller - Radio-->
+        <scene sceneID="yEP-bl-Pya">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="hn6-ry-MBE" customClass="RadioViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="JGX-o3-Qcd">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YUd-Xd-Tji">
-                            <size key="itemSize" width="100" height="100"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RadioCellIdentifier" id="os7-Qo-gSI">
-                                <rect key="frame" x="0.0" y="64" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="hn6-ry-MBE" id="RcI-eG-Pjz"/>
-                            <outlet property="delegate" destination="hn6-ry-MBE" id="LbH-E7-6K8"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="Radio" id="nDt-dx-aGC">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="Mn3-JC-miV">
-                            <connections>
-                                <action selector="refreshButtonTapped:" destination="hn6-ry-MBE" id="jxl-XS-qE6"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="Wrk-Mm-XKZ" kind="push" identifier="showRadioPlayerSegue" id="HwQ-mq-OGf"/>
-                    </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1R8-iW-CB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="818" y="4735"/>
-        </scene>
-        <!--Radio Player View Controller-->
-        <scene sceneID="dkA-QF-P20">
-            <objects>
-                <viewController id="Wrk-Mm-XKZ" customClass="RadioPlayerViewController" sceneMemberID="viewController">
+                <viewController id="kmH-7V-hcI" customClass="RadioListViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="a8z-cS-cYJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="eZ7-JI-yH4"/>
+                        <viewControllerLayoutGuide type="top" id="RDA-cj-09f"/>
+                        <viewControllerLayoutGuide type="bottom" id="Op7-KV-yl4"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WLK-qo-O7O">
+                    <view key="view" contentMode="scaleToFill" id="AIx-pf-rlG">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IDY-sx-LFE">
-                                <rect key="frame" x="85" y="65" width="598" height="435"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCs-kH-HAT">
+                                <rect key="frame" x="-1" y="64" width="769" height="38"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="part_thumb_wide_s" translatesAutoresizingMaskIntoConstraints="NO" id="2II-jq-nbo">
-                                        <rect key="frame" x="151" y="48" width="297" height="283"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="283" id="jjK-wR-vEm"/>
-                                            <constraint firstAttribute="width" constant="297" id="rlg-jl-dh7"/>
-                                        </constraints>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AP0-gQ-IV4">
-                                        <rect key="frame" x="0.0" y="395" width="598" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="fdO-5b-02p"/>
-                                            <constraint firstAttribute="width" constant="598" id="pLr-pf-vl0"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="AP0-gQ-IV4" firstAttribute="centerX" secondItem="2II-jq-nbo" secondAttribute="centerX" constant="-0.5" id="12f-Yi-upN"/>
-                                    <constraint firstItem="AP0-gQ-IV4" firstAttribute="top" secondItem="2II-jq-nbo" secondAttribute="bottom" constant="64" id="6Eh-rr-aLs"/>
-                                    <constraint firstAttribute="width" constant="598" id="MAo-gf-vOn"/>
-                                    <constraint firstItem="2II-jq-nbo" firstAttribute="top" secondItem="IDY-sx-LFE" secondAttribute="top" constant="48" id="WbT-nw-LaV"/>
-                                    <constraint firstAttribute="centerX" secondItem="2II-jq-nbo" secondAttribute="centerX" constant="-0.5" id="nzn-kg-peU"/>
-                                    <constraint firstAttribute="height" constant="435" id="zy1-RT-Ws4"/>
+                                    <constraint firstAttribute="width" constant="769" id="EQI-mj-POF"/>
+                                    <constraint firstAttribute="height" constant="38" id="NeM-M6-kTH"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="112" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="16Y-Wr-mDq">
+                                <rect key="frame" x="-1" y="102" width="769" height="922"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="radioCellIdentifier" rowHeight="112" id="cK9-Wj-a4Y" customClass="RadioTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="769" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cK9-Wj-a4Y" id="Cd9-pz-3kT">
+                                            <rect key="frame" x="0.0" y="0.0" width="769" height="111"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gXu-6b-JuA">
+                                                    <rect key="frame" x="20" y="6" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTC-41-aMK">
+                                                    <rect key="frame" x="155" y="6" width="517" height="94"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                                    <color key="textColor" red="0.19188104280000001" green="0.19188104280000001" blue="0.19188104280000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kPL-sl-xSW" userLabel="seperator">
+                                                    <rect key="frame" x="0.0" y="111" width="769" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="S3e-4H-xQd"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kPL-sl-xSW" firstAttribute="leading" secondItem="Cd9-pz-3kT" secondAttribute="leading" id="N4m-Uh-gX0"/>
+                                                <constraint firstAttribute="trailing" secondItem="kPL-sl-xSW" secondAttribute="trailing" id="Qnh-b1-EE8"/>
+                                                <constraint firstItem="kPL-sl-xSW" firstAttribute="top" secondItem="Cd9-pz-3kT" secondAttribute="top" constant="111" id="T6b-di-JZc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameOfStation" destination="sTC-41-aMK" id="E2W-KP-tIg"/>
+                                            <outlet property="thumbnailOfStation" destination="gXu-6b-JuA" id="doe-z7-4S0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="kmH-7V-hcI" id="nPE-Nz-uhk"/>
+                                    <outlet property="delegate" destination="kmH-7V-hcI" id="ieb-Cm-zaR"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="IDY-sx-LFE" secondAttribute="centerX" id="5Il-w0-Do7"/>
-                            <constraint firstItem="IDY-sx-LFE" firstAttribute="top" secondItem="a8z-cS-cYJ" secondAttribute="bottom" constant="1" id="ihL-77-Pm1"/>
+                            <constraint firstItem="16Y-Wr-mDq" firstAttribute="leading" secondItem="AIx-pf-rlG" secondAttribute="leading" constant="-1" id="4N3-OG-54I"/>
+                            <constraint firstItem="Op7-KV-yl4" firstAttribute="top" secondItem="16Y-Wr-mDq" secondAttribute="bottom" id="AeR-xz-pPq"/>
+                            <constraint firstAttribute="trailing" secondItem="16Y-Wr-mDq" secondAttribute="trailing" id="F04-tj-IPy"/>
+                            <constraint firstItem="vCs-kH-HAT" firstAttribute="top" secondItem="RDA-cj-09f" secondAttribute="bottom" id="GaP-Tm-3EG"/>
+                            <constraint firstItem="16Y-Wr-mDq" firstAttribute="top" secondItem="RDA-cj-09f" secondAttribute="bottom" constant="38" id="aMF-m8-hbC"/>
+                            <constraint firstAttribute="centerX" secondItem="vCs-kH-HAT" secondAttribute="centerX" constant="0.5" id="cV3-nf-Hga"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JPx-Dc-wSm"/>
+                    <navigationItem key="navigationItem" title="Radio" id="Sb1-UQ-jdt"/>
                     <connections>
-                        <outlet property="radioView" destination="AP0-gQ-IV4" id="dxe-2b-Wao"/>
-                        <outlet property="thumbnailImageView" destination="2II-jq-nbo" id="FlI-I0-nKA"/>
+                        <outlet property="radioPlayerView" destination="vCs-kH-HAT" id="nwX-fz-ydn"/>
+                        <outlet property="tableOfRadio" destination="16Y-Wr-mDq" id="4EZ-oD-Epi"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y4R-on-kKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n5y-Tr-6VP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="4735"/>
+            <point key="canvasLocation" x="826" y="4735"/>
         </scene>
     </scenes>
     <resources>
@@ -1662,7 +1647,6 @@
         <image name="fb_icon" width="81" height="81"/>
         <image name="ic_cate_empty" width="48" height="48"/>
         <image name="icb_fav" width="30" height="30"/>
-        <image name="part_thumb_wide_s" width="203" height="157"/>
         <image name="play_alt" width="64" height="64"/>
         <image name="tab_channel" width="30" height="30"/>
         <image name="tab_radio" width="30" height="30"/>
