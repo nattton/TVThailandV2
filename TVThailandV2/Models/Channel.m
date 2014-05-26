@@ -37,7 +37,7 @@
          GET:[NSString stringWithFormat:@"api2/channel?device=ios&time=%@", [NSString getUnixTimeKey]]
          parameters:nil
          success:^(AFHTTPRequestOperation *operation, id JSON) {
-             NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
+             NSArray *jCategories = [JSON valueForKeyPath:@"channels"];
              
              NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
              for (NSDictionary *dictGenre in jCategories) {
