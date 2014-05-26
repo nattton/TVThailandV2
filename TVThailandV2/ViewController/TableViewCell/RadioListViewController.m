@@ -8,7 +8,7 @@
 
 #import "RadioListViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
-
+#import <AVFoundation/AVFoundation.h>
 #import "Radio.h"
 #import "RadioTableViewCell.h"
 
@@ -59,6 +59,8 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 {
     [super viewDidLoad];
     
+    
+    
     alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sorry, this station is currently not available." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -73,8 +75,9 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
     
     self.tableOfRadio.separatorColor = [UIColor clearColor];
     
-    
     [self refresh];
+    NSError *setCategoryError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,7 +98,7 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0){
-        //Watch on demand program
+        //Dismiss
     }
 
 }
@@ -109,8 +112,13 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
     {
         movieSourceType = MPMovieSourceTypeStreaming;
     }
-    self.radioController = [[MPMoviePlayerController alloc] initWithContentURL:radioStreamURL];
-    [self installMovieNotificationObservers:self.radioController];
+    if (!self.radioController) {
+        self.radioController = [[MPMoviePlayerController alloc] initWithContentURL:radioStreamURL];
+    } else {
+        [self.radioController setContentURL:radioStreamURL];
+    }
+    
+//    [self installMovieNotificationObservers:self.radioController];
     
     self.radioController.allowsAirPlay = YES;
     self.radioController.movieSourceType = movieSourceType;
@@ -322,7 +330,9 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
     radioSelected = _radioes[indexPath.row];
+    
     
     if (radioSelected.radioUrl == nil || [radioSelected.radioUrl length] == 0 )  {
         [alert show];
@@ -342,6 +352,7 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
     
 
 }
+
 
 
 @end
