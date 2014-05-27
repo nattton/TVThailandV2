@@ -11,29 +11,25 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Radio.h"
 #import "RadioTableViewCell.h"
-
 #import "SVProgressHUD.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface RadioListViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIButton *togglePlayPause;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableOfRadio;
 @property (weak, nonatomic) IBOutlet UIView *radioPlayerView;
 
-@property (strong, nonatomic) MPMoviePlayerController *radioController;
-
--(void)moviePlayBackDidFinish:(NSNotification*)notification;
--(void)loadStateDidChange:(NSNotification *)notification;
--(void)moviePlayBackStateDidChange:(NSNotification*)notification;
--(void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification;
--(void)installMovieNotificationObservers:(MPMoviePlayerController *)player;
--(void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player;
--(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
-- (void) movieDurationAvailableDidChange:(NSNotification*)notification;
+@property (strong, nonatomic) AVPlayer *radioPlayer;
 
 @end
 
 @implementation RadioListViewController {
-    NSArray *_radioes;
-    Radio *radioSelected;
+    NSArray *_radioCategories;
+    NSArray *_radios;
+    Radio *_radioSelected;
     CGRect _frame;
     UIAlertView *alert;
 }
@@ -41,9 +37,6 @@
 
 //** cell Identifier **//
 static NSString *radioCellIdentifier = @"radioCellIdentifier";
-
-//** sending segue **//
-static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,8 +52,6 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 {
     [super viewDidLoad];
     
-    
-    
     alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sorry, this station is currently not available." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -75,9 +66,16 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
     
     self.tableOfRadio.separatorColor = [UIColor clearColor];
     
-    [self refresh];
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
+    
+    [self initializeRadioPlayer];
+    
+    [self refresh];
+}
+
+- (void)initializeRadioPlayer {
+    self.radioPlayer = [[AVPlayer alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,9 +87,10 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 - (void) refresh {
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    [Radio loadData:^(NSArray *radios, NSError *error) {
+    [Radio loadData:^(NSArray *radioCategories, NSArray *radios, NSError *error) {
         [SVProgressHUD dismiss];
-        _radioes = radios;
+        _radioCategories = radioCategories;
+        _radios = radios;
         [self.tableOfRadio reloadData];
     }];
 }
@@ -103,212 +102,19 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 
 }
 
-
-- (void)playRadioStream:(NSURL *)radioStreamURL {
-    
-    MPMovieSourceType movieSourceType = MPMovieSourceTypeUnknown;
-    
-    if ([[radioStreamURL pathExtension] compare:@"m3u8" options:NSCaseInsensitiveSearch] == NSOrderedSame)
-    {
-        movieSourceType = MPMovieSourceTypeStreaming;
-    }
-    if (!self.radioController) {
-        self.radioController = [[MPMoviePlayerController alloc] initWithContentURL:radioStreamURL];
-    } else {
-        [self.radioController setContentURL:radioStreamURL];
-    }
-    
-//    [self installMovieNotificationObservers:self.radioController];
-    
-    self.radioController.allowsAirPlay = YES;
-    self.radioController.movieSourceType = movieSourceType;
-    [self.radioController prepareToPlay];
-    [self.radioController play];
-    
-    self.radioController.controlStyle = MPMovieControlStyleNone;
-    
-//    double delayInSeconds = 1.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        //code to be executed on the main queue after delay
-//        self.radioController.controlStyle = MPMovieControlStyleFullscreen;
-//    });
-    
-    
-    
-    
-    self.radioController.controlStyle = MPMovieControlStyleEmbedded;
-    //    MPMovieControlStyleNone,       // No controls
-    //    MPMovieControlStyleEmbedded,   // Controls for an embedded view
-    //    MPMovieControlStyleFullscreen, // Controls for fullscreen playback
-    //    MPMovieControlStyleDefault = MPMovieControlStyleEmbedded
-    
-    
-    
-    
-    self.radioController.view.frame = _frame;
-    [self.radioPlayerView addSubview:self.radioController.view];
-    
-    //    [self.view addSubview:self.movieController.view];
-//    [self.radioController setFullscreen:NO animated:NO];
-}
-
-/* Register observers for the various movie object notifications. */
--(void)installMovieNotificationObservers:(MPMoviePlayerController *)player
-{
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadStateDidChange:)
-                                                 name:MPMoviePlayerLoadStateDidChangeNotification
-                                               object:player];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:player];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
-                                                 name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification
-                                               object:player];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackStateDidChange:)
-                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
-                                               object:player];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(movieDurationAvailableDidChange:)
-                                                 name:MPMovieDurationAvailableNotification
-                                               object:player];
-    
-}
-
-
-/* Handle movie load state changes. */
-- (void)loadStateDidChange:(NSNotification *)notification
-{
-	MPMoviePlayerController *player = notification.object;
-	MPMovieLoadState loadState = player.loadState;
-    
-    //	/* The load state is not known at this time. */
-	if (loadState & MPMovieLoadStateUnknown)
-	{
-        //        [self.overlayController setLoadStateDisplayString:@"n/a"];
-        //
-        //        [overlayController setLoadStateDisplayString:@"unknown"];
-	}
-    //
-    //	/* The buffer has enough data that playback can begin, but it
-    //	 may run out of data before playback finishes. */
-	if (loadState & MPMovieLoadStatePlayable)
-	{
-        //        [overlayController setLoadStateDisplayString:@"playable"];
-	}
-    //
-    //	/* Enough data has been buffered for playback to continue uninterrupted. */
-	if (loadState & MPMovieLoadStatePlaythroughOK)
-	{
-        //        self.backgroundView.hidden = YES;
-        
-        // Add an overlay view on top of the movie view
-        //        [self addOverlayView];
-        //
-        //        [overlayController setLoadStateDisplayString:@"playthrough ok"];
-	}
-    //
-    //	/* The buffering of data has stalled. */
-	if (loadState & MPMovieLoadStateStalled)
-	{
-        //        self.backgroundView.hidden = NO;
-        //        [overlayController setLoadStateDisplayString:@"stalled"];
-	}
-}
-
-/* Called when the movie playback state has changed. */
-- (void) moviePlayBackStateDidChange:(NSNotification*)notification
-{
-	MPMoviePlayerController *player = notification.object;
-	/* Playback is currently stopped. */
-	if (player.playbackState == MPMoviePlaybackStateStopped)
-	{
-        DLog(@"%@", @"stopped");
-	}
-	/*  Playback is currently under way. */
-	else if (player.playbackState == MPMoviePlaybackStatePlaying)
-	{
-        DLog(@"%@", @"playing");
-	}
-	/* Playback is currently paused. */
-	else if (player.playbackState == MPMoviePlaybackStatePaused)
-	{
-        DLog(@"%@", @"paused");
-	}
-	/* Playback is temporarily interrupted, perhaps because the buffer
-	 ran out of content. */
-	else if (player.playbackState == MPMoviePlaybackStateInterrupted)
-	{
-        DLog(@"%@", @"interrupted");
-	}
-}
-
-/* Notifies observers of a change in the prepared-to-play state of an object
- conforming to the MPMediaPlayback protocol. */
-- (void) mediaIsPreparedToPlayDidChange:(NSNotification*)notification
-{
-	// Add an overlay view on top of the movie view
-    //    [self addOverlayView];
-}
-
-- (void) movieDurationAvailableDidChange:(NSNotification*)notification
-{
-	MPMoviePlayerController *player = notification.object;
-    DLog(@"%f", player.currentPlaybackTime);
-}
-
-
-#pragma mark Remove Movie Notification Handlers
-
-/* Remove the movie notification observers from the movie object. */
--(void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player
-{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
-}
-
-/* Delete the movie player object, and remove the movie notification observers. */
--(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player
-{
-    [self removeMovieNotificationHandlers:player];
-}
-
-
-- (void) moviePlayBackDidFinish:(NSNotification*)notification
-{
-    
-    
-    MPMoviePlayerController *player = [notification object];
-    
-    [self removeMovieNotificationHandlers:player];
-    [self.radioController.view removeFromSuperview];
-    self.radioController = nil;
-    
-    
-}
-
-
-
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [_radioCategories count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return _radioCategories[section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _radioes.count;
+    return [_radios[section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -318,8 +124,8 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
     RadioTableViewCell *cellOfRadio = [tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
     cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
     
-    if ( _radioes && [_radioes count] > 0) {
-        [cellOfRadio configureWithRadio:_radioes[indexPath.row]];
+    if ( _radios[indexPath.section] && [_radios[indexPath.section] count] > 0) {
+        [cellOfRadio configureWithRadio:_radios[indexPath.section][indexPath.row]];
     }
     
     return  cellOfRadio;
@@ -331,13 +137,16 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    radioSelected = _radioes[indexPath.row];
+    _radioSelected = _radios[indexPath.section][indexPath.row];
+    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:_radioSelected.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    
-    if (radioSelected.radioUrl == nil || [radioSelected.radioUrl length] == 0 )  {
+    if (_radioSelected.radioUrl == nil || [_radioSelected.radioUrl length] == 0 )  {
         [alert show];
     } else {
-        [self playRadioStream:[NSURL URLWithString:radioSelected.radioUrl]];
+        AVPlayerItem *currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioSelected.radioUrl]];
+        [self.radioPlayer replaceCurrentItemWithPlayerItem:currentItem];
+        [self.radioPlayer play];
+        [self.togglePlayPause setSelected:YES];
     }
     
 }
@@ -350,7 +159,18 @@ static NSString *showRadioPlayerSegue = @"showRadioPlayerSegue";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
+}
 
+#pragma mark - IBAction
+
+- (IBAction)playPauseTapped:(id)sender {
+    if(self.togglePlayPause.selected) {
+        [self.radioPlayer pause];
+        [self.togglePlayPause setSelected:NO];
+    } else {
+        [self.radioPlayer play];
+        [self.togglePlayPause setSelected:YES];
+    }
 }
 
 

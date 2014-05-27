@@ -15,10 +15,11 @@
 @property (nonatomic, readonly) NSString *detail;
 @property (nonatomic, readonly) NSString *thumbnailUrl;
 @property (nonatomic, readonly) NSString *radioUrl;
+@property (nonatomic, readonly) NSString *category;
 
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)loadData:(void (^)(NSArray *radios ,NSError *error))block;
++ (void)loadData:(void (^)(NSArray *radioCategories, NSArray *radios ,NSError *error))block;
 
 @end

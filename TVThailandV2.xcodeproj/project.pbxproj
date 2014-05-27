@@ -410,8 +410,6 @@
 				3B67F7A317E09A5200C9CD23 /* ShowCategoryViewController.m */,
 				3BE6091417FB57D100497D39 /* ChannelViewController.h */,
 				3BE6091517FB57D100497D39 /* ChannelViewController.m */,
-				1100E2E0192F2ABE009189C2 /* RadioListViewController.h */,
-				1100E2E1192F2ABF009189C2 /* RadioListViewController.m */,
 				3B67F7A517E09C6600C9CD23 /* ShowListViewController.h */,
 				3B67F7A617E09C6600C9CD23 /* ShowListViewController.m */,
 				3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */,
@@ -434,6 +432,8 @@
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				11D1DCE31910D23C00A51026 /* HomeContentViewController.h */,
 				11D1DCE41910D23C00A51026 /* HomeContentViewController.m */,
+				1100E2E0192F2ABE009189C2 /* RadioListViewController.h */,
+				1100E2E1192F2ABF009189C2 /* RadioListViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

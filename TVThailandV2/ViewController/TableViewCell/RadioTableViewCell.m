@@ -48,11 +48,12 @@
 
 - (void)roundImage {
 
-    self.thumbnailOfStation.layer.shadowColor = [UIColor grayColor].CGColor;
-    self.thumbnailOfStation.layer.shadowOffset = CGSizeMake(0, 0.5);
-    self.thumbnailOfStation.layer.shadowOpacity = 1;
-    self.thumbnailOfStation.layer.shadowRadius = 1;
-    
+//    self.thumbnailOfStation.layer.shadowColor = [UIColor grayColor].CGColor;
+//    self.thumbnailOfStation.layer.shadowOffset = CGSizeMake(0, 0.5);
+//    self.thumbnailOfStation.layer.shadowOpacity = 1;
+//    self.thumbnailOfStation.layer.shadowRadius = 1;
+    self.thumbnailOfStation.layer.cornerRadius = 2.0;
+    self.thumbnailOfStation.clipsToBounds = YES;
 }
 
 -(void)configureWithRadio:(Radio *)radio {

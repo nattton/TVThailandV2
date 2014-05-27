@@ -22,18 +22,18 @@
         _detail = [dictionary objectForKey:@"description"];
         _thumbnailUrl = [dictionary objectForKey:@"thumbnail"];
         _radioUrl = [dictionary objectForKey:@"url"];
-
+        _category = [dictionary objectForKey:@"category"];
     }
     return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Id: %@, Title: %@,Description: %@, Thumbnail: %@, RadioURL: %@", _Id, _title, _detail, _thumbnailUrl, _radioUrl];
+    return [NSString stringWithFormat:@"Id: %@, Title: %@,Description: %@, Thumbnail: %@, RadioURL: %@, Category: %@", _Id, _title, _detail, _thumbnailUrl, _radioUrl, _category];
 }
 
 #pragma mark - Load Data
 
-+ (void)loadData:(void (^)(NSArray *radios ,NSError *error))block {
++ (void)loadData:(void (^)(NSArray *radioCategories, NSArray *radios ,NSError *error))block {
     
     [[ApiClient sharedInstance]
      GET:[NSString stringWithFormat:@"api2/radio?device=ios&time=%@", [NSString getUnixTimeKey]]
@@ -41,19 +41,32 @@
      success:^(AFHTTPRequestOperation *operation, id JSON) {
          NSArray *jRadioes = [JSON valueForKeyPath:@"radios"];
          
-         NSMutableArray *mutableRadioes = [NSMutableArray arrayWithCapacity:[jRadioes count]];
-         for (NSDictionary *dictGenre in jRadioes) {
-             Radio * radio = [[Radio alloc] initWithDictionary:dictGenre];
-             [mutableRadioes addObject:radio];
+//         NSLog(@"%@", jRadioes);
+//         NSLog(@"%@", [NSSet setWithArray:[jRadioes valueForKeyPath:@"category"]]);
+         
+         NSSet *categorySet = [NSSet setWithArray:[jRadioes valueForKeyPath:@"category"]];
+         NSArray *radioCategories = [[categorySet allObjects] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+         NSMutableArray *mutableRadios = [NSMutableArray arrayWithCapacity:[radioCategories count]];
+         
+         for (NSString *category in radioCategories) {
+             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.category contains[c] %@", category];
+             NSArray *filterRadios = [jRadioes filteredArrayUsingPredicate:predicate];
+             
+             NSMutableArray *mutableRadioSet = [NSMutableArray arrayWithCapacity:[filterRadios count]];
+             for (NSDictionary *jRadio in filterRadios) {
+                 Radio * radio = [[Radio alloc] initWithDictionary:jRadio];
+                 [mutableRadioSet addObject:radio];
+             }
+             [mutableRadios addObject:mutableRadioSet];
          }
          
          if (block) {
-             block([NSArray arrayWithArray:mutableRadioes], nil);
+             block(radioCategories, [NSArray arrayWithArray:mutableRadios], nil);
          }
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          if (block) {
-             block([NSArray array], error);
+             block([NSArray array], [NSArray array], error);
          }
      }
      ];
