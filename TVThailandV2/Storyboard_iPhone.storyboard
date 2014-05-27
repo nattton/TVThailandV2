@@ -1618,12 +1618,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-Y9-LoW">
-                                <rect key="frame" x="0.0" y="65" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="152-ts-Jz4">
-                                        <rect key="frame" x="20" y="13" width="70" height="71"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="55u-KZ-Gea">
+                                        <rect key="frame" x="6" y="5" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Agq-qi-6e6"/>
+                                            <constraint firstAttribute="height" constant="80" id="I9U-3A-L2u"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="152-ts-Jz4">
+                                        <rect key="frame" x="247" y="15" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="2hy-ch-vBO"/>
+                                            <constraint firstAttribute="height" constant="60" id="TRS-Ph-FFO"/>
+                                        </constraints>
                                         <state key="normal" image="play_alt">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1632,19 +1644,28 @@
                                             <action selector="playPauseTapped:" destination="vd5-tS-FuZ" eventType="touchUpInside" id="1A3-Hz-8mq"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="55u-KZ-Gea">
-                                        <rect key="frame" x="180" y="2" width="120" height="86"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TV Thailand Radio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIV-Gp-nX1">
+                                        <rect key="frame" x="94" y="34" width="145" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="3cL-63-ncY"/>
+                                    <constraint firstAttribute="trailing" secondItem="152-ts-Jz4" secondAttribute="trailing" constant="13" id="1Fe-0H-Sn1"/>
+                                    <constraint firstItem="tIV-Gp-nX1" firstAttribute="leading" secondItem="55u-KZ-Gea" secondAttribute="trailing" constant="8" id="1yd-Bi-kek"/>
                                     <constraint firstAttribute="height" constant="90" id="6nW-Vn-6qq"/>
+                                    <constraint firstItem="55u-KZ-Gea" firstAttribute="leading" secondItem="2yb-Y9-LoW" secondAttribute="leading" constant="6" id="DVm-Cf-jKp"/>
+                                    <constraint firstAttribute="centerY" secondItem="tIV-Gp-nX1" secondAttribute="centerY" constant="0.5" id="ITN-dF-MTf"/>
+                                    <constraint firstItem="152-ts-Jz4" firstAttribute="leading" secondItem="tIV-Gp-nX1" secondAttribute="trailing" constant="8" id="ZrA-Ta-F90"/>
+                                    <constraint firstItem="152-ts-Jz4" firstAttribute="top" secondItem="2yb-Y9-LoW" secondAttribute="top" constant="15" id="Zrv-j5-NhS"/>
+                                    <constraint firstItem="55u-KZ-Gea" firstAttribute="top" secondItem="2yb-Y9-LoW" secondAttribute="top" constant="5" id="hlM-LY-LhU"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-hs-jGX">
-                                <rect key="frame" x="0.0" y="155" width="320" height="413"/>
+                                <rect key="frame" x="0.0" y="154" width="320" height="414"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1695,19 +1716,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2yb-Y9-LoW" firstAttribute="leading" secondItem="mAY-m2-Ard" secondAttribute="leading" id="DQo-LJ-778"/>
                             <constraint firstItem="Qc7-hs-jGX" firstAttribute="top" secondItem="2yb-Y9-LoW" secondAttribute="bottom" id="Mq4-JH-2gq"/>
                             <constraint firstAttribute="trailing" secondItem="Qc7-hs-jGX" secondAttribute="trailing" id="TgN-Ru-ECJ"/>
                             <constraint firstItem="Qc7-hs-jGX" firstAttribute="leading" secondItem="mAY-m2-Ard" secondAttribute="leading" id="Y2E-7H-DSP"/>
+                            <constraint firstAttribute="trailing" secondItem="2yb-Y9-LoW" secondAttribute="trailing" id="bT6-Ng-4fk"/>
                             <constraint firstAttribute="centerX" secondItem="2yb-Y9-LoW" secondAttribute="centerX" id="dQ8-8V-ddN"/>
-                            <constraint firstItem="2yb-Y9-LoW" firstAttribute="top" secondItem="GzL-uQ-gQh" secondAttribute="bottom" constant="1" id="eR8-72-crv"/>
+                            <constraint firstItem="2yb-Y9-LoW" firstAttribute="top" secondItem="GzL-uQ-gQh" secondAttribute="bottom" id="eR8-72-crv"/>
                             <constraint firstItem="jzm-8m-BDP" firstAttribute="top" secondItem="Qc7-hs-jGX" secondAttribute="bottom" id="vVK-sW-0Hb"/>
-                            <constraint firstItem="Qc7-hs-jGX" firstAttribute="top" secondItem="2yb-Y9-LoW" secondAttribute="bottom" id="z8E-kK-kx5"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Radio" id="xWi-gT-OSE"/>
                     <connections>
                         <outlet property="radioPlayerView" destination="2yb-Y9-LoW" id="Qam-Qa-nYf"/>
+                        <outlet property="radioTitleLabel" destination="tIV-Gp-nX1" id="5Uc-cp-AaC"/>
                         <outlet property="tableOfRadio" destination="Qc7-hs-jGX" id="ePq-HD-w0P"/>
                         <outlet property="thumbnailImageView" destination="55u-KZ-Gea" id="fgg-nm-NzE"/>
                         <outlet property="togglePlayPause" destination="152-ts-Jz4" id="Kpr-SF-dfd"/>

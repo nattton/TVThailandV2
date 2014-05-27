@@ -18,6 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *togglePlayPause;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
+@property (weak, nonatomic) IBOutlet UILabel *radioTitleLabel;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableOfRadio;
 @property (weak, nonatomic) IBOutlet UIView *radioPlayerView;
@@ -76,6 +77,8 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
 
 - (void)initializeRadioPlayer {
     self.radioPlayer = [[AVPlayer alloc] init];
+    self.thumbnailImageView.layer.cornerRadius = 2.0;
+    self.thumbnailImageView.clipsToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,6 +141,7 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
     
     
     _radioSelected = _radios[indexPath.section][indexPath.row];
+    [self.radioTitleLabel setText:_radioSelected.title];
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:_radioSelected.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     if (_radioSelected.radioUrl == nil || [_radioSelected.radioUrl length] == 0 )  {
@@ -164,12 +168,14 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
 #pragma mark - IBAction
 
 - (IBAction)playPauseTapped:(id)sender {
-    if(self.togglePlayPause.selected) {
-        [self.radioPlayer pause];
-        [self.togglePlayPause setSelected:NO];
-    } else {
-        [self.radioPlayer play];
-        [self.togglePlayPause setSelected:YES];
+    if (_radioSelected) {
+        if(self.togglePlayPause.selected) {
+            [self.radioPlayer pause];
+            [self.togglePlayPause setSelected:NO];
+        } else {
+            [self.radioPlayer play];
+            [self.togglePlayPause setSelected:YES];
+        }
     }
 }
 
