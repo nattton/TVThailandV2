@@ -1,33 +1,35 @@
 //
-//  RadioListViewController.m
+//  RadioViewController.m
 //  TVThailandV2
 //
-//  Created by April Smith on 5/23/2557 BE.
+//  Created by Nattapong Tonprasert on 5/27/2557 BE.
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "RadioListViewController.h"
+#import "RadioViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
-#import "Radio.h"
-#import "RadioTableViewCell.h"
 #import "SVProgressHUD.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Radio.h"
+#import "RadioCollectionHeaderView.h"
+#import "RadioCollectionViewCell.h"
 
-@interface RadioListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface RadioViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *togglePlayPause;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *radioTitleLabel;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableOfRadio;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @property (weak, nonatomic) IBOutlet UIView *radioPlayerView;
 
 @property (strong, nonatomic) AVPlayer *radioPlayer;
 
 @end
 
-@implementation RadioListViewController {
+@implementation RadioViewController {
     NSArray *_radioCategories;
     NSArray *_radios;
     Radio *_radioSelected;
@@ -36,8 +38,9 @@
 
 
 //** cell Identifier **//
-static NSString *radioCellIdentifier = @"radioCellIdentifier";
-
+static NSString *radioHeaderIdentifier = @"RadioHeaderView";
+static NSString *radioFooterIdentifier = @"RadioFooterView";
+static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,8 +56,6 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
     [super viewDidLoad];
     
     alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sorry, this station is currently not available." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-    
-    self.tableOfRadio.separatorColor = [UIColor clearColor];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
@@ -83,7 +84,7 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
         [SVProgressHUD dismiss];
         _radioCategories = radioCategories;
         _radios = radios;
-        [self.tableOfRadio reloadData];
+        [self.collectionView reloadData];
     }];
 }
 
@@ -91,44 +92,49 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
     if (buttonIndex == 0){
         //Dismiss
     }
-
+    
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UICollectionViewDatasource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [_radioCategories count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return _radioCategories[section];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [_radios[section] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIView *selectedBackgroundViewForCell = [UIView new];
-    [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    RadioCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:radioCellIdentifier forIndexPath:indexPath];
+
+    [cell configureWithRadio:_radios[indexPath.section][indexPath.row]];
     
-    RadioTableViewCell *cellOfRadio = [tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
-    cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
-    
-    if ( _radios[indexPath.section] && [_radios[indexPath.section] count] > 0) {
-        [cellOfRadio configureWithRadio:_radios[indexPath.section][indexPath.row]];
-    }
-    
-    return  cellOfRadio;
-    
+    return cell;
 }
 
-#pragma mark - UITableViewDelegate
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView *reusableview = nil;
+    
+    if (kind == UICollectionElementKindSectionHeader) {
+        RadioCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:radioHeaderIdentifier forIndexPath:indexPath];
+        
+        [headerView.titleLabel setText:_radioCategories[indexPath.section]];
+        
+        reusableview = headerView;
+    }
+    else if(kind == UICollectionElementKindSectionFooter) {
+        UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:radioFooterIdentifier forIndexPath:indexPath];
+        
+        reusableview = footerView;
+    }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+    return reusableview;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _radioSelected = _radios[indexPath.section][indexPath.row];
     [self.radioTitleLabel setText:_radioSelected.title];
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:_radioSelected.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
@@ -141,9 +147,7 @@ static NSString *radioCellIdentifier = @"radioCellIdentifier";
         [self.radioPlayer play];
         [self.togglePlayPause setSelected:YES];
     }
-    
 }
-
 
 
 #pragma mark - Navigation

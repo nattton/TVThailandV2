@@ -70,6 +70,10 @@
 		3B910C3D17340387008F67ED /* ShowCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3917340387008F67ED /* ShowCategory.m */; };
 		3B910C3E17340387008F67ED /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3B17340387008F67ED /* Channel.m */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
+		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
+		3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */; };
+		3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */; };
+		3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */; };
 		3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496818ED3C030083C32B /* EventKit.framework */; };
 		3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */; };
 		3BD0497A18ED6B670083C32B /* CMVideoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0497918ED6B670083C32B /* CMVideoAds.m */; };
@@ -230,6 +234,14 @@
 		3B910C3A17340387008F67ED /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		3B910C3B17340387008F67ED /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3BC5253C1934864700596F92 /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
+		3BC5253D1934864700596F92 /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
+		3BC525401934892A00596F92 /* RadioCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioCollectionHeaderView.h; sourceTree = "<group>"; };
+		3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioCollectionHeaderView.m; sourceTree = "<group>"; };
+		3BC5254319348DAD00596F92 /* RadioCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioCollectionViewCell.h; sourceTree = "<group>"; };
+		3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioCollectionViewCell.m; sourceTree = "<group>"; };
+		3BC52546193497AD00596F92 /* ChannelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionViewCell.h; sourceTree = "<group>"; };
+		3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionViewCell.m; sourceTree = "<group>"; };
 		3BD0496818ED3C030083C32B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		3BD0497818ED6B670083C32B /* CMVideoAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMVideoAds.h; sourceTree = "<group>"; };
@@ -405,11 +417,16 @@
 		3B67F7A117E09A1D00C9CD23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				3BC5253F1934890100596F92 /* CollectionItemView */,
 				3BD1395D190F6E46004F6785 /* TableViewCell */,
 				3B67F7A217E09A5200C9CD23 /* ShowCategoryViewController.h */,
 				3B67F7A317E09A5200C9CD23 /* ShowCategoryViewController.m */,
 				3BE6091417FB57D100497D39 /* ChannelViewController.h */,
 				3BE6091517FB57D100497D39 /* ChannelViewController.m */,
+				3BC5253C1934864700596F92 /* RadioViewController.h */,
+				3BC5253D1934864700596F92 /* RadioViewController.m */,
+				1100E2E0192F2ABE009189C2 /* RadioListViewController.h */,
+				1100E2E1192F2ABF009189C2 /* RadioListViewController.m */,
 				3B67F7A517E09C6600C9CD23 /* ShowListViewController.h */,
 				3B67F7A617E09C6600C9CD23 /* ShowListViewController.m */,
 				3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */,
@@ -432,8 +449,6 @@
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				11D1DCE31910D23C00A51026 /* HomeContentViewController.h */,
 				11D1DCE41910D23C00A51026 /* HomeContentViewController.m */,
-				1100E2E0192F2ABE009189C2 /* RadioListViewController.h */,
-				1100E2E1192F2ABF009189C2 /* RadioListViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -486,6 +501,19 @@
 				1136AC4B18D81DD7004BFE4D /* OTVPart.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3BC5253F1934890100596F92 /* CollectionItemView */ = {
+			isa = PBXGroup;
+			children = (
+				3BC525401934892A00596F92 /* RadioCollectionHeaderView.h */,
+				3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */,
+				3BC5254319348DAD00596F92 /* RadioCollectionViewCell.h */,
+				3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */,
+				3BC52546193497AD00596F92 /* ChannelCollectionViewCell.h */,
+				3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */,
+			);
+			path = CollectionItemView;
 			sourceTree = "<group>";
 		};
 		3BD0497718ED6B3A0083C32B /* CMVideoAds */ = {
@@ -916,6 +944,7 @@
 				3BDF836A190A78CC00AD12D0 /* DVInlineVideoAd.m in Sources */,
 				3B67F7B017E0BFF500C9CD23 /* ShowCategoryList.m in Sources */,
 				F0DC4E0015BA012E0009BFCD /* AppDelegate.m in Sources */,
+				3BC5253E1934864700596F92 /* RadioViewController.m in Sources */,
 				1100E2E2192F2ABF009189C2 /* RadioListViewController.m in Sources */,
 				3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */,
 				11D1DCDB1910C7B200A51026 /* SASlideMenuPushSegue.m in Sources */,
@@ -923,6 +952,7 @@
 				11D011F61924726300216898 /* Radio.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3BDF8350190A74EE00AD12D0 /* DDXMLNode.m in Sources */,
+				3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
@@ -931,6 +961,7 @@
 				3BD13952190F691A004F6785 /* OTVVideoPlayerViewController.m in Sources */,
 				1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,
+				3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */,
 				3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */,
 				3BDF836C190A78CC00AD12D0 /* DVVideoAd.m in Sources */,
 				11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */,
@@ -975,6 +1006,7 @@
 				3BD13969190F6E46004F6785 /* EpisodeTableViewCell.m in Sources */,
 				3B910C3E17340387008F67ED /* Channel.m in Sources */,
 				3BD1395C190F6E00004F6785 /* OTVShowTableViewCell.m in Sources */,
+				3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */,
 				3BD1395A190F6E00004F6785 /* OTVEpisodePartTableViewCell.m in Sources */,
 				3BDF836F190A78CC00AD12D0 /* DVVideoMultipleAdPlaylist.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,

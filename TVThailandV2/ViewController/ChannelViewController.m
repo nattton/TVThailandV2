@@ -18,6 +18,7 @@
 #import "GAIDictionaryBuilder.h"
 
 #import "VideoPlayerViewController.h"
+#import "ChannelCollectionViewCell.h"
 
 @interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -49,17 +50,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
       alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ดูย้อนหลัง" otherButtonTitles:@"ดูสด", nil];
     
       self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    
-    
-    
-//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-//        DLog(@"Load resources for iOS 6.1 or earlier");
-//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-//    } else {
-//        DLog(@"Load resources for iOS 7 or later");
-//        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:40/255.0 green:40/255.0 blue:40/255.0 alpha:0.7];
-//        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-//    }
 
     [self refresh];
     
@@ -102,39 +92,12 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    ChannelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     Channel *ch = _channels[indexPath.row];
     
-    UIImageView *channelImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [channelImageView setImageWithURL:[NSURL URLWithString:ch.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    [cell addSubview:channelImageView];
+    [cell configureWithChannel:ch];
     
-    
-    UIView *labelBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
-    labelBackgroundView.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.5];
-    [cell addSubview:labelBackgroundView];
-
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 80, 90, 20)];
-    titleLabel.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = ch.title;
-    [titleLabel setFont:[UIFont systemFontOfSize:10]];
-    [cell addSubview:titleLabel];
-    
-    UILabel *liveLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 5, 20, 10)];
-    liveLabel.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
-    liveLabel.textColor = [UIColor whiteColor];
-    liveLabel.text = @"LIVE";
-    liveLabel.textAlignment = NSTextAlignmentCenter;
-    [liveLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:7]];
-    [cell addSubview:liveLabel];
-    
-    if (ch.videoUrl == nil || [ch.videoUrl length] == 0) {
-        liveLabel.hidden = YES;
-    }
-    
-
     return cell;
 }
 
@@ -149,11 +112,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             } else {
                 [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
             }
-
-            
         }
-    
-    
     }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
