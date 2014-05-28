@@ -95,8 +95,7 @@ static NSInteger secCategory = 4;
     [self.tableView addSubview:_refreshControl];
     self.tableView.separatorColor = [UIColor clearColor];
     
-    
-//    [self reload];
+    [self reload];
 
 }
 
