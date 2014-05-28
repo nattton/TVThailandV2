@@ -12,7 +12,7 @@
 @interface ShowCategoryList : NSObject
 @property (nonatomic, readonly) NSUInteger count;
 
-- (id)initWithSamples;
+- (id)initWithWhatsNew;
 - (void)loadData:(void (^)(NSError *error))block;
 - (ShowCategory *)genreAtIndex:(NSUInteger)idx;
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;

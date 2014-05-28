@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1100E2DF192F1354009189C2 /* FBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100E2DE192F1354009189C2 /* FBTableViewCell.m */; };
-		1100E2E2192F2ABF009189C2 /* RadioListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100E2E1192F2ABF009189C2 /* RadioListViewController.m */; };
 		1136AC4018D8158D004BFE4D /* OTVApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC3F18D8158D004BFE4D /* OTVApiClient.m */; };
 		1136AC4318D81D98004BFE4D /* OTVCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4218D81D98004BFE4D /* OTVCategory.m */; };
 		1136AC4618D81DAD004BFE4D /* OTVShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4518D81DAD004BFE4D /* OTVShow.m */; };
@@ -135,8 +134,6 @@
 		0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		1100E2DD192F1354009189C2 /* FBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTableViewCell.h; sourceTree = "<group>"; };
 		1100E2DE192F1354009189C2 /* FBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTableViewCell.m; sourceTree = "<group>"; };
-		1100E2E0192F2ABE009189C2 /* RadioListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadioListViewController.h; path = TableViewCell/RadioListViewController.h; sourceTree = "<group>"; };
-		1100E2E1192F2ABF009189C2 /* RadioListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadioListViewController.m; path = TableViewCell/RadioListViewController.m; sourceTree = "<group>"; };
 		1136AC3E18D8158D004BFE4D /* OTVApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVApiClient.h; sourceTree = "<group>"; };
 		1136AC3F18D8158D004BFE4D /* OTVApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVApiClient.m; sourceTree = "<group>"; };
 		1136AC4118D81D98004BFE4D /* OTVCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVCategory.h; sourceTree = "<group>"; };
@@ -425,8 +422,6 @@
 				3BE6091517FB57D100497D39 /* ChannelViewController.m */,
 				3BC5253C1934864700596F92 /* RadioViewController.h */,
 				3BC5253D1934864700596F92 /* RadioViewController.m */,
-				1100E2E0192F2ABE009189C2 /* RadioListViewController.h */,
-				1100E2E1192F2ABF009189C2 /* RadioListViewController.m */,
 				3B67F7A517E09C6600C9CD23 /* ShowListViewController.h */,
 				3B67F7A617E09C6600C9CD23 /* ShowListViewController.m */,
 				3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */,
@@ -945,7 +940,6 @@
 				3B67F7B017E0BFF500C9CD23 /* ShowCategoryList.m in Sources */,
 				F0DC4E0015BA012E0009BFCD /* AppDelegate.m in Sources */,
 				3BC5253E1934864700596F92 /* RadioViewController.m in Sources */,
-				1100E2E2192F2ABF009189C2 /* RadioListViewController.m in Sources */,
 				3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */,
 				11D1DCDB1910C7B200A51026 /* SASlideMenuPushSegue.m in Sources */,
 				3B743BD017E1D8060086C519 /* Episode.m in Sources */,

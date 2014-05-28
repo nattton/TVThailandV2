@@ -15,6 +15,10 @@
 #import "RadioCollectionHeaderView.h"
 #import "RadioCollectionViewCell.h"
 
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface RadioViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *togglePlayPause;
@@ -63,6 +67,15 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
     [self initializeRadioPlayer];
     
     [self refresh];
+    
+    [self sendTracker];
+}
+
+- (void)sendTracker {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName
+           value:@"Radio"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)initializeRadioPlayer {
@@ -135,6 +148,7 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    bool isChanged = (_radioSelected != _radios[indexPath.section][indexPath.row]);
     _radioSelected = _radios[indexPath.section][indexPath.row];
     [self.radioTitleLabel setText:_radioSelected.title];
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:_radioSelected.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
@@ -142,8 +156,16 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
     if (_radioSelected.radioUrl == nil || [_radioSelected.radioUrl length] == 0 )  {
         [alert show];
     } else {
-        AVPlayerItem *currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioSelected.radioUrl]];
-        [self.radioPlayer replaceCurrentItemWithPlayerItem:currentItem];
+        if (isChanged) {
+            id tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker set:kGAIScreenName
+                   value:@"Radio"];
+            [tracker send:[[[GAIDictionaryBuilder createAppView] set:_radioSelected.title
+                                                              forKey:[GAIFields customDimensionForIndex:6]] build]];
+            
+            AVPlayerItem *currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioSelected.radioUrl]];
+            [self.radioPlayer replaceCurrentItemWithPlayerItem:currentItem];
+        }
         [self.radioPlayer play];
         [self.togglePlayPause setSelected:YES];
     }
@@ -159,6 +181,10 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 }
 
 #pragma mark - IBAction
+
+- (IBAction)refreshTapped:(id)sender {
+    [self refresh];
+}
 
 - (IBAction)playPauseTapped:(id)sender {
     if (_radioSelected) {

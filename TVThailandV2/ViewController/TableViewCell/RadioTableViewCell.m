@@ -59,7 +59,7 @@
 -(void)configureWithRadio:(Radio *)radio {
     
     self.nameOfStation.text = radio.title;
-    [self.thumbnailOfStation setImageWithURL:[NSURL URLWithString:radio.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.thumbnailOfStation setImageWithURL:[NSURL URLWithString:radio.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder_hi"]];
     
 }
 

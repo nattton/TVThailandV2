@@ -85,7 +85,9 @@ static NSInteger secCategory = 4;
 
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    _categoryList = [[ShowCategoryList alloc] init];
+    _categoryList = [[ShowCategoryList alloc] initWithWhatsNew];
+    
+    [self.tableView reloadData];
     
     _refreshControl = [[UIRefreshControl alloc] init];
     _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Loading data..."];
@@ -94,7 +96,7 @@ static NSInteger secCategory = 4;
     self.tableView.separatorColor = [UIColor clearColor];
     
     
-    [self reload];
+//    [self reload];
 
 }
 
@@ -108,6 +110,13 @@ static NSInteger secCategory = 4;
         
         [_refreshControl endRefreshing];
         _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+        if (error != nil) {
+            double delayInSeconds = 10.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self reload];
+            });
+        }
     }];
 }
 
@@ -197,37 +206,23 @@ static NSInteger secCategory = 4;
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return 1;
-    } else {
-        return 5;
     }
-    
+    return 5;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-
-        return nil;
-    
+    return nil;
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return _searchShows.count;
-    } else if (_categoryList && [_categoryList count] > 0) {
-        
-        if (section == secFacebook) {
-            return 1;
-        } else if (section == secFavorite){
-            return 1;
-        } else if (section == secChannel){
-            return 1;
-        }else if (section == secRadio){
-            return 1;
-        } else if (section == secCategory){
-            return [_categoryList count];
-        } else {
-            return 1;
-        }
-  
+//    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        return _searchShows.count;
+//    }
+
+    if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio) {
+        return 1;
+    } else if (section == secCategory){
+        return [_categoryList count];
     }
     
     return 1;
@@ -288,19 +283,15 @@ static NSInteger secCategory = 4;
         } else if (section == secCategory){
             ShowCategoryTableViewCell *cellOfCate = [self.tableView dequeueReusableCellWithIdentifier:cateCellIdentifier];
             cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
-        
-        
-            if ( _categoryList && [_categoryList count] > 0) {
-                [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
-            }
-        
+         
+            [cellOfCate configureWithGenre:_categoryList[indexPath.row]];
         
             return cellOfCate;
             
-        }else {
-            UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            return cell;
         }
+        
+        UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        return cell;
     }
 
 }
@@ -319,11 +310,6 @@ static NSInteger secCategory = 4;
 
     NSInteger section = indexPath.section;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        Show *show = _searchShows[indexPath.row];
-//        if (show.isOTV)
-//            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
-//        else
-//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
     } else {
         if (section == secCategory) {
         
@@ -345,9 +331,10 @@ static NSInteger secCategory = 4;
         
             [self performSegueWithIdentifier:FBContentSegue sender:nil];
         
-        }else {
-            [super tableView:tableView didSelectRowAtIndexPath:indexPath];
         }
+//        else {
+//            [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//        }
     }
 }
 
@@ -358,44 +345,22 @@ static NSInteger secCategory = 4;
         UINavigationController *content = segue.destinationViewController;
         ShowListViewController* controller = [content.viewControllers firstObject];
         
-        ShowCategory *selectedCat = (ShowCategory *)sender;
-        controller.navigationItem.title = selectedCat.title;
-        
-        if ( _categoryList && [_categoryList count] > 0 ) {
+        ShowCategory *selectedCat;
+        if ([sender isKindOfClass:[ShowCategory class]]) {
+            selectedCat = (ShowCategory *)sender;
            
-            [controller reloadWithMode:kCategory Id:selectedCat.Id];
-        } else {
-            controller.navigationItem.title = @"รายการล่าสุด";
-            [controller reloadWithMode:kCategory Id:@"recents"];
+        }
+        else {
+            if (_categoryList == nil || [_categoryList count] == 0) {
+                _categoryList = [[ShowCategoryList alloc] initWithWhatsNew];
+            }
+            
+            selectedCat = _categoryList[0];
         }
         
-        
+        controller.navigationItem.title = selectedCat.title;
+        [controller reloadWithMode:kCategory Id:selectedCat.Id];
     }
-    
-
-//    else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
-//        Show *show = (Show *)sender;
-//        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
-//        episodeAndPartListViewController.show = show;
-//        
-//        id tracker = [[GAI sharedInstance] defaultTracker];
-//        [tracker set:kGAIScreenName
-//               value:@"Search"];
-//        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
-//                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
-//        
-//    }
-//    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
-//        
-//        Show *show = (Show *)sender;
-//        
-//        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
-//        otvEpAndPartViewController.navigationItem.title = show.title;
-//        
-//        otvEpAndPartViewController.show = show;
-//        
-//    }
-    
     
 }
 

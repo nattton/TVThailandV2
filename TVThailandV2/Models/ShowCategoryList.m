@@ -20,20 +20,20 @@
     return categories.count;
 }
 
-- (id)initWithSamples {
+- (id)initWithWhatsNew {
     self = [super init];
     if (self) {
-        categories = @[
-  [[ShowCategory alloc] initWithDictionary:@{@"id":@"1",@"title":@"\u0e25\u0e30\u0e04\u0e23\u0e44\u0e17\u0e22",@"description":@"\u0e25\u0e30\u0e04\u0e23\u0e44\u0e17\u0e22",@"thumbnail":@"http://thumbnail.instardara.com/category/01_cate_thaimovie.png"}],
-  
-  [[ShowCategory alloc] initWithDictionary:@{@"id":@"2",@"title":@"\u0e0b\u0e34\u0e17\u0e04\u0e2d\u0e21",@"description":@"",@"thumbnail":@"http://thumbnail.instardara.com/category/02_cate_sitcom.png"}],
-  [[ShowCategory alloc] initWithDictionary:@{@"id":@"3",@"title":@"\u0e27\u0e32\u0e44\u0e23\u0e15\u0e35\u0e49 / \u0e40\u0e01\u0e21\u0e2a\u0e4c\u0e42\u0e0a\u0e27\u0e4c",@"description":@"",@"thumbnail":@"http://thumbnail.instardara.com/category/03_cate_gameshow.png"}],
-  [[ShowCategory alloc] initWithDictionary:@{@"id":@"13",@"title":@"Music",@"description":@"Music Video",@"thumbnail":@"http://thumbnail.instardara.com/category/05_cate_music.png"}],
-  [[ShowCategory alloc] initWithDictionary:@{@"id":@"5",@"title":@"\u0e02\u0e48\u0e32\u0e27",@"description":@"",@"thumbnail":@"http://thumbnail.instardara.com/category/04_cate_news.png"}]
-  ];
+        categories = @[[[ShowCategory alloc] initWithDictionary:[self whatsNewData]]];
                    
     }
     return self;
+}
+
+- (NSDictionary *)whatsNewData {
+    return @{@"id":@"recents",
+             @"title":@"รายการล่าสุด",
+             @"thumbnail":@""
+             };
 }
 
 - (ShowCategory *)genreAtIndex:(NSUInteger)idx {
@@ -58,7 +58,12 @@
                  [mutableCategories addObject:category];
              }
              
+             if ([mutableCategories count] == 0) {
+                 [mutableCategories addObject:[[ShowCategory alloc] initWithDictionary:[self whatsNewData]]];
+             }
+             
              categories = [NSArray arrayWithArray:mutableCategories];
+             
              
              if (block) {
                  block(nil);

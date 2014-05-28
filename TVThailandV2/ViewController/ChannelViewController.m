@@ -47,7 +47,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 {
     [super viewDidLoad];
     
-      alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ดูย้อนหลัง" otherButtonTitles:@"ดูสด", nil];
+      alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ยกเลิก" otherButtonTitles:@"ย้อนหลัง", @"รายการสด", nil];
     
       self.navigationController.navigationBar.tintColor = [UIColor grayColor];
 
@@ -116,11 +116,11 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0){
+    if (buttonIndex == 1){
         //Watch on demand program
         [self performSegueWithIdentifier:showListSegue sender:channelSelected];
     }
-    if (buttonIndex == 1) {
+    else if (buttonIndex == 2) {
         //Watch on LIVE program
         [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
 

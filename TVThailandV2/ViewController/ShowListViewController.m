@@ -107,14 +107,9 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
-    
-    
     [self setUpGoToTop];
     
     [self.mkAdView requestAd];
-
-//    self.navigationController.navigationBar.barTintColor = kBarTintColor;
-//    self.navigationController.navigationBar.tintColor = kTintColor;
     
     /** Alert View & Refresh Button - connection fail, try again **/
     self.alertTitleView.alpha = 0;
@@ -208,6 +203,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     if (_mode == kChannel) {
         if (self.videoUrl != nil && ![self.videoUrl isEqualToString:@""]) {
             UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
+            liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
             self.navigationItem.rightBarButtonItem = liveButton;
         }else{
             self.navigationItem.rightBarButtonItem = nil;
@@ -260,7 +256,13 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
             [_refreshControl endRefreshing];
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
             
-
+            if (error != nil) {
+                double delayInSeconds = 10.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                    [self reload];
+                });
+            }
         }];
     }
     else if (_mode == kCategory) {
@@ -291,6 +293,14 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
             
             [_refreshControl endRefreshing];
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+            
+            if (error != nil) {
+                double delayInSeconds = 10.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                    [self reload];
+                });
+            }
         }];
     }
     else if (_mode == kChannel) {
@@ -324,6 +334,14 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
             
             if (_shows.count == 0 ) {
                 [self performSegueWithIdentifier:showPlayerSegue sender:self];
+            }
+            
+            if (error != nil) {
+                double delayInSeconds = 10.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                    [self reload];
+                });
             }
         }];
     }
