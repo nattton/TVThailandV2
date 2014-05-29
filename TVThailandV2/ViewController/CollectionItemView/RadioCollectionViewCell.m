@@ -9,6 +9,7 @@
 #import "RadioCollectionViewCell.h"
 #import "Radio.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation RadioCollectionViewCell
 
@@ -29,6 +30,17 @@
     // Drawing code
 }
 */
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [self roundImage];
+}
+
+- (void)roundImage {
+    self.thumbnailImageView.layer.cornerRadius = 10.0;
+    self.thumbnailImageView.clipsToBounds = YES;
+}
 
 - (void)configureWithRadio:(Radio *)radio {
     self.titleLabel.text = radio.title;

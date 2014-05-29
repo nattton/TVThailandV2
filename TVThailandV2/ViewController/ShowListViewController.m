@@ -165,7 +165,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    DLog(@"%f", scrollView.contentOffset.y);
+//    DLog(@"%f", scrollView.contentOffset.y);
     self.goToTopButton.hidden = !(scrollView.contentOffset.y > 1000);
 }
 

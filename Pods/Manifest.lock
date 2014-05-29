@@ -19,6 +19,9 @@ PODS:
     - AFNetworking/NSURLConnection
   - Objective-C-HMTL-Parser (0.0.1)
   - Reachability (3.1.1)
+  - SDWebImage (3.6):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.6)
   - SVProgressHUD (1.0)
   - XLMediaZoom (2.0.1)
 
@@ -26,14 +29,16 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - Objective-C-HMTL-Parser
   - Reachability
+  - SDWebImage (~> 3.6)
   - SVProgressHUD
   - XLMediaZoom
 
 SPEC CHECKSUMS:
-  AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
-  Objective-C-HMTL-Parser: f41470bfbac27dff184cbd4dc3059c3d7c15e663
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
-  XLMediaZoom: 8b185eaa63bed51fccb0ed3cdf4742000f515065
+  AFNetworking: 7c33510b46f994bc75b75c6e63c1d83414ca40f2
+  Objective-C-HMTL-Parser: f81bfc686fa447486477b7a2ef0cdca36d516b48
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  XLMediaZoom: 3b32c799e81a0026ef4a9b4bf92f5a8bc7a4838e
 
 COCOAPODS: 0.32.1

@@ -16,7 +16,6 @@
 		1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83415BB218A000CD962 /* SystemConfiguration.framework */; };
 		115CDAAA182E19A900402D6B /* EpisodePartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodePartViewController.m */; };
 		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
-		117AD624192F319100DDE7B6 /* RadioTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 117AD623192F319100DDE7B6 /* RadioTableViewCell.m */; };
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D1DCD81910C7B200A51026 /* SASlideMenuContentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCC71910C7B100A51026 /* SASlideMenuContentSegue.m */; };
@@ -107,7 +106,6 @@
 		3BDF8372190A78CC00AD12D0 /* DVVAST.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF8367190A78CC00AD12D0 /* DVVAST.podspec */; };
 		3BDF8373190A78CC00AD12D0 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF8368190A78CC00AD12D0 /* LICENSE.txt */; };
 		3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6091517FB57D100497D39 /* ChannelViewController.m */; };
-		3BFEDFFC1806A20F0074C130 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BFEDFFB1806A20F0074C130 /* SDWebImage.framework */; };
 		F042D51015BCA5590037E120 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F042D50F15BCA5590037E120 /* Base64.m */; };
 		F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F084C89E15BFF1A500CD7F70 /* MediaPlayer.framework */; };
 		F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0927FE015CC4A180045EDBA /* tvthai2.xcdatamodeld */; };
@@ -148,8 +146,6 @@
 		115CDAA9182E19A900402D6B /* EpisodePartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodePartViewController.m; sourceTree = "<group>"; };
 		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
 		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
-		117AD622192F319100DDE7B6 /* RadioTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioTableViewCell.h; sourceTree = "<group>"; };
-		117AD623192F319100DDE7B6 /* RadioTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioTableViewCell.m; sourceTree = "<group>"; };
 		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
 		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		11D011F41924726300216898 /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
@@ -312,7 +308,6 @@
 		3BDF8368190A78CC00AD12D0 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		3BE6091417FB57D100497D39 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		3BE6091517FB57D100497D39 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
-		3BFEDFFB1806A20F0074C130 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = TVThailandV2/Frameworks/SDWebImage.framework; sourceTree = "<group>"; };
 		A2EB0925A5094553A025770B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F042D50E15BCA5590037E120 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		F042D50F15BCA5590037E120 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
@@ -368,7 +363,6 @@
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
 				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
 				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
-				3BFEDFFC1806A20F0074C130 /* SDWebImage.framework in Frameworks */,
 				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
 				F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */,
 				F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */,
@@ -565,8 +559,6 @@
 				3BD13967190F6E46004F6785 /* ShowTableViewCell.m */,
 				1100E2DD192F1354009189C2 /* FBTableViewCell.h */,
 				1100E2DE192F1354009189C2 /* FBTableViewCell.m */,
-				117AD622192F319100DDE7B6 /* RadioTableViewCell.h */,
-				117AD623192F319100DDE7B6 /* RadioTableViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -735,7 +727,6 @@
 				3B688EC518B239EC0009050B /* libxml2.2.dylib */,
 				3B688EC318B239DF0009050B /* libz.1.1.3.dylib */,
 				3B688EC118B2399B0009050B /* CoreLocation.framework */,
-				3BFEDFFB1806A20F0074C130 /* SDWebImage.framework */,
 				3B39B0A517E322EE0027B242 /* ImageIO.framework */,
 				3B67F74A17E06D5000C9CD23 /* StoreKit.framework */,
 				3B910C331733FE25008F67ED /* CFNetwork.framework */,
@@ -994,7 +985,6 @@
 				1136AC4018D8158D004BFE4D /* OTVApiClient.m in Sources */,
 				11D1DCDF1910C7B200A51026 /* SASlideMenuViewController.m in Sources */,
 				3B910C3D17340387008F67ED /* ShowCategory.m in Sources */,
-				117AD624192F319100DDE7B6 /* RadioTableViewCell.m in Sources */,
 				3BDF834C190A74EE00AD12D0 /* DDXMLElementAdditions.m in Sources */,
 				3BD1396C190F6E46004F6785 /* ShowTableViewCell.m in Sources */,
 				3BD13969190F6E46004F6785 /* EpisodeTableViewCell.m in Sources */,

@@ -19,7 +19,7 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-@interface RadioViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface RadioViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIButton *togglePlayPause;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
@@ -116,6 +116,18 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [_radios[section] count];
+}
+
+#define kFooterHeight 10
+#define kLastFooterHeight 100
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    
+    if ([_radioCategories count] == section + 1) {
+        return CGSizeMake(0, kLastFooterHeight);
+    }
+    
+    return CGSizeMake(0, kFooterHeight);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
