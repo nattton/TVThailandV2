@@ -8,7 +8,7 @@
 
 #import "RadioCollectionViewCell.h"
 #import "Radio.h"
-#import "UIImageView+WebCacheRounded.h"s
+#import "UIImageView+WebCacheRounded.h"
 
 @implementation RadioCollectionViewCell
 
