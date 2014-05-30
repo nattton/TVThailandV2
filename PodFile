@@ -4,7 +4,6 @@ platform :ios, '6.0'
 
 pod 'Reachability'
 pod 'AFNetworking', '~> 2.0'
-pod 'SDWebImage', '~>3.6'
 pod 'SVProgressHUD'
 pod 'Objective-C-HMTL-Parser'
 pod 'XLMediaZoom'

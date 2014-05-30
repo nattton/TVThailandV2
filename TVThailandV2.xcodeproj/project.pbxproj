@@ -67,6 +67,9 @@
 		3B910C3C17340387008F67ED /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3717340387008F67ED /* ApiClient.m */; };
 		3B910C3D17340387008F67ED /* ShowCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3917340387008F67ED /* ShowCategory.m */; };
 		3B910C3E17340387008F67ED /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3B17340387008F67ED /* Channel.m */; };
+		3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */; };
+		3B9587A919384E25002C303F /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9587A819384E25002C303F /* SDWebImage.framework */; };
+		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
 		3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */; };
@@ -226,6 +229,11 @@
 		3B910C3917340387008F67ED /* ShowCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowCategory.m; sourceTree = "<group>"; };
 		3B910C3A17340387008F67ED /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		3B910C3B17340387008F67ED /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		3B9587A5193848F5002C303F /* UIImage+RoundedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedImage.h"; sourceTree = "<group>"; };
+		3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedImage.m"; sourceTree = "<group>"; };
+		3B9587A819384E25002C303F /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCacheRounded.h"; sourceTree = "<group>"; };
+		3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCacheRounded.m"; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3BC5253C1934864700596F92 /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
 		3BC5253D1934864700596F92 /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
@@ -371,6 +379,7 @@
 				3BDF82FD19098B9000AD12D0 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
+				3B9587A919384E25002C303F /* SDWebImage.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
 				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 				F2A59C82B72E4E7F945E7BD1 /* libPods.a in Frameworks */,
@@ -685,6 +694,10 @@
 				3B15D24B17FF346C006FA479 /* MakathonAd.m */,
 				3B15D24717FF328A006FA479 /* MakathonAdView.h */,
 				3B15D24817FF328A006FA479 /* MakathonAdView.m */,
+				3B9587A5193848F5002C303F /* UIImage+RoundedImage.h */,
+				3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */,
+				3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */,
+				3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -721,6 +734,7 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B9587A819384E25002C303F /* SDWebImage.framework */,
 				3B83676C190C06C900A3A519 /* FacebookSDK.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
 				3BD0496818ED3C030083C32B /* EventKit.framework */,
@@ -947,6 +961,7 @@
 				1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,
 				3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */,
+				3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */,
 				3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */,
 				3BDF836C190A78CC00AD12D0 /* DVVideoAd.m in Sources */,
 				11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */,
@@ -990,6 +1005,7 @@
 				3BD13969190F6E46004F6785 /* EpisodeTableViewCell.m in Sources */,
 				3B910C3E17340387008F67ED /* Channel.m in Sources */,
 				3BD1395C190F6E00004F6785 /* OTVShowTableViewCell.m in Sources */,
+				3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */,
 				3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */,
 				3BD1395A190F6E00004F6785 /* OTVEpisodePartTableViewCell.m in Sources */,
 				3BDF836F190A78CC00AD12D0 /* DVVideoMultipleAdPlaylist.m in Sources */,
@@ -1102,6 +1118,7 @@
 					"$(SRCROOT)/TVThailandV2/Frameworks",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
@@ -1149,6 +1166,7 @@
 					"$(SRCROOT)/TVThailandV2/Frameworks",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";

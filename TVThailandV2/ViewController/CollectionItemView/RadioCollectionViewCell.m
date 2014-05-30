@@ -8,8 +8,7 @@
 
 #import "RadioCollectionViewCell.h"
 #import "Radio.h"
-#import <SDWebImage/UIImageView+WebCache.h>
-#import <QuartzCore/QuartzCore.h>
+#import "UIImageView+WebCacheRounded.h"s
 
 @implementation RadioCollectionViewCell
 
@@ -31,19 +30,11 @@
 }
 */
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    [self roundImage];
-}
-
-- (void)roundImage {
-    self.thumbnailImageView.layer.cornerRadius = 10.0;
-    self.thumbnailImageView.clipsToBounds = YES;
-}
-
 - (void)configureWithRadio:(Radio *)radio {
     self.titleLabel.text = radio.title;
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:radio.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.thumbnailImageView setImageURL:[NSURL URLWithString:radio.thumbnailUrl]
+                             placeholder:[UIImage imageNamed:@"placeholder"]
+                                  radius:5.0
+                                  toDisk:YES];
 }
 @end

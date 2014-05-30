@@ -8,7 +8,7 @@
 
 #import "ChannelCollectionViewCell.h"
 #import "Channel.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCacheRounded.h"
 
 @implementation ChannelCollectionViewCell
 
@@ -32,8 +32,11 @@
 
 - (void)configureWithChannel:(Channel *)channel {
     self.titleLabel.text = channel.title;
-    [self.thumbnailImageView setImageWithURL:[NSURL URLWithString: channel.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     self.liveLabel.hidden = !(channel.videoUrl != nil && channel.videoUrl.length > 0);
+    [self.thumbnailImageView setImageURL:[NSURL URLWithString:channel.thumbnailUrl]
+                             placeholder:[UIImage imageNamed:@"placeholder"]
+                                  radius:5.0
+                                  toDisk:YES];
 }
 
 @end
