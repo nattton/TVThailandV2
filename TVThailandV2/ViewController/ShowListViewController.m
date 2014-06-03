@@ -11,7 +11,6 @@
 #import "Show.h"
 
 #import "ShowCategoryViewController.h"
-#import "EpisodeListViewController.h"
 #import "VideoPlayerViewController.h"
 
 #import "SVProgressHUD.h"
