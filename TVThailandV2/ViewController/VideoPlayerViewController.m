@@ -27,8 +27,9 @@
 #import "GAIDictionaryBuilder.h"
 
 @interface VideoPlayerViewController ()
+
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
+//@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *videoToolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *previousBarButtonItem;
@@ -49,18 +50,22 @@
     [super viewDidLoad];
 
 //    [self.webView.scrollView setScrollEnabled:NO];
-    [self.mkAdView requestAd];
+//    [self.mkAdView requestAd];
+
+    [self.webView setBackgroundColor:[UIColor clearColor]];
+    [self.webView setOpaque:NO];
 
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _size = CGSizeMake(768, 460);
-        _spaceTop = @"80px";
+        _spaceTop = @"0px";
     }
     else
     {
         _size = CGSizeMake(320, 240);
-        _spaceTop = @"50px";
+        _spaceTop = @"0px";
     }
+    
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
@@ -150,6 +155,10 @@
     [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.episode.Id
                                                       forKey:[GAIFields customDimensionForIndex:3]] build]];
 }
+
+
+
+
 
 - (IBAction)nextButtonTouched:(id)sender {
     if (_idx+1 < self.episode.videos.count) {
@@ -283,6 +292,7 @@
 - (void)openWithYoutubeWeb
 {
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]]];
+
 }
 
 - (void)toggleYoutube:(id)sender
@@ -321,6 +331,7 @@
     
     NSURL *youtubeUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
     [self.webView loadHTMLString:html baseURL:youtubeUrl];
+
 }
 
 #pragma mark - DailyMotion
@@ -352,6 +363,7 @@
 - (void)openWithDailymotionWeb
 {
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]]];
+
 }
 
 - (void)toggleDailymotion:(id)sender
@@ -374,6 +386,7 @@
     
     [self.webView loadHTMLString:htmlString
                     baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
+ 
 }
 
 - (void) openWithVideoUrl:(NSString *)videoUrl {
@@ -394,6 +407,7 @@
                       ];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
     [SVProgressHUD dismiss];
+
 }
 
 - (void) loadMThaiWebVideo {
@@ -420,6 +434,7 @@
         DLog(@"Error: %@", error);
         [SVProgressHUD dismiss];
     }];
+
 }
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
@@ -444,6 +459,7 @@
 //        NSLog(@"Error: %@", error);
         [SVProgressHUD dismiss];
     }];
+
 }
 
 - (void) startMThaiVideoFromData:(NSData *)data {

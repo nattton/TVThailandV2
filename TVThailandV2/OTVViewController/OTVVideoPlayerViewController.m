@@ -28,6 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *updatedDate;
 
 @property (weak, nonatomic) IBOutlet UITextView *detailTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailTextViewHeight;
@@ -87,6 +88,8 @@ static NSString *kCodeIframe = @"1002";
 
     }
     
+    
+    
     [self initializeUI];
     [self sendTracker];
     
@@ -115,10 +118,11 @@ static NSString *kCodeIframe = @"1002";
     [self enableOrDisableNextPreviousButton];
     
      self.navigationItem.title = self.otvEpisode.nameTh;
-    self.titleLabel.text = self.otvEpisode.nameTh;
+    self.titleLabel.text = otvPart.nameTh;
+    self.updatedDate.text = self.otvEpisode.date;
     self.detailTextView.text = self.otvEpisode.detail;
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:otvPart.thumbnail]
-                            placeholderImage:[UIImage imageNamed:@"otv_icon"]];
+                            placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
     
     [self.view setNeedsUpdateConstraints];
 }

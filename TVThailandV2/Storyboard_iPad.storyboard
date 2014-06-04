@@ -115,19 +115,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAU-4h-Odv">
-                                <rect key="frame" x="0.0" y="154" width="768" height="826"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HL1-vg-eUL" customClass="MakathonAdView">
-                                <rect key="frame" x="0.0" y="64" width="768" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="768" id="5TQ-Xp-aQi"/>
-                                    <constraint firstAttribute="height" constant="90" id="dGT-NF-5vv"/>
-                                </constraints>
-                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUm-Se-gO6">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -148,23 +139,20 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="HL1-vg-eUL" secondAttribute="centerX" id="0dt-GO-pq4"/>
-                            <constraint firstItem="TAU-4h-Odv" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="G8Y-1a-FCw"/>
+                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" constant="-64" id="6Ak-tX-5SC"/>
+                            <constraint firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="IAa-Js-yGo"/>
                             <constraint firstAttribute="trailing" secondItem="UUm-Se-gO6" secondAttribute="trailing" id="Kwj-rh-0AE"/>
-                            <constraint firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="PIL-PO-hx2"/>
+                            <constraint firstItem="Vf9-a1-Xsm" firstAttribute="top" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="MCu-qO-UIx"/>
                             <constraint firstAttribute="centerX" secondItem="UUm-Se-gO6" secondAttribute="centerX" id="PcU-hX-Iif"/>
                             <constraint firstItem="UUm-Se-gO6" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="QUQ-R8-mnW"/>
                             <constraint firstItem="Vf9-a1-Xsm" firstAttribute="top" secondItem="UUm-Se-gO6" secondAttribute="bottom" id="Raq-ey-cx0"/>
-                            <constraint firstItem="HL1-vg-eUL" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" id="SmG-LE-QRY"/>
-                            <constraint firstAttribute="bottom" secondItem="TAU-4h-Odv" secondAttribute="bottom" constant="44" id="WlV-9a-gKt"/>
-                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" constant="90" id="gix-yW-JTB"/>
+                            <constraint firstItem="TAU-4h-Odv" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="Ts9-a0-6Uc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>
                     <connections>
-                        <outlet property="mkAdView" destination="HL1-vg-eUL" id="n4X-Aw-dqT"/>
                         <outlet property="nextBarButtonItem" destination="X1k-vL-je5" id="G33-jL-acT"/>
                         <outlet property="partInfoBarButtonItem" destination="pIm-ZD-Zj0" id="dwW-Xz-c32"/>
                         <outlet property="previousBarButtonItem" destination="DWI-kY-CmO" id="1uo-ew-FZ1"/>
@@ -706,20 +694,20 @@
                                             <constraint firstAttribute="height" constant="21" id="TzP-X4-lZJ"/>
                                             <constraint firstAttribute="width" constant="728" id="hpq-oY-ULi"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-ew-ZEY">
-                                        <rect key="frame" x="64" y="449" width="640" height="393"/>
+                                        <rect key="frame" x="64" y="496" width="640" height="346"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="393" id="5V5-wM-ZGC"/>
+                                            <constraint firstAttribute="height" constant="346" id="5V5-wM-ZGC"/>
                                             <constraint firstAttribute="width" constant="640" id="UFc-Gn-oO5"/>
                                         </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <webView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcu-CB-BTX">
@@ -727,22 +715,35 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </webView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Date:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9f-dZ-ll1">
+                                        <rect key="frame" x="72" y="449" width="625" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="oSL-O6-znW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="qc9-ew-ZEY" secondAttribute="trailing" constant="64" id="1q8-2L-OPx"/>
+                                    <constraint firstItem="v9f-dZ-ll1" firstAttribute="top" secondItem="5TJ-of-lIF" secondAttribute="bottom" constant="8" id="1zA-88-MWk"/>
                                     <constraint firstItem="5TJ-of-lIF" firstAttribute="top" secondItem="Pie-9g-dIc" secondAttribute="bottom" constant="34" id="2KN-mr-fxH"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="top" secondItem="BOp-aD-QQ7" secondAttribute="top" constant="26" id="Aos-Gy-K0P"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="height" secondItem="qcu-CB-BTX" secondAttribute="height" id="BgZ-Un-275"/>
+                                    <constraint firstItem="v9f-dZ-ll1" firstAttribute="leading" secondItem="BOp-aD-QQ7" secondAttribute="leading" constant="72" id="Bp9-h3-YeN"/>
                                     <constraint firstItem="qc9-ew-ZEY" firstAttribute="leading" secondItem="BOp-aD-QQ7" secondAttribute="leading" constant="64" id="Dnr-HS-2qb"/>
                                     <constraint firstAttribute="bottom" secondItem="qc9-ew-ZEY" secondAttribute="bottom" constant="73" id="Ok9-pO-fXK"/>
                                     <constraint firstAttribute="centerX" secondItem="qc9-ew-ZEY" secondAttribute="centerX" id="P55-6J-FNo"/>
                                     <constraint firstItem="SqD-Jm-7Lp" firstAttribute="centerY" secondItem="Pie-9g-dIc" secondAttribute="centerY" id="a09-GA-cgK"/>
-                                    <constraint firstItem="qc9-ew-ZEY" firstAttribute="top" secondItem="5TJ-of-lIF" secondAttribute="bottom" constant="8" id="aao-Qg-BFC"/>
+                                    <constraint firstItem="qc9-ew-ZEY" firstAttribute="top" secondItem="5TJ-of-lIF" secondAttribute="bottom" constant="55" id="aao-Qg-BFC"/>
                                     <constraint firstAttribute="centerX" secondItem="Pie-9g-dIc" secondAttribute="centerX" id="dtW-Bc-0QB"/>
                                     <constraint firstItem="SqD-Jm-7Lp" firstAttribute="centerX" secondItem="Pie-9g-dIc" secondAttribute="centerX" id="eCh-S0-sX5"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="top" secondItem="qcu-CB-BTX" secondAttribute="top" id="ghy-Hc-Sr4"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="leading" secondItem="qcu-CB-BTX" secondAttribute="leading" id="hnh-Mn-CnL"/>
                                     <constraint firstItem="Pie-9g-dIc" firstAttribute="width" secondItem="qcu-CB-BTX" secondAttribute="width" id="iei-Lr-aFF"/>
+                                    <constraint firstAttribute="trailing" secondItem="v9f-dZ-ll1" secondAttribute="trailing" constant="71" id="obS-bZ-KbI"/>
                                     <constraint firstItem="5TJ-of-lIF" firstAttribute="centerX" secondItem="Pie-9g-dIc" secondAttribute="centerX" id="wTX-EA-Zgg"/>
                                 </constraints>
                             </scrollView>
@@ -767,6 +768,7 @@
                         <outlet property="previousBarButtonItem" destination="7aT-BZ-DeZ" id="pee-ch-TaN"/>
                         <outlet property="thumbnailImageView" destination="Pie-9g-dIc" id="4Nn-mH-mCD"/>
                         <outlet property="titleLabel" destination="5TJ-of-lIF" id="03h-dU-X41"/>
+                        <outlet property="updatedDate" destination="v9f-dZ-ll1" id="NkQ-qh-pwl"/>
                         <outlet property="webView" destination="qcu-CB-BTX" id="tI9-vR-HSE"/>
                     </connections>
                 </viewController>
