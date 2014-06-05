@@ -12,6 +12,7 @@
 #import "Show.h"
 #import "Episode.h"
 #import "VideoPlayerViewController.h"
+#import "YouTubePlayerViewController.h"
 #import "DetailViewController.h"
 #import "Program.h"
 
@@ -24,6 +25,7 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
+#import <XCDYouTubeKit/XCDYouTubeKit.h>
 
 @interface EpisodePartViewController ()<UITableViewDataSource, UITableViewDelegate, EPPartCellDelegate>
 
@@ -45,6 +47,7 @@
 
 static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
+static NSString *youtubePlayerSegue = @"YoutubePlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (void)viewDidLoad
@@ -361,16 +364,25 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-        DLog(@"indexPath section%d",[indexPath section]);
-        DLog(@"rows === %d",[indexPath row]);
+        DLog(@"indexPath section %ld", (long)indexPath.section );
+        DLog(@"rows === %ld", (long)indexPath.row);
 
 }
 
 - (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode{
-        self.episode = episode;
+    self.episode = episode;
+    
+    
+    if ([episode.srcType isEqualToString:@"0"]) {
+        NSString *_videoId = self.episode.videos[indexPath.row];
+        
+        XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
+        [self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
+    }
+    else {
         [self performSegueWithIdentifier:EPPartShowPlayerSegue sender:indexPath];
+    }
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {

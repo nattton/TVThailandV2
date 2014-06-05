@@ -266,7 +266,8 @@
 
 - (void)openWithYoutube {
     BOOL isWeb = [[NSUserDefaults standardUserDefaults] boolForKey:kYoutubeWeb];
-    [self switchYoutube:isWeb];
+//    [self switchYoutube:isWeb];
+    [self playVideoWithId:_videoId];
     [SVProgressHUD dismiss];
 }
 
@@ -289,12 +290,6 @@
     
 }
 
-- (void)openWithYoutubeWeb
-{
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]]];
-
-}
-
 - (void)toggleYoutube:(id)sender
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -305,6 +300,22 @@
     
     [self switchYoutube:isWeb];
 }
+
+
+static NSString *youTubeVideoHTML = @"<!DOCTYPE html><html><head><style>body{margin:0px 0px 0px 0px;}</style></head> <body> <div id=\"player\"></div> <script> var tag = document.createElement('script'); tag.src = \"http://www.youtube.com/player_api\"; var firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubePlayerAPIReady() { player = new YT.Player('player', { width:'%0.0f', height:'%0.0f', videoId:'%@', events: { 'onReady': onPlayerReady, } }); } function onPlayerReady(event) { event.target.playVideo(); } </script> </body> </html>";
+
+- (void)playVideoWithId:(NSString *)videoId {
+    NSString *html = [NSString stringWithFormat:youTubeVideoHTML, _size.width, _size.height, videoId];
+    
+    [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
+}
+
+- (void)openWithYoutubeWeb
+{
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]]];
+
+}
+
 
 
 - (void)openWithYoutubeEmbed

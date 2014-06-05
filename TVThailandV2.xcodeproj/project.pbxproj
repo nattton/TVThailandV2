@@ -69,6 +69,8 @@
 		3B9587A919384E25002C303F /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9587A819384E25002C303F /* SDWebImage.framework */; };
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
+		3BBA068D1940527D0049BFD3 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBA068C1940527D0049BFD3 /* JavaScriptCore.framework */; };
+		3BBA06901940549C0049BFD3 /* YouTubePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* YouTubePlayerViewController.m */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
 		3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */; };
 		3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */; };
@@ -229,6 +231,9 @@
 		3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCacheRounded.h"; sourceTree = "<group>"; };
 		3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCacheRounded.m"; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3BBA068C1940527D0049BFD3 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3BBA068E1940549C0049BFD3 /* YouTubePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubePlayerViewController.h; sourceTree = "<group>"; };
+		3BBA068F1940549C0049BFD3 /* YouTubePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubePlayerViewController.m; sourceTree = "<group>"; };
 		3BC5253C1934864700596F92 /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
 		3BC5253D1934864700596F92 /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
 		3BC525401934892A00596F92 /* RadioCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioCollectionHeaderView.h; sourceTree = "<group>"; };
@@ -348,6 +353,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BBA068D1940527D0049BFD3 /* JavaScriptCore.framework in Frameworks */,
 				3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */,
 				3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */,
 				F0DC4DF415BA012E0009BFCD /* CoreGraphics.framework in Frameworks */,
@@ -425,8 +431,6 @@
 				3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */,
 				115CDAA8182E19A900402D6B /* EpisodePartViewController.h */,
 				115CDAA9182E19A900402D6B /* EpisodePartViewController.m */,
-				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
-				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
 				3B15D22A17FD86FB006FA479 /* DetailViewController.h */,
 				3B15D22B17FD86FB006FA479 /* DetailViewController.m */,
 				117388B218C8364000D4F187 /* CMAccountViewController.h */,
@@ -437,6 +441,10 @@
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				11D1DCE31910D23C00A51026 /* HomeContentViewController.h */,
 				11D1DCE41910D23C00A51026 /* HomeContentViewController.m */,
+				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
+				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
+				3BBA068E1940549C0049BFD3 /* YouTubePlayerViewController.h */,
+				3BBA068F1940549C0049BFD3 /* YouTubePlayerViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -724,6 +732,7 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BBA068C1940527D0049BFD3 /* JavaScriptCore.framework */,
 				3B9587A819384E25002C303F /* SDWebImage.framework */,
 				3B83676C190C06C900A3A519 /* FacebookSDK.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
@@ -953,6 +962,7 @@
 				3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */,
 				3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */,
 				3BDF836C190A78CC00AD12D0 /* DVVideoAd.m in Sources */,
+				3BBA06901940549C0049BFD3 /* YouTubePlayerViewController.m in Sources */,
 				11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */,
 				1136AC4618D81DAD004BFE4D /* OTVShow.m in Sources */,
 				3BDF8370190A78CC00AD12D0 /* DVVideoPlayBreak.m in Sources */,
