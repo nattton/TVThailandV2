@@ -6,9 +6,9 @@
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "SASlideMenuViewController.h"
-#import "SASlideMenuDataSource.h"
-#import "SASlideMenuDelegate.h"
+#import <SASlideMenu/SASlideMenuViewController.h>
+#import <SASlideMenu/SASlideMenuDataSource.h>
+#import <SASlideMenu/SASlideMenuDelegate.h>
 
 @interface HomeSlideMenuViewController : SASlideMenuViewController
 
