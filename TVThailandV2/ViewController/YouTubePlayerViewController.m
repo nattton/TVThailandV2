@@ -17,6 +17,13 @@
 
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerTopSpace;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLeftSpace;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopSpace;
+
 @end
 
 @implementation YouTubePlayerViewController {
@@ -45,7 +52,35 @@ static NSString *videoPartCell = @"videoPartCell";
 
     
 
- 
+    [self setUpOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void)setUpOrientation:(UIInterfaceOrientation)orientation {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+            orientation == UIInterfaceOrientationLandscapeRight) {
+            self.videoContainerTopSpace.constant = 0.0f;
+            self.videoContainerWidth.constant = 700.0f;
+            self.videoContainerHeight.constant = 390.0f;
+            self.tableViewLeftSpace.constant = 0.0f;
+            self.tableViewTopSpace.constant = self.videoContainerWidth.constant + 15.f;
+        } else {
+            self.videoContainerTopSpace.constant = -22.0f;
+            self.videoContainerWidth.constant = 768.0f;
+            self.videoContainerHeight.constant = 470.0f;
+            self.tableViewLeftSpace.constant = 608.0f;
+            self.tableViewTopSpace.constant = 15.f;
+        }
+    } else {
+        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+            orientation == UIInterfaceOrientationLandscapeRight) {
+            [self.videoPlayerViewController.moviePlayer setFullscreen:YES animated:YES];
+        }
+    }
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self setUpOrientation:toInterfaceOrientation];
 }
 
 
@@ -105,8 +140,14 @@ static NSString *videoPartCell = @"videoPartCell";
                                  scrollPosition:UITableViewScrollPositionMiddle];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+}
+
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	// Beware, viewWillDisappear: is called when the player view enters full screen on iOS 6+
 	if ([self isMovingFromParentViewController])
 		[self.videoPlayerViewController.moviePlayer stop];
