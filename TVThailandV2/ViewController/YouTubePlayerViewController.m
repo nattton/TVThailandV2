@@ -34,10 +34,21 @@
     // Do any additional setup after loading the view.
     
     
-    _videoId = self.episode.videos[self.idx];
+    self.labelView.layer.masksToBounds = NO;
+    self.labelView.layer.cornerRadius = 2; // if you like rounded corners
+    self.labelView.layer.shadowColor = [UIColor grayColor].CGColor;
+    self.labelView.layer.shadowOffset = CGSizeMake(0, 0.5);
+    self.labelView.layer.shadowRadius = 0.6;
+    self.labelView.layer.shadowOpacity = 0.6;
     
-    XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
-	[self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
+    self.labelView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.labelView.bounds].CGPath;
+    
+    self.title = self.episode.title;
+    
+//    _videoId = self.episode.videos[self.idx];
+//    
+//    XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
+//	[self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
 }
 
 - (void)didReceiveMemoryWarning

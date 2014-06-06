@@ -16,5 +16,6 @@
 @property (nonatomic, weak) NSString *videoUrl;
 
 @property (nonatomic) BOOL isHidenToolbarPlayer;
+@property (weak, nonatomic) IBOutlet UIView *labelView;
 
 @end

@@ -372,12 +372,13 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode{
     self.episode = episode;
     
-    
     if ([episode.srcType isEqualToString:@"0"]) {
-        NSString *_videoId = self.episode.videos[indexPath.row];
         
-        XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
-        [self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
+        [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
+        
+//        NSString *_videoId = self.episode.videos[indexPath.row];
+//        XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
+//        [self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
     }
     else {
         [self performSegueWithIdentifier:EPPartShowPlayerSegue sender:indexPath];
@@ -385,7 +386,13 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {
+    if ([segue.identifier isEqualToString:youtubePlayerSegue]) {
+        YouTubePlayerViewController *youtubePlayer = segue.destinationViewController;
+        youtubePlayer.episode = self.episode;
+        youtubePlayer.idx = [(NSIndexPath *)sender row];
+        
+        
+    }else if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {
         VideoPlayerViewController *videoPlayer = segue.destinationViewController;
         videoPlayer.episode = self.episode;
         NSIndexPath *idx = (NSIndexPath *)sender;
