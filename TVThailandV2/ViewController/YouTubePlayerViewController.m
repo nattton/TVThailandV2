@@ -10,8 +10,11 @@
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 
 #import "Episode.h"
+#import "Show.h"
 
 @interface YouTubePlayerViewController ()
+
+@property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 
 @end
 
@@ -31,24 +34,48 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self initLableContainner];
+    [self refreshView];
+
+    
+    [self.videoContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
+	[self.videoPlayerViewController presentInView:self.videoContainerView];
+    [self.videoPlayerViewController.moviePlayer play];
+ 
+}
+
+
+- (void) initLableContainner {
+    self.titleContainerView.layer.masksToBounds = NO;
+    self.titleContainerView.layer.cornerRadius = 2;
+    self.titleContainerView.layer.shadowColor = [UIColor grayColor].CGColor;
+    self.titleContainerView.layer.shadowOffset = CGSizeMake(0, 0.5);
+    self.titleContainerView.layer.shadowRadius = 0.6;
+    self.titleContainerView.layer.shadowOpacity = 0.6;
+    
+    self.titleContainerView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.titleContainerView.bounds].CGPath;
+}
+
+- (void) refreshView {
+    _videoId = self.episode.videos[self.idx];
+    
+    self.showNameLabel.text = self.show.title;
+    self.episodeNameLabel.text = self.episode.titleDisplay;
+    self.viewCountLabel.text = self.episode.viewCount;
+    self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (_idx + 1), self.episode.videos.count ];
+    
+
     
     
-    self.labelView.layer.masksToBounds = NO;
-    self.labelView.layer.cornerRadius = 2; // if you like rounded corners
-    self.labelView.layer.shadowColor = [UIColor grayColor].CGColor;
-    self.labelView.layer.shadowOffset = CGSizeMake(0, 0.5);
-    self.labelView.layer.shadowRadius = 0.6;
-    self.labelView.layer.shadowOpacity = 0.6;
-    
-    self.labelView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.labelView.bounds].CGPath;
-    
-    self.title = self.episode.title;
-    
-//    _videoId = self.episode.videos[self.idx];
-//    
-//    XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
-//	[self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+	// Beware, viewWillDisappear: is called when the player view enters full screen on iOS 6+
+	if ([self isMovingFromParentViewController])
+		[self.videoPlayerViewController.moviePlayer stop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,15 +84,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)closeButtonTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.videoPlayerViewController.moviePlayer stop];
+    }];
 }
-*/
 
 @end

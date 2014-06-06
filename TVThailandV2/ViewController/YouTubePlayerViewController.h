@@ -9,13 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @class Episode;
+@class Show;
 @interface YouTubePlayerViewController : UIViewController
 
+@property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) Episode *episode;
-@property (nonatomic, unsafe_unretained) NSUInteger idx;
+@property (nonatomic, unsafe_unretained) NSInteger idx;
 @property (nonatomic, weak) NSString *videoUrl;
 
 @property (nonatomic) BOOL isHidenToolbarPlayer;
-@property (weak, nonatomic) IBOutlet UIView *labelView;
+@property (weak, nonatomic) IBOutlet UIView *titleContainerView;
+@property (weak, nonatomic) IBOutlet UIView *videoContainerView;
+@property (weak, nonatomic) IBOutlet UILabel *showNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *viewCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *partNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 
 @end

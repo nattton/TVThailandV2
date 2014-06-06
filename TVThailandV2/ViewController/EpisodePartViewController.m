@@ -388,6 +388,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:youtubePlayerSegue]) {
         YouTubePlayerViewController *youtubePlayer = segue.destinationViewController;
+        youtubePlayer.show = self.show;
         youtubePlayer.episode = self.episode;
         youtubePlayer.idx = [(NSIndexPath *)sender row];
         
