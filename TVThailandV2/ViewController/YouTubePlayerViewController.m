@@ -11,8 +11,9 @@
 
 #import "Episode.h"
 #import "Show.h"
+#import "VideoPartTableViewCell.h"
 
-@interface YouTubePlayerViewController ()
+@interface YouTubePlayerViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 
@@ -20,7 +21,11 @@
 
 @implementation YouTubePlayerViewController {
     NSString *_videoId;
+
 }
+
+#pragma mark - Staic Variable
+static NSString *videoPartCell = @"videoPartCell";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,18 +41,21 @@
     [super viewDidLoad];
     
     [self initLableContainner];
-    [self refreshView];
+    [self refreshView:_idx];
 
     
-    [self.videoContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
-	[self.videoPlayerViewController presentInView:self.videoContainerView];
-    [self.videoPlayerViewController.moviePlayer play];
+
  
 }
 
 
 - (void) initLableContainner {
+    
+    if ([self.episode.videos count] == 1||[self.episode.videos count] == 0) {
+        self.tableOfVideoPart.hidden = YES;
+        self.partNameLabel.hidden = YES;
+    }
+    
     self.titleContainerView.layer.masksToBounds = NO;
     self.titleContainerView.layer.cornerRadius = 2;
     self.titleContainerView.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -56,19 +64,45 @@
     self.titleContainerView.layer.shadowOpacity = 0.6;
     
     self.titleContainerView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.titleContainerView.bounds].CGPath;
+    
+    self.tableOfVideoPart.separatorColor = [UIColor clearColor];
+    [self.tableOfVideoPart setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    
+    [self.tableOfVideoPart setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
+    
+
+
 }
 
-- (void) refreshView {
-    _videoId = self.episode.videos[self.idx];
+- (void) refreshView:(NSInteger)indexOfVideo {
+ 
+    _videoId = self.episode.videos[indexOfVideo];
     
     self.showNameLabel.text = self.show.title;
     self.episodeNameLabel.text = self.episode.titleDisplay;
     self.viewCountLabel.text = self.episode.viewCount;
-    self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (_idx + 1), self.episode.videos.count ];
-    
+    self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (indexOfVideo + 1), self.episode.videos.count ];
 
+
+    [self playVideo:_videoId];
     
+    [self setSelectedPositionOfVideoPartAtRow:indexOfVideo];
     
+}
+
+- (void) playVideo:(NSString *)videoIdString {
+    
+    [self.videoContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:videoIdString];
+	[self.videoPlayerViewController presentInView:self.videoContainerView];
+    [self.videoPlayerViewController.moviePlayer play];
+}
+
+- (void) setSelectedPositionOfVideoPartAtRow:(NSInteger)row {
+    NSIndexPath *indexPathOfVideoPart=[NSIndexPath indexPathForRow:row inSection:0];
+    [self.tableOfVideoPart selectRowAtIndexPath: indexPathOfVideoPart
+                                       animated:YES
+                                 scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -90,5 +124,53 @@
         [self.videoPlayerViewController.moviePlayer stop];
     }];
 }
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.episode.videos count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIView *selectedBackgroundViewForCell = [UIView new];
+    [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
+    
+    VideoPartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:videoPartCell];
+    
+    [cell configureWithVideoPart:self.episode partNumber:indexPath.row+1];
+    
+    cell.selectedBackgroundView = selectedBackgroundViewForCell;
+
+    return cell;
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"SELECT!!!!");
+
+    [self refreshView:indexPath.row];
+    
+    
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        Show *show = _searchShows[indexPath.row];
+//        if (show.isOTV)
+//            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+//        else
+//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+//    }
+//    else {
+//        Show *show = _shows[indexPath.row];
+//        if (show.isOTV)
+//            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+//        else
+//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+//    }
+}
+
+#pragma mark - UITableViewDelegate
 
 @end

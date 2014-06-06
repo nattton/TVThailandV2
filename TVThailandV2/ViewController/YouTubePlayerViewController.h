@@ -25,4 +25,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *partNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableOfVideoPart;
+
 @end

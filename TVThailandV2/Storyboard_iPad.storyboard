@@ -148,11 +148,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="views" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W1-YV-jBW">
-                                        <rect key="frame" x="20" y="83" width="322" height="21"/>
+                                        <rect key="frame" x="13" y="83" width="329" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="MDv-dX-Wjg"/>
-                                            <constraint firstAttribute="width" constant="322" id="gsk-S9-U2w"/>
+                                            <constraint firstAttribute="width" constant="329" id="gsk-S9-U2w"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -165,7 +165,7 @@
                                             <constraint firstAttribute="width" constant="215" id="67T-5R-9RS"/>
                                             <constraint firstAttribute="height" constant="28" id="o17-xA-skd"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                         <color key="textColor" red="1" green="0.29641866090000002" blue="0.366145787" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -180,11 +180,47 @@
                                     <constraint firstItem="RCj-mY-wYV" firstAttribute="top" secondItem="Bqu-sN-bUR" secondAttribute="top" constant="47" id="bBf-2g-7Fs"/>
                                     <constraint firstAttribute="height" constant="115" id="dsN-Gm-MXf"/>
                                     <constraint firstAttribute="trailing" secondItem="RCj-mY-wYV" secondAttribute="trailing" constant="13" id="t8C-dz-Efg"/>
-                                    <constraint firstItem="0W1-YV-jBW" firstAttribute="leading" secondItem="Bqu-sN-bUR" secondAttribute="leading" constant="20" id="tYL-hs-Mod"/>
+                                    <constraint firstItem="0W1-YV-jBW" firstAttribute="leading" secondItem="Bqu-sN-bUR" secondAttribute="leading" constant="13" id="tYL-hs-Mod"/>
                                     <constraint firstItem="Ztg-DU-BNi" firstAttribute="top" secondItem="Bqu-sN-bUR" secondAttribute="top" constant="8" id="v7i-j4-bs6"/>
                                     <constraint firstAttribute="bottom" secondItem="Wd0-zE-azC" secondAttribute="bottom" constant="10" id="zgJ-hB-6HX"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8qX-ci-kGG">
+                                <rect key="frame" x="15" y="628" width="739" height="376"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="videoPartCell" rowHeight="96" id="X5q-OD-BpA" customClass="VideoPartTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="739" height="96"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X5q-OD-BpA" id="guu-pi-0qm">
+                                            <rect key="frame" x="0.0" y="0.0" width="739" height="95"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zti-tU-SyQ">
+                                                    <rect key="frame" x="10" y="5" width="151" height="85"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzj-wz-r2x">
+                                                    <rect key="frame" x="189" y="29" width="347" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="partNameLabel" destination="rzj-wz-r2x" id="77w-XC-G9f"/>
+                                            <outlet property="thumbnailImageView" destination="zti-tU-SyQ" id="GNg-PO-0oM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Wob-mq-FaN" id="gUR-MP-sen"/>
+                                    <outlet property="delegate" destination="Wob-mq-FaN" id="TT3-l2-eOe"/>
+                                </connections>
+                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvd-5i-oiG" userLabel="Close Button">
                                 <rect key="frame" x="688" y="944" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -204,9 +240,13 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rBV-QU-k7P" secondAttribute="trailing" id="7j8-WG-oep"/>
                             <constraint firstAttribute="trailing" secondItem="Bqu-sN-bUR" secondAttribute="trailing" constant="14" id="8sK-BY-DRi"/>
+                            <constraint firstAttribute="trailing" secondItem="8qX-ci-kGG" secondAttribute="trailing" constant="14" id="9Vs-64-f9C"/>
                             <constraint firstItem="VDh-CE-W21" firstAttribute="top" secondItem="Wvd-5i-oiG" secondAttribute="bottom" id="Bg0-eO-UFV"/>
                             <constraint firstItem="Bqu-sN-bUR" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="468" id="Hzh-Xj-Psv"/>
+                            <constraint firstItem="8qX-ci-kGG" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" constant="15" id="Vjt-BS-dx0"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" id="ZCb-gE-W1Z"/>
+                            <constraint firstItem="VDh-CE-W21" firstAttribute="top" secondItem="8qX-ci-kGG" secondAttribute="bottom" constant="20" id="jfQ-SK-H4q"/>
+                            <constraint firstItem="8qX-ci-kGG" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="608" id="mEi-Me-PwI"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="-20" id="sN1-0S-naJ"/>
                             <constraint firstItem="Bqu-sN-bUR" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" constant="15" id="urb-Pm-wdS"/>
                             <constraint firstAttribute="trailing" secondItem="Wvd-5i-oiG" secondAttribute="trailing" id="yff-hN-SWY"/>
@@ -216,6 +256,7 @@
                         <outlet property="episodeNameLabel" destination="RCj-mY-wYV" id="e7m-Ir-yZO"/>
                         <outlet property="partNameLabel" destination="Wd0-zE-azC" id="BxN-Dt-R4c"/>
                         <outlet property="showNameLabel" destination="Ztg-DU-BNi" id="05c-qO-OQS"/>
+                        <outlet property="tableOfVideoPart" destination="8qX-ci-kGG" id="Ukc-o9-8pw"/>
                         <outlet property="videoContainerView" destination="rBV-QU-k7P" id="Jbo-dZ-Ne0"/>
                         <outlet property="viewCountLabel" destination="0W1-YV-jBW" id="AjW-og-bl6"/>
                     </connections>

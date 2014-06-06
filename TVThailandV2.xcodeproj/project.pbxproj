@@ -15,6 +15,7 @@
 		1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1136AC4B18D81DD7004BFE4D /* OTVPart.m */; };
 		1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83415BB218A000CD962 /* SystemConfiguration.framework */; };
 		115CDAAA182E19A900402D6B /* EpisodePartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodePartViewController.m */; };
+		116816871941AB2E0013F5BB /* VideoPartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */; };
 		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
@@ -139,6 +140,8 @@
 		1136AC4B18D81DD7004BFE4D /* OTVPart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVPart.m; sourceTree = "<group>"; };
 		115CDAA8182E19A900402D6B /* EpisodePartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodePartViewController.h; sourceTree = "<group>"; };
 		115CDAA9182E19A900402D6B /* EpisodePartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodePartViewController.m; sourceTree = "<group>"; };
+		116816851941AB2E0013F5BB /* VideoPartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPartTableViewCell.h; sourceTree = "<group>"; };
+		116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPartTableViewCell.m; sourceTree = "<group>"; };
 		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
 		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
 		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
@@ -515,6 +518,8 @@
 				3BD13967190F6E46004F6785 /* ShowTableViewCell.m */,
 				1100E2DD192F1354009189C2 /* FBTableViewCell.h */,
 				1100E2DE192F1354009189C2 /* FBTableViewCell.m */,
+				116816851941AB2E0013F5BB /* VideoPartTableViewCell.h */,
+				116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -926,6 +931,7 @@
 				3BD1394D190F691A004F6785 /* OTVEpisodePartViewController.m in Sources */,
 				3B67F7BA17E0E9A300C9CD23 /* Show.m in Sources */,
 				3BD1395B190F6E00004F6785 /* OTVShowCategoryTableViewCell.m in Sources */,
+				116816871941AB2E0013F5BB /* VideoPartTableViewCell.m in Sources */,
 				F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */,
 				1100E2DF192F1354009189C2 /* FBTableViewCell.m in Sources */,
 				117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */,
