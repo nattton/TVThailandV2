@@ -35,6 +35,7 @@
 
 @implementation EpisodePartViewController{
     NSArray *_episodes;
+    long _currentEpIndex;
     BOOL _isLoading;
     BOOL _isEnding;
     UIRefreshControl *_refreshControl;
@@ -331,8 +332,12 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [cell setBackgroundColor:[UIColor clearColor]];
+    
+    _currentEpIndex = indexPath.section;
+    
+    [cell configureWithEpisode:_episodes[_currentEpIndex] currentEp:_currentEpIndex];
+    
 
-    [cell configureWithEpisode:_episodes[indexPath.section]];
   
     if ((indexPath.section + 5) == _episodes.count) {
 
@@ -366,19 +371,30 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
         DLog(@"indexPath section %ld", (long)indexPath.section );
         DLog(@"rows === %ld", (long)indexPath.row);
+    
 
 }
 
-- (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode{
+- (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode currentEp:(long)currentEpIndex{
     self.episode = episode;
+
+    // Init Other Episode
+    if (_episodes.count == 1 || _episodes.count ==  0 || _episodes == nil) {
+        self.otherEpisode = nil;
+    } else {
+        if (_episodes.count != currentEpIndex + 1 ) {
+            self.otherEpisode = _episodes[currentEpIndex + 1];
+        } else {
+            self.otherEpisode = _episodes[currentEpIndex - 1];
+        }
+    }
+    
+
     
     if ([episode.srcType isEqualToString:@"0"]) {
         
         [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
         
-//        NSString *_videoId = self.episode.videos[indexPath.row];
-//        XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:_videoId];
-//        [self presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
     }
     else {
         [self performSegueWithIdentifier:EPPartShowPlayerSegue sender:indexPath];
@@ -390,7 +406,9 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         YouTubePlayerViewController *youtubePlayer = segue.destinationViewController;
         youtubePlayer.show = self.show;
         youtubePlayer.episode = self.episode;
+        youtubePlayer.otherEpisode = self.otherEpisode;
         youtubePlayer.idx = [(NSIndexPath *)sender row];
+        
         
         
     }else if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {

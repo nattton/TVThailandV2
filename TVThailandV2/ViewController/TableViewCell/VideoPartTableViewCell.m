@@ -33,8 +33,14 @@
     // Configure the view for the selected state
 }
 
-- (void)configureWithVideoPart:(Episode *)episode partNumber:(NSInteger)partNumber {
-    self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", partNumber, episode.videos.count ];
+- (void)configureWithVideoPart:(Episode *)episode partNumber:(long)partNumber {
+    if ([episode.videos count] == 1) {
+        self.partNameLabel.text = @"";
+    } else {
+        self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", partNumber, episode.videos.count ];
+    }
+    
+    self.episodeNameLabel.text = episode.titleDisplay;
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:[episode videoThumbnail:partNumber-1]] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 
     

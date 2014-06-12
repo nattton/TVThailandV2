@@ -19,6 +19,7 @@
 
 @implementation EpisodePartCell{
     UIImageView *goForwardImgSlider;
+    long _currentEpIndex;
 }
 
 
@@ -76,9 +77,10 @@
 }
 
 
-- (void)configureWithEpisode:(Episode *)episode {
+- (void)configureWithEpisode:(Episode *)episode currentEp:(long)currentEpIndex{
 
     self.episode = episode;
+    _currentEpIndex = currentEpIndex;
 
     [self configureWithSlider:episode];
     
@@ -173,10 +175,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
-        [self.delegate playVideoPart:indexPath episode:self.episode];
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:currentEp:)]) {
+        [self.delegate playVideoPart:indexPath episode:self.episode currentEp:_currentEpIndex];
+        
     }
-
 
 }
 

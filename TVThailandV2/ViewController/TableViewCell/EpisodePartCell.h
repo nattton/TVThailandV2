@@ -19,14 +19,14 @@
 @property (nonatomic, weak) Episode *episode;
 @property (nonatomic, weak) id <EPPartCellDelegate> delegate;
 
-- (void)configureWithEpisode:(Episode *)episode;
+- (void)configureWithEpisode:(Episode *)episode currentEp:(long)currentEpIndex;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width;
 @end
 
 
 @protocol EPPartCellDelegate <NSObject>
 
-- (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode;
+- (void)playVideoPart:(NSIndexPath *)indexPath episode:(Episode *)episode currentEp:(long)currentEpIndex;
 
 
 @end

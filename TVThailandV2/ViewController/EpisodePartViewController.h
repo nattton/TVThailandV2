@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) Show *show;
 @property (nonatomic, weak) Episode *episode;
+@property (nonatomic, weak) Episode *otherEpisode;
 
 
 @end

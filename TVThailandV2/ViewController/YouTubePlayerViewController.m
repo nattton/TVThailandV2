@@ -48,7 +48,7 @@ static NSString *videoPartCell = @"videoPartCell";
     [super viewDidLoad];
     
     [self initLableContainner];
-    [self refreshView:_idx];
+    [self refreshView:_idx sectionOfVideo:0];
 
     
 
@@ -86,10 +86,7 @@ static NSString *videoPartCell = @"videoPartCell";
 
 - (void) initLableContainner {
     
-    if ([self.episode.videos count] == 1||[self.episode.videos count] == 0) {
-        self.tableOfVideoPart.hidden = YES;
-        self.partNameLabel.hidden = YES;
-    }
+
     
     self.titleContainerView.layer.masksToBounds = NO;
     self.titleContainerView.layer.cornerRadius = 2;
@@ -109,19 +106,40 @@ static NSString *videoPartCell = @"videoPartCell";
 
 }
 
-- (void) refreshView:(NSInteger)indexOfVideo {
- 
-    _videoId = self.episode.videos[indexOfVideo];
+- (void) refreshView:(long)row sectionOfVideo:(long)section {
     
     self.showNameLabel.text = self.show.title;
-    self.episodeNameLabel.text = self.episode.titleDisplay;
-    self.viewCountLabel.text = self.episode.viewCount;
-    self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (indexOfVideo + 1), self.episode.videos.count ];
+ 
+    if (section == 0) {
+        
+        if ([self.episode.videos count] == 1||[self.episode.videos count] == 0) {
+            self.partNameLabel.hidden = YES;
+        } else {
+            self.partNameLabel.hidden = NO;
+        }
+        
+        _videoId = self.episode.videos[row];
+        self.episodeNameLabel.text = self.episode.titleDisplay;
+        self.viewCountLabel.text = self.episode.viewCount;
+        self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (row + 1), self.episode.videos.count ];
+    } else {
+        if ([self.otherEpisode.videos count] == 1||[self.otherEpisode.videos count] == 0) {
+            self.partNameLabel.hidden = YES;
+        } else {
+            self.partNameLabel.hidden = NO;
+        }
+        
+        _videoId = self.otherEpisode.videos[row];
+        self.episodeNameLabel.text = self.otherEpisode.titleDisplay;
+        self.viewCountLabel.text = self.otherEpisode.viewCount;
+        self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (row + 1), self.otherEpisode.videos.count ];
+    }
+
 
 
     [self playVideo:_videoId];
     
-    [self setSelectedPositionOfVideoPartAtRow:indexOfVideo];
+    [self setSelectedPositionOfVideoPartAtRow:row section:section];
     
 }
 
@@ -133,8 +151,8 @@ static NSString *videoPartCell = @"videoPartCell";
     [self.videoPlayerViewController.moviePlayer play];
 }
 
-- (void) setSelectedPositionOfVideoPartAtRow:(NSInteger)row {
-    NSIndexPath *indexPathOfVideoPart=[NSIndexPath indexPathForRow:row inSection:0];
+- (void) setSelectedPositionOfVideoPartAtRow:(long)row section:(long)section {
+    NSIndexPath *indexPathOfVideoPart=[NSIndexPath indexPathForRow:row inSection:section];
     [self.tableOfVideoPart selectRowAtIndexPath: indexPathOfVideoPart
                                        animated:YES
                                  scrollPosition:UITableViewScrollPositionMiddle];
@@ -169,19 +187,34 @@ static NSString *videoPartCell = @"videoPartCell";
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.episode.videos count];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(long)section {
+
+    if (section == 0) {
+        return [self.episode.videos count];
+    } else if (section == 1){
+        return [self.otherEpisode.videos count];
+    }
+    
+    return 0;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UIView *selectedBackgroundViewForCell = [UIView new];
     [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed: 200/255.0 green:200/255.0 blue:200/255.0 alpha:0.8]];
-    
     VideoPartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:videoPartCell];
-    
-    [cell configureWithVideoPart:self.episode partNumber:indexPath.row+1];
-    
     cell.selectedBackgroundView = selectedBackgroundViewForCell;
+    
+    if (indexPath.section == 0) {
+        [cell configureWithVideoPart:self.episode partNumber:indexPath.row+1];
+    } else if (indexPath.section == 1){
+        [cell configureWithVideoPart:self.otherEpisode partNumber:indexPath.row+1];
+
+    }
 
     return cell;
     
@@ -190,28 +223,29 @@ static NSString *videoPartCell = @"videoPartCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"SELECT!!!!");
+ 
 
-    [self refreshView:indexPath.row];
+    [self refreshView:indexPath.row sectionOfVideo:indexPath.section];
     
+
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"Other videos";
+    }
     
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        Show *show = _searchShows[indexPath.row];
-//        if (show.isOTV)
-//            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
-//        else
-//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
-//    }
-//    else {
-//        Show *show = _shows[indexPath.row];
-//        if (show.isOTV)
-//            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
-//        else
-//            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
-//    }
+    return @"";
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    } else {
+        return 35;
+    }
+}
 
 @end
