@@ -224,15 +224,19 @@ static NSString *videoPartCell = @"videoPartCell";
 }
 
 - (void) openWithYoutubePlayerEmbed:(NSString *)videoIdString {
+    [SVProgressHUD showWithStatus:@"Loading..."];
     
     [self.videoContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:videoIdString];
 	[self.videoPlayerViewController presentInView:self.videoContainerView];
     [self.videoPlayerViewController.moviePlayer play];
+    
+    [SVProgressHUD dismiss];
  
 }
 
 - (void)openWithDailymotionEmbed {
+    [SVProgressHUD showWithStatus:@"Loading..."];
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
                             <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
                             <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
@@ -242,15 +246,19 @@ static NSString *videoPartCell = @"videoPartCell";
     [self.webView loadHTMLString:htmlString
                          baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
   
-    
+    [SVProgressHUD dismiss];
 }
 
 - (void)openWebSite:(NSString *)stringUrl {
+    [SVProgressHUD showWithStatus:@"Loading..."];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
+    [SVProgressHUD dismiss];
    
 }
 
 - (void) openWithVideoUrl:(NSString *)videoUrl {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
     // HTML to embed YouTube video
     NSString *htmlString = @"<html><head>\
     <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no\"/></head>\
@@ -267,10 +275,11 @@ static NSString *videoPartCell = @"videoPartCell";
                       videoUrl
                       ];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
-    
+    [SVProgressHUD dismiss];
 }
 
 - (void) loadMThaiWebVideo {
+    [SVProgressHUD showWithStatus:@"Loading..."];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -288,16 +297,17 @@ static NSString *videoPartCell = @"videoPartCell";
              //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
              //        NSLog(@"%@", string);
              [self startMThaiVideoFromData:responseObject];
-             
+              [SVProgressHUD dismiss];
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              DLog(@"Error: %@", error);
-             
+              [SVProgressHUD dismiss];
          }];
     
 }
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
+    [SVProgressHUD showWithStatus:@"Loading..."];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -314,10 +324,10 @@ static NSString *videoPartCell = @"videoPartCell";
               //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
               //        NSLog(@"%@", string);
               [self startMThaiVideoFromData:responseObject];
-              
+               [SVProgressHUD dismiss];
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               //        NSLog(@"Error: %@", error);
-             
+              [SVProgressHUD dismiss];
           }];
     
 }
