@@ -10,7 +10,7 @@
 
 @class Episode;
 @class Show;
-@interface YouTubePlayerViewController : UIViewController
+@interface PlayerViewController : UIViewController
 
 @property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) Episode *episode;
@@ -28,5 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableOfVideoPart;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

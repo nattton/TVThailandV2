@@ -119,7 +119,7 @@
 - (NSString *)videoDecrypt {
     NSString *videoStr = [[[[[[[[[[[[[[[[[[[[[[_videoEncrypt
                                  stringByReplacingOccurrencesOfString:@"-" withString:@"+"]
-                                stringByReplacingOccurrencesOfString:@"/" withString:@"/"]
+                                stringByReplacingOccurrencesOfString:@"_" withString:@"/"]
                                stringByReplacingOccurrencesOfString:@"," withString:@"="]
                               stringByReplacingOccurrencesOfString:@"!" withString:@"a"]
                              stringByReplacingOccurrencesOfString:@"@" withString:@"b"]

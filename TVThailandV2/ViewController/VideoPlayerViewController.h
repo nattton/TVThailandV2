@@ -12,7 +12,7 @@
 @interface VideoPlayerViewController : UIViewController
 
 @property (nonatomic, weak) Episode *episode;
-@property (nonatomic, unsafe_unretained) NSUInteger idx;
+@property (nonatomic, unsafe_unretained) long idx;
 @property (nonatomic, weak) NSString *videoUrl;
 
 @property (nonatomic) BOOL isHidenToolbarPlayer;

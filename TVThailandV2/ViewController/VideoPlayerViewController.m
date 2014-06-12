@@ -87,7 +87,7 @@
 
         
         if (self.episode.videos.count != 1  ){
-            NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+            NSString *partInfo = [NSString stringWithFormat:@"Part %ld/%ld", (_idx + 1), self.episode.videos.count ];
             
             self.partInfoBarButtonItem.title = partInfo;
             [self.partInfoBarButtonItem setTintColor:[UIColor redColor]];
@@ -167,7 +167,7 @@
         [self enableOrDisableNextPreviousButton];
         if (self.episode) {
             if (self.episode.videos.count != 1 ){
-                NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+                NSString *partInfo = [NSString stringWithFormat:@"Part %ld/%ld", (_idx + 1), self.episode.videos.count ];
                 
                 self.partInfoBarButtonItem.title = partInfo;
             }
@@ -214,7 +214,7 @@
         [self enableOrDisableNextPreviousButton];
         if (self.episode) {
             if (self.episode.videos.count != 1 ){
-                NSString *partInfo = [NSString stringWithFormat:@"Part %d/%d", (_idx + 1), self.episode.videos.count ];
+                NSString *partInfo = [NSString stringWithFormat:@"Part %ld/%ld", (_idx + 1), self.episode.videos.count ];
                 
                 self.partInfoBarButtonItem.title = partInfo;
             }

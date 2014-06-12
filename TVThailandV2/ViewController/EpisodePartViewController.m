@@ -12,7 +12,7 @@
 #import "Show.h"
 #import "Episode.h"
 #import "VideoPlayerViewController.h"
-#import "YouTubePlayerViewController.h"
+#import "PlayerViewController.h"
 #import "DetailViewController.h"
 #import "Program.h"
 
@@ -389,21 +389,22 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         }
     }
     
-
+    [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
     
-    if ([episode.srcType isEqualToString:@"0"]) {
-        
-        [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
-        
-    }
-    else {
-        [self performSegueWithIdentifier:EPPartShowPlayerSegue sender:indexPath];
-    }
+//    if ([episode.srcType isEqualToString:@"0"]) {
+//        
+//        [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
+//        
+//    }
+//    else {
+//        [self performSegueWithIdentifier:EPPartShowPlayerSegue sender:indexPath];
+//    }
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:youtubePlayerSegue]) {
-        YouTubePlayerViewController *youtubePlayer = segue.destinationViewController;
+        PlayerViewController *youtubePlayer = segue.destinationViewController;
         youtubePlayer.show = self.show;
         youtubePlayer.episode = self.episode;
         youtubePlayer.otherEpisode = self.otherEpisode;
