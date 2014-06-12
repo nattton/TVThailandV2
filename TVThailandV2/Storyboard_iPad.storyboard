@@ -179,20 +179,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-QU-k7P" userLabel="Video Container">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N1h-h7-g4v">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </webView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="768" id="79s-FH-Mee"/>
+                                    <constraint firstItem="N1h-h7-g4v" firstAttribute="leading" secondItem="rBV-QU-k7P" secondAttribute="leading" id="IyN-cf-Io8"/>
+                                    <constraint firstAttribute="trailing" secondItem="N1h-h7-g4v" secondAttribute="trailing" id="ZbQ-Fj-zJq"/>
+                                    <constraint firstAttribute="bottom" secondItem="N1h-h7-g4v" secondAttribute="bottom" id="nCT-tL-VrN"/>
+                                    <constraint firstItem="N1h-h7-g4v" firstAttribute="top" secondItem="rBV-QU-k7P" secondAttribute="top" id="u2A-oJ-Y6y"/>
                                     <constraint firstAttribute="height" constant="470" id="y7P-bl-z4A"/>
                                 </constraints>
                             </view>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N1h-h7-g4v">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="470" id="hpv-Zk-nrd"/>
-                                </constraints>
-                            </webView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8qX-ci-kGG">
                                 <rect key="frame" x="15" y="628" width="739" height="396"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -279,13 +282,10 @@
                             <constraint firstItem="VDh-CE-W21" firstAttribute="top" secondItem="8qX-ci-kGG" secondAttribute="bottom" id="Kic-xF-UNE"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="trailing" secondItem="Bqu-sN-bUR" secondAttribute="trailing" constant="14" id="LUv-co-B7T"/>
                             <constraint firstItem="8qX-ci-kGG" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="608" id="MBE-5I-mQr"/>
-                            <constraint firstAttribute="trailing" secondItem="N1h-h7-g4v" secondAttribute="trailing" id="Ur0-9Q-hXt"/>
-                            <constraint firstItem="N1h-h7-g4v" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" id="Zes-TA-RwJ"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" id="chW-xk-xWD"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="-20" id="e8j-pX-8sM"/>
                             <constraint firstItem="8qX-ci-kGG" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" constant="15" id="kOC-B1-okC"/>
                             <constraint firstAttribute="trailing" secondItem="Wvd-5i-oiG" secondAttribute="trailing" id="nmm-aZ-8pU"/>
-                            <constraint firstItem="N1h-h7-g4v" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="-20" id="scn-t3-eMM"/>
                             <constraint firstItem="VDh-CE-W21" firstAttribute="top" secondItem="Wvd-5i-oiG" secondAttribute="bottom" id="tSB-QF-A08"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="leading" secondItem="Bqu-sN-bUR" secondAttribute="leading" constant="-15" id="yHJ-Gz-zs5"/>
                         </constraints>

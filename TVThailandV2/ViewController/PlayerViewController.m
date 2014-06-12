@@ -124,6 +124,8 @@ static NSString *videoPartCell = @"videoPartCell";
 - (void) initVideoPlayer:(long)row sectionOfVideo:(long)section {
     
     self.showNameLabel.text = self.show.title;
+    
+    
  
     if (section == 0) {
         
