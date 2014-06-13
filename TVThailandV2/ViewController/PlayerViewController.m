@@ -141,8 +141,8 @@ static NSString *videoPartCell = @"videoPartCell";
             self.viewCountLabel.text = self.episode.viewCount;
             self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (row + 1), self.episode.videos.count ];
             
-            NSLog(@"srcTYPE=%@", self.episode.srcType);
-            NSLog(@"_videoId=%@", _videoId);
+//            NSLog(@"srcTYPE=%@", self.episode.srcType);
+//            NSLog(@"_videoId=%@", _videoId);
             
             if ([self.episode.srcType isEqualToString:@"0"]) {
                 self.webView.hidden = YES;
@@ -293,7 +293,7 @@ static NSString *videoPartCell = @"videoPartCell";
      //    [manager GET:@"http://cms.makathon.com/user_agent.php"
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
+              
              //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
              //        NSLog(@"%@", string);
              [self startMThaiVideoFromData:responseObject];
@@ -321,8 +321,8 @@ static NSString *videoPartCell = @"videoPartCell";
        parameters:@{@"clip_password": password}
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-              //        NSLog(@"%@", string);
+//              NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//              NSLog(@"%@", string);
               [self startMThaiVideoFromData:responseObject];
                [SVProgressHUD dismiss];
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -333,6 +333,33 @@ static NSString *videoPartCell = @"videoPartCell";
 }
 
 - (void) startMThaiVideoFromData:(NSData *)data {
+
+    
+    NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *clipUrl = nil;
+    NSString *varKey = @"defaultClip";
+    NSRange indexStart = [responseDataString rangeOfString:varKey];
+    if (indexStart.location != NSNotFound)
+    {
+        clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length];
+        NSRange indexEnd = [clipUrl rangeOfString:@";"];
+        if (indexEnd.location != NSNotFound)
+        {
+            clipUrl = [clipUrl substringToIndex:indexEnd.location];
+            clipUrl = [[[clipUrl stringByReplacingOccurrencesOfString:@" " withString:@""]
+                                stringByReplacingOccurrencesOfString:@"=" withString:@""]
+                                stringByReplacingOccurrencesOfString:@"'" withString:@""];
+
+        }
+        
+        NSArray *seperateUrl = [clipUrl componentsSeparatedByString:@"/"];
+        if ([seperateUrl[seperateUrl.count - 1] hasPrefix:_videoId]) {
+            [self openWithVideoUrl:clipUrl];
+            return;
+        }
+    }
+    
+    
     NSError *error = nil;
     HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
     if (error) {
@@ -340,7 +367,6 @@ static NSString *videoPartCell = @"videoPartCell";
     }
     
     HTMLNode *bodyNode = [parser body];
-    
     NSArray *sourceNodes = [bodyNode findChildTags:@"source"];
     
     for (HTMLNode *sourceNode in sourceNodes)

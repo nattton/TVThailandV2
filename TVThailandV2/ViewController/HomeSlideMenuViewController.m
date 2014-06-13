@@ -394,29 +394,29 @@ static NSInteger secCategory = 4;
 #pragma mark SASlideMenuDelegate
 
 -(void) slideMenuWillSlideIn:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuWillSlideIn");
+//    NSLog(@"slideMenuWillSlideIn");
 }
 -(void) slideMenuDidSlideIn:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuDidSlideIn");
+//    NSLog(@"slideMenuDidSlideIn");
 }
 -(void) slideMenuWillSlideToSide:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuWillSlideToSide");
+//    NSLog(@"slideMenuWillSlideToSide");
     [self.tableView reloadData];
 }
 -(void) slideMenuDidSlideToSide:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuDidSlideToSide");
+//    NSLog(@"slideMenuDidSlideToSide");
 }
 -(void) slideMenuWillSlideOut:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuWillSlideOut");
+//    NSLog(@"slideMenuWillSlideOut");
 }
 -(void) slideMenuDidSlideOut:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuDidSlideOut");
+//    NSLog(@"slideMenuDidSlideOut");
 }
 -(void) slideMenuWillSlideToLeft:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuWillSlideToLeft");
+//    NSLog(@"slideMenuWillSlideToLeft");
 }
 -(void) slideMenuDidSlideToLeft:(UINavigationController *)selectedContent{
-    NSLog(@"slideMenuDidSlideToLeft");
+//    NSLog(@"slideMenuDidSlideToLeft");
 }
 
 
