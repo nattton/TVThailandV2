@@ -474,9 +474,9 @@ static NSString *videoPartCell = @"videoPartCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
- 
-
-    [self initVideoPlayer:indexPath.row sectionOfVideo:indexPath.section];
+    /* re assign value to _idx inorder to use in openWithVideoUrl method to show thumbnail of video */
+    _idx = indexPath.row;
+    [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
     
 
 }
