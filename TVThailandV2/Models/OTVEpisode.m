@@ -10,6 +10,7 @@
 #import "OTVApiClient.h"
 #import "OTVShow.h"
 #import "OTVPart.h"
+#import "Show.h"
 
 @implementation OTVEpisode
 
@@ -51,7 +52,7 @@
 + (void)loadOTVEpisodeAndPartWithCateName:(NSString *)cateName
                                    ShowID:(NSString *)showID
                                     start:(NSInteger)start
-                                    Block:(void (^)(OTVShow *otvShow, NSArray *otvEpisodes, NSError *error)) block
+                                    Block:(void (^)(OTVShow *otvShow, NSArray *otvEpisodes, NSArray *ralateShows, NSError *error)) block
 {
     
     OTVApiClient *client = [OTVApiClient sharedInstance];
@@ -64,12 +65,16 @@
     ? [NSString stringWithFormat:@"Ch7/content/%@/%@", kOTV_APP_ID, showID]
     : [NSString stringWithFormat:@"Content/index/%@/%@/%@/%@/", kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
     
+//    NSLog(@"URL=====%@", url);
+    
     [client GET:url
      parameters:nil
         success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             OTVShow *otvShow = [[OTVShow alloc] initWithDictionary:responseObject];
             
+            
+            /** OTV Episode content **/
             NSArray *jEpisodes = [responseObject valueForKey:@"contentList"];
             NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[jEpisodes count]];
             
@@ -113,14 +118,28 @@
                 
             }
             
+            /** OTV Show relate content **/
+            NSArray *jRelateShows = [responseObject valueForKey:@"relate_content"];
+            NSMutableArray *mutableRelateShows = [NSMutableArray arrayWithCapacity:[jRelateShows count]];
+            
+            for (NSDictionary *dictShow in jRelateShows){
+                
+                Show *relateShow = [[Show alloc] initWithRelateOTVShow:dictShow];
+
+                
+                [mutableRelateShows addObject:relateShow];
+                
+                
+            }
+            
             if (block) {
-                block(otvShow, [NSArray arrayWithArray:mutableEpisodes], nil);
+                block(otvShow, [NSArray arrayWithArray:mutableEpisodes], [NSArray arrayWithArray:mutableRelateShows], nil);
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
             if (block) {
-                block(nil, [NSArray array], error);
+                block(nil, [NSArray array], [NSArray array], error);
                 
                 DLog(@"failure loadOTVEpisode: %@", error);
             }

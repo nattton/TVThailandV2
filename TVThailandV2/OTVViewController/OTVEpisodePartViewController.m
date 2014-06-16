@@ -31,6 +31,7 @@
 
 @implementation OTVEpisodePartViewController {
     NSArray *_otvEpisodes;
+    NSArray *_relateShows;
     BOOL _isLoading;
     BOOL _isEnding;
     
@@ -155,9 +156,12 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [OTVEpisode loadOTVEpisodeAndPartWithCateName:self.show.otvApiName
                                            ShowID:self.show.otvId
                                             start:start
-                                            Block:^(OTVShow *otvShow, NSArray *tempOtvEpisodes, NSError *error)
+                                            Block:^(OTVShow *otvShow, NSArray *tempOtvEpisodes, NSArray *tempRelateShows, NSError *error)
     {
         _otvShow = otvShow;
+        _relateShows = tempRelateShows;
+        
+//        NSLog([_relateShows.firstObject description]);
         
         if ([tempOtvEpisodes count] == 0) {
             _isEnding = YES;
@@ -266,7 +270,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 
 
 - (IBAction)infoButtonTapped:(id)sender {
-    [self performSegueWithIdentifier:showDetailSegue sender:self.show];
+    [self performSegueWithIdentifier:showDetailSegue sender:_otvShow];
 }
 
 - (IBAction)favoriteButtonTapped:(id)sender {
@@ -358,6 +362,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         videoPlayer.otvEpisode = _otvEpisode;
         NSIndexPath *idx = (NSIndexPath *)sender;
         videoPlayer.idx = idx.row;
+        videoPlayer.relateShows = _relateShows;
     }
     else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;

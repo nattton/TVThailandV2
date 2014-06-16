@@ -30,6 +30,7 @@
     return self;
 }
 
+
 - (id)initWithProgram:(Program *)program {
     self = [super init];
     if (self) {
@@ -38,6 +39,21 @@
         _thumbnailUrl = program.program_thumbnail;
         _desc = program.program_time;
     }
+    return self;
+}
+
+- (id)initWithRelateOTVShow:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        _Id = [dictionary objectForKey:@"id"];
+        _title = [dictionary objectForKey:@"name_th"];
+        _thumbnailUrl = [dictionary objectForKey:@"thumbnail"];
+
+        _isOTV = YES;
+        _otvId = [dictionary objectForKey:@"content_season_id"];
+        _otvApiName = @"";
+    }
+
     return self;
 }
 

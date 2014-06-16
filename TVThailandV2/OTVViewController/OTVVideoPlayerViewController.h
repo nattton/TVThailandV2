@@ -18,6 +18,7 @@
 
 @property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) OTVEpisode *otvEpisode;
+@property (nonatomic, weak) NSArray *relateShows;
 
 @property (nonatomic, unsafe_unretained) NSUInteger idx;
 

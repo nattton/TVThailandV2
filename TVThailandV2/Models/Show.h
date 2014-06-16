@@ -25,6 +25,7 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 - (id)initWithProgram:(Program *)program;
+- (id)initWithRelateOTVShow:(NSDictionary *)dictionary;
 
 + (void)loadWhatsNewDataWithStart:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block;
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block;
