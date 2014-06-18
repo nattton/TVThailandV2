@@ -40,7 +40,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
             // code for landscape orientation
             
             if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, width) style:UITableViewStylePlain];
                 
             }
             else if ([[UIScreen mainScreen] bounds].size.height > 500) {

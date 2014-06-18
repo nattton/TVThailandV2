@@ -77,7 +77,7 @@ static NSString *kCodeStream = @"1000";
 static NSString *kCodeAds = @"1001";
 static NSString *kCodeIframe = @"1002";
 
-static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
+
 
 - (void)viewDidLoad
 {
@@ -117,7 +117,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
             orientation == UIInterfaceOrientationLandscapeRight) {
             
         } else {
-
+            
         }
     } else {
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
@@ -291,13 +291,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         OTVPart *otvPart = (OTVPart *)sender;
         WebIFrameViewController *webIframeViewController = segue.destinationViewController;
         webIframeViewController.part = otvPart;
-    }
-    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier]) {
-        Show *show = (Show *)sender;
-        NSLog([show description]);
-        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
-        otvEpAndPartViewController.navigationItem.title = show.title;
-        otvEpAndPartViewController.show = show;
     }
     
 }

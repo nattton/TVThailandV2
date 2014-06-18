@@ -970,7 +970,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XsJ-X2-BCg">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XsJ-X2-BCg">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1052,11 +1052,6 @@
                                             <constraint firstAttribute="width" constant="280" id="nWR-55-3MV"/>
                                         </constraints>
                                     </imageView>
-                                    <webView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJT-jC-kh9">
-                                        <rect key="frame" x="20" y="38" width="280" height="200"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </webView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4j-7D-9Gc">
                                         <rect key="frame" x="128" y="106" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1071,6 +1066,11 @@
                                             <action selector="playButton:" destination="9O5-r2-TtL" eventType="touchUpInside" id="0aY-kM-1FK"/>
                                         </connections>
                                     </button>
+                                    <webView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJT-jC-kh9">
+                                        <rect key="frame" x="20" y="38" width="280" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </webView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3a-Ke-ZMJ" userLabel="titleLabel">
                                         <rect key="frame" x="15" y="244" width="290" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1157,7 +1157,6 @@
                         <outlet property="videoToolbar" destination="3Ya-i1-CbG" id="mob-op-He6"/>
                         <outlet property="webView" destination="fJT-jC-kh9" id="9PW-JS-Gg7"/>
                         <segue destination="st9-Qs-AoC" kind="modal" identifier="WebIFrameSegue" id="fe9-CN-i7P"/>
-                        <segue destination="dF1-92-GZN" kind="push" identifier="OTVEPAndPartIdentifier" id="kjd-Ez-0VS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AgW-G0-Gu1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1829,9 +1828,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="xdc-Rh-odR"/>
-        <segue reference="kjd-Ez-0VS"/>
-        <segue reference="weI-C5-TSh"/>
+        <segue reference="gcw-2o-Hcb"/>
         <segue reference="tRJ-5v-ocZ"/>
+        <segue reference="weI-C5-TSh"/>
         <segue reference="Cgi-Je-4Dr"/>
     </inferredMetricsTieBreakers>
 </document>
