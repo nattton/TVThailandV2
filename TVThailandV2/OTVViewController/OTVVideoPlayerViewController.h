@@ -13,12 +13,14 @@
 
 @class OTVEpisode;
 @class Show;
+@class OTVEpisodePartViewController;
 
 @interface OTVVideoPlayerViewController : UIViewController
 
 @property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) OTVEpisode *otvEpisode;
 @property (nonatomic, weak) NSArray *relateShows;
+@property (nonatomic, weak) OTVEpisodePartViewController *otvEPController;
 
 @property (nonatomic, unsafe_unretained) NSUInteger idx;
 

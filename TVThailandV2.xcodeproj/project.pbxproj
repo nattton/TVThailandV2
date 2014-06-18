@@ -21,6 +21,7 @@
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */; };
 		11D1DCE51910D23C00A51026 /* HomeContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE41910D23C00A51026 /* HomeContentViewController.m */; };
+		11E09BF31950249A0098663C /* OTVRelateShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E09BF21950249A0098663C /* OTVRelateShowTableViewCell.m */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
 		3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24817FF328A006FA479 /* MakathonAdView.m */; };
@@ -152,6 +153,8 @@
 		11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSlideMenuViewController.m; sourceTree = "<group>"; };
 		11D1DCE31910D23C00A51026 /* HomeContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeContentViewController.h; sourceTree = "<group>"; };
 		11D1DCE41910D23C00A51026 /* HomeContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeContentViewController.m; sourceTree = "<group>"; };
+		11E09BF11950249A0098663C /* OTVRelateShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVRelateShowTableViewCell.h; sourceTree = "<group>"; };
+		11E09BF21950249A0098663C /* OTVRelateShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVRelateShowTableViewCell.m; sourceTree = "<group>"; };
 		320AF8492C47A4D819F7C450 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.frameworks; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B15D22A17FD86FB006FA479 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3B15D22B17FD86FB006FA479 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
@@ -499,6 +502,8 @@
 				3BD13957190F6E00004F6785 /* OTVShowCategoryTableViewCell.m */,
 				3BD13958190F6E00004F6785 /* OTVShowTableViewCell.h */,
 				3BD13959190F6E00004F6785 /* OTVShowTableViewCell.m */,
+				11E09BF11950249A0098663C /* OTVRelateShowTableViewCell.h */,
+				11E09BF21950249A0098663C /* OTVRelateShowTableViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -936,6 +941,7 @@
 				1100E2DF192F1354009189C2 /* FBTableViewCell.m in Sources */,
 				117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */,
 				3BDF8371190A78CC00AD12D0 /* DVWrapperVideoAd.m in Sources */,
+				11E09BF31950249A0098663C /* OTVRelateShowTableViewCell.m in Sources */,
 				3BD1396A190F6E46004F6785 /* PartTableViewCell.m in Sources */,
 				3BDF834F190A74EE00AD12D0 /* DDXMLElement.m in Sources */,
 				3B910C3C17340387008F67ED /* ApiClient.m in Sources */,

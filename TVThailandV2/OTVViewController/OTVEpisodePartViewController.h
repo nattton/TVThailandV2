@@ -12,12 +12,11 @@
 @class OTVEpisode;
 
 
-@interface OTVEpisodePartViewController : UIViewController {
-    UITableView *portable;
-}
+@interface OTVEpisodePartViewController : UIViewController
 
 @property (nonatomic, strong) Show *show;
 
-
+- (void)reload;
+- (void)setShow:(Show *)show;
 
 @end

@@ -23,8 +23,13 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "OTVRelateShowTableViewCell.h"
+#import "OTVEpisodePartViewController.h"
 
-@interface OTVVideoPlayerViewController () <CMVideoAdsDelegate>
+@interface OTVVideoPlayerViewController () <UITableViewDataSource, UITableViewDelegate, OTVRelateShowTableViewCellDelegate, CMVideoAdsDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *portTableView;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -64,12 +69,15 @@
 
 }
 
+static NSString *cellname = @"cell";
 static NSString *cmPlayerSegue = @"CMPlayerSegue";
 static NSString *webIFrameSegue = @"WebIFrameSegue";
 
 static NSString *kCodeStream = @"1000";
 static NSString *kCodeAds = @"1001";
 static NSString *kCodeIframe = @"1002";
+
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)viewDidLoad
 {
@@ -88,13 +96,37 @@ static NSString *kCodeIframe = @"1002";
 
     }
     
+    [self.portTableView setBackgroundColor:[UIColor clearColor]];
+    [self.portTableView setSeparatorColor:[UIColor clearColor]];
+    
+    
+    [self.view addSubview:self.portTableView];
     
     
     [self initializeUI];
     [self sendTracker];
     
+    
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
+}
+
+- (void)setUpOrientation:(UIInterfaceOrientation)orientation {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+            orientation == UIInterfaceOrientationLandscapeRight) {
+            
+        } else {
+
+        }
+    } else {
+        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+            orientation == UIInterfaceOrientationLandscapeRight) {
+            self.portTableView.hidden = YES;
+        } else {
+            self.portTableView.hidden = NO;
+        }
+    }
 }
 
 - (void)sendTracker
@@ -237,8 +269,38 @@ static NSString *kCodeIframe = @"1002";
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [self.view setNeedsUpdateConstraints];
+    [self setUpOrientation:toInterfaceOrientation];
+    [self.portTableView reloadData];
+    
 }
 
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setUpOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    [self.portTableView reloadData];
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:webIFrameSegue]) {
+        OTVPart *otvPart = (OTVPart *)sender;
+        WebIFrameViewController *webIframeViewController = segue.destinationViewController;
+        webIframeViewController.part = otvPart;
+    }
+    else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier]) {
+        Show *show = (Show *)sender;
+        NSLog([show description]);
+        OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
+        otvEpAndPartViewController.navigationItem.title = show.title;
+        otvEpAndPartViewController.show = show;
+    }
+    
+}
 
 #pragma mark - Delegate VideoAds
 
@@ -443,15 +505,7 @@ static NSString *kCodeIframe = @"1002";
     [self removeMovieNotificationHandlers:player];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:webIFrameSegue]) {
-        OTVPart *otvPart = (OTVPart *)sender;
-        WebIFrameViewController *webIframeViewController = segue.destinationViewController;
-        webIframeViewController.part = otvPart;
-    }
-    
-}
+
 
 - (void) moviePlayBackDidFinish:(NSNotification*)notification
 {
@@ -587,16 +641,6 @@ static NSString *kCodeIframe = @"1002";
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -639,5 +683,87 @@ static NSString *kCodeIframe = @"1002";
         }
     }
 }
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    /* Create custom view to display section header... */
+    
+    
+    UILabel *relateShowTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, tableView.frame.size.width - 50, 18)];
+    [relateShowTitleLabel setFont:[UIFont boldSystemFontOfSize:14]];
+    [relateShowTitleLabel setText:@"Relate shows"];
+    [relateShowTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [view addSubview:relateShowTitleLabel];
+    
+
+    
+    [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]]; //your background color...
+    
+    
+    return view;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    OTVRelateShowTableViewCell *cell = (OTVRelateShowTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
+    cell = [[OTVRelateShowTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                             reuseIdentifier:cellname
+                                                       width:CGRectGetWidth(self.view.frame)];
+	
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell setBackgroundColor:[UIColor clearColor]];
+    
+    [cell configureWithShows:_relateShows];
+    
+   
+    
+    cell.delegate = self;
+    
+    
+    return cell;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 25;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 85;
+}
+
+- (void)openOTVShow:(NSIndexPath *)indexPath show:(Show *)show {
+    
+//    [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+    [self.otvEPController setShow:show];
+    [self.otvEPController reload];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+
+    }];
+    
+}
+
+- (IBAction)closeButtonTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 
 @end

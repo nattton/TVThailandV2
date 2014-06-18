@@ -58,7 +58,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Id: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _title, _thumbnailUrl, _desc];
+    return [NSString stringWithFormat:@"Id: %@, OTV_Id: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _otvId ,_title, _thumbnailUrl, _desc];
 }
 
 #pragma mark - Load Data
@@ -120,6 +120,8 @@
      ];
 }
 
+
+
 + (void)loadChannelDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
@@ -176,6 +178,34 @@
                 block([NSArray array], error);
             }
         }];
+}
+
++ (void)loadShowDataWithOtvId:(NSString *)Id Block:(void (^)(Show *show, NSError *error))block {
+    
+    if (!Id) return;
+    
+    [[ApiClient sharedInstance]
+     GET:[NSString stringWithFormat:@"api2/program_info_otv/%@?device=ios", Id]
+     parameters:nil
+     success:^(AFHTTPRequestOperation *operation, id dictInfo) {
+         Show *show;
+         
+         NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
+         if (dictShow) {
+             show = [[Show alloc] initWithDictionary:dictShow];
+         }
+         
+         
+         if (block) {
+             block(show, nil);
+         }
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         if (block) {
+             block(nil, error);
+         }
+     }
+     ];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "OTVShow.h"
 #import "Program.h"
 
+
 #import "SVProgressHUD.h"
 
 #import "DetailViewController.h"
@@ -67,7 +68,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [_buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
     [_buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
     
-    [self reloadFavorite];
+    
     
     
     UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonFavBar];
@@ -91,13 +92,44 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
+    
     [self reload];
+    
+    
 }
+
+- (void)setShow:(Show *)show {
+    _show = show;
+    self.navigationItem.title = show.title;
+
+    
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.portTableView reloadData];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.show.Id) {
+        [self reloadFavorite];
+    } else {
+        [Show loadShowDataWithOtvId:self.show.otvId Block:^(Show *show, NSError *error) {
+            self.show = show;
+            [self reloadFavorite];
+        }];
+    }
+    
+    
+    
+    
 }
 
 - (void)sendTracker
@@ -245,11 +277,6 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
     [cell configureWithEpisode:_otvEpisodes[indexPath.section]];
     
-//    if ((indexPath.section + 5) == _otvEpisodes.count) {
-//        
-//        [self reload:_otvEpisodes.count];
-//        
-//    }
     
     cell.delegate = self;
     
@@ -285,15 +312,19 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 - (void)reloadFavorite {
-    NSArray *bookmarks = [self queyFavorites];
-    if(bookmarks.count == 0) {
-        
-        [self setFavSelected:NO];
-        
-    } else {
-        
-        [self setFavSelected:YES];
-    }
+
+        NSArray *bookmarks = [self queyFavorites];
+        if(bookmarks.count == 0) {
+            
+            [self setFavSelected:NO];
+            
+        } else {
+            
+            [self setFavSelected:YES];
+        }
+    
+    
+
 }
 
 #pragma mark - CoreData
@@ -306,20 +337,24 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 
 
 - (NSArray *)queyFavorites {
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Program" inManagedObjectContext:self.managedObjectContext];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"program_id like %@", self.show.Id];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error = nil;
-    NSArray *programArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    return programArray;
+    if (self.show.Id) {
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"Program" inManagedObjectContext:self.managedObjectContext];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                                  @"program_id like %@", self.show.Id];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        [fetchRequest setEntity:entity];
+        [fetchRequest setPredicate:predicate];
+        
+        NSError *error = nil;
+        NSArray *programArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        
+        return programArray;
+    }
+
+    return [NSArray array];
 }
 
 - (void)insertFavorite
@@ -363,6 +398,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         NSIndexPath *idx = (NSIndexPath *)sender;
         videoPlayer.idx = idx.row;
         videoPlayer.relateShows = _relateShows;
+        videoPlayer.otvEPController = self;
     }
     else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;

@@ -31,5 +31,5 @@
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block;
 + (void)loadChannelDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block;
 + (void)loadSearchDataWithKeyword:(NSString *)keyword Block:(void (^)(NSArray *shows, NSError *error))block;
-
++ (void)loadShowDataWithOtvId:(NSString *)Id Block:(void (^)(Show *show, NSError *error))block;
 @end

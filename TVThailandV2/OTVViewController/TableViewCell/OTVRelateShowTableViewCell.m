@@ -1,26 +1,29 @@
 //
-//  OTVEpAndPartTableViewCell.m
+//  OTVRelateShowTableViewCell.m
 //  TVThailandV2
 //
-//  Created by April Smith on 3/21/2557 BE.
+//  Created by April Smith on 6/17/2557 BE.
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "OTVEpisodePartTableViewCell.h"
+#import "OTVRelateShowTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "OTVEpisode.h"
-#import "OTVPart.h"
+#import "OTVEpisodePartViewController.h"
+#import "Show.h"
 
-
-@implementation OTVEpisodePartTableViewCell {
-    UIImageView *goForwardImgSlider;
+@implementation OTVRelateShowTableViewCell {
+    NSArray *_shows;
 }
+
+#pragma mark - Static Variable
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+
         
         if (UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
@@ -63,33 +66,6 @@
     return self;
 }
 
-- (void)configureWithEpisode:(OTVEpisode *)episode {
-    
-    self.otvEpisode = episode;
-    
-    [self configureWithSlider:episode];
-    
-    
-}
-
-- (void)configureWithSlider:(OTVEpisode *)episode {
-    CGRect viewFrame = hortable.frame;
-    //    NSLog(@"X=%f Y=%f Width=%f Height=%f", viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewFrame.size.height);
-    
-    goForwardImgSlider = [[UIImageView alloc] initWithFrame:CGRectMake(viewFrame.size.width-25, 50, 20, 20)];
-    [goForwardImgSlider setImage:[UIImage animatedImageNamed:@"forwardImg" duration:0.8]];
-    [self addSubview:goForwardImgSlider];
-    
-    
-    
-    if (episode.parts.count == 1) {
-        goForwardImgSlider.hidden = YES;
-    }
-    
-    
-    
-}
-
 - (void)awakeFromNib
 {
     // Initialization code
@@ -102,11 +78,20 @@
     // Configure the view for the selected state
 }
 
+- (void)configureWithShows:(NSArray *)shows {
+    
+    _shows = shows;
+    
+    
+}
+
+
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  [self.otvEpisode.parts count];
+    return  [_shows count];
     
     
 }
@@ -115,9 +100,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%d",indexPath.row];
-//    NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
-    NSString *imageUrl = [[self.otvEpisode.parts objectAtIndex:indexPath.row] thumbnail];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld",indexPath.row];
+    //    NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
+    NSString *imageUrl = [[_shows objectAtIndex:indexPath.row] thumbnailUrl];
     
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil){
@@ -125,21 +110,19 @@
         cell.transform = CGAffineTransformMakeRotation(M_PI/2);
         
         
-        UIImageView *partImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 155, 120)];
+        UIImageView *partImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 85)];
         [partImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
         [cell addSubview:partImageView];
         
-        UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
+        UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 65, 120, 20)];
         partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
         partTitleLabel.textColor = [UIColor whiteColor];
-//        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d/%d", (indexPath.row+1), self.episode.videos.count ]];
-        [partTitleLabel setText:[[self.otvEpisode.parts objectAtIndex:indexPath.row] nameTh]];
+        //        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d/%d", (indexPath.row+1), self.episode.videos.count ]];
+        [partTitleLabel setText:[[_shows objectAtIndex:indexPath.row] title]];
         partTitleLabel.numberOfLines = 1;
-
+        [cell addSubview:partTitleLabel];
         
-        if (self.otvEpisode.parts.count != 1 ){
-            [cell addSubview:partTitleLabel];
-        }
+
         
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -148,18 +131,14 @@
         
 	}
     
-    if (self.otvEpisode.parts.count*157 > self.frame.size.width ) {
-        goForwardImgSlider.hidden = NO;
-    }else{
-        goForwardImgSlider.hidden = YES;
-    }
+
     
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 157;
+    return 122;
 }
 
 - (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -172,36 +151,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
-        [self.delegate playVideoPart:indexPath episode:self.otvEpisode];
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(openOTVShow:show:)]) {
+        [self.delegate openOTVShow:indexPath show:_shows[indexPath.row]];
     }
     
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //    NSLog(@"Y=%f | contentHeight=%f | boundsHeight=%f",hortable.contentOffset.y,hortable.contentSize.height,hortable.bounds.size.height);
-    
-    if (hortable.contentOffset.y == 0) {
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            [goForwardImgSlider setTransform:CGAffineTransformMakeScale(1, -1)];
-        }];
-        
-    }
-    
-    if (hortable.contentOffset.y == floorf(hortable.contentSize.height - hortable.bounds.size.height)) {
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            [goForwardImgSlider setTransform:CGAffineTransformMakeScale(-1, 1)];
-        }];
-        
-    }else if ( floorf(hortable.contentSize.height - hortable.bounds.size.height) > hortable.contentOffset.y + 150 ) {
-        [UIView animateWithDuration:0.3 animations:^{
-            [goForwardImgSlider setTransform:CGAffineTransformMakeScale(1, -1)];
-        }];
-    }
-}
+
 
 
 @end

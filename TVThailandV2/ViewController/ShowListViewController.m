@@ -67,7 +67,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 
-#pragma mark - Seque Method
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
@@ -93,7 +93,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         Show *show = (Show *)sender;
         
         OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
-        otvEpAndPartViewController.navigationItem.title = show.title;
+//        otvEpAndPartViewController.navigationItem.title = show.title;
         
         otvEpAndPartViewController.show = show;
         
