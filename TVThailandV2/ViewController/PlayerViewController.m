@@ -168,7 +168,7 @@ static NSString *kCodeIframe = @"1002";
 - (void) initVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
     
     self.showNameLabel.text = self.show.title;
-    NSLog(@"Show== %@", self.show.description);
+
     /** OTV **/
     if (self.show.isOTV) {
         

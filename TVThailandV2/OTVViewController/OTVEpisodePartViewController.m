@@ -102,7 +102,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 - (void)setShow:(Show *)show {
-    NSLog(@"%@",show.description);
+
     _show = show;
     self.navigationItem.title = show.title;
 
