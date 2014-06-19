@@ -9,6 +9,7 @@
 #import "MakathonAdView.h"
 #import "MakathonAd.h"
 #import "KapookAds.h"
+#import <SVWebViewController/SVWebViewController.h>
 
 @implementation MakathonAdView {
     NSArray *_ads;
@@ -54,13 +55,14 @@
         [self.webViewShow.scrollView setScrollEnabled:NO];
         [self addSubview:self.webViewShow];
         
-        self.webView1x1 = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+        self.webView1x1 = [[UIWebView alloc] initWithFrame:CGRectMake(adFrame.size.width - 1, adFrame.size.height - 1, 1, 1)];
         [self addSubview:self.webView1x1];
     }
     else
     {
         self.frame = adFrame;
         [self.webViewShow setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
+        [self.webViewShow setFrame:CGRectMake(adFrame.size.width - 1, adFrame.size.height - 1, 1, 1)];
     }
 }
 
@@ -99,7 +101,12 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[request URL]];
+        SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:[request URL]];
+        if (self.parentViewController && self.parentViewController.navigationController) {
+            [self.parentViewController.navigationController pushViewController:webViewController animated:YES];
+        } else {
+            [[UIApplication sharedApplication] openURL:[request URL]];
+        }
         return NO;
     }
     return YES;
