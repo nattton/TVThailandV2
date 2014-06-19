@@ -19,10 +19,12 @@
 #import "DetailViewController.h"
 #import "OTVEpisodePartTableViewCell.h"
 #import "OTVVideoPlayerViewController.h"
+#import "PlayerViewController.h"
 
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+
 
 @interface OTVEpisodePartViewController () <UITableViewDataSource, UITableViewDelegate, OTVEpisodePartTableViewCellDelegate>
 
@@ -44,9 +46,10 @@
     UIButton *_buttonInfoBar;
 }
 
-
+#pragma mark - Staic Variable
 static NSString *cellname = @"cell";
 static NSString *otvEpAndPartToShowPlayerSegue = @"OTVEpAndPartToShowPlayerSegue";
+static NSString *PlayerSegue = @"PlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -99,6 +102,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 - (void)setShow:(Show *)show {
+    NSLog(@"%@",show.description);
     _show = show;
     self.navigationItem.title = show.title;
 
@@ -122,8 +126,12 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         [self reloadFavorite];
     } else {
         [Show loadShowDataWithOtvId:self.show.otvId Block:^(Show *show, NSError *error) {
-            self.show = show;
-            [self reloadFavorite];
+            if (show != nil) {
+                self.show = show;
+                [self reloadFavorite];
+            }
+
+            
         }];
     }
     
@@ -382,16 +390,27 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
     _otvEpisode = episode;
 
-    [self performSegueWithIdentifier:otvEpAndPartToShowPlayerSegue sender:indexPath];
+//    [self performSegueWithIdentifier:otvEpAndPartToShowPlayerSegue sender:indexPath];
+    [self performSegueWithIdentifier:PlayerSegue sender:indexPath];
+
 }
 
 
 #pragma mark - Navigation
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:otvEpAndPartToShowPlayerSegue]) {
+    if ([segue.identifier isEqualToString:PlayerSegue]) {
+        
+        PlayerViewController *playerViewController = segue.destinationViewController;
+        playerViewController.show = self.show;
+        playerViewController.otvEpisode = _otvEpisode;
+        playerViewController.otvRelateShows = _relateShows;
+        playerViewController.idx = [(NSIndexPath *)sender row];
+        playerViewController.otvEPController = self;
+        
+    }
+    else if ([segue.identifier isEqualToString:otvEpAndPartToShowPlayerSegue]) {
         OTVVideoPlayerViewController *videoPlayer = segue.destinationViewController;
         videoPlayer.show = self.show;
         videoPlayer.otvEpisode = _otvEpisode;

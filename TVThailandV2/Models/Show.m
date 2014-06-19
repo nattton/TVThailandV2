@@ -58,7 +58,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Id: %@, OTV_Id: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _otvId ,_title, _thumbnailUrl, _desc];
+    return [NSString stringWithFormat:@"Id: %@, OTV_Id: %@, isOTV: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _otvId,_isOTV?@"YES":@"NO" ,_title, _thumbnailUrl, _desc];
 }
 
 #pragma mark - Load Data
@@ -193,6 +193,7 @@
          NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
          if (dictShow) {
              show = [[Show alloc] initWithDictionary:dictShow];
+             show.isOTV = YES;
          }
          
          

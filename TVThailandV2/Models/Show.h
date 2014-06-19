@@ -19,7 +19,7 @@
 @property (nonatomic, readonly) NSString *lastEp;
 @property (nonatomic, readonly) NSString *detail;
 
-@property (nonatomic, readonly) BOOL isOTV;
+@property (nonatomic, unsafe_unretained) BOOL isOTV;
 @property (nonatomic, readonly) NSString *otvId;
 @property (nonatomic, readonly) NSString *otvApiName;
 

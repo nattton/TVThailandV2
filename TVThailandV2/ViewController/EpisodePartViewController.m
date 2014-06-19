@@ -46,9 +46,10 @@
     UILabel *_titleLabel;
 }
 
+#pragma mark - Staic Variable
 static NSString *cellname = @"cell";
 static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
-static NSString *youtubePlayerSegue = @"YoutubePlayerSegue";
+static NSString *PlayerSegue = @"PlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
 - (void)viewDidLoad
@@ -389,7 +390,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         }
     }
     
-    [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
+    [self performSegueWithIdentifier:PlayerSegue sender:indexPath];
     
 //    if ([episode.srcType isEqualToString:@"0"]) {
 //        
@@ -402,15 +403,15 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     
 }
 
+#pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:youtubePlayerSegue]) {
-        PlayerViewController *youtubePlayer = segue.destinationViewController;
-        youtubePlayer.show = self.show;
-        youtubePlayer.episode = self.episode;
-        youtubePlayer.otherEpisode = self.otherEpisode;
-        youtubePlayer.idx = [(NSIndexPath *)sender row];
-        
-        
+    if ([segue.identifier isEqualToString:PlayerSegue]) {
+        PlayerViewController *playerViewController = segue.destinationViewController;
+        playerViewController.show = self.show;
+        playerViewController.episode = self.episode;
+        playerViewController.otherEpisode = self.otherEpisode;
+        playerViewController.idx = [(NSIndexPath *)sender row];
         
     }else if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {
         VideoPlayerViewController *videoPlayer = segue.destinationViewController;

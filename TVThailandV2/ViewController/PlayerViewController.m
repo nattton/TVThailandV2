@@ -8,6 +8,7 @@
 
 #import "PlayerViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #import "AFHTTPSessionManager.h"
 #import "AFHTTPRequestOperation.h"
@@ -15,11 +16,19 @@
 #import "SVProgressHUD.h"
 #import "HTMLParser.h"
 
-#import "Episode.h"
-#import "Show.h"
-#import "VideoPartTableViewCell.h"
+#import "CMVideoAds.h"
+#import "DVInlineVideoAd.h"
+#import "WebIframeViewController.h"
 
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate>
+#import "Show.h"
+#import "Episode.h"
+#import "OTVEpisode.h"
+#import "OTVPart.h"
+
+#import "VideoPartTableViewCell.h"
+#import "OTVEpisodePartViewController.h"
+
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, CMVideoAdsDelegate>
 
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 
@@ -30,16 +39,40 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLeftSpace;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopSpace;
 
+@property (strong, nonatomic) MPMoviePlayerController *movieController;
+
+@property (strong, nonatomic) CMVideoAds *videoAds;
+
+
+-(void)moviePlayBackDidFinish:(NSNotification*)notification;
+-(void)loadStateDidChange:(NSNotification *)notification;
+-(void)moviePlayBackStateDidChange:(NSNotification*)notification;
+-(void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification;
+-(void)installMovieNotificationObservers:(MPMoviePlayerController *)player;
+-(void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player;
+-(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
+- (void) movieDurationAvailableDidChange:(NSNotification*)notification;
+
 @end
 
 @implementation PlayerViewController {
     NSString *_videoId;
     CGSize _size;
+    BOOL _isContent;
+    OTVPart *_part;
+    CGFloat _widthOfCH7iFrame;
+    AVPlayerLayer *_layer;
 }
 
 #pragma mark - Staic Variable
 static NSString *videoPartCell = @"videoPartCell";
+static NSString *kCodeStream = @"1000";
+static NSString *kCodeAds = @"1001";
+static NSString *kCodeIframe = @"1002";
+//static NSString *webIFrameSegue = @"WebIFrameSegue";
 
+
+#pragma mark - ALL
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,15 +87,24 @@ static NSString *videoPartCell = @"videoPartCell";
     [super viewDidLoad];
     
     [self initLableContainner];
-    [self initVideoPlayer:_idx sectionOfVideo:0];
-
     
+    if (self.show) {
+        [self initVideoPlayer:_idx sectionOfVideo:0];
+    }
 
     [self setUpOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    
+    NSError *setCategoryError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
+    
 }
 
 - (void)setUpOrientation:(UIInterfaceOrientation)orientation {
+    
+     _widthOfCH7iFrame = 640;
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _widthOfCH7iFrame = 480;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
             self.videoContainerTopSpace.constant = 0.0f;
@@ -78,6 +120,7 @@ static NSString *videoPartCell = @"videoPartCell";
             self.tableViewTopSpace.constant = 15.f;
         }
     } else {
+        _widthOfCH7iFrame = 280;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
             [self.videoPlayerViewController.moviePlayer setFullscreen:YES animated:YES];
@@ -87,6 +130,7 @@ static NSString *videoPartCell = @"videoPartCell";
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [self setUpOrientation:toInterfaceOrientation];
+    [self.tableOfVideoPart reloadData];
 }
 
 
@@ -121,103 +165,132 @@ static NSString *videoPartCell = @"videoPartCell";
 
 }
 
-- (void) initVideoPlayer:(long)row sectionOfVideo:(long)section {
+- (void) initVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
     
     self.showNameLabel.text = self.show.title;
-    
-    
- 
-    if (section == 0) {
+    NSLog(@"Show== %@", self.show.description);
+    /** OTV **/
+    if (self.show.isOTV) {
         
-        if (self.episode) {
-            if ([self.episode.videos count] == 1||[self.episode.videos count] == 0) {
-                self.partNameLabel.hidden = YES;
-            } else {
-                self.partNameLabel.hidden = NO;
+        self.webView.hidden = YES;
+        
+        /* otv episode section */
+        if (section == 0) {
+            if (self.otvEpisode) {
+                _part = [self.otvEpisode.parts objectAtIndex:row];
+                if ([self.otvEpisode.parts count] == 1 || [self.otvEpisode.parts count] == 0) {
+                    self.partNameLabel.hidden = YES;
+                } else {
+                    self.partNameLabel.hidden = NO;
+                }
+                
+                self.episodeNameLabel.text = self.otvEpisode.date;
+                self.viewCountLabel.text = _part.nameTh;
+                self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)self.otvEpisode.parts.count ];
+                [self.thumbnailOTV setImageWithURL:[NSURL URLWithString: _part.thumbnail]
+                                        placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
+                
             }
             
-            _videoId = self.episode.videos[row];
-            self.episodeNameLabel.text = self.episode.titleDisplay;
-            self.viewCountLabel.text = self.episode.viewCount;
-            self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (row + 1), self.episode.videos.count ];
+        }
+        /* otv relate show section */
+        else {
             
+        }
+    }/** --End OTV **/
+    
+    /** TV Thailand **/
+    else {
+        /* episode section */
+        if (section == 0) {
+            
+            if (self.episode) {
+                if ([self.episode.videos count] == 1||[self.episode.videos count] == 0) {
+                    self.partNameLabel.hidden = YES;
+                } else {
+                    self.partNameLabel.hidden = NO;
+                }
+                
+                _videoId = self.episode.videos[row];
+                self.episodeNameLabel.text = self.episode.titleDisplay;
+                self.viewCountLabel.text = self.episode.viewCount;
+                self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (long)row + 1, (long)self.episode.videos.count ];
+                
 //            NSLog(@"srcTYPE=%@", self.episode.srcType);
 //            NSLog(@"_videoId=%@", _videoId);
-            
-            if ([self.episode.srcType isEqualToString:@"0"]) {
-                self.webView.hidden = YES;
-                [self openWithYoutubePlayerEmbed:_videoId];
+                
+                if ([self.episode.srcType isEqualToString:@"0"]) {
+                    self.webView.hidden = YES;
+                    [self openWithYoutubePlayerEmbed:_videoId];
+                }
+                else if ([self.episode.srcType isEqualToString:@"1"]) {
+                    self.webView.hidden = NO;
+                    [self openWithDailymotionEmbed];
+                }
+                else if ([self.episode.srcType isEqualToString:@"11"]) {
+                    self.webView.hidden = NO;
+                    [self openWebSite:_videoId];
+                }
+                else if ([self.episode.srcType isEqualToString:@"12"]) {
+                    self.webView.hidden = NO;
+                    [self openWithVideoUrl:_videoId];
+                }
+                else if ([self.episode.srcType isEqualToString:@"14"]) {
+                    self.webView.hidden = NO;
+                    [self loadMThaiWebVideo];
+                }
+                else if ([self.episode.srcType isEqualToString:@"15"]) {
+                    self.webView.hidden = NO;
+                    [self loadMThaiWebVideoWithPassword:self.episode.password];
+                }
+                
             }
-            else if ([self.episode.srcType isEqualToString:@"1"]) {
-                self.webView.hidden = NO;
-                [self openWithDailymotionEmbed];
-            }
-            else if ([self.episode.srcType isEqualToString:@"11"]) {
-                self.webView.hidden = NO;
-                [self openWebSite:_videoId];
-            }
-            else if ([self.episode.srcType isEqualToString:@"12"]) {
-                self.webView.hidden = NO;
-                [self openWithVideoUrl:_videoId];
-            }
-            else if ([self.episode.srcType isEqualToString:@"14"]) {
-                self.webView.hidden = NO;
-                [self loadMThaiWebVideo];
-            }
-            else if ([self.episode.srcType isEqualToString:@"15"]) {
-                self.webView.hidden = NO;
-                [self loadMThaiWebVideoWithPassword:self.episode.password];
-            }
-
             
         }
-
-    } else {
-        if (self.otherEpisode) {
-            if ([self.otherEpisode.videos count] == 1||[self.otherEpisode.videos count] == 0) {
-                self.partNameLabel.hidden = YES;
-            } else {
-                self.partNameLabel.hidden = NO;
+        /* other episode section */
+        else {
+            if (self.otherEpisode) {
+                if ([self.otherEpisode.videos count] == 1||[self.otherEpisode.videos count] == 0) {
+                    self.partNameLabel.hidden = YES;
+                } else {
+                    self.partNameLabel.hidden = NO;
+                }
+                
+                _videoId = self.otherEpisode.videos[row];
+                self.episodeNameLabel.text = self.otherEpisode.titleDisplay;
+                self.viewCountLabel.text = self.otherEpisode.viewCount;
+                self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (long)row + 1, (long)self.otherEpisode.videos.count ];
+                
+                if ([self.otherEpisode.srcType isEqualToString:@"0"]) {
+                    self.webView.hidden = YES;
+                    [self openWithYoutubePlayerEmbed:_videoId];
+                }
+                else if ([self.otherEpisode.srcType isEqualToString:@"1"]) {
+                    self.webView.hidden = NO;
+                    [self openWithDailymotionEmbed];
+                }
+                else if ([self.otherEpisode.srcType isEqualToString:@"11"]) {
+                    self.webView.hidden = NO;
+                    [self openWebSite:_videoId];
+                }
+                else if ([self.otherEpisode.srcType isEqualToString:@"12"]) {
+                    self.webView.hidden = NO;
+                    [self openWithVideoUrl:_videoId];
+                }
+                else if ([self.otherEpisode.srcType isEqualToString:@"14"]) {
+                    self.webView.hidden = NO;
+                    [self loadMThaiWebVideo];
+                }
+                else if ([self.otherEpisode.srcType isEqualToString:@"15"]) {
+                    self.webView.hidden = NO;
+                    [self loadMThaiWebVideoWithPassword:self.episode.password];
+                }
+                
             }
-            
-            _videoId = self.otherEpisode.videos[row];
-            self.episodeNameLabel.text = self.otherEpisode.titleDisplay;
-            self.viewCountLabel.text = self.otherEpisode.viewCount;
-            self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (row + 1), self.otherEpisode.videos.count ];
-            
-            
-            
-            if ([self.otherEpisode.srcType isEqualToString:@"0"]) {
-                self.webView.hidden = YES;
-                [self openWithYoutubePlayerEmbed:_videoId];
-            }
-            else if ([self.otherEpisode.srcType isEqualToString:@"1"]) {
-                self.webView.hidden = NO;
-                [self openWithDailymotionEmbed];
-            }
-            else if ([self.otherEpisode.srcType isEqualToString:@"11"]) {
-                self.webView.hidden = NO;
-                [self openWebSite:_videoId];
-            }
-            else if ([self.otherEpisode.srcType isEqualToString:@"12"]) {
-                self.webView.hidden = NO;
-                [self openWithVideoUrl:_videoId];
-            }
-            else if ([self.otherEpisode.srcType isEqualToString:@"14"]) {
-                self.webView.hidden = NO;
-                [self loadMThaiWebVideo];
-            }
-            else if ([self.otherEpisode.srcType isEqualToString:@"15"]) {
-                self.webView.hidden = NO;
-                [self loadMThaiWebVideoWithPassword:self.episode.password];
-            }
-
         }
-    }
-
-
-
+    }/** --End TV Thailand **/
     
+    [self.tableOfVideoPart reloadData];
     
     [self setSelectedPositionOfVideoPartAtRow:row section:section];
     
@@ -404,9 +477,12 @@ static NSString *videoPartCell = @"videoPartCell";
 
 - (void) setSelectedPositionOfVideoPartAtRow:(long)row section:(long)section {
     NSIndexPath *indexPathOfVideoPart=[NSIndexPath indexPathForRow:row inSection:section];
-    [self.tableOfVideoPart selectRowAtIndexPath: indexPathOfVideoPart
-                                       animated:YES
-                                 scrollPosition:UITableViewScrollPositionMiddle];
+    if ([self.tableOfVideoPart cellForRowAtIndexPath:indexPathOfVideoPart] ) {
+        [self.tableOfVideoPart selectRowAtIndexPath: indexPathOfVideoPart
+                                           animated:YES
+                                     scrollPosition:UITableViewScrollPositionMiddle];
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -435,6 +511,13 @@ static NSString *videoPartCell = @"videoPartCell";
     }];
 }
 
+- (IBAction)playOTVButtonTapped:(id)sender {
+    _isContent = NO;
+    [self playCurrentVideo];
+}
+
+
+
 
 #pragma mark - UITableViewDataSource
 
@@ -442,13 +525,23 @@ static NSString *videoPartCell = @"videoPartCell";
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(long)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if (section == 0) {
-        return [self.episode.videos count];
-    } else if (section == 1){
-        return [self.otherEpisode.videos count];
+    if (self.show.isOTV) {
+        if (section == 0) {
+            return [self.otvEpisode.parts count];
+        } else if (section == 1){
+            return [self.otvRelateShows count];
+        }
     }
+    else {
+        if (section == 0) {
+            return [self.episode.videos count];
+        } else if (section == 1){
+            return [self.otherEpisode.videos count];
+        }
+    }
+
     
     return 0;
     
@@ -460,33 +553,77 @@ static NSString *videoPartCell = @"videoPartCell";
     VideoPartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:videoPartCell];
     cell.selectedBackgroundView = selectedBackgroundViewForCell;
     
-    if (indexPath.section == 0) {
-        [cell configureWithVideoPart:self.episode partNumber:indexPath.row+1];
-    } else if (indexPath.section == 1){
-        [cell configureWithVideoPart:self.otherEpisode partNumber:indexPath.row+1];
+    
+    if (self.show.isOTV) {
+        if (indexPath.section == 0) {
 
+            [cell configureWithOTVVideoPart:self.otvEpisode partNumber:indexPath.row];
+        } else if (indexPath.section == 1){
+            Show *otvRelateShow = [self.otvRelateShows objectAtIndex:indexPath.row];
+            [cell configureWithOTVRelateShows:otvRelateShow];
+        }
     }
+    else {
+        if (indexPath.section == 0) {
+            [cell configureWithVideoPart:self.episode partNumber:indexPath.row];
+        } else if (indexPath.section == 1){
+            [cell configureWithVideoPart:self.otherEpisode partNumber:indexPath.row];
+            
+        }
+    }
+
 
     return cell;
     
     
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+
+    if (self.show.isOTV) {
+        if (section == 1) {
+            return @"Relate shows";
+        }
+    }
+    else {
+        if (section == 1) {
+            return @"Other videos";
+        }
+    }
+    
+    return @"";
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     /* re assign value to _idx inorder to use in openWithVideoUrl method to show thumbnail of video */
     _idx = indexPath.row;
-    [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
     
-
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return @"Other videos";
+    if (self.show.isOTV && indexPath.section == 1) {
+        
+        [self.otvEPController setShow:self.otvRelateShows[indexPath.row]];
+        [self.otvEPController reload];
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+        
+    } else {
+        [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
     }
     
-    return @"";
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+//    if ([segue.identifier isEqualToString:webIFrameSegue]) {
+//        OTVPart *otvPart = (OTVPart *)sender;
+//        WebIFrameViewController *webIframeViewController = segue.destinationViewController;
+//        webIframeViewController.part = otvPart;
+//    }
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -498,5 +635,435 @@ static NSString *videoPartCell = @"videoPartCell";
         return 35;
     }
 }
+
+
+#pragma mark - Delegate VideoAds
+
+- (void)didRequestVideoAds:(CMVideoAds *)videoAds success:(BOOL)success {
+    [SVProgressHUD dismiss];
+    //    DLog(@"%@", videoAds);
+    //    DLog(@"mediaFile : %@", [videoAds.ad.mediaFileURL absoluteString]);
+    //    DLog(@"streamURL : %@", _part.streamURL);
+    
+    if (success) {
+        [self.videoAds hitTrackingEvent:START];
+        [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
+        [self.videoAds hitTrackingEvent:MIDPOINT];
+        [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
+        
+//        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+//                                                             trackingId:kOTVTracker];
+//        [tracker2 set:kGAIScreenName
+//                value:@"Player"];
+//        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:videoAds.URL
+//                                                           forKey:[GAIFields customDimensionForIndex:4]] build]];
+        
+        [self playMovieStream:videoAds.ad.mediaFileURL];
+    }
+    else
+    {
+        _isContent = !_isContent;
+        [self playCurrentVideo];
+    }
+}
+
+- (void)didRequestVideoAds:(CMVideoAds *)videoAds error:(NSError *)error {
+    [SVProgressHUD dismiss];
+    
+    _isContent = !_isContent;
+    [self playCurrentVideo];
+}
+
+
+- (void)playMovieStream:(NSURL *)movieFileURL
+{
+    
+    MPMovieSourceType movieSourceType = MPMovieSourceTypeUnknown;
+    
+    if ([[movieFileURL pathExtension] compare:@"m3u8" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+    {
+        movieSourceType = MPMovieSourceTypeStreaming;
+    }
+    self.movieController = [[MPMoviePlayerController alloc] initWithContentURL:movieFileURL];
+    [self installMovieNotificationObservers:self.movieController];
+    
+    self.movieController.allowsAirPlay = YES;
+    self.movieController.movieSourceType = movieSourceType;
+    [self.movieController prepareToPlay];
+    [self.movieController play];
+    
+    if (_isContent)
+    {
+        self.movieController.controlStyle = MPMovieControlStyleFullscreen;
+    }
+    else
+    {
+        self.movieController.controlStyle = MPMovieControlStyleNone;
+        
+        double delayInSeconds = 7.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            //code to be executed on the main queue after delay
+            self.movieController.controlStyle = MPMovieControlStyleFullscreen;
+        });
+    }
+    
+    [self.view addSubview:self.movieController.view];
+    [self.movieController setFullscreen:YES animated:NO];
+}
+
+/* Handle movie load state changes. */
+- (void)loadStateDidChange:(NSNotification *)notification
+{
+	MPMoviePlayerController *player = notification.object;
+	MPMovieLoadState loadState = player.loadState;
+    
+    //	/* The load state is not known at this time. */
+	if (loadState & MPMovieLoadStateUnknown)
+	{
+        //        [self.overlayController setLoadStateDisplayString:@"n/a"];
+        //
+        //        [overlayController setLoadStateDisplayString:@"unknown"];
+	}
+    //
+    //	/* The buffer has enough data that playback can begin, but it
+    //	 may run out of data before playback finishes. */
+	if (loadState & MPMovieLoadStatePlayable)
+	{
+        //        [overlayController setLoadStateDisplayString:@"playable"];
+	}
+    //
+    //	/* Enough data has been buffered for playback to continue uninterrupted. */
+	if (loadState & MPMovieLoadStatePlaythroughOK)
+	{
+        //        self.backgroundView.hidden = YES;
+        
+        // Add an overlay view on top of the movie view
+        //        [self addOverlayView];
+        //
+        //        [overlayController setLoadStateDisplayString:@"playthrough ok"];
+	}
+    //
+    //	/* The buffering of data has stalled. */
+	if (loadState & MPMovieLoadStateStalled)
+	{
+        //        self.backgroundView.hidden = NO;
+        //        [overlayController setLoadStateDisplayString:@"stalled"];
+	}
+}
+
+/* Called when the movie playback state has changed. */
+- (void) moviePlayBackStateDidChange:(NSNotification*)notification
+{
+	MPMoviePlayerController *player = notification.object;
+	/* Playback is currently stopped. */
+	if (player.playbackState == MPMoviePlaybackStateStopped)
+	{
+        DLog(@"%@", @"stopped");
+	}
+	/*  Playback is currently under way. */
+	else if (player.playbackState == MPMoviePlaybackStatePlaying)
+	{
+        DLog(@"%@", @"playing");
+	}
+	/* Playback is currently paused. */
+	else if (player.playbackState == MPMoviePlaybackStatePaused)
+	{
+        DLog(@"%@", @"paused");
+	}
+	/* Playback is temporarily interrupted, perhaps because the buffer
+	 ran out of content. */
+	else if (player.playbackState == MPMoviePlaybackStateInterrupted)
+	{
+        DLog(@"%@", @"interrupted");
+	}
+}
+
+/* Notifies observers of a change in the prepared-to-play state of an object
+ conforming to the MPMediaPlayback protocol. */
+- (void) mediaIsPreparedToPlayDidChange:(NSNotification*)notification
+{
+	// Add an overlay view on top of the movie view
+    //    [self addOverlayView];
+}
+
+- (void) movieDurationAvailableDidChange:(NSNotification*)notification
+{
+	MPMoviePlayerController *player = notification.object;
+    DLog(@"%f", player.currentPlaybackTime);
+}
+
+/* Register observers for the various movie object notifications. */
+-(void)installMovieNotificationObservers:(MPMoviePlayerController *)player
+{
+    
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadStateDidChange:)
+                                                 name:MPMoviePlayerLoadStateDidChangeNotification
+                                               object:player];
+    
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:player];
+    
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
+                                                 name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification
+                                               object:player];
+    
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackStateDidChange:)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:player];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(movieDurationAvailableDidChange:)
+                                                 name:MPMovieDurationAvailableNotification
+                                               object:player];
+    
+}
+
+#pragma mark Remove Movie Notification Handlers
+
+/* Remove the movie notification observers from the movie object. */
+-(void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
+}
+
+/* Delete the movie player object, and remove the movie notification observers. */
+-(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player
+{
+    [self removeMovieNotificationHandlers:player];
+}
+
+
+
+- (void) moviePlayBackDidFinish:(NSNotification*)notification
+{
+    if (!_isContent && self.videoAds) {
+        [self.videoAds hitTrackingEvent:COMPLETE];
+//        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+//                                                             trackingId:kOTVTracker];
+//        [tracker2 set:kGAIScreenName
+//                value:@"Player"];
+//        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.videoAds.URL
+//                                                           forKey:[GAIFields customDimensionForIndex:5]] build]];
+    }
+    
+    MPMoviePlayerController *player = [notification object];
+    
+    [self removeMovieNotificationHandlers:player];
+    [self.movieController.view removeFromSuperview];
+    self.movieController = nil;
+    
+    
+    _isContent = !_isContent;
+    
+    
+    if (_isContent)
+    {
+        [self playCurrentVideo];
+    }
+    else
+    {
+        if ([self moveNextVideo])
+        {
+            [self playCurrentVideo];
+        }
+    }
+    
+}
+
+
+
+- (void) openWithIFRAME:(NSString *)iframeText {
+    //    [self performSegueWithIdentifier:webIFrameSegue sender:_part];
+    
+    self.webView.hidden = NO;
+    [SVProgressHUD dismiss];
+    
+    
+    NSString *iframeHtml= [self htmlEntityDecode:iframeText];
+    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
+                            <meta name = \"viewport\" content = \"user-scalable = no, width = %0.0f\"/></head>\
+                            <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
+                            %@</body></html>", _widthOfCH7iFrame, iframeHtml];
+    
+    
+    [self.webView loadHTMLString:htmlString
+                         baseURL:nil];
+    [self.webView setScalesPageToFit:YES];
+    [self.webView.scrollView setScrollEnabled:NO];
+    
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:iframeHtml error:&error];
+    
+    if (error)
+    {
+        DLog(@"Error: %@", error);
+    }
+    else
+    {
+        HTMLNode *bodyNode = [parser body];
+        NSArray *sourceNodes = [bodyNode findChildTags:@"iframe"];
+        for (HTMLNode *sourceNode in sourceNodes)
+        {
+            NSString *iframeURL = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
+            if(iframeURL)
+            {
+//                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+//                                                                     trackingId:kOTVTracker];
+//                [tracker2 set:kGAIScreenName
+//                        value:@"OTVEpisode"];
+//                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:iframeURL
+//                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
+            }
+            
+        }
+        
+    }
+    
+    
+}
+
+-(NSString *)htmlEntityDecode:(NSString *)string
+{
+    string = [string stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+    string = [string stringByReplacingOccurrencesOfString:@"&apos;" withString:@"'"];
+    string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    string = [string stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    string = [string stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    
+    return string;
+}
+
+//- (BOOL)canBecomeFirstResponder
+//{
+//    return YES;
+//}
+//
+//- (void) viewDidAppear: (BOOL) animated {
+//    [super viewDidAppear:animated];
+//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+//    [self becomeFirstResponder];
+//}
+//
+//- (void) viewWillDisappear: (BOOL) animated {
+//    [super viewWillDisappear:animated];
+//    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+//    [UIApplication sharedApplication].idleTimerDisabled = YES;
+//    [self resignFirstResponder];
+//}
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent
+{
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        switch (receivedEvent.subtype) {
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                
+                if(self.movieController.playbackState == MPMoviePlaybackStatePlaying)
+                {
+                    [self.movieController pause];
+                }
+                else
+                {
+                    [self.movieController play];
+                }
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self.movieController setCurrentPlaybackTime:self.movieController.currentPlaybackTime + 10];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+#pragma mark - Video Operations
+
+- (void)playCurrentVideo
+{
+    self.webView.hidden = YES;
+    
+    DLog(@"vastURL : %@", _part.vastURL);
+    
+    if (_isContent) {
+        if ([_part.mediaCode isEqualToString:kCodeStream])
+        {
+            [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
+            
+//            id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+//                                                                 trackingId:kOTVTracker];
+//            [tracker2 set:kGAIScreenName
+//                    value:@"OTVEpisode"];
+//            [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.streamURL
+//                                                               forKey:[GAIFields customDimensionForIndex:6]] build]];
+        }
+        else if ([_part.mediaCode isEqualToString:kCodeIframe])
+        {
+            [self openWithIFRAME:_part.streamURL];
+        }
+    }
+    else
+    {
+        [SVProgressHUD showWithStatus:@"Loading..."];
+        self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
+        self.videoAds.delegate = self;
+        
+    }
+}
+
+- (BOOL)moveNextVideo
+{
+    self.webView.hidden = YES;
+    _isContent = NO;
+    if (_idx+1 < self.otvEpisode.parts.count) {
+        _idx = _idx+1;
+        
+//        [self enableOrDisableNextPreviousButton];
+        if (self.otvEpisode.parts) {
+            
+            _part = [self.otvEpisode.parts objectAtIndex:_idx];
+            
+//            [self initializeUI];
+        }
+        
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"Video not support"];
+        }
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+- (BOOL)movePreviousVideo
+{
+    self.webView.hidden = YES;
+    _isContent = NO;
+    if (_idx >= 1) {
+        _idx = _idx-1;
+        
+//        [self enableOrDisableNextPreviousButton];
+        if (self.otvEpisode.parts) {
+//            [self initializeUI];
+            
+        } else
+        {
+            [SVProgressHUD showErrorWithStatus:@"Video not support"];
+        }
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 
 @end

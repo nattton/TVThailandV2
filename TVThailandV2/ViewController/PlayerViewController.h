@@ -7,19 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <CoreMedia/CoreMedia.h>
+
 
 @class Episode;
 @class Show;
+@class OTVEpisode;
+@class OTVEpisodePartViewController;
+
 @interface PlayerViewController : UIViewController
 
 @property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) Episode *episode;
 @property (nonatomic, weak) Episode *otherEpisode;
 
-@property (nonatomic, unsafe_unretained) long idx;
-@property (nonatomic, weak) NSString *videoUrl;
+@property (nonatomic, weak) OTVEpisode *otvEpisode;
+@property (nonatomic, weak) NSArray *otvRelateShows;
+@property (nonatomic, weak) OTVEpisodePartViewController *otvEPController;
 
-@property (nonatomic) BOOL isHidenToolbarPlayer;
+@property (nonatomic, unsafe_unretained) NSInteger idx;
+
+
 @property (weak, nonatomic) IBOutlet UIView *titleContainerView;
 @property (weak, nonatomic) IBOutlet UIView *videoContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *showNameLabel;
@@ -29,5 +39,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableOfVideoPart;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailOTV;
 
 @end

@@ -149,7 +149,7 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part 1/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wd0-zE-azC">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wd0-zE-azC">
                                         <rect key="frame" x="511" y="76" width="215" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
@@ -180,6 +180,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LMt-PY-Cm1" userLabel="Thumbnail OTV">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="470" id="Ajc-Ge-s3J"/>
+                                            <constraint firstAttribute="width" constant="768" id="TIh-Km-5dT"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0P-2j-ZsS">
+                                        <rect key="frame" x="352" y="203" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="O5J-0K-Bqs"/>
+                                            <constraint firstAttribute="width" constant="64" id="yYk-h9-7eO"/>
+                                        </constraints>
+                                        <state key="normal" image="play_alt">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playOTVButtonTapped:" destination="Wob-mq-FaN" eventType="touchUpInside" id="a1p-P8-O4R"/>
+                                        </connections>
+                                    </button>
                                     <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N1h-h7-g4v">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -189,10 +211,14 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="768" id="79s-FH-Mee"/>
+                                    <constraint firstItem="LMt-PY-Cm1" firstAttribute="centerX" secondItem="N1h-h7-g4v" secondAttribute="centerX" id="FOr-JD-cCr"/>
                                     <constraint firstItem="N1h-h7-g4v" firstAttribute="leading" secondItem="rBV-QU-k7P" secondAttribute="leading" id="IyN-cf-Io8"/>
                                     <constraint firstAttribute="trailing" secondItem="N1h-h7-g4v" secondAttribute="trailing" id="ZbQ-Fj-zJq"/>
+                                    <constraint firstItem="LMt-PY-Cm1" firstAttribute="centerY" secondItem="p0P-2j-ZsS" secondAttribute="centerY" id="dmv-ju-1gl"/>
+                                    <constraint firstItem="LMt-PY-Cm1" firstAttribute="top" secondItem="rBV-QU-k7P" secondAttribute="top" id="mDx-7t-LYj"/>
                                     <constraint firstAttribute="bottom" secondItem="N1h-h7-g4v" secondAttribute="bottom" id="nCT-tL-VrN"/>
                                     <constraint firstItem="N1h-h7-g4v" firstAttribute="top" secondItem="rBV-QU-k7P" secondAttribute="top" id="u2A-oJ-Y6y"/>
+                                    <constraint firstItem="LMt-PY-Cm1" firstAttribute="centerX" secondItem="p0P-2j-ZsS" secondAttribute="centerX" id="vzc-pU-xPY"/>
                                     <constraint firstAttribute="height" constant="470" id="y7P-bl-z4A"/>
                                 </constraints>
                             </view>
@@ -298,6 +324,7 @@
                         <outlet property="tableOfVideoPart" destination="8qX-ci-kGG" id="Ukc-o9-8pw"/>
                         <outlet property="tableViewLeftSpace" destination="MBE-5I-mQr" id="M9e-hU-YuK"/>
                         <outlet property="tableViewTopSpace" destination="kOC-B1-okC" id="Gdh-vC-pQJ"/>
+                        <outlet property="thumbnailOTV" destination="LMt-PY-Cm1" id="718-xR-oeY"/>
                         <outlet property="videoContainerHeight" destination="y7P-bl-z4A" id="woM-Kw-8g8"/>
                         <outlet property="videoContainerTopSpace" destination="e8j-pX-8sM" id="Ann-W5-Wz7"/>
                         <outlet property="videoContainerView" destination="rBV-QU-k7P" id="Jbo-dZ-Ne0"/>
@@ -407,7 +434,7 @@
                         <outlet property="portTableView" destination="gQ8-zr-b7V" id="ky6-Sd-s0f"/>
                         <segue destination="nWF-q7-qV2" kind="push" identifier="EPPartShowPlayerSegue" id="RnK-NN-E9l"/>
                         <segue destination="GoH-3d-stL" kind="modal" identifier="ShowDetailSegue" id="VxL-lD-BYg"/>
-                        <segue destination="Wob-mq-FaN" kind="modal" identifier="YoutubePlayerSegue" id="T45-my-NO6"/>
+                        <segue destination="Wob-mq-FaN" kind="modal" identifier="PlayerSegue" id="T45-my-NO6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efY-RN-HTK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -833,6 +860,7 @@
                         <outlet property="portTableView" destination="OYw-Zn-Cgj" id="I7j-sm-AfH"/>
                         <segue destination="GKB-kk-UEj" kind="modal" identifier="OTVEpAndPartToShowPlayerSegue" id="XgE-cK-5RH"/>
                         <segue destination="GoH-3d-stL" kind="modal" identifier="ShowDetailSegue" id="idi-Wp-ZFY"/>
+                        <segue destination="Wob-mq-FaN" kind="modal" identifier="PlayerSegue" id="pw3-vt-0Bo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pGd-GR-qFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1784,10 +1812,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="lwT-fV-NuI"/>
         <segue reference="qIP-8M-6fw"/>
         <segue reference="EJu-lf-Pgw"/>
+        <segue reference="lwT-fV-NuI"/>
         <segue reference="9af-dL-MCq"/>
-        <segue reference="VxL-lD-BYg"/>
+        <segue reference="idi-Wp-ZFY"/>
+        <segue reference="pw3-vt-0Bo"/>
     </inferredMetricsTieBreakers>
 </document>

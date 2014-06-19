@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class Episode;
+@class OTVEpisode;
+@class Show;
+
 
 @interface VideoPartTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
@@ -16,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 
 - (void)configureWithVideoPart:(Episode *)episode partNumber:(long)partNumber;
+- (void)configureWithOTVVideoPart:(OTVEpisode *)otvEpisode partNumber:(NSInteger)partNumber;
+- (void)configureWithOTVRelateShows:(Show *)relateOTVShow;
 
 @end
