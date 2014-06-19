@@ -8,6 +8,7 @@
 
 #import "MakathonAdView.h"
 #import "MakathonAd.h"
+#import "KapookAds.h"
 
 @implementation MakathonAdView {
     NSArray *_ads;
@@ -46,27 +47,38 @@
         adFrame.size = CGSizeMake(adFrame.size.width, 50);
     }
     
-    if(!self.webView)
+    if(!self.webViewShow)
     {
-        self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
-        self.webView.delegate = self;
-        [self.webView.scrollView setScrollEnabled:NO];
-        [self addSubview:self.webView];
+        self.webViewShow = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
+        self.webViewShow.delegate = self;
+        [self.webViewShow.scrollView setScrollEnabled:NO];
+        [self addSubview:self.webViewShow];
+        
+        self.webView1x1 = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+        [self addSubview:self.webView1x1];
     }
     else
     {
         self.frame = adFrame;
-        [self.webView setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
+        [self.webViewShow setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
     }
 }
 
-- (void)requestAd
-{
+- (void)requestAd {
     [MakathonAd loadAds:^(NSArray *ads, NSError *error) {
         _ads = ads;
         [self startRotateAd];
     }];
     
+}
+
+- (void)requestKapookAds {
+    [KapookAds loadApi:^(KapookAds *kapook, NSError *error) {
+        if (!error) {
+            [self.webView1x1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kapook.url1x1]]];
+            [self.webViewShow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kapook.urlShow]]];
+        }
+    }];
 }
 
 - (void)startRotateAd
@@ -75,7 +87,11 @@
         int x = arc4random() % [_ads count];
         MakathonAd *ad = [_ads objectAtIndex:x];
         delayAd = [ad.time doubleValue] / 1000.0f;
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ad.url]]];
+        if ([[ad.name lowercaseString] rangeOfString:@"kapook"].length != NSNotFound) {
+            [self requestKapookAds];
+        } else {
+            [self.webViewShow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ad.url]]];
+        }
     }
 }
 
@@ -92,7 +108,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [self setHidden:NO];
-    [self.webView setHidden:NO];
+    [self.webViewShow setHidden:NO];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delayAd * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         [self startRotateAd];
     });
@@ -101,7 +117,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self setHidden:YES];
-    [self.webView setHidden:YES];
+    [self.webViewShow setHidden:YES];
     [self startRotateAd];
 }
 
