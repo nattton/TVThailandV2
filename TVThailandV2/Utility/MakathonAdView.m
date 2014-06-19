@@ -9,6 +9,7 @@
 #import "MakathonAdView.h"
 #import "MakathonAd.h"
 #import "KapookAds.h"
+#import <SVWebViewController/SVWebViewController.h>
 
 @implementation MakathonAdView {
     NSArray *_ads;
@@ -100,7 +101,12 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[request URL]];
+        SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:[request URL]];
+        if (self.parentViewController && self.parentViewController.navigationController) {
+            [self.parentViewController.navigationController pushViewController:webViewController animated:YES];
+        } else {
+            [[UIApplication sharedApplication] openURL:[request URL]];
+        }
         return NO;
     }
     return YES;

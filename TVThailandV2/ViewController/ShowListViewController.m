@@ -108,6 +108,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     
     [self setUpGoToTop];
     
+    self.mkAdView.parentViewController = self;
     [self.mkAdView requestAd];
     
     /** Alert View & Refresh Button - connection fail, try again **/
