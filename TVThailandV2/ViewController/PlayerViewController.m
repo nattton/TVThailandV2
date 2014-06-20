@@ -65,6 +65,8 @@
 }
 
 #pragma mark - Staic Variable
+static int SECTION_VIDEO = 0;
+static int SECTION_RELATED = 1;
 static NSString *videoPartCell = @"videoPartCell";
 static NSString *kCodeStream = @"1000";
 static NSString *kCodeAds = @"1001";
@@ -124,6 +126,12 @@ static NSString *kCodeIframe = @"1002";
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
             [self.videoPlayerViewController.moviePlayer setFullscreen:YES animated:YES];
+            self.videoContainerTopSpace.constant = 0.0f;
+            self.videoContainerHeight.constant = 320.0f;
+        } else {
+            [self.videoPlayerViewController.moviePlayer setFullscreen:NO animated:YES];
+            self.videoContainerTopSpace.constant = -20.0f;
+            self.videoContainerHeight.constant = 236.0f;
         }
     }
 }
@@ -165,136 +173,101 @@ static NSString *kCodeIframe = @"1002";
 
 }
 
+#pragma mark - Init Video
+
 - (void) initVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
     
     self.showNameLabel.text = self.show.title;
-
-    /** OTV **/
+    
     if (self.show.isOTV) {
         
-        self.webView.hidden = YES;
-        
-        /* otv episode section */
-        if (section == 0) {
-            if (self.otvEpisode) {
-                _part = [self.otvEpisode.parts objectAtIndex:row];
-                if ([self.otvEpisode.parts count] == 1 || [self.otvEpisode.parts count] == 0) {
-                    self.partNameLabel.hidden = YES;
-                } else {
-                    self.partNameLabel.hidden = NO;
-                }
-                
-                self.episodeNameLabel.text = self.otvEpisode.date;
-                self.viewCountLabel.text = _part.nameTh;
-                self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)self.otvEpisode.parts.count ];
-                [self.thumbnailOTV setImageWithURL:[NSURL URLWithString: _part.thumbnail]
-                                        placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
-                
-            }
-            
-        }
-        /* otv relate show section */
-        else {
-            
-        }
-    }/** --End OTV **/
-    
-    /** TV Thailand **/
+        [self initOtvVideoPlayer:row sectionOfVideo:section];
+    }
     else {
-        /* episode section */
-        if (section == 0) {
-            
-            if (self.episode) {
-                if ([self.episode.videos count] == 1||[self.episode.videos count] == 0) {
-                    self.partNameLabel.hidden = YES;
-                } else {
-                    self.partNameLabel.hidden = NO;
-                }
-                
-                _videoId = self.episode.videos[row];
-                self.episodeNameLabel.text = self.episode.titleDisplay;
-                self.viewCountLabel.text = self.episode.viewCount;
-                self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (long)row + 1, (long)self.episode.videos.count ];
-                
-//            NSLog(@"srcTYPE=%@", self.episode.srcType);
-//            NSLog(@"_videoId=%@", _videoId);
-                
-                if ([self.episode.srcType isEqualToString:@"0"]) {
-                    self.webView.hidden = YES;
-                    [self openWithYoutubePlayerEmbed:_videoId];
-                }
-                else if ([self.episode.srcType isEqualToString:@"1"]) {
-                    self.webView.hidden = NO;
-                    [self openWithDailymotionEmbed];
-                }
-                else if ([self.episode.srcType isEqualToString:@"11"]) {
-                    self.webView.hidden = NO;
-                    [self openWebSite:_videoId];
-                }
-                else if ([self.episode.srcType isEqualToString:@"12"]) {
-                    self.webView.hidden = NO;
-                    [self openWithVideoUrl:_videoId];
-                }
-                else if ([self.episode.srcType isEqualToString:@"14"]) {
-                    self.webView.hidden = NO;
-                    [self loadMThaiWebVideo];
-                }
-                else if ([self.episode.srcType isEqualToString:@"15"]) {
-                    self.webView.hidden = NO;
-                    [self loadMThaiWebVideoWithPassword:self.episode.password];
-                }
-                
-            }
-            
-        }
-        /* other episode section */
-        else {
-            if (self.otherEpisode) {
-                if ([self.otherEpisode.videos count] == 1||[self.otherEpisode.videos count] == 0) {
-                    self.partNameLabel.hidden = YES;
-                } else {
-                    self.partNameLabel.hidden = NO;
-                }
-                
-                _videoId = self.otherEpisode.videos[row];
-                self.episodeNameLabel.text = self.otherEpisode.titleDisplay;
-                self.viewCountLabel.text = self.otherEpisode.viewCount;
-                self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", (long)row + 1, (long)self.otherEpisode.videos.count ];
-                
-                if ([self.otherEpisode.srcType isEqualToString:@"0"]) {
-                    self.webView.hidden = YES;
-                    [self openWithYoutubePlayerEmbed:_videoId];
-                }
-                else if ([self.otherEpisode.srcType isEqualToString:@"1"]) {
-                    self.webView.hidden = NO;
-                    [self openWithDailymotionEmbed];
-                }
-                else if ([self.otherEpisode.srcType isEqualToString:@"11"]) {
-                    self.webView.hidden = NO;
-                    [self openWebSite:_videoId];
-                }
-                else if ([self.otherEpisode.srcType isEqualToString:@"12"]) {
-                    self.webView.hidden = NO;
-                    [self openWithVideoUrl:_videoId];
-                }
-                else if ([self.otherEpisode.srcType isEqualToString:@"14"]) {
-                    self.webView.hidden = NO;
-                    [self loadMThaiWebVideo];
-                }
-                else if ([self.otherEpisode.srcType isEqualToString:@"15"]) {
-                    self.webView.hidden = NO;
-                    [self loadMThaiWebVideoWithPassword:self.episode.password];
-                }
-                
-            }
-        }
-    }/** --End TV Thailand **/
+        [self initTvThVideoPlayer:row sectionOfVideo:section];
+    }
     
     [self.tableOfVideoPart reloadData];
     
     [self setSelectedPositionOfVideoPartAtRow:row section:section];
     
 }
+
+- (void) initTvThVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
+    /* episode section */
+    if (section == SECTION_VIDEO) {
+        [self openWithVideo:self.episode Row:row];
+    }
+    /* other episode section */
+    else if (section == SECTION_RELATED) {
+        [self openWithVideo:self.otherEpisode Row:row];
+    }
+}
+
+- (void) openWithVideo:(Episode *)episode Row:(NSInteger)row {
+    if (episode) {
+        if ([episode.videos count] == 1||[episode.videos count] == 0) {
+            self.partNameLabel.hidden = YES;
+        } else {
+            self.partNameLabel.hidden = NO;
+        }
+        
+        _videoId = episode.videos[row];
+        self.episodeNameLabel.text = episode.titleDisplay;
+        self.viewCountLabel.text = episode.viewCount;
+        self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)episode.videos.count ];
+        
+        if ([episode.srcType isEqualToString:@"0"]) {
+            self.webView.hidden = YES;
+            [self openWithYoutubePlayerEmbed:_videoId];
+        }
+        else if ([episode.srcType isEqualToString:@"1"]) {
+            self.webView.hidden = NO;
+            [self openWithDailymotionEmbed];
+        }
+        else if ([episode.srcType isEqualToString:@"11"]) {
+            self.webView.hidden = NO;
+            [self openWebSite:_videoId];
+        }
+        else if ([episode.srcType isEqualToString:@"12"]) {
+            self.webView.hidden = NO;
+            [self openWithVideoUrl:_videoId];
+        }
+        else if ([episode.srcType isEqualToString:@"14"]) {
+            self.webView.hidden = NO;
+            [self loadMThaiWebVideo];
+        }
+        else if ([episode.srcType isEqualToString:@"15"]) {
+            self.webView.hidden = NO;
+            [self loadMThaiWebVideoWithPassword:episode.password];
+        }
+    }
+}
+
+
+- (void) initOtvVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
+    self.webView.hidden = YES;
+    if (section == SECTION_VIDEO) {
+        if (self.otvEpisode) {
+            _part = [self.otvEpisode.parts objectAtIndex:row];
+            if ([self.otvEpisode.parts count] == 1 || [self.otvEpisode.parts count] == 0) {
+                self.partNameLabel.hidden = YES;
+            } else {
+                self.partNameLabel.hidden = NO;
+            }
+            
+            self.episodeNameLabel.text = self.otvEpisode.date;
+            self.viewCountLabel.text = _part.nameTh;
+            self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)self.otvEpisode.parts.count ];
+            [self.thumbnailOTV setImageWithURL:[NSURL URLWithString: _part.thumbnail]
+                              placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
+            [self playCurrentVideo];
+        }
+        
+    }
+}
+
+#pragma mark - Open With
 
 - (void) openWithYoutubePlayerEmbed:(NSString *)videoIdString {
     [SVProgressHUD showWithStatus:@"Loading..."];
@@ -350,6 +323,8 @@ static NSString *kCodeIframe = @"1002";
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
     [SVProgressHUD dismiss];
 }
+
+#pragma mark - Load Video Mthai
 
 - (void) loadMThaiWebVideo {
     [SVProgressHUD showWithStatus:@"Loading..."];
@@ -472,9 +447,6 @@ static NSString *kCodeIframe = @"1002";
 }
 
 
-
-
-
 - (void) setSelectedPositionOfVideoPartAtRow:(long)row section:(long)section {
     NSIndexPath *indexPathOfVideoPart=[NSIndexPath indexPathForRow:row inSection:section];
     if ([self.tableOfVideoPart cellForRowAtIndexPath:indexPathOfVideoPart] ) {
@@ -527,21 +499,20 @@ static NSString *kCodeIframe = @"1002";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if (self.show.isOTV) {
-        if (section == 0) {
+    if (section == SECTION_VIDEO) {
+        if (self.show.isOTV) {
             return [self.otvEpisode.parts count];
-        } else if (section == 1){
-            return [self.otvRelateShows count];
-        }
-    }
-    else {
-        if (section == 0) {
+        } else {
             return [self.episode.videos count];
-        } else if (section == 1){
+        }
+        
+    } else if (section == SECTION_RELATED) {
+        if (self.show.isOTV) {
+            return [self.otvRelateShows count];
+        } else {
             return [self.otherEpisode.videos count];
         }
     }
-
     
     return 0;
     
@@ -553,25 +524,20 @@ static NSString *kCodeIframe = @"1002";
     VideoPartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:videoPartCell];
     cell.selectedBackgroundView = selectedBackgroundViewForCell;
     
-    
-    if (self.show.isOTV) {
-        if (indexPath.section == 0) {
-
+    if (indexPath.section == SECTION_VIDEO) {
+        if (self.show.isOTV) {
             [cell configureWithOTVVideoPart:self.otvEpisode partNumber:indexPath.row];
-        } else if (indexPath.section == 1){
+        } else {
+            [cell configureWithVideoPart:self.episode partNumber:indexPath.row];
+        }
+    }  else if (indexPath.section == SECTION_RELATED){
+        if (self.show.isOTV) {
             Show *otvRelateShow = [self.otvRelateShows objectAtIndex:indexPath.row];
             [cell configureWithOTVRelateShows:otvRelateShow];
-        }
-    }
-    else {
-        if (indexPath.section == 0) {
-            [cell configureWithVideoPart:self.episode partNumber:indexPath.row];
-        } else if (indexPath.section == 1){
+        } else {
             [cell configureWithVideoPart:self.otherEpisode partNumber:indexPath.row];
-            
         }
     }
-
 
     return cell;
     
@@ -580,18 +546,16 @@ static NSString *kCodeIframe = @"1002";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 
-    if (self.show.isOTV) {
-        if (section == 1) {
-            return @"Relate shows";
-        }
-    }
-    else {
-        if (section == 1) {
-            return @"Other videos";
-        }
+    if (section == SECTION_RELATED) {
+            if (self.show.isOTV) {
+                return @"Relate shows";
+            }
+            else {
+                return @"Other videos";
+            }
     }
     
-    return @"";
+    return @"Playlists";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -599,7 +563,10 @@ static NSString *kCodeIframe = @"1002";
     /* re assign value to _idx inorder to use in openWithVideoUrl method to show thumbnail of video */
     _idx = indexPath.row;
     
-    if (self.show.isOTV && indexPath.section == 1) {
+    if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
+        [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
+    }
+    else if (self.show.isOTV && indexPath.section == SECTION_RELATED) {
         
         [self.otvEPController setShow:self.otvRelateShows[indexPath.row]];
         [self.otvEPController reload];
@@ -608,8 +575,6 @@ static NSString *kCodeIframe = @"1002";
             
         }];
         
-    } else {
-        [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
     }
     
 }
@@ -629,11 +594,7 @@ static NSString *kCodeIframe = @"1002";
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0;
-    } else {
-        return 35;
-    }
+    return 35;
 }
 
 
