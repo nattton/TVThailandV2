@@ -92,6 +92,8 @@ static NSString *kCodeIframe = @"1002";
     
     if (self.show) {
         [self initVideoPlayer:_idx sectionOfVideo:0];
+        
+        [self startOTV];
     }
 
     [self setUpOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
@@ -261,7 +263,7 @@ static NSString *kCodeIframe = @"1002";
             self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)self.otvEpisode.parts.count ];
             [self.thumbnailOTV setImageWithURL:[NSURL URLWithString: _part.thumbnail]
                               placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
-            [self playCurrentVideo];
+
         }
         
     }
@@ -484,11 +486,16 @@ static NSString *kCodeIframe = @"1002";
 }
 
 - (IBAction)playOTVButtonTapped:(id)sender {
-    _isContent = NO;
-    [self playCurrentVideo];
+    [self startOTV];
 }
 
+- (void)startOTV {
+    if (self.show.isOTV) {
+        _isContent = NO;
+        [self playCurrentVideo];
+    }
 
+}
 
 
 #pragma mark - UITableViewDataSource
@@ -565,6 +572,8 @@ static NSString *kCodeIframe = @"1002";
     
     if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
         [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
+        [self startOTV];
+        
     }
     else if (self.show.isOTV && indexPath.section == SECTION_RELATED) {
         
