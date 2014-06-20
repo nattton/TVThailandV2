@@ -29,6 +29,7 @@
 
 #import "VideoPartTableViewCell.h"
 #import "OTVEpisodePartViewController.h"
+#import "InfoOfEpisodeViewController.h"
 
 @interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, CMVideoAdsDelegate>
 
@@ -75,6 +76,7 @@ static NSString *videoPartCell = @"videoPartCell";
 static NSString *kCodeStream = @"1000";
 static NSString *kCodeAds = @"1001";
 static NSString *kCodeIframe = @"1002";
+static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
 
 #pragma mark - ALL
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -180,10 +182,11 @@ static NSString *kCodeIframe = @"1002";
     self.showNameLabel.text = self.show.title;
     
     if (self.show.isOTV) {
-        
+        self.infoOfEpisodeButton.hidden = NO;
         [self initOtvVideoPlayer:row sectionOfVideo:section];
     }
     else {
+        self.infoOfEpisodeButton.hidden = YES;
         [self initTvThVideoPlayer:row sectionOfVideo:section];
     }
     
@@ -476,6 +479,11 @@ static NSString *kCodeIframe = @"1002";
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)partInfoButtonTapped:(id)sender {
+    
+    [self performSegueWithIdentifier:InfoOfEPSegue sender:self.otvEpisode];
+    
+}
 
 - (IBAction)closeButtonTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -589,11 +597,11 @@ static NSString *kCodeIframe = @"1002";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if ([segue.identifier isEqualToString:webIFrameSegue]) {
-//        OTVPart *otvPart = (OTVPart *)sender;
-//        WebIFrameViewController *webIframeViewController = segue.destinationViewController;
-//        webIframeViewController.part = otvPart;
-//    }
+    
+    if ([segue.identifier isEqualToString:InfoOfEPSegue]) {
+        InfoOfEpisodeViewController *infoOfEpisodeViewController = segue.destinationViewController;
+        infoOfEpisodeViewController.otvEpisode = (OTVEpisode *)sender;
+    }
     
 }
 
