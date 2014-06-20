@@ -9,12 +9,14 @@
 #import "PlayerViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-
 #import "AFHTTPSessionManager.h"
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "SVProgressHUD.h"
 #import "HTMLParser.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 #import "CMVideoAds.h"
 #import "DVInlineVideoAd.h"
@@ -32,6 +34,7 @@
 
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerTopSpace;
@@ -59,6 +62,7 @@
     NSString *_videoId;
     CGSize _size;
     BOOL _isContent;
+    BOOL _isLoading;
     OTVPart *_part;
     CGFloat _widthOfCH7iFrame;
     AVPlayerLayer *_layer;
@@ -484,11 +488,10 @@ static NSString *kCodeIframe = @"1002";
 }
 
 - (void)startOTV {
-    if (self.show.isOTV) {
+    if (self.show.isOTV && !_isLoading) {
         _isContent = NO;
         [self playCurrentVideo];
     }
-
 }
 
 
@@ -604,6 +607,7 @@ static NSString *kCodeIframe = @"1002";
 #pragma mark - Delegate VideoAds
 
 - (void)didRequestVideoAds:(CMVideoAds *)videoAds success:(BOOL)success {
+    _isLoading = NO;
     [SVProgressHUD dismiss];
     //    DLog(@"%@", videoAds);
     //    DLog(@"mediaFile : %@", [videoAds.ad.mediaFileURL absoluteString]);
@@ -615,12 +619,12 @@ static NSString *kCodeIframe = @"1002";
         [self.videoAds hitTrackingEvent:MIDPOINT];
         [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
         
-//        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-//                                                             trackingId:kOTVTracker];
-//        [tracker2 set:kGAIScreenName
-//                value:@"Player"];
-//        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:videoAds.URL
-//                                                           forKey:[GAIFields customDimensionForIndex:4]] build]];
+        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                             trackingId:kOTVTracker];
+        [tracker2 set:kGAIScreenName
+                value:@"Player"];
+        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:videoAds.URL
+                                                           forKey:[GAIFields customDimensionForIndex:4]] build]];
         
         [self playMovieStream:videoAds.ad.mediaFileURL];
     }
@@ -632,6 +636,7 @@ static NSString *kCodeIframe = @"1002";
 }
 
 - (void)didRequestVideoAds:(CMVideoAds *)videoAds error:(NSError *)error {
+    _isLoading = NO;
     [SVProgressHUD dismiss];
     
     _isContent = !_isContent;
@@ -810,12 +815,12 @@ static NSString *kCodeIframe = @"1002";
 {
     if (!_isContent && self.videoAds) {
         [self.videoAds hitTrackingEvent:COMPLETE];
-//        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-//                                                             trackingId:kOTVTracker];
-//        [tracker2 set:kGAIScreenName
-//                value:@"Player"];
-//        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.videoAds.URL
-//                                                           forKey:[GAIFields customDimensionForIndex:5]] build]];
+        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                             trackingId:kOTVTracker];
+        [tracker2 set:kGAIScreenName
+                value:@"Player"];
+        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.videoAds.URL
+                                                           forKey:[GAIFields customDimensionForIndex:5]] build]];
     }
     
     MPMoviePlayerController *player = [notification object];
@@ -841,7 +846,6 @@ static NSString *kCodeIframe = @"1002";
     }
     
 }
-
 
 
 - (void) openWithIFRAME:(NSString *)iframeText {
@@ -879,12 +883,12 @@ static NSString *kCodeIframe = @"1002";
             NSString *iframeURL = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
             if(iframeURL)
             {
-//                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-//                                                                     trackingId:kOTVTracker];
-//                [tracker2 set:kGAIScreenName
-//                        value:@"OTVEpisode"];
-//                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:iframeURL
-//                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
+                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                                     trackingId:kOTVTracker];
+                [tracker2 set:kGAIScreenName
+                        value:@"OTVEpisode"];
+                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:iframeURL
+                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
             }
             
         }
@@ -904,24 +908,6 @@ static NSString *kCodeIframe = @"1002";
     
     return string;
 }
-
-//- (BOOL)canBecomeFirstResponder
-//{
-//    return YES;
-//}
-//
-//- (void) viewDidAppear: (BOOL) animated {
-//    [super viewDidAppear:animated];
-//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-//    [self becomeFirstResponder];
-//}
-//
-//- (void) viewWillDisappear: (BOOL) animated {
-//    [super viewWillDisappear:animated];
-//    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-//    [UIApplication sharedApplication].idleTimerDisabled = YES;
-//    [self resignFirstResponder];
-//}
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent
 {
@@ -951,33 +937,35 @@ static NSString *kCodeIframe = @"1002";
 
 - (void)playCurrentVideo
 {
-    self.webView.hidden = YES;
-    
-    DLog(@"vastURL : %@", _part.vastURL);
-    
-    if (_isContent) {
-        if ([_part.mediaCode isEqualToString:kCodeStream])
-        {
-            [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
-            
-//            id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-//                                                                 trackingId:kOTVTracker];
-//            [tracker2 set:kGAIScreenName
-//                    value:@"OTVEpisode"];
-//            [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.streamURL
-//                                                               forKey:[GAIFields customDimensionForIndex:6]] build]];
-        }
-        else if ([_part.mediaCode isEqualToString:kCodeIframe])
-        {
-            [self openWithIFRAME:_part.streamURL];
-        }
-    }
-    else
-    {
-        [SVProgressHUD showWithStatus:@"Loading..."];
-        self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
-        self.videoAds.delegate = self;
+    if (!_isLoading) {
+        self.webView.hidden = YES;
         
+        DLog(@"vastURL : %@", _part.vastURL);
+        
+        if (_isContent) {
+            if ([_part.mediaCode isEqualToString:kCodeStream])
+            {
+                [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
+                
+                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                                     trackingId:kOTVTracker];
+                [tracker2 set:kGAIScreenName
+                        value:@"OTVEpisode"];
+                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.streamURL
+                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
+            }
+            else if ([_part.mediaCode isEqualToString:kCodeIframe])
+            {
+                [self openWithIFRAME:_part.streamURL];
+            }
+        }
+        else
+        {
+            [SVProgressHUD showWithStatus:@"Loading..."];
+            _isLoading = YES;
+            self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
+            self.videoAds.delegate = self;
+        }
     }
 }
 

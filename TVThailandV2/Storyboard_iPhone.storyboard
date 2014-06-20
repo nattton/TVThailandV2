@@ -263,6 +263,7 @@
                     <connections>
                         <outlet property="episodeNameLabel" destination="RXL-E8-kYe" id="Psy-3s-2yT"/>
                         <outlet property="partNameLabel" destination="IBo-Aq-0DD" id="Hhc-qO-9ZP"/>
+                        <outlet property="playButton" destination="diu-0K-Hi7" id="xIx-L7-kqQ"/>
                         <outlet property="showNameLabel" destination="GQN-Dh-hIU" id="WdC-iZ-tSh"/>
                         <outlet property="tableOfVideoPart" destination="xh3-Ge-TKQ" id="g8O-Qa-0SN"/>
                         <outlet property="thumbnailOTV" destination="aPI-oS-YWf" id="9Hy-2X-NMW"/>
