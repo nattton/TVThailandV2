@@ -71,8 +71,6 @@ static NSString *videoPartCell = @"videoPartCell";
 static NSString *kCodeStream = @"1000";
 static NSString *kCodeAds = @"1001";
 static NSString *kCodeIframe = @"1002";
-//static NSString *webIFrameSegue = @"WebIFrameSegue";
-
 
 #pragma mark - ALL
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -109,13 +107,11 @@ static NSString *kCodeIframe = @"1002";
         _widthOfCH7iFrame = 480;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
-            self.videoContainerTopSpace.constant = 0.0f;
             self.videoContainerWidth.constant = 700.0f;
             self.videoContainerHeight.constant = 390.0f;
             self.tableViewLeftSpace.constant = 0.0f;
             self.tableViewTopSpace.constant = self.videoContainerWidth.constant + 15.f;
         } else {
-            self.videoContainerTopSpace.constant = -22.0f;
             self.videoContainerWidth.constant = 768.0f;
             self.videoContainerHeight.constant = 470.0f;
             self.tableViewLeftSpace.constant = 608.0f;
@@ -126,11 +122,9 @@ static NSString *kCodeIframe = @"1002";
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
             [self.videoPlayerViewController.moviePlayer setFullscreen:YES animated:YES];
-            self.videoContainerTopSpace.constant = 0.0f;
             self.videoContainerHeight.constant = 320.0f;
         } else {
             [self.videoPlayerViewController.moviePlayer setFullscreen:NO animated:YES];
-            self.videoContainerTopSpace.constant = -20.0f;
             self.videoContainerHeight.constant = 236.0f;
         }
     }
@@ -145,7 +139,7 @@ static NSString *kCodeIframe = @"1002";
 - (void) initLableContainner {
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _size = CGSizeMake(768, 460);
+        _size = CGSizeMake(700.0f, 390.0f);
         
     }
     else
@@ -284,14 +278,14 @@ static NSString *kCodeIframe = @"1002";
 - (void)openWithDailymotionEmbed {
     [SVProgressHUD showWithStatus:@"Loading..."];
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
-                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %0.0f\"/></head>\
-                            <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
-                            <div align=\"center\"><iframe src=\"http://www.dailymotion.com/embed/video/%@?autoplay=1\" width=\"%0.0f\" height=\"%0.0f\" frameborder=\"0\"></iframe>\
-                            </div></body></html>", _size.width, _videoId, _size.width, _size.height];
+                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
+                            <body style=\"background-color:#000 ;\">\
+                            <iframe style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\" src=\"http://www.dailymotion.com/embed/video/%@?autoplay=1\" width=\"%0.0f\" height=\"%0.0f\" frameborder=\"0\"></iframe>\
+                            </body></html>", _videoId, _size.width, _size.height];
     
     [self.webView loadHTMLString:htmlString
                          baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
-  
+    [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
 }
 

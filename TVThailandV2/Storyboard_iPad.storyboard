@@ -115,7 +115,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bqu-sN-bUR" userLabel="Title Container">
-                                <rect key="frame" x="15" y="488" width="739" height="115"/>
+                                <rect key="frame" x="15" y="508" width="739" height="115"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ztg-DU-BNi">
@@ -242,7 +242,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-QU-k7P" userLabel="Video Container">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="470"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="470"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LMt-PY-Cm1" userLabel="Thumbnail OTV">
@@ -309,7 +309,7 @@
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="trailing" secondItem="Bqu-sN-bUR" secondAttribute="trailing" constant="14" id="LUv-co-B7T"/>
                             <constraint firstItem="8qX-ci-kGG" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="608" id="MBE-5I-mQr"/>
                             <constraint firstItem="rBV-QU-k7P" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" id="chW-xk-xWD"/>
-                            <constraint firstItem="rBV-QU-k7P" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" constant="-20" id="e8j-pX-8sM"/>
+                            <constraint firstItem="rBV-QU-k7P" firstAttribute="top" secondItem="fud-ZN-aIu" secondAttribute="bottom" id="e8j-pX-8sM"/>
                             <constraint firstItem="8qX-ci-kGG" firstAttribute="leading" secondItem="XVN-e5-lIC" secondAttribute="leading" constant="15" id="kOC-B1-okC"/>
                             <constraint firstAttribute="trailing" secondItem="Wvd-5i-oiG" secondAttribute="trailing" id="nmm-aZ-8pU"/>
                             <constraint firstItem="VDh-CE-W21" firstAttribute="top" secondItem="Wvd-5i-oiG" secondAttribute="bottom" id="tSB-QF-A08"/>
