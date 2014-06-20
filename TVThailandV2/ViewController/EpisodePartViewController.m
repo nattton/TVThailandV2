@@ -383,24 +383,15 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     if (_episodes.count == 1 || _episodes.count ==  0 || _episodes == nil) {
         self.otherEpisode = nil;
     } else {
-        if (_episodes.count != currentEpIndex + 1 ) {
-            self.otherEpisode = _episodes[currentEpIndex + 1];
+        
+        if (currentEpIndex == 0) {
+            self.otherEpisode = _episodes[1];
         } else {
             self.otherEpisode = _episodes[currentEpIndex - 1];
         }
     }
     
     [self performSegueWithIdentifier:PlayerSegue sender:indexPath];
-    
-//    if ([episode.srcType isEqualToString:@"0"]) {
-//        
-//        [self performSegueWithIdentifier:youtubePlayerSegue sender:indexPath];
-//        
-//    }
-//    else {
-//        [self performSegueWithIdentifier:EPPartShowPlayerSegue sender:indexPath];
-//    }
-    
 }
 
 #pragma mark - Navigation
