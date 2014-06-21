@@ -11,6 +11,8 @@
 
 @interface InfoOfEpisodeViewController ()
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailTextViewHeight;
+
 @end
 
 @implementation InfoOfEpisodeViewController
@@ -28,10 +30,22 @@
 {
     [super viewDidLoad];
     
+    UIFontDescriptor *baseFont =
+    [UIFontDescriptor fontDescriptorWithFontAttributes:
+     @{UIFontDescriptorFamilyAttribute:@"Helvetica Neue"}];
+    UIFontDescriptor *italicBase =
+    [baseFont fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
+    UIFont *font = [UIFont fontWithDescriptor:italicBase size:24];
+    self.detailTextView.font = font;
+    
     self.episodeName.text = self.otvEpisode.nameTh;
     self.updateDate.text = self.otvEpisode.date;
-    self.infoOfEpisode.text = self.otvEpisode.detail;
+    self.detailTextView.text = self.otvEpisode.detail;
 
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,6 +59,27 @@
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+- (void)updateViewConstraints
+{
+    [super updateViewConstraints];
+    self.detailTextViewHeight.constant = [self textViewHeight:self.detailTextView];
+}
+
+- (CGFloat)textViewHeight:(UITextView *)textView
+{
+    if ([textView respondsToSelector:@selector(layoutManager)])
+    {
+        [textView.layoutManager ensureLayoutForTextContainer:textView.textContainer];
+        CGRect usedRect = [textView.layoutManager
+                           usedRectForTextContainer:textView.textContainer];
+        return ceilf(usedRect.size.height
+                     + textView.textContainerInset.top
+                     + textView.textContainerInset.bottom);
+    }
+    
+    return 320;
 }
 
 @end

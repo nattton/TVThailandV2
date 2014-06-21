@@ -14,6 +14,6 @@
 @property (nonatomic, weak) OTVEpisode* otvEpisode;
 @property (weak, nonatomic) IBOutlet UILabel *episodeName;
 @property (weak, nonatomic) IBOutlet UILabel *updateDate;
-@property (weak, nonatomic) IBOutlet UITextView *infoOfEpisode;
+@property (weak, nonatomic) IBOutlet UITextView *detailTextView;
 
 @end

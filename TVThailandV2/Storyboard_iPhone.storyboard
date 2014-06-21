@@ -314,30 +314,49 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="493"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZQ-9o-5Nf">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZQ-9o-5Nf">
                                         <rect key="frame" x="20" y="43" width="280" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="AbJ-BT-PYW"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Update Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqx-Ko-mWN" userLabel="Label - Update Date">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqx-Ko-mWN" userLabel="Label - Update Date">
                                         <rect key="frame" x="20" y="66" width="280" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyx-mD-Su5">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyx-mD-Su5">
                                         <rect key="frame" x="20" y="95" width="280" height="370"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="370" id="MSN-BZ-X59"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="KZQ-9o-5Nf" firstAttribute="top" secondItem="rov-mt-Ole" secondAttribute="top" constant="43" id="5CR-me-OPb"/>
+                                    <constraint firstItem="yyx-mD-Su5" firstAttribute="leading" secondItem="rov-mt-Ole" secondAttribute="leading" constant="20" id="C8x-aG-d44"/>
+                                    <constraint firstAttribute="trailing" secondItem="yyx-mD-Su5" secondAttribute="trailing" constant="20" id="JPR-bp-79u"/>
+                                    <constraint firstItem="yyx-mD-Su5" firstAttribute="top" secondItem="Cqx-Ko-mWN" secondAttribute="bottom" constant="13" id="KOe-wq-Vkl"/>
+                                    <constraint firstItem="KZQ-9o-5Nf" firstAttribute="leading" secondItem="rov-mt-Ole" secondAttribute="leading" constant="20" id="MNo-g8-FXm"/>
+                                    <constraint firstAttribute="centerX" secondItem="KZQ-9o-5Nf" secondAttribute="centerX" id="VnM-ma-3pb"/>
+                                    <constraint firstItem="Cqx-Ko-mWN" firstAttribute="leading" secondItem="rov-mt-Ole" secondAttribute="leading" constant="20" id="c0E-qn-jRE"/>
+                                    <constraint firstAttribute="trailing" secondItem="KZQ-9o-5Nf" secondAttribute="trailing" constant="20" id="oED-oH-c66"/>
+                                    <constraint firstItem="Cqx-Ko-mWN" firstAttribute="top" secondItem="KZQ-9o-5Nf" secondAttribute="bottom" constant="-1" id="s2T-WW-UOn"/>
+                                    <constraint firstAttribute="bottom" secondItem="yyx-mD-Su5" secondAttribute="bottom" constant="28" id="tXB-fo-86N"/>
+                                    <constraint firstAttribute="trailing" secondItem="Cqx-Ko-mWN" secondAttribute="trailing" constant="20" id="uhH-MU-lFy"/>
+                                </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDw-5Z-gdW">
                                 <rect key="frame" x="140" y="501" width="40" height="40"/>
@@ -365,8 +384,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="detailTextView" destination="yyx-mD-Su5" id="iHT-XU-Oht"/>
+                        <outlet property="detailTextViewHeight" destination="MSN-BZ-X59" id="2bI-iS-4vX"/>
                         <outlet property="episodeName" destination="KZQ-9o-5Nf" id="EVM-kv-Tzi"/>
-                        <outlet property="infoOfEpisode" destination="yyx-mD-Su5" id="t3X-XQ-Ioh"/>
                         <outlet property="updateDate" destination="Cqx-Ko-mWN" id="8iF-Ga-vjg"/>
                     </connections>
                 </viewController>
@@ -1957,11 +1977,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xdc-Rh-odR"/>
-        <segue reference="gcw-2o-Hcb"/>
         <segue reference="tRJ-5v-ocZ"/>
         <segue reference="weI-C5-TSh"/>
+        <segue reference="U1O-u5-wMC"/>
         <segue reference="saQ-9b-nco"/>
-        <segue reference="lLI-Wr-qoe"/>
+        <segue reference="46G-Qc-OaU"/>
+        <segue reference="gcw-2o-Hcb"/>
     </inferredMetricsTieBreakers>
 </document>

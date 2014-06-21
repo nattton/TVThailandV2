@@ -487,6 +487,7 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
 
 - (IBAction)closeButtonTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
+        [SVProgressHUD dismiss];
         [self.videoPlayerViewController.moviePlayer stop];
     }];
 }

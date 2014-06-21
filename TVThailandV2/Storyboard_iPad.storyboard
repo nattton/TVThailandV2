@@ -368,34 +368,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQN-db-bkY">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQN-db-bkY">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="931"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-YX-E5g">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-YX-E5g">
                                         <rect key="frame" x="51" y="67" width="666" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="Kk3-iB-KXa"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="28"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Update Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYW-RU-TXq" userLabel="Label - Update Date">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYW-RU-TXq" userLabel="Label - Update Date">
                                         <rect key="frame" x="51" y="106" width="666" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="0gY-4f-QbH"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAT-wT-csE">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAT-wT-csE">
                                         <rect key="frame" x="51" y="168" width="666" height="712"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="712" id="dVQ-6r-2en"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="JAT-wT-csE" secondAttribute="trailing" constant="51" id="7ae-W9-XUJ"/>
+                                    <constraint firstItem="tYW-RU-TXq" firstAttribute="leading" secondItem="mQN-db-bkY" secondAttribute="leading" constant="51" id="Dlk-EQ-C99"/>
+                                    <constraint firstAttribute="trailing" secondItem="bNS-YX-E5g" secondAttribute="trailing" constant="51" id="Gc9-cP-U8U"/>
+                                    <constraint firstAttribute="centerX" secondItem="bNS-YX-E5g" secondAttribute="centerX" id="IJx-Cl-LgO"/>
+                                    <constraint firstItem="bNS-YX-E5g" firstAttribute="leading" secondItem="mQN-db-bkY" secondAttribute="leading" constant="51" id="MWb-Pb-VKG"/>
+                                    <constraint firstItem="JAT-wT-csE" firstAttribute="top" secondItem="tYW-RU-TXq" secondAttribute="bottom" constant="19" id="Pcv-IB-eMs"/>
+                                    <constraint firstAttribute="trailing" secondItem="tYW-RU-TXq" secondAttribute="trailing" constant="51" id="PhG-i1-Ltt"/>
+                                    <constraint firstItem="bNS-YX-E5g" firstAttribute="top" secondItem="mQN-db-bkY" secondAttribute="top" constant="67" id="a2s-YY-NK1"/>
+                                    <constraint firstItem="JAT-wT-csE" firstAttribute="leading" secondItem="mQN-db-bkY" secondAttribute="leading" constant="51" id="ayo-ef-UwS"/>
+                                    <constraint firstItem="tYW-RU-TXq" firstAttribute="top" secondItem="bNS-YX-E5g" secondAttribute="bottom" constant="-2" id="oUM-zw-e7S"/>
+                                    <constraint firstAttribute="bottom" secondItem="JAT-wT-csE" secondAttribute="bottom" constant="51" id="sqA-Tc-8eq"/>
+                                </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1S-uj-vAq">
                                 <rect key="frame" x="354" y="939" width="60" height="60"/>
@@ -415,12 +437,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1uR-Dl-H90" firstAttribute="top" secondItem="f1S-uj-vAq" secondAttribute="bottom" constant="25" id="FIU-Js-5Eg"/>
+                            <constraint firstItem="1uR-Dl-H90" firstAttribute="top" secondItem="mQN-db-bkY" secondAttribute="bottom" constant="93" id="L7x-j7-1Db"/>
                             <constraint firstAttribute="centerX" secondItem="f1S-uj-vAq" secondAttribute="centerX" id="YDr-mv-VfR"/>
+                            <constraint firstItem="mQN-db-bkY" firstAttribute="top" secondItem="4mc-HX-ncm" secondAttribute="bottom" constant="-20" id="j6x-7i-Gkf"/>
+                            <constraint firstItem="mQN-db-bkY" firstAttribute="leading" secondItem="oax-hD-lFb" secondAttribute="leading" id="uxX-fl-nx1"/>
+                            <constraint firstAttribute="trailing" secondItem="mQN-db-bkY" secondAttribute="trailing" id="yxH-zU-gGI"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="detailTextView" destination="JAT-wT-csE" id="YBF-fZ-s6P"/>
+                        <outlet property="detailTextViewHeight" destination="dVQ-6r-2en" id="73m-Hp-RGs"/>
                         <outlet property="episodeName" destination="bNS-YX-E5g" id="QIE-Fz-9V0"/>
-                        <outlet property="infoOfEpisode" destination="JAT-wT-csE" id="auM-Ay-EYJ"/>
                         <outlet property="updateDate" destination="tYW-RU-TXq" id="VLj-Wy-Kh4"/>
                     </connections>
                 </viewController>
