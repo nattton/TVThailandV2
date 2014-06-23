@@ -505,50 +505,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cka-Co-NVk">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="134" width="320" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKt-fH-vgZ">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="sy0-YG-DpB"/>
+                                    <constraint firstAttribute="width" constant="320" id="AEl-9l-DmM"/>
+                                    <constraint firstAttribute="height" constant="300" id="G2W-Nn-LLW"/>
                                 </constraints>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="rewind" id="JiG-SV-l60">
-                                        <connections>
-                                            <action selector="previousButtonTouched:" destination="Z3x-hJ-NYH" id="hNU-rh-Juk"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="pR6-za-pkX"/>
-                                    <barButtonItem title="Item" style="plain" id="IT1-0P-aaK"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ne1-eM-IOa"/>
-                                    <barButtonItem style="plain" systemItem="fastForward" id="bv0-eu-zfZ">
-                                        <connections>
-                                            <action selector="nextButtonTouched:" destination="Z3x-hJ-NYH" id="uSD-au-qkP"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
+                            </webView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wKt-fH-vgZ" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="1pB-oJ-b0A"/>
-                            <constraint firstAttribute="trailing" secondItem="wKt-fH-vgZ" secondAttribute="trailing" id="6ZY-tb-1fq"/>
-                            <constraint firstItem="cka-Co-NVk" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" constant="-64" id="LqE-sN-RQm"/>
-                            <constraint firstItem="xCx-9O-Do3" firstAttribute="top" secondItem="cka-Co-NVk" secondAttribute="bottom" id="dF8-CG-tzY"/>
-                            <constraint firstItem="cka-Co-NVk" firstAttribute="leading" secondItem="jt5-pg-LSu" secondAttribute="leading" id="r0S-fu-XZX"/>
-                            <constraint firstItem="wKt-fH-vgZ" firstAttribute="top" secondItem="m28-QF-KzI" secondAttribute="bottom" constant="460" id="uv5-A6-H6p"/>
-                            <constraint firstAttribute="trailing" secondItem="cka-Co-NVk" secondAttribute="trailing" id="xkQ-hZ-NrG"/>
+                            <constraint firstAttribute="centerY" secondItem="cka-Co-NVk" secondAttribute="centerY" id="QlZ-7B-yOb"/>
+                            <constraint firstAttribute="centerX" secondItem="cka-Co-NVk" secondAttribute="centerX" id="hwK-7P-HcA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Oa2-wk-jY5"/>
                     <connections>
-                        <outlet property="nextBarButtonItem" destination="bv0-eu-zfZ" id="f6j-Iv-gVK"/>
-                        <outlet property="partInfoBarButtonItem" destination="IT1-0P-aaK" id="MGd-Uq-zPv"/>
-                        <outlet property="previousBarButtonItem" destination="JiG-SV-l60" id="Blg-Rw-F6o"/>
-                        <outlet property="videoToolbar" destination="wKt-fH-vgZ" id="M3i-4P-5x1"/>
                         <outlet property="webView" destination="cka-Co-NVk" id="yN9-v2-ajf"/>
                     </connections>
                 </viewController>
@@ -1977,11 +1950,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="tRJ-5v-ocZ"/>
-        <segue reference="weI-C5-TSh"/>
-        <segue reference="U1O-u5-wMC"/>
-        <segue reference="saQ-9b-nco"/>
-        <segue reference="46G-Qc-OaU"/>
+        <segue reference="lLI-Wr-qoe"/>
         <segue reference="gcw-2o-Hcb"/>
+        <segue reference="tRJ-5v-ocZ"/>
+        <segue reference="rKb-JG-vfa"/>
+        <segue reference="551-Zy-Guf"/>
+        <segue reference="xdc-Rh-odR"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -30,6 +30,8 @@
 
 #import "MakathonAdView.h"
 
+#import "Channel.h"
+
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -84,8 +86,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
     else if ([segue.identifier isEqualToString:showPlayerSegue]) {
         VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
-        videoPlayerViewController.videoUrl = self.videoUrl;
-        videoPlayerViewController.isHidenToolbarPlayer = YES;
+        videoPlayerViewController.channel = self.channel;
         videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", self.navigationItem.title];
     }
     else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
@@ -98,6 +99,11 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         otvEpAndPartViewController.show = show;
         
     }
+}
+
+- (void) setChannel:(Channel *)channel {
+    _channel = channel;
+    self.navigationItem.title = channel.title;
 }
 
 #pragma mark - UIViewController
@@ -201,7 +207,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     _Id = Id;
     
     if (_mode == kChannel) {
-        if (self.videoUrl != nil && ![self.videoUrl isEqualToString:@""]) {
+        if (self.channel != nil && self.channel.videoUrl != nil && ![self.channel.videoUrl isEqualToString:@""]) {
             UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
             liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
             self.navigationItem.rightBarButtonItem = liveButton;

@@ -133,8 +133,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         ShowListViewController *showListViewController = segue.destinationViewController;
         if (sender) {
             Channel *channel = (Channel *)sender;
-            showListViewController.navigationItem.title = channel.title;
-            showListViewController.videoUrl = channel.videoUrl;
+            showListViewController.channel = channel;
             [showListViewController reloadWithMode:kChannel Id:channel.Id];
             
             id tracker = [[GAI sharedInstance] defaultTracker];
@@ -149,9 +148,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         VideoPlayerViewController *videoPlayerViewController = segue.destinationViewController;
         if (sender) {
             Channel *channel = (Channel *)sender;
-            videoPlayerViewController.videoUrl = channel.videoUrl;
-            videoPlayerViewController.isHidenToolbarPlayer = YES;
-            videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", channel.title];
+            videoPlayerViewController.channel = channel;
         }
     }
     

@@ -16,9 +16,10 @@ typedef enum {
     kChannel = 2
 } ShowModeType;
 
+@class Channel;
 @interface ShowListViewController : UIViewController
 
-@property (nonatomic, weak) NSString *videoUrl;
+@property (nonatomic, weak) Channel *channel;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 

@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="882"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="619" translatesAutoresizingMaskIntoConstraints="NO" id="aTJ-54-yAc">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="619" translatesAutoresizingMaskIntoConstraints="NO" id="aTJ-54-yAc">
                                         <rect key="frame" x="75" y="73" width="619" height="47"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
@@ -30,7 +30,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-Fb-lwp">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-Fb-lwp">
                                         <rect key="frame" x="75" y="405" width="620" height="449"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,7 +45,7 @@
                                         <rect key="frame" x="132" y="128" width="505" height="269"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="505" id="mfz-Ou-eBf"/>
+                                            <constraint firstAttribute="width" constant="505" id="XqW-4P-mEz"/>
                                             <constraint firstAttribute="height" constant="269" id="peD-43-2t0"/>
                                         </constraints>
                                     </imageView>
@@ -55,7 +55,6 @@
                                     <constraint firstItem="aTJ-54-yAc" firstAttribute="top" secondItem="B36-9F-unX" secondAttribute="top" constant="73" id="7Xs-xB-Ucb"/>
                                     <constraint firstAttribute="bottom" secondItem="GdK-E8-nwK" secondAttribute="bottom" constant="485" id="Aca-GV-OCh"/>
                                     <constraint firstItem="bvR-Fb-lwp" firstAttribute="leading" secondItem="B36-9F-unX" secondAttribute="leading" constant="75" id="BAw-7a-KuR"/>
-                                    <constraint firstAttribute="trailing" secondItem="GdK-E8-nwK" secondAttribute="trailing" constant="131" id="H93-hA-Khm"/>
                                     <constraint firstItem="bvR-Fb-lwp" firstAttribute="top" secondItem="GdK-E8-nwK" secondAttribute="bottom" constant="8" id="MAu-5R-LNS"/>
                                     <constraint firstAttribute="trailing" secondItem="aTJ-54-yAc" secondAttribute="trailing" constant="74" id="UMG-ZB-Pfa"/>
                                     <constraint firstAttribute="centerX" secondItem="aTJ-54-yAc" secondAttribute="centerX" id="US6-dj-fjT"/>
@@ -64,7 +63,6 @@
                                     <constraint firstAttribute="centerX" secondItem="GdK-E8-nwK" secondAttribute="centerX" constant="-0.5" id="jIB-Qk-T1z"/>
                                     <constraint firstItem="GdK-E8-nwK" firstAttribute="top" secondItem="aTJ-54-yAc" secondAttribute="bottom" constant="8" id="lDZ-2z-nB8"/>
                                     <constraint firstAttribute="bottom" secondItem="bvR-Fb-lwp" secondAttribute="bottom" constant="28" id="r9f-LA-65r"/>
-                                    <constraint firstItem="GdK-E8-nwK" firstAttribute="leading" secondItem="B36-9F-unX" secondAttribute="leading" constant="132" id="yh5-BI-8VI"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTh-tY-VZx">
@@ -468,48 +466,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAU-4h-Odv">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="34" y="232" width="700" height="500"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="700" id="5VI-Y1-P56"/>
+                                    <constraint firstAttribute="height" constant="500" id="sgG-TA-WzM"/>
+                                </constraints>
                             </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUm-Se-gO6">
-                                <rect key="frame" x="0.0" y="980" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="rewind" id="DWI-kY-CmO">
-                                        <connections>
-                                            <action selector="previousButtonTouched:" destination="nWF-q7-qV2" id="Urw-NZ-VdG"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="K9g-nQ-w0d"/>
-                                    <barButtonItem title="Item" style="plain" id="pIm-ZD-Zj0"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="zrQ-gp-EIg"/>
-                                    <barButtonItem style="plain" systemItem="fastForward" id="X1k-vL-je5">
-                                        <connections>
-                                            <action selector="nextButtonTouched:" destination="nWF-q7-qV2" id="vhL-kX-q7K"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TAU-4h-Odv" firstAttribute="top" secondItem="MHp-z3-q7r" secondAttribute="bottom" constant="-64" id="6Ak-tX-5SC"/>
-                            <constraint firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="IAa-Js-yGo"/>
-                            <constraint firstAttribute="trailing" secondItem="UUm-Se-gO6" secondAttribute="trailing" id="Kwj-rh-0AE"/>
-                            <constraint firstItem="Vf9-a1-Xsm" firstAttribute="top" secondItem="TAU-4h-Odv" secondAttribute="bottom" id="MCu-qO-UIx"/>
-                            <constraint firstAttribute="centerX" secondItem="UUm-Se-gO6" secondAttribute="centerX" id="PcU-hX-Iif"/>
-                            <constraint firstItem="UUm-Se-gO6" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="QUQ-R8-mnW"/>
-                            <constraint firstItem="Vf9-a1-Xsm" firstAttribute="top" secondItem="UUm-Se-gO6" secondAttribute="bottom" id="Raq-ey-cx0"/>
-                            <constraint firstItem="TAU-4h-Odv" firstAttribute="leading" secondItem="y5d-xr-MWE" secondAttribute="leading" id="Ts9-a0-6Uc"/>
+                            <constraint firstAttribute="centerX" secondItem="TAU-4h-Odv" secondAttribute="centerX" id="4vI-vT-YUB"/>
+                            <constraint firstAttribute="centerY" secondItem="TAU-4h-Odv" secondAttribute="centerY" constant="30" id="S5R-FF-c7i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>
                     <connections>
-                        <outlet property="nextBarButtonItem" destination="X1k-vL-je5" id="G33-jL-acT"/>
-                        <outlet property="partInfoBarButtonItem" destination="pIm-ZD-Zj0" id="dwW-Xz-c32"/>
-                        <outlet property="previousBarButtonItem" destination="DWI-kY-CmO" id="1uo-ew-FZ1"/>
-                        <outlet property="videoToolbar" destination="UUm-Se-gO6" id="41o-x4-zwl"/>
                         <outlet property="webView" destination="TAU-4h-Odv" id="pml-7E-E3P"/>
                     </connections>
                 </viewController>

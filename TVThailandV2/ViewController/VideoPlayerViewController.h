@@ -8,13 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class Episode;
+@class Channel;
 @interface VideoPlayerViewController : UIViewController
 
-@property (nonatomic, weak) Episode *episode;
-@property (nonatomic, unsafe_unretained) long idx;
-@property (nonatomic, weak) NSString *videoUrl;
-
-@property (nonatomic) BOOL isHidenToolbarPlayer;
+@property (nonatomic, weak) Channel *channel;
 
 @end

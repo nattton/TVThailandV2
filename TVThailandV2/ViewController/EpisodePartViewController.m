@@ -6,26 +6,25 @@
 //  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
 //
 
+
 #import "EpisodePartViewController.h"
-#import "AppDelegate.h"
-#import "EpisodePartCell.h"
-#import "Show.h"
-#import "Episode.h"
-#import "VideoPlayerViewController.h"
-#import "PlayerViewController.h"
-#import "DetailViewController.h"
-#import "Program.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <QuartzCore/QuartzCore.h>
+#import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import "SVProgressHUD.h"
 #import "XLMediaZoom.h"
-
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-#import <XCDYouTubeKit/XCDYouTubeKit.h>
+#import "AppDelegate.h"
+#import "EpisodePartCell.h"
+#import "Show.h"
+#import "Episode.h"
+#import "PlayerViewController.h"
+#import "DetailViewController.h"
+#import "Program.h"
 
 @interface EpisodePartViewController ()<UITableViewDataSource, UITableViewDelegate, EPPartCellDelegate>
 
@@ -48,7 +47,6 @@
 
 #pragma mark - Staic Variable
 static NSString *cellname = @"cell";
-static NSString *EPPartShowPlayerSegue = @"EPPartShowPlayerSegue";
 static NSString *PlayerSegue = @"PlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 
@@ -404,14 +402,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         playerViewController.otherEpisode = self.otherEpisode;
         playerViewController.idx = [(NSIndexPath *)sender row];
         
-    }else if ([segue.identifier isEqualToString:EPPartShowPlayerSegue]) {
-        VideoPlayerViewController *videoPlayer = segue.destinationViewController;
-        videoPlayer.episode = self.episode;
-        NSIndexPath *idx = (NSIndexPath *)sender;
-        videoPlayer.idx = idx.row;
-        [self.episode sendViewEpisode];
-        
-    }else if ([segue.identifier isEqualToString:showDetailSegue]) {
+    } else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;
         detailViewController.show = self.show;
 

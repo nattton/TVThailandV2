@@ -486,9 +486,14 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
 }
 
 - (IBAction)closeButtonTapped:(id)sender {
+    [SVProgressHUD dismiss];
+    if (self.videoPlayerViewController != nil &&
+        self.videoPlayerViewController.moviePlayer.playbackState == MPMoviePlaybackStatePlaying ) {
+            [self.videoPlayerViewController.moviePlayer stop];
+    }
+
     [self dismissViewControllerAnimated:YES completion:^{
-        [SVProgressHUD dismiss];
-        [self.videoPlayerViewController.moviePlayer stop];
+        
     }];
 }
 
