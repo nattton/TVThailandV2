@@ -245,7 +245,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     /* Create custom view to display section header... */
     
     UIImageView *epScrType = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 25, 25)];
-    [epScrType setImage:[UIImage imageNamed:@"ic_player"]];
+    [epScrType setImage:[UIImage imageNamed:@"ic_otv"]];
     [view addSubview:epScrType];
     
     
