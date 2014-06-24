@@ -101,6 +101,56 @@
             </objects>
             <point key="canvasLocation" x="4076" y="-1427"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="32M-Xx-bA2">
+            <objects>
+                <viewController id="0kd-fU-K41" customClass="WebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gBM-hz-Rrn"/>
+                        <viewControllerLayoutGuide type="bottom" id="vZL-RL-dax"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mQE-8O-LTQ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3BB-SA-M61">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKG-9w-RPM">
+                                <rect key="frame" x="688" y="944" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="NAD-Mz-5cz"/>
+                                    <constraint firstAttribute="width" constant="80" id="kys-Rx-C9R"/>
+                                </constraints>
+                                <state key="normal" image="close_btn">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="0kd-fU-K41" eventType="touchUpInside" id="X0F-J7-76C"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3BB-SA-M61" firstAttribute="top" secondItem="gBM-hz-Rrn" secondAttribute="bottom" constant="-20" id="4cG-Wc-SpS"/>
+                            <constraint firstAttribute="trailing" secondItem="sKG-9w-RPM" secondAttribute="trailing" id="5Fp-gA-gIP"/>
+                            <constraint firstItem="3BB-SA-M61" firstAttribute="leading" secondItem="mQE-8O-LTQ" secondAttribute="leading" id="M5g-8i-1Ph"/>
+                            <constraint firstItem="vZL-RL-dax" firstAttribute="top" secondItem="3BB-SA-M61" secondAttribute="bottom" id="NcU-Rx-eXP"/>
+                            <constraint firstAttribute="trailing" secondItem="3BB-SA-M61" secondAttribute="trailing" id="gAS-GU-257"/>
+                            <constraint firstItem="vZL-RL-dax" firstAttribute="top" secondItem="sKG-9w-RPM" secondAttribute="bottom" id="jhW-7G-KaO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="3BB-SA-M61" id="Zxm-s0-kSp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XHi-nS-19g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5018" y="-1352"/>
+        </scene>
         <!--Player View Controller-->
         <scene sceneID="9ik-Pg-Nj1">
             <objects>
@@ -348,6 +398,7 @@
                         <outlet property="viewCountLabel" destination="0W1-YV-jBW" id="AjW-og-bl6"/>
                         <outlet property="webView" destination="N1h-h7-g4v" id="8h8-Er-jFJ"/>
                         <segue destination="tzk-ZZ-o4O" kind="modal" identifier="InfoOfEPSegue" id="Bfe-IM-wOf"/>
+                        <segue destination="0kd-fU-K41" kind="modal" identifier="ShowWebViewSegue" id="8WD-bG-rhk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Avw-qB-YE2" userLabel="First Responder" sceneMemberID="firstResponder"/>

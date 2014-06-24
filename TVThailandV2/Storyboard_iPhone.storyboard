@@ -292,11 +292,62 @@
                         <outlet property="viewCountLabel" destination="BB3-OJ-5lU" id="lBu-SA-XNx"/>
                         <outlet property="webView" destination="VHl-xS-b8A" id="uPA-uk-u7K"/>
                         <segue destination="kdG-wf-trZ" kind="modal" identifier="InfoOfEPSegue" id="BCc-vP-GEu"/>
+                        <segue destination="w06-ua-nqJ" kind="modal" identifier="ShowWebViewSegue" id="ei6-ML-1cW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="div-wg-GTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2283" y="-82"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="BPy-De-isX">
+            <objects>
+                <viewController id="w06-ua-nqJ" customClass="WebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dOQ-kl-9cI"/>
+                        <viewControllerLayoutGuide type="bottom" id="h1I-Et-maO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lAz-er-9bu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prV-gD-YYE">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P26-HB-mTV">
+                                <rect key="frame" x="275" y="523" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="6Dy-P5-Mbh"/>
+                                    <constraint firstAttribute="height" constant="45" id="gIZ-h4-k4q"/>
+                                </constraints>
+                                <state key="normal" image="close_btn">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="w06-ua-nqJ" eventType="touchUpInside" id="a9V-l6-EO5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="h1I-Et-maO" firstAttribute="top" secondItem="P26-HB-mTV" secondAttribute="bottom" id="4OU-8u-UiG"/>
+                            <constraint firstItem="prV-gD-YYE" firstAttribute="leading" secondItem="lAz-er-9bu" secondAttribute="leading" id="908-Qc-tce"/>
+                            <constraint firstItem="h1I-Et-maO" firstAttribute="top" secondItem="prV-gD-YYE" secondAttribute="bottom" id="C7M-gj-9ts"/>
+                            <constraint firstAttribute="trailing" secondItem="P26-HB-mTV" secondAttribute="trailing" id="DVQ-Gk-Jmu"/>
+                            <constraint firstAttribute="trailing" secondItem="prV-gD-YYE" secondAttribute="trailing" id="EUv-Yo-32i"/>
+                            <constraint firstItem="prV-gD-YYE" firstAttribute="top" secondItem="dOQ-kl-9cI" secondAttribute="bottom" constant="-20" id="ef4-Tl-MkW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="prV-gD-YYE" id="nQi-q8-YIM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y86-yT-sjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2761" y="-754"/>
         </scene>
         <!--Info Of Episode View Controller-->
         <scene sceneID="xAX-Yb-j3J">

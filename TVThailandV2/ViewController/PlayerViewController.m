@@ -30,6 +30,7 @@
 #import "VideoPartTableViewCell.h"
 #import "OTVEpisodePartViewController.h"
 #import "InfoOfEpisodeViewController.h"
+#import "WebViewController.h"
 
 @interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, CMVideoAdsDelegate>
 
@@ -77,6 +78,7 @@ static NSString *kCodeStream = @"1000";
 static NSString *kCodeAds = @"1001";
 static NSString *kCodeIframe = @"1002";
 static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
+static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma mark - ALL
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -104,6 +106,7 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
     
 }
+
 
 - (void)setUpOrientation:(UIInterfaceOrientation)orientation {
     
@@ -197,10 +200,12 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
 - (void) initTvThVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
     /* episode section */
     if (section == SECTION_VIDEO) {
+        
         [self openWithVideo:self.episode Row:row];
     }
     /* other episode section */
     else if (section == SECTION_RELATED) {
+
         [self openWithVideo:self.otherEpisode Row:row];
     }
 }
@@ -227,8 +232,12 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
             [self openWithDailymotionEmbed];
         }
         else if ([episode.srcType isEqualToString:@"11"]) {
-            self.webView.hidden = NO;
-            [self openWebSite:_videoId];
+            [SVProgressHUD showWithStatus:@"Loading..."];
+            self.webView.hidden = YES;
+            [self.thumbnailOTV setImageWithURL:[NSURL URLWithString: [self.show thumbnailUrl] ]
+                              placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
+
+            [SVProgressHUD dismiss];
         }
         else if ([episode.srcType isEqualToString:@"12"]) {
             self.webView.hidden = NO;
@@ -496,7 +505,13 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
 }
 
 - (IBAction)playOTVButtonTapped:(id)sender {
-    [self startOTV];
+    
+    if (self.episode && !self.show.isOTV) {
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:_videoId];
+    } else {
+        [self startOTV];
+    }
+   
 }
 
 - (void)startOTV {
@@ -605,6 +620,10 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
     if ([segue.identifier isEqualToString:InfoOfEPSegue]) {
         InfoOfEpisodeViewController *infoOfEpisodeViewController = segue.destinationViewController;
         infoOfEpisodeViewController.otvEpisode = (OTVEpisode *)sender;
+    } else if ([segue.identifier isEqualToString:ShowWebViewSegue]) {
+        WebViewController *webViewController = segue.destinationViewController;
+        webViewController.episode = self.episode;
+        webViewController.videoId = (NSString *)sender;
     }
     
 }
