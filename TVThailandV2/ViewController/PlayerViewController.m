@@ -96,8 +96,6 @@ static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
     
     if (self.show) {
         [self initVideoPlayer:_idx sectionOfVideo:0];
-        
-        [self startOTV];
     }
 
     [self setUpOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
