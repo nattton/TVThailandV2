@@ -1,5 +1,5 @@
 //
-//  YouTubeViewController.m
+//  PlayerViewController.h
 //  TVThailandV2
 //
 //  Created by Nattapong Tonprasert on 6/5/2557 BE.
@@ -7,7 +7,6 @@
 //
 
 #import "PlayerViewController.h"
-#import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AFHTTPSessionManager.h"
 #import "AFHTTPRequestOperation.h"
@@ -33,8 +32,6 @@
 #import "WebViewController.h"
 
 @interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, CMVideoAdsDelegate>
-
-@property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
@@ -130,10 +127,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         _widthOfCH7iFrame = 280;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
-            [self.videoPlayerViewController.moviePlayer setFullscreen:YES animated:YES];
             self.videoContainerHeight.constant = 320.0f;
         } else {
-            [self.videoPlayerViewController.moviePlayer setFullscreen:NO animated:YES];
             self.videoContainerHeight.constant = 236.0f;
         }
     }
@@ -224,7 +219,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)episode.videos.count ];
         
         if ([episode.srcType isEqualToString:@"0"]) {
-            self.webView.hidden = YES;
+            self.webView.hidden = NO;
             [self openWithYoutubePlayerEmbed:_videoId];
         }
         else if ([episode.srcType isEqualToString:@"1"]) {
@@ -281,12 +276,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) openWithYoutubePlayerEmbed:(NSString *)videoIdString {
     [SVProgressHUD showWithStatus:@"Loading..."];
+    self.webView.hidden = NO;
     
-    [self.videoContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:videoIdString];
-	[self.videoPlayerViewController presentInView:self.videoContainerView];
-    [self.videoPlayerViewController.moviePlayer play];
-    
+    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
+                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
+                            <body style=\"background-color:#000 ;\">\
+                            <iframe  style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\"  id=\"player\" type=\"text/html\" width=\"%0.0f\" height=\"%0.0f\" src=\"http://www.youtube.com/embed/%@?enablejsapi=1&origin=http://www.code-mobi.com\" frameborder=\"0\"></iframe></body></html>", _size.width, _size.height, _videoId];
+    [self.webView loadHTMLString:htmlString
+                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]];
+
+    [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
  
 }
@@ -316,11 +315,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     // HTML to embed YouTube video
     NSString *htmlString = @"<html><head>\
-    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no\"/></head>\
-    <body style=\"margin-top:0px;margin-left:0px\">\
-    <div align=\"center\"><video poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" controls autoplay>\
-    <source src=\"%@\" />\
-    </video></div></body></html>";
+    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
+    <body style=\"background-color:#000 ;\">\
+    <video style=\"margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
+    </video></body></html>";
     
     // Populate HTML with the URL and requested frame size
     NSString *html = [NSString stringWithFormat:htmlString,
@@ -330,6 +328,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                       videoUrl
                       ];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
+    [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
 }
 
@@ -347,7 +346,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     manager.requestSerializer = requestSerializer;
     
     [manager GET:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
-     //    [manager GET:@"http://cms.makathon.com/user_agent.php"
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
@@ -475,8 +473,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	// Beware, viewWillDisappear: is called when the player view enters full screen on iOS 6+
-	if ([self isMovingFromParentViewController])
-		[self.videoPlayerViewController.moviePlayer stop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -493,10 +489,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (IBAction)closeButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
-    if (self.videoPlayerViewController != nil &&
-        self.videoPlayerViewController.moviePlayer.playbackState == MPMoviePlaybackStatePlaying ) {
-            [self.videoPlayerViewController.moviePlayer stop];
-    }
 
     [self dismissViewControllerAnimated:YES completion:^{
         
