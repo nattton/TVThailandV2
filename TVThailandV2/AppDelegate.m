@@ -10,6 +10,7 @@
 #import "GAI.h"
 #import "NSString+Utils.h"
 #import "CMUser.h"
+#import "UIImage+RoundedImage.h"
 
 @implementation AppDelegate
 
@@ -20,9 +21,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    [[UINavigationBar appearance] setBarTintColor:kBarTintColor];
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-//    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor]];
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        
+        NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:kThemeColor, UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];
+        [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UIBarButtonItem appearance] setTintColor:kThemeColor];
+        
+        [[UISearchBar appearance] setBackgroundImage:[UIImage imageWithColor:kThemeColor]];
+        [[UIToolbar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:34/255.0f green:113/255.0f blue:179/255.0f alpha:1]] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    } else {
+        [[UINavigationBar appearance] setTintColor:kThemeColor];
+    }
     
     // Override point for customization after application launch.
     [FBLoginView class];
@@ -35,13 +45,11 @@
     
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-  
-    
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     
     // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
+    [GAI sharedInstance].dispatchInterval = 60;
     
     // Optional: set Logger to VERBOSE for debug information.
 //    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];

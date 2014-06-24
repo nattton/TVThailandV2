@@ -46,6 +46,8 @@
 #define kBarTintColor [UIColor colorWithRed:0/255.0 green:108/255.0 blue:146/255.0 alpha:1.0f]
 #define kTintColor [UIColor colorWithRed:244/255.0 green:238/255.0 blue:186/255.0 alpha:1.0f]
 
+#define kThemeColor [UIColor colorWithRed: 246/255.0 green:76/255.0 blue:93/255.0 alpha:1.0]
+
 #define DEBUG_MODE = 1
 #ifdef DEBUG_MODE
     #define DLog( s, ...) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )

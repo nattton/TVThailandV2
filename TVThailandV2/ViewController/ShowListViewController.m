@@ -112,6 +112,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    
     [self setUpGoToTop];
     
     self.mkAdView.parentViewController = self;
@@ -119,8 +123,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     
     /** Alert View & Refresh Button - connection fail, try again **/
     self.alertTitleView.alpha = 0;
-    
-    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     [self reload];
@@ -151,13 +153,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
-    
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        DLog(@"Load resources for iOS 6.1 or earlier");
-        
-        self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-        
-    }
 }
 
 - (void)setUpGoToTop

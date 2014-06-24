@@ -11,5 +11,6 @@
 @interface UIImage (RoundedImage)
 
 + (UIImage *)roundedRectImageFromImage:(UIImage *)image withRadious:(CGFloat)radious;
++ (UIImage *)imageWithColor:(UIColor *)color;
 
 @end

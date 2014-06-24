@@ -59,6 +59,10 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 {
     [super viewDidLoad];
     
+//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//    }
+    
     alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sorry, this station is currently not available." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     
     NSError *setCategoryError = nil;

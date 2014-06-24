@@ -46,10 +46,11 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//    }
     
       alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ยกเลิก" otherButtonTitles:@"ย้อนหลัง", @"รายการสด", nil];
-    
-      self.navigationController.navigationBar.tintColor = [UIColor grayColor];
 
     [self refresh];
     
