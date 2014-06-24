@@ -306,9 +306,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)openWebSite:(NSString *)stringUrl {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
-    [SVProgressHUD dismiss];
+    
+    [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
    
 }
 
@@ -507,7 +506,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (IBAction)playOTVButtonTapped:(id)sender {
     
     if (self.episode && !self.show.isOTV) {
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:_videoId];
+        [self openWebSite:_videoId];
     } else {
         [self startOTV];
     }
