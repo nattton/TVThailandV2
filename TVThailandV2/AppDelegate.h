@@ -18,5 +18,7 @@
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (nonatomic) BOOL isOpened;
+
 
 @end

@@ -17,6 +17,7 @@
 #import "ShowCategory.h"
 #import "Show.h"
 #import "CMUser.h"
+#import "AppDelegate.h"
 
 #import "FavoriteViewController.h"
 
@@ -78,7 +79,9 @@ static NSInteger secCategory = 4;
 {
     [super viewDidLoad];
     
-
+    
+    
+    
     
 //    UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 45)];
 //    self.tableView.tableHeaderView = search;
@@ -99,6 +102,14 @@ static NSInteger secCategory = 4;
 
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (!appDelegate.isOpened) {
+        appDelegate.isOpened = YES;
+        [self revealLeftMenu];
+    }
+    
+}
 
 
 - (void)reload
