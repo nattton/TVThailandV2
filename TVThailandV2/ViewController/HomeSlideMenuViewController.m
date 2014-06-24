@@ -99,6 +99,9 @@ static NSInteger secCategory = 4;
 
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+        [self revealLeftMenu];
+}
 
 
 - (void)reload
