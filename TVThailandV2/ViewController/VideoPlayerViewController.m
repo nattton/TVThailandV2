@@ -80,10 +80,11 @@
 
 - (void) openWithVideoUrl:(NSString *)videoUrl {
     // HTML to embed YouTube video
+    
     NSString *htmlString = @"<html><head>\
     <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
-    <body style=\"background-color:#000 ;\">\
-    <video style=\"margin: auto; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
+    <body style=\"background-color: #000;\">\
+    <video style=\"margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
     </video></body></html>";
     
     // Populate HTML with the URL and requested frame size

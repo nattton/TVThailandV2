@@ -11,9 +11,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <QuartzCore/QuartzCore.h>
-#import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import "SVProgressHUD.h"
-#import "XLMediaZoom.h"
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"

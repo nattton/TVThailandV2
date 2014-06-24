@@ -7,6 +7,5 @@ pod 'AFNetworking', '~> 2.0'
 pod 'SVProgressHUD'
 pod 'Objective-C-HMTL-Parser'
 pod 'XLMediaZoom'
-pod 'XCDYouTubeKit'
 pod 'SASlideMenu'
 pod 'SVWebViewController', :head
