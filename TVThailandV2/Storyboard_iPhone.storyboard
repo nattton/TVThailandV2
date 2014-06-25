@@ -179,6 +179,20 @@
                                         <color key="textColor" red="1" green="0.29641866090000002" blue="0.366145787" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QcO-Qx-pKg" userLabel="Open With Button">
+                                        <rect key="frame" x="276" y="33" width="33" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="cCi-Ls-kto"/>
+                                            <constraint firstAttribute="width" constant="33" id="gjR-bW-SAK"/>
+                                        </constraints>
+                                        <state key="normal" image="open_with_web_btn">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="openWithButtonTapped:" destination="oZf-te-Xlg" eventType="touchUpInside" id="Gte-gC-Olv"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -196,6 +210,8 @@
                                     <constraint firstItem="GQN-Dh-hIU" firstAttribute="leading" secondItem="iwp-kI-Tav" secondAttribute="leading" constant="9" id="hqt-Dp-ZsR"/>
                                     <constraint firstAttribute="trailing" secondItem="BB3-OJ-5lU" secondAttribute="trailing" constant="47" id="jYc-zw-nLZ"/>
                                     <constraint firstAttribute="bottom" secondItem="ivk-1t-8pR" secondAttribute="bottom" id="mUt-rg-qQH"/>
+                                    <constraint firstAttribute="bottom" secondItem="QcO-Qx-pKg" secondAttribute="bottom" constant="1" id="wDf-rw-Pqc"/>
+                                    <constraint firstAttribute="trailing" secondItem="QcO-Qx-pKg" secondAttribute="trailing" constant="1" id="yRg-ho-GX9"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcJ-3U-IEf" userLabel="Video Container">
@@ -279,6 +295,7 @@
                     <connections>
                         <outlet property="episodeNameLabel" destination="RXL-E8-kYe" id="Psy-3s-2yT"/>
                         <outlet property="infoOfEpisodeButton" destination="ivk-1t-8pR" id="Ilf-zR-d6E"/>
+                        <outlet property="openWithButton" destination="QcO-Qx-pKg" id="CrR-78-m9j"/>
                         <outlet property="partNameLabel" destination="IBo-Aq-0DD" id="Hhc-qO-9ZP"/>
                         <outlet property="playButton" destination="diu-0K-Hi7" id="xIx-L7-kqQ"/>
                         <outlet property="showNameLabel" destination="GQN-Dh-hIU" id="WdC-iZ-tSh"/>
@@ -1990,6 +2007,7 @@
         <image name="icb_info" width="30" height="30"/>
         <image name="icon-pause" width="128" height="128"/>
         <image name="icon-play" width="64" height="64"/>
+        <image name="open_with_web_btn" width="50" height="50"/>
         <image name="placeholder_hi" width="128" height="128"/>
         <image name="play_alt" width="64" height="64"/>
         <image name="tab_channel" width="30" height="30"/>

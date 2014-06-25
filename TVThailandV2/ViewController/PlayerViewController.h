@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *partNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *infoOfEpisodeButton;
+@property (weak, nonatomic) IBOutlet UIButton *openWithButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableOfVideoPart;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

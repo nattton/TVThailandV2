@@ -285,7 +285,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     }else if ([[_episodes[section] srcType] isEqualToString:@"1"]) {
         [epScrType setImage:[UIImage imageNamed:@"ic_dailymotion"]];
     }else if ([[_episodes[section] srcType] isEqualToString:@"11"]) {
-        [epScrType setImage:[UIImage imageNamed:@"ic_chrome"]];
+        [epScrType setImage:[UIImage imageNamed:@"ic_web"]];
     }else {
         [epScrType setImage:[UIImage imageNamed:@"ic_player"]];
     }

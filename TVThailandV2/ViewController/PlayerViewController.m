@@ -65,6 +65,7 @@
     OTVPart *_part;
     CGFloat _widthOfCH7iFrame;
     AVPlayerLayer *_layer;
+    NSString *_sourceType;
 }
 
 #pragma mark - Staic Variable
@@ -179,10 +180,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     if (self.show.isOTV) {
         self.infoOfEpisodeButton.hidden = NO;
+        self.openWithButton.hidden = YES;
         [self initOtvVideoPlayer:row sectionOfVideo:section];
     }
     else {
         self.infoOfEpisodeButton.hidden = YES;
+        
         [self initTvThVideoPlayer:row sectionOfVideo:section];
     }
     
@@ -212,38 +215,45 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         } else {
             self.partNameLabel.hidden = NO;
         }
-        
+        _sourceType = episode.srcType;
+        NSLog(_sourceType);
         _videoId = episode.videos[row];
         self.episodeNameLabel.text = episode.titleDisplay;
         self.viewCountLabel.text = episode.viewCount;
         self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)episode.videos.count ];
         
-        if ([episode.srcType isEqualToString:@"0"]) {
+        if ([_sourceType isEqualToString:@"0"]) {
             self.webView.hidden = NO;
+            self.openWithButton.hidden = NO;
             [self openWithYoutubePlayerEmbed:_videoId];
         }
-        else if ([episode.srcType isEqualToString:@"1"]) {
+        else if ([_sourceType isEqualToString:@"1"]) {
             self.webView.hidden = NO;
+            self.openWithButton.hidden = NO;
             [self openWithDailymotionEmbed];
         }
-        else if ([episode.srcType isEqualToString:@"11"]) {
+        else if ([_sourceType isEqualToString:@"11"]) {
             [SVProgressHUD showWithStatus:@"Loading..."];
             self.webView.hidden = YES;
+            self.openWithButton.hidden = YES;
             [self.thumbnailOTV setImageWithURL:[NSURL URLWithString: [self.show thumbnailUrl] ]
                               placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
 
             [SVProgressHUD dismiss];
         }
-        else if ([episode.srcType isEqualToString:@"12"]) {
+        else if ([_sourceType isEqualToString:@"12"]) {
             self.webView.hidden = NO;
+            self.openWithButton.hidden = YES;
             [self openWithVideoUrl:_videoId];
         }
-        else if ([episode.srcType isEqualToString:@"14"]) {
+        else if ([_sourceType isEqualToString:@"14"]) {
             self.webView.hidden = NO;
+            self.openWithButton.hidden = YES;
             [self loadMThaiWebVideo];
         }
-        else if ([episode.srcType isEqualToString:@"15"]) {
+        else if ([_sourceType isEqualToString:@"15"]) {
             self.webView.hidden = NO;
+            self.openWithButton.hidden = YES;
             [self loadMThaiWebVideoWithPassword:episode.password];
         }
     }
@@ -306,7 +316,23 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)openWebSite:(NSString *)stringUrl {
     
-    [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
+    
+    if ([_sourceType isEqualToString:@"0"]) {
+        
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
+        
+    }
+    else if ([_sourceType isEqualToString:@"1"]) {
+        
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
+        
+    }
+    else if ([_sourceType isEqualToString:@"11"]) {
+
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
+        
+    }
+    
    
 }
 
@@ -486,6 +512,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self performSegueWithIdentifier:InfoOfEPSegue sender:self.otvEpisode];
     
 }
+- (IBAction)openWithButtonTapped:(id)sender {
+    
+    [self openWebSite:_videoId];
+    
+}
 
 - (IBAction)closeButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
@@ -497,10 +528,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (IBAction)playOTVButtonTapped:(id)sender {
     
-    if (self.episode && !self.show.isOTV) {
-        [self openWebSite:_videoId];
-    } else {
+    if (self.otvEpisode && self.show.isOTV) {
         [self startOTV];
+    } else {
+        [self openWebSite:_videoId];
+        
     }
    
 }

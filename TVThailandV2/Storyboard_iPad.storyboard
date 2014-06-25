@@ -223,6 +223,20 @@
                                         <color key="textColor" red="1" green="0.29641866090000002" blue="0.366145787" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOB-12-3o6" userLabel="Open With Button">
+                                        <rect key="frame" x="686" y="65" width="45" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="5Vt-33-FgP"/>
+                                            <constraint firstAttribute="height" constant="45" id="AVC-qV-dEc"/>
+                                        </constraints>
+                                        <state key="normal" image="open_with_web_btn">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="openWithButtonTapped:" destination="Wob-mq-FaN" eventType="touchUpInside" id="v5O-yS-RVi"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -234,8 +248,10 @@
                                     <constraint firstAttribute="trailing" secondItem="tvX-N8-czg" secondAttribute="trailing" constant="8" id="IOX-W6-F7X"/>
                                     <constraint firstItem="RCj-mY-wYV" firstAttribute="top" secondItem="Bqu-sN-bUR" secondAttribute="top" constant="47" id="bBf-2g-7Fs"/>
                                     <constraint firstAttribute="height" constant="115" id="dsN-Gm-MXf"/>
+                                    <constraint firstAttribute="bottom" secondItem="XOB-12-3o6" secondAttribute="bottom" constant="5" id="f7k-nX-Rdo"/>
                                     <constraint firstAttribute="bottom" secondItem="Wd0-zE-azC" secondAttribute="bottom" constant="75" id="iw8-P6-K8T"/>
                                     <constraint firstAttribute="trailing" secondItem="Wd0-zE-azC" secondAttribute="trailing" constant="13" id="pvo-lC-KRP"/>
+                                    <constraint firstAttribute="trailing" secondItem="XOB-12-3o6" secondAttribute="trailing" constant="8" id="rfi-V4-Bgn"/>
                                     <constraint firstAttribute="trailing" secondItem="RCj-mY-wYV" secondAttribute="trailing" constant="13" id="t8C-dz-Efg"/>
                                     <constraint firstItem="0W1-YV-jBW" firstAttribute="leading" secondItem="Bqu-sN-bUR" secondAttribute="leading" constant="13" id="tYL-hs-Mod"/>
                                     <constraint firstAttribute="trailing" secondItem="0W1-YV-jBW" secondAttribute="trailing" constant="13" id="tjk-5o-e11"/>
@@ -385,6 +401,7 @@
                     <connections>
                         <outlet property="episodeNameLabel" destination="RCj-mY-wYV" id="e7m-Ir-yZO"/>
                         <outlet property="infoOfEpisodeButton" destination="tvX-N8-czg" id="vKd-yF-Qm8"/>
+                        <outlet property="openWithButton" destination="XOB-12-3o6" id="ssy-aB-Cgd"/>
                         <outlet property="partNameLabel" destination="Wd0-zE-azC" id="BxN-Dt-R4c"/>
                         <outlet property="showNameLabel" destination="Ztg-DU-BNi" id="05c-qO-OQS"/>
                         <outlet property="tableOfVideoPart" destination="8qX-ci-kGG" id="Ukc-o9-8pw"/>
@@ -403,7 +420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Avw-qB-YE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4062" y="-36"/>
+            <point key="canvasLocation" x="4044" y="-36"/>
         </scene>
         <!--Info Of Episode View Controller-->
         <scene sceneID="B4t-wn-UQU">
@@ -1945,6 +1962,7 @@
         <image name="icb_info" width="30" height="30"/>
         <image name="icon-pause" width="128" height="128"/>
         <image name="icon-play" width="64" height="64"/>
+        <image name="open_with_web_btn" width="50" height="50"/>
         <image name="placeholder_hi" width="128" height="128"/>
         <image name="play_alt" width="64" height="64"/>
         <image name="tab_channel" width="30" height="30"/>
