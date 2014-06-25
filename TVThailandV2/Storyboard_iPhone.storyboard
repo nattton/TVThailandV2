@@ -1781,8 +1781,15 @@
                             <constraint firstItem="dAp-YR-adx" firstAttribute="top" secondItem="ZdD-qr-Amc" secondAttribute="bottom" id="jcA-ua-1rz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" id="FI0-DD-Q6g"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="FI0-DD-Q6g">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="xC9-QE-lp2">
+                            <connections>
+                                <action selector="editFavoriteTapped:" destination="PDt-wz-Zwg" id="9m1-nM-fXk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="editBarButton" destination="xC9-QE-lp2" id="Pzo-0c-fTj"/>
                         <outlet property="tableView" destination="ZdD-qr-Amc" id="1Os-7T-CFs"/>
                         <segue destination="dF1-92-GZN" kind="push" identifier="OTVEPAndPartIdentifier" id="NEH-IP-205"/>
                         <segue destination="Jb5-3U-4hm" kind="push" identifier="EPAndPartIdentifier" id="weI-C5-TSh"/>
@@ -2020,11 +2027,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="lLI-Wr-qoe"/>
-        <segue reference="gcw-2o-Hcb"/>
-        <segue reference="tRJ-5v-ocZ"/>
-        <segue reference="xdc-Rh-odR"/>
-        <segue reference="lNR-3f-Xrl"/>
+        <segue reference="weI-C5-TSh"/>
+        <segue reference="NEH-IP-205"/>
         <segue reference="saQ-9b-nco"/>
+        <segue reference="xdc-Rh-odR"/>
+        <segue reference="lLI-Wr-qoe"/>
+        <segue reference="tRJ-5v-ocZ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (unsafe_unretained, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editBarButton;
 
 @end
 
@@ -222,5 +223,18 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
     return _fetchedResultsController;
 }
+
+#pragma mark - IBAction
+
+- (IBAction)editFavoriteTapped:(id)sender {
+    if (self.tableView.editing) {
+        [self.tableView setEditing:NO animated:YES];
+        self.editBarButton.title = @"Edit";
+    } else {
+        [self.tableView setEditing:YES animated:YES];
+        self.editBarButton.title = @"Done";
+    }
+}
+
 
 @end
