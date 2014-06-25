@@ -1003,6 +1003,7 @@
                         <segue destination="GKB-kk-UEj" kind="modal" identifier="OTVEpAndPartToShowPlayerSegue" id="XgE-cK-5RH"/>
                         <segue destination="GoH-3d-stL" kind="modal" identifier="ShowDetailSegue" id="idi-Wp-ZFY"/>
                         <segue destination="Wob-mq-FaN" kind="modal" identifier="PlayerSegue" id="pw3-vt-0Bo"/>
+                        <segue destination="j48-3v-fnT" kind="push" identifier="EPAndPartIdentifier" id="u1W-45-WPs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pGd-GR-qFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1956,11 +1957,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="EJu-lf-Pgw"/>
-        <segue reference="1hC-Mx-sus"/>
-        <segue reference="lwT-fV-NuI"/>
         <segue reference="9af-dL-MCq"/>
+        <segue reference="1hC-Mx-sus"/>
+        <segue reference="u1W-45-WPs"/>
         <segue reference="idi-Wp-ZFY"/>
         <segue reference="pw3-vt-0Bo"/>
+        <segue reference="RnK-NN-E9l"/>
     </inferredMetricsTieBreakers>
 </document>
