@@ -61,8 +61,6 @@
     CMUser *cm_user = [CMUser sharedInstance];
     [cm_user setWithDictionary:(NSDictionary *)user];
     DLog(@"CMUser= %@", cm_user.description);
-//    NSLog(@"FB user:%@",user.description);
-    
 }
 
 // Implement the loginViewShowingLoggedInUser: delegate method to modify your app's UI for a logged-in user experience
@@ -78,7 +76,7 @@
     
     CMUser *cm_user = [CMUser sharedInstance];
     [[CMUser sharedInstance] clear];
-    NSLog(@"CMUser= %@", cm_user.description);
+    DLog(@"CMUser= %@", cm_user.description);
     
 }
 
@@ -105,7 +103,7 @@
         // the user not being able to complete a task they had initiated in your app
         // (like accessing FB-stored information or posting to Facebook)
     } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-        NSLog(@"user cancelled login");
+        DLog(@"user cancelled login");
         
         // For simplicity, this sample handles other errors with a generic message
         // You can checkout our error handling guide for more detailed information
@@ -113,7 +111,7 @@
     } else {
         alertTitle  = @"Something went wrong";
         alertMessage = @"Please try again later.";
-        NSLog(@"Unexpected error:%@", error);
+        DLog(@"Unexpected error:%@", error);
     }
     
     if (alertMessage) {

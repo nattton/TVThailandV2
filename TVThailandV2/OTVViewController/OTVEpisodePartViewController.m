@@ -316,11 +316,11 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 
 - (IBAction)youtubeLongTapped:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"UIGestureRecognizerStateEnded");
+        DLog(@"UIGestureRecognizerStateEnded");
         //Do Whatever You want on End of Gesture
     }
     else if (sender.state == UIGestureRecognizerStateBegan){
-        NSLog(@"UIGestureRecognizerStateBegan.");
+        DLog(@"UIGestureRecognizerStateBegan.");
         [self performSegueWithIdentifier:EPAndPartIdentifier sender:self.show];
     }
     

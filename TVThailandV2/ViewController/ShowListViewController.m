@@ -475,7 +475,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     {
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-//            NSLog(@"Nooo, someone broke internet!");
             weakSelf.alertTitle.text = @"no internet connection";
             weakSelf.alertTitleView.alpha = 0.85;
             

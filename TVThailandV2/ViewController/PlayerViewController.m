@@ -216,7 +216,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.partNameLabel.hidden = NO;
         }
         _sourceType = episode.srcType;
-        NSLog(_sourceType);
         _videoId = episode.videos[row];
         self.episodeNameLabel.text = episode.titleDisplay;
         self.viewCountLabel.text = episode.viewCount;
@@ -374,9 +373,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [manager GET:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-             //        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-             //        NSLog(@"%@", string);
              [self startMThaiVideoFromData:responseObject];
               [SVProgressHUD dismiss];
              
@@ -401,13 +397,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [manager POST:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
        parameters:@{@"clip_password": password}
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-//              NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//              NSLog(@"%@", string);
               [self startMThaiVideoFromData:responseObject];
                [SVProgressHUD dismiss];
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //        NSLog(@"Error: %@", error);
               [SVProgressHUD dismiss];
           }];
     

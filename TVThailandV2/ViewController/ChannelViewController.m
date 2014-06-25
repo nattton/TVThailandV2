@@ -34,28 +34,27 @@ static NSString *cellIdentifier = @"ChannelCellIdentifier";
 static NSString *showListSegue = @"ShowListSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - UIViewController Override Method
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//    }
     
-      alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ยกเลิก" otherButtonTitles:@"ย้อนหลัง", @"รายการสด", nil];
+    alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ยกเลิก" otherButtonTitles:@"ย้อนหลัง", @"รายการสด", nil];
 
     [self refresh];
     
     [self sendTracker];
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - Private Method
 
 - (void)sendTracker {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -64,8 +63,16 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
-- (IBAction)refreshButtonTapped:(id)sender {
-    [self refresh];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1){
+        //Watch on demand program
+        [self performSegueWithIdentifier:showListSegue sender:channelSelected];
+    }
+    else if (buttonIndex == 2) {
+        //Watch on LIVE program
+        [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+        
+    }
 }
 
 - (void)refresh {
@@ -80,10 +87,10 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     }];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Action
+
+- (IBAction)refreshButtonTapped:(id)sender {
+    [self refresh];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -116,18 +123,8 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         }
     }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1){
-        //Watch on demand program
-        [self performSegueWithIdentifier:showListSegue sender:channelSelected];
-    }
-    else if (buttonIndex == 2) {
-        //Watch on LIVE program
-        [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
 
-    }
-}
-
+#pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showListSegue]) {

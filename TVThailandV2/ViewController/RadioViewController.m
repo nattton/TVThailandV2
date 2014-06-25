@@ -46,22 +46,11 @@ static NSString *radioHeaderIdentifier = @"RadioHeaderView";
 static NSString *radioFooterIdentifier = @"RadioFooterView";
 static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - UIViewController Override Method
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//    }
     
     alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sorry, this station is currently not available." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
     
@@ -74,6 +63,8 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
     
     [self sendTracker];
 }
+
+#pragma mark - Private Method
 
 - (void)sendTracker {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -110,6 +101,24 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
         //Dismiss
     }
     
+}
+
+#pragma mark - IBAction
+
+- (IBAction)refreshTapped:(id)sender {
+    [self refresh];
+}
+
+- (IBAction)playPauseTapped:(id)sender {
+    if (_radioSelected) {
+        if(self.togglePlayPause.selected) {
+            [self.radioPlayer pause];
+            [self.togglePlayPause setSelected:NO];
+        } else {
+            [self.radioPlayer play];
+            [self.togglePlayPause setSelected:YES];
+        }
+    }
 }
 
 #pragma mark - UICollectionViewDatasource
@@ -190,30 +199,10 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 
 #pragma mark - Navigation
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
 }
-
-#pragma mark - IBAction
-
-- (IBAction)refreshTapped:(id)sender {
-    [self refresh];
-}
-
-- (IBAction)playPauseTapped:(id)sender {
-    if (_radioSelected) {
-        if(self.togglePlayPause.selected) {
-            [self.radioPlayer pause];
-            [self.togglePlayPause setSelected:NO];
-        } else {
-            [self.radioPlayer play];
-            [self.togglePlayPause setSelected:YES];
-        }
-    }
-}
-
 
 
 @end

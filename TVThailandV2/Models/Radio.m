@@ -40,10 +40,6 @@
      parameters:nil
      success:^(AFHTTPRequestOperation *operation, id JSON) {
          NSArray *jRadioes = [JSON valueForKeyPath:@"radios"];
-         
-//         NSLog(@"%@", jRadioes);
-//         NSLog(@"%@", [NSSet setWithArray:[jRadioes valueForKeyPath:@"category"]]);
-         
          NSSet *categorySet = [NSSet setWithArray:[jRadioes valueForKeyPath:@"category"]];
          NSArray *radioCategories = [[categorySet allObjects] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
          NSMutableArray *mutableRadios = [NSMutableArray arrayWithCapacity:[radioCategories count]];
