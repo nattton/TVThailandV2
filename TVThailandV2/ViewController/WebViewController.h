@@ -11,9 +11,7 @@
 
 @interface WebViewController : UIViewController
 
-@property (nonatomic, strong) Episode *episode;
-@property (nonatomic, strong) NSString *videoId;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
+@property (nonatomic, weak) NSString *stringUrl;
 
 @end

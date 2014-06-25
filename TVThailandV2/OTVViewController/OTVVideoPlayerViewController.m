@@ -18,7 +18,6 @@
 
 #import "CMVideoAds.h"
 #import "DVInlineVideoAd.h"
-#import "WebIframeViewController.h"
 
 #import "GAI.h"
 #import "GAIFields.h"
@@ -287,11 +286,6 @@ static NSString *kCodeIframe = @"1002";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:webIFrameSegue]) {
-        OTVPart *otvPart = (OTVPart *)sender;
-        WebIFrameViewController *webIframeViewController = segue.destinationViewController;
-        webIframeViewController.part = otvPart;
-    }
     
 }
 

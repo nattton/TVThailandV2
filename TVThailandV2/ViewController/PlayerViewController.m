@@ -16,22 +16,23 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "DVInlineVideoAd.h"
 
 #import "CMVideoAds.h"
-#import "DVInlineVideoAd.h"
-#import "WebIframeViewController.h"
-
-#import "Show.h"
-#import "Episode.h"
-#import "OTVEpisode.h"
-#import "OTVPart.h"
 
 #import "VideoPartTableViewCell.h"
 #import "OTVEpisodePartViewController.h"
 #import "InfoOfEpisodeViewController.h"
 #import "WebViewController.h"
 
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, CMVideoAdsDelegate>
+#import "Show.h"
+#import "Episode.h"
+#import "OTVEpisode.h"
+#import "OTVPart.h"
+
+
+
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
@@ -78,19 +79,13 @@ static NSString *kCodeIframe = @"1002";
 static NSString *InfoOfEPSegue = @"InfoOfEPSegue";
 static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
-#pragma mark - ALL
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - UIViewController Override
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.webView.delegate = self;
     
     [self initLableContainner];
     
@@ -105,6 +100,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self setUpOrientation:toInterfaceOrientation];
+    [self.tableOfVideoPart reloadData];
+}
+
+#pragma mark - Private Method
 
 - (void)setUpOrientation:(UIInterfaceOrientation)orientation {
     
@@ -134,12 +135,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         }
     }
 }
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self setUpOrientation:toInterfaceOrientation];
-    [self.tableOfVideoPart reloadData];
-}
-
 
 - (void) initLableContainner {
     
@@ -319,20 +314,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     if ([_sourceType isEqualToString:@"0"]) {
         
         [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
-        
     }
     else if ([_sourceType isEqualToString:@"1"]) {
-        
         [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
-        
     }
     else if ([_sourceType isEqualToString:@"11"]) {
-
         [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
-        
     }
-    
-   
 }
 
 - (void) openWithVideoUrl:(NSString *)videoUrl {
@@ -441,7 +429,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     HTMLNode *bodyNode = [parser body];
     NSArray *sourceNodes = [bodyNode findChildTags:@"source"];
-    
+    NSString *videoUrl = nil;
     for (HTMLNode *sourceNode in sourceNodes)
     {
         if ([sourceNode getAttributeNamed:@"src"]) {
@@ -449,26 +437,31 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
                 if ([videoUrl hasSuffix:@"flv"]) {
                     DLog(@"FLV");
-                    [SVProgressHUD  showErrorWithStatus:@"Cannot play flv file."];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
+                    });
                     return;
                 }
                 else
                 {
                     [self openWithVideoUrl:videoUrl];
                     DLog(@"videoUrl : %@", videoUrl);
-                    
-                    //                    UIBarButtonItem *playButton = [[UIBarButtonItem alloc] initWithTitle:@"Play"
-                    //                                                                                   style:UIBarButtonItemStylePlain
-                    //                                                                                  target:self
-                    //                                                                                  action:@selector(playVideo:)];
-                    //                    self.navigationItem.rightBarButtonItem = playButton;
                 }
                 return;
             }
         }
     }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
+    });
     
-    [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
+    if (clipUrl != nil && clipUrl.length > 0) {
+        [self openWithVideoUrl:clipUrl];
+    } else if (videoUrl != nil && videoUrl.length > 0) {
+        [self openWithVideoUrl:videoUrl];
+    }
+    
 }
 
 
@@ -482,19 +475,15 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	// Beware, viewWillDisappear: is called when the player view enters full screen on iOS 6+
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -637,8 +626,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         infoOfEpisodeViewController.otvEpisode = (OTVEpisode *)sender;
     } else if ([segue.identifier isEqualToString:ShowWebViewSegue]) {
         WebViewController *webViewController = segue.destinationViewController;
-        webViewController.episode = self.episode;
-        webViewController.videoId = (NSString *)sender;
+        webViewController.stringUrl = (NSString *)sender;
     }
     
 }
@@ -1022,12 +1010,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     if (_idx+1 < self.otvEpisode.parts.count) {
         _idx = _idx+1;
         
-//        [self enableOrDisableNextPreviousButton];
+        //        [self enableOrDisableNextPreviousButton];
         if (self.otvEpisode.parts) {
             
             _part = [self.otvEpisode.parts objectAtIndex:_idx];
             
-//            [self initializeUI];
+            //            [self initializeUI];
         }
         
         else
@@ -1049,9 +1037,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     if (_idx >= 1) {
         _idx = _idx-1;
         
-//        [self enableOrDisableNextPreviousButton];
+        //        [self enableOrDisableNextPreviousButton];
         if (self.otvEpisode.parts) {
-//            [self initializeUI];
+            //            [self initializeUI];
             
         } else
         {
@@ -1063,5 +1051,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
 }
 
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:[[request URL] absoluteString]];
+        return NO;
+    }
+    return YES;
+}
 
 @end

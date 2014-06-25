@@ -410,6 +410,37 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return nil;
+    }
+    
+    CGFloat footerWidth;
+    CGFloat footerHeight;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        footerHeight = 90.f;
+        footerWidth = 1024.f;
+    } else {
+        footerHeight = 50.0f;
+        footerWidth = 568.f;
+    }
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, footerWidth, footerHeight)];
+    [footerView setBackgroundColor:[UIColor whiteColor]];
+    return footerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return 0;
+    }
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return 90.f;
+    }
+    return 50.0f;
+}
+
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     

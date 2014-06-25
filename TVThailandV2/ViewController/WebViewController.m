@@ -15,22 +15,15 @@
 
 @implementation WebViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self openWebSite:_videoId];
+    [self openWebSiteUrl:self.stringUrl];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,13 +33,16 @@
 }
 
 
-- (void)openWebSite:(NSString *)stringUrl {
+#pragma mark - Public Method
+
+- (void)openWebSiteUrl:(NSString *)stringUrl {
     [SVProgressHUD showWithStatus:@"Loading..."];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
     [SVProgressHUD dismiss];
     
 }
 
+#pragma mark - IBAction
 
 - (IBAction)closeButtonTapped:(id)sender {
     
