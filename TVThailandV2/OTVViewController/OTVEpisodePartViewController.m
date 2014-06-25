@@ -6,24 +6,23 @@
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
+#import "SVProgressHUD.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 #import "OTVEpisodePartViewController.h"
+#import "DetailViewController.h"
+#import "OTVEpisodePartTableViewCell.h"
+#import "OTVVideoPlayerViewController.h"
+#import "PlayerViewController.h"
+#import "EpisodePartViewController.h"
+
 #import "AppDelegate.h"
 #import "OTVEpisode.h"
 #import "Show.h"
 #import "OTVShow.h"
 #import "Program.h"
-
-
-#import "SVProgressHUD.h"
-
-#import "DetailViewController.h"
-#import "OTVEpisodePartTableViewCell.h"
-#import "OTVVideoPlayerViewController.h"
-#import "PlayerViewController.h"
-
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
 
 
 @interface OTVEpisodePartViewController () <UITableViewDataSource, UITableViewDelegate, OTVEpisodePartTableViewCellDelegate>
@@ -51,6 +50,7 @@ static NSString *cellname = @"cell";
 static NSString *otvEpAndPartToShowPlayerSegue = @"OTVEpAndPartToShowPlayerSegue";
 static NSString *PlayerSegue = @"PlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
@@ -69,6 +69,12 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     _buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
     [_buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
     [_buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(youtubeLongTapped:)];
+    lpgr.minimumPressDuration = 1.0f;
+    [_buttonInfoBar addGestureRecognizer:lpgr];
+    
     [_buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
     
     
@@ -308,6 +314,18 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [self performSegueWithIdentifier:showDetailSegue sender:_otvShow];
 }
 
+- (IBAction)youtubeLongTapped:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"UIGestureRecognizerStateEnded");
+        //Do Whatever You want on End of Gesture
+    }
+    else if (sender.state == UIGestureRecognizerStateBegan){
+        NSLog(@"UIGestureRecognizerStateBegan.");
+        [self performSegueWithIdentifier:EPAndPartIdentifier sender:self.show];
+    }
+    
+}
+
 - (IBAction)favoriteButtonTapped:(id)sender {
     NSArray *bookmarks = [self queyFavorites];
     if(bookmarks.count == 0) {
@@ -422,6 +440,11 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;
         detailViewController.otvShow = _otvShow;
+    }
+    if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
+        Show *show = (Show *)sender;
+        EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
+        episodeAndPartListViewController.show = show;
     }
 }
 

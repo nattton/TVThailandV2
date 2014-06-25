@@ -39,8 +39,6 @@
     
     UIButton *_buttonFavBar;
     UIButton *_buttonInfoBar;
-    
-    UILabel *_titleLabel;
 }
 
 #pragma mark - Staic Variable
@@ -52,46 +50,14 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = self.show.title;
-    
-    _buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [_buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
-    [_buttonFavBar setFrame:CGRectMake(0, 0, 50, 30)];
-    
-    _buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
-    [_buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
-    [_buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
-
-    [self reloadFavorite];
-    
-    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonFavBar];
-    
-    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonInfoBar];
-
-    
-    NSArray *barButtonArray = [[NSArray alloc] initWithObjects:infoBarButton, favoriteBarButton, nil];
-    
-    self.navigationItem.rightBarButtonItems = barButtonArray;
-    
-    
-    _titleLabel = [[UILabel alloc] init];
-    _titleLabel.text = self.show.title;
-    [_titleLabel setBackgroundColor:[UIColor colorWithRed: 25/255.0 green:25/255.0 blue:25/255.0 alpha:0.7]];
-    _titleLabel.textColor = [UIColor whiteColor];
-    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self initBarButton];
     
     [self.portTableView setBackgroundColor:[UIColor clearColor]];
     [self.portTableView setSeparatorColor:[UIColor clearColor]];
     
-    [self.view addSubview:_titleLabel];
     [self.view addSubview:self.portTableView];
-
     
-    _refreshControl = [[UIRefreshControl alloc] init];
-    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-    [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
-    [self.portTableView addSubview:_refreshControl];
+    [self initRefreshControl];
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     
@@ -121,23 +87,48 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 
-- (void)setFavSelected:(BOOL)isSelected
-{
-    if (isSelected) {
-        [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav_selected"] forState:UIControlStateNormal];
-    }
-    else {
-        [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav"] forState:UIControlStateNormal];
-    }
-}
-
-
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     [self reload];
 }
 
+#pragma mark - InitialUI
 
+- (void)initBarButton {
+    self.navigationItem.title = self.show.title;
+    
+    _buttonFavBar =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [_buttonFavBar addTarget:self action:@selector(favoriteButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    [_buttonFavBar setFrame:CGRectMake(0, 0, 50, 30)];
+    
+    _buttonInfoBar = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_buttonInfoBar setImage:[UIImage imageNamed:@"icb_info"] forState:UIControlStateNormal];
+    [_buttonInfoBar addTarget:self action:@selector(infoButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [_buttonInfoBar setFrame:CGRectMake(0, 0, 30, 30)];
+    
+    [self reloadFavorite];
+    
+    UIBarButtonItem *favoriteBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonFavBar];
+    
+    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithCustomView:_buttonInfoBar];
+    
+    
+    NSArray *barButtonArray = [[NSArray alloc] initWithObjects:infoBarButton, favoriteBarButton, nil];
+    
+    self.navigationItem.rightBarButtonItems = barButtonArray;
+}
+
+- (void)initRefreshControl {
+    _refreshControl = [[UIRefreshControl alloc] init];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.portTableView addSubview:_refreshControl];
+}
+
+
+#pragma mark - Action
 
 - (IBAction)infoButtonTapped:(id)sender {
     [self performSegueWithIdentifier:showDetailSegue sender:self.show];
@@ -155,19 +146,80 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 
+#pragma mark - Method
+
 - (void)reloadFavorite {
     NSArray *bookmarks = [self queyFavorites];
     if(bookmarks.count == 0) {
         
         [self setFavSelected:NO];
-      
+        
     } else {
         
         [self setFavSelected:YES];
     }
 }
 
+
+- (void)setFavSelected:(BOOL)isSelected
+{
+    if (isSelected) {
+        [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav_selected"] forState:UIControlStateNormal];
+    }
+    else {
+        [_buttonFavBar setImage:[UIImage imageNamed:@"icb_fav"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)reload {
+    _isEnding = NO;
+    [self reload:0];
+}
+
+
+- (void)reload:(NSUInteger)start {
+    if (_isLoading || _isEnding) {
+        return;
+    }
+    
+    _isLoading = YES;
+    [Episode loadEpisodeDataWithId:self.show.Id Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
+        if (show) {
+            self.show = show;
+            self.show.isOTV = NO;
+        }
+        
+        if ([tempEpisodes count] == 0) {
+            _isEnding = YES;
+        }
+        
+        if (start == 0) {
+            [SVProgressHUD dismiss];
+            _episodes = tempEpisodes;
+        } else {
+            NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_episodes];
+            [mergeArray addObjectsFromArray:tempEpisodes];
+            _episodes = [NSArray arrayWithArray:mergeArray];
+        }
+        
+        [self.portTableView reloadData];
+        _isLoading = NO;
+        
+        [_refreshControl endRefreshing];
+        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    }];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+}
+
+
+
 #pragma mark - CoreData
+
 
 - (NSManagedObjectContext *)managedObjectContext
 {
@@ -212,53 +264,6 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         [self.managedObjectContext save:nil];
     }
     
-}
-
-- (void)reload {
-    _isEnding = NO;
-    [self reload:0];
-}
-
-
-
-- (void)reload:(NSUInteger)start {
-    if (_isLoading || _isEnding) {
-        return;
-    }
-    
-    _isLoading = YES;
-    [Episode loadEpisodeDataWithId:self.show.Id Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
-        if (show) {
-            self.show = show;
-        }
-        
-        if ([tempEpisodes count] == 0) {
-            _isEnding = YES;
-        }
-        
-        if (start == 0) {
-            [SVProgressHUD dismiss];
-            
-            self.show = show;
-            _episodes = tempEpisodes;
-        } else {
-            NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_episodes];
-            [mergeArray addObjectsFromArray:tempEpisodes];
-            _episodes = [NSArray arrayWithArray:mergeArray];
-        }
-        
-        [self.portTableView reloadData];
-        _isLoading = NO;
-        
-        [_refreshControl endRefreshing];
-        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-    }];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-  
 }
 
 

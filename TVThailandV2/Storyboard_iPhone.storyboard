@@ -1183,6 +1183,7 @@
                         <segue destination="9O5-r2-TtL" kind="modal" identifier="OTVEpAndPartToShowPlayerSegue" id="thT-9Q-0xs"/>
                         <segue destination="cv3-Qr-DMZ" kind="modal" identifier="ShowDetailSegue" id="xdc-Rh-odR"/>
                         <segue destination="oZf-te-Xlg" kind="modal" identifier="PlayerSegue" id="lLI-Wr-qoe"/>
+                        <segue destination="Jb5-3U-4hm" kind="push" identifier="EPAndPartIdentifier" id="lNR-3f-Xrl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yvC-W4-toP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2022,8 +2023,8 @@
         <segue reference="lLI-Wr-qoe"/>
         <segue reference="gcw-2o-Hcb"/>
         <segue reference="tRJ-5v-ocZ"/>
-        <segue reference="rKb-JG-vfa"/>
-        <segue reference="551-Zy-Guf"/>
         <segue reference="xdc-Rh-odR"/>
+        <segue reference="lNR-3f-Xrl"/>
+        <segue reference="saQ-9b-nco"/>
     </inferredMetricsTieBreakers>
 </document>
