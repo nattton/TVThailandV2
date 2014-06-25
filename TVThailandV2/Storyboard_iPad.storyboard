@@ -224,11 +224,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOB-12-3o6" userLabel="Open With Button">
-                                        <rect key="frame" x="686" y="65" width="45" height="45"/>
+                                        <rect key="frame" x="681" y="57" width="55" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="5Vt-33-FgP"/>
-                                            <constraint firstAttribute="height" constant="45" id="AVC-qV-dEc"/>
+                                            <constraint firstAttribute="width" constant="55" id="5Vt-33-FgP"/>
+                                            <constraint firstAttribute="height" constant="55" id="AVC-qV-dEc"/>
                                         </constraints>
                                         <state key="normal" image="open_with_web_btn">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -248,10 +248,10 @@
                                     <constraint firstAttribute="trailing" secondItem="tvX-N8-czg" secondAttribute="trailing" constant="8" id="IOX-W6-F7X"/>
                                     <constraint firstItem="RCj-mY-wYV" firstAttribute="top" secondItem="Bqu-sN-bUR" secondAttribute="top" constant="47" id="bBf-2g-7Fs"/>
                                     <constraint firstAttribute="height" constant="115" id="dsN-Gm-MXf"/>
-                                    <constraint firstAttribute="bottom" secondItem="XOB-12-3o6" secondAttribute="bottom" constant="5" id="f7k-nX-Rdo"/>
+                                    <constraint firstAttribute="bottom" secondItem="XOB-12-3o6" secondAttribute="bottom" constant="3" id="f7k-nX-Rdo"/>
                                     <constraint firstAttribute="bottom" secondItem="Wd0-zE-azC" secondAttribute="bottom" constant="75" id="iw8-P6-K8T"/>
                                     <constraint firstAttribute="trailing" secondItem="Wd0-zE-azC" secondAttribute="trailing" constant="13" id="pvo-lC-KRP"/>
-                                    <constraint firstAttribute="trailing" secondItem="XOB-12-3o6" secondAttribute="trailing" constant="8" id="rfi-V4-Bgn"/>
+                                    <constraint firstAttribute="trailing" secondItem="XOB-12-3o6" secondAttribute="trailing" constant="3" id="rfi-V4-Bgn"/>
                                     <constraint firstAttribute="trailing" secondItem="RCj-mY-wYV" secondAttribute="trailing" constant="13" id="t8C-dz-Efg"/>
                                     <constraint firstItem="0W1-YV-jBW" firstAttribute="leading" secondItem="Bqu-sN-bUR" secondAttribute="leading" constant="13" id="tYL-hs-Mod"/>
                                     <constraint firstAttribute="trailing" secondItem="0W1-YV-jBW" secondAttribute="trailing" constant="13" id="tjk-5o-e11"/>
@@ -331,13 +331,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0P-2j-ZsS">
-                                        <rect key="frame" x="352" y="203" width="64" height="64"/>
+                                        <rect key="frame" x="324" y="175" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="O5J-0K-Bqs"/>
-                                            <constraint firstAttribute="width" constant="64" id="yYk-h9-7eO"/>
+                                            <constraint firstAttribute="height" constant="120" id="O5J-0K-Bqs"/>
+                                            <constraint firstAttribute="width" constant="120" id="yYk-h9-7eO"/>
                                         </constraints>
-                                        <state key="normal" image="play_alt">
+                                        <state key="normal" image="play_video_btn">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1963,9 +1963,10 @@
         <image name="icb_info" width="30" height="30"/>
         <image name="icon-pause" width="128" height="128"/>
         <image name="icon-play" width="64" height="64"/>
-        <image name="open_with_web_btn" width="50" height="50"/>
+        <image name="open_with_web_btn" width="53" height="53"/>
         <image name="placeholder_hi" width="128" height="128"/>
-        <image name="play_alt" width="64" height="64"/>
+        <image name="play_alt" width="69" height="69"/>
+        <image name="play_video_btn" width="97" height="97"/>
         <image name="tab_channel" width="30" height="30"/>
         <image name="tab_radio" width="30" height="30"/>
     </resources>
