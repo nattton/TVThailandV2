@@ -379,7 +379,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rov-mt-Ole">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="493"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZQ-9o-5Nf">
@@ -422,31 +422,31 @@
                                     <constraint firstItem="Cqx-Ko-mWN" firstAttribute="leading" secondItem="rov-mt-Ole" secondAttribute="leading" constant="20" id="c0E-qn-jRE"/>
                                     <constraint firstAttribute="trailing" secondItem="KZQ-9o-5Nf" secondAttribute="trailing" constant="20" id="oED-oH-c66"/>
                                     <constraint firstItem="Cqx-Ko-mWN" firstAttribute="top" secondItem="KZQ-9o-5Nf" secondAttribute="bottom" constant="-1" id="s2T-WW-UOn"/>
-                                    <constraint firstAttribute="bottom" secondItem="yyx-mD-Su5" secondAttribute="bottom" constant="28" id="tXB-fo-86N"/>
+                                    <constraint firstAttribute="bottom" secondItem="yyx-mD-Su5" secondAttribute="bottom" constant="103" id="tXB-fo-86N"/>
                                     <constraint firstAttribute="trailing" secondItem="Cqx-Ko-mWN" secondAttribute="trailing" constant="20" id="uhH-MU-lFy"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDw-5Z-gdW">
-                                <rect key="frame" x="140" y="501" width="40" height="40"/>
+                                <rect key="frame" x="280" y="528" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="pjI-45-3Y1"/>
                                     <constraint firstAttribute="height" constant="40" id="tx3-RS-9Wd"/>
                                 </constraints>
-                                <state key="normal" image="close_circle_btn">
+                                <state key="normal" image="close_btn">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="closeButtonTapped:" destination="kdG-wf-trZ" eventType="touchUpInside" id="HhF-Af-E3H"/>
+                                    <action selector="closeButtonTapped:" destination="kdG-wf-trZ" eventType="touchUpInside" id="Qap-8r-Nhk"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="LDw-5Z-gdW" secondAttribute="centerX" id="Kmw-ti-So4"/>
                             <constraint firstItem="rov-mt-Ole" firstAttribute="leading" secondItem="EdC-LF-1Bp" secondAttribute="leading" id="Tb8-go-75Q"/>
-                            <constraint firstItem="igx-ZG-tnn" firstAttribute="top" secondItem="LDw-5Z-gdW" secondAttribute="bottom" constant="27" id="erl-uy-qgw"/>
-                            <constraint firstItem="igx-ZG-tnn" firstAttribute="top" secondItem="rov-mt-Ole" secondAttribute="bottom" constant="75" id="hWi-qp-bM7"/>
+                            <constraint firstItem="igx-ZG-tnn" firstAttribute="top" secondItem="LDw-5Z-gdW" secondAttribute="bottom" id="erl-uy-qgw"/>
+                            <constraint firstAttribute="trailing" secondItem="LDw-5Z-gdW" secondAttribute="trailing" id="fK7-5E-QGe"/>
+                            <constraint firstItem="igx-ZG-tnn" firstAttribute="top" secondItem="rov-mt-Ole" secondAttribute="bottom" id="hWi-qp-bM7"/>
                             <constraint firstAttribute="trailing" secondItem="rov-mt-Ole" secondAttribute="trailing" id="kcN-p3-ERg"/>
                             <constraint firstItem="rov-mt-Ole" firstAttribute="top" secondItem="gmg-fy-C3p" secondAttribute="bottom" constant="-20" id="u8P-zb-ssr"/>
                         </constraints>

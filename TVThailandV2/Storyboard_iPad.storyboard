@@ -435,7 +435,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQN-db-bkY">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="931"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-YX-E5g">
@@ -482,17 +482,17 @@
                                     <constraint firstItem="bNS-YX-E5g" firstAttribute="top" secondItem="mQN-db-bkY" secondAttribute="top" constant="67" id="a2s-YY-NK1"/>
                                     <constraint firstItem="JAT-wT-csE" firstAttribute="leading" secondItem="mQN-db-bkY" secondAttribute="leading" constant="51" id="ayo-ef-UwS"/>
                                     <constraint firstItem="tYW-RU-TXq" firstAttribute="top" secondItem="bNS-YX-E5g" secondAttribute="bottom" constant="-2" id="oUM-zw-e7S"/>
-                                    <constraint firstAttribute="bottom" secondItem="JAT-wT-csE" secondAttribute="bottom" constant="51" id="sqA-Tc-8eq"/>
+                                    <constraint firstAttribute="bottom" secondItem="JAT-wT-csE" secondAttribute="bottom" constant="144" id="sqA-Tc-8eq"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1S-uj-vAq">
-                                <rect key="frame" x="354" y="939" width="60" height="60"/>
+                                <rect key="frame" x="688" y="944" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="DVX-CA-2Q4"/>
-                                    <constraint firstAttribute="width" constant="60" id="Qms-ft-fjN"/>
+                                    <constraint firstAttribute="width" constant="80" id="CCc-VS-RxL"/>
+                                    <constraint firstAttribute="height" constant="80" id="fb7-gg-VbJ"/>
                                 </constraints>
-                                <state key="normal" image="close_circle_btn">
+                                <state key="normal" image="close_btn">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -502,9 +502,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1uR-Dl-H90" firstAttribute="top" secondItem="f1S-uj-vAq" secondAttribute="bottom" constant="25" id="FIU-Js-5Eg"/>
-                            <constraint firstItem="1uR-Dl-H90" firstAttribute="top" secondItem="mQN-db-bkY" secondAttribute="bottom" constant="93" id="L7x-j7-1Db"/>
-                            <constraint firstAttribute="centerX" secondItem="f1S-uj-vAq" secondAttribute="centerX" id="YDr-mv-VfR"/>
+                            <constraint firstItem="1uR-Dl-H90" firstAttribute="top" secondItem="f1S-uj-vAq" secondAttribute="bottom" id="6Za-80-eba"/>
+                            <constraint firstAttribute="trailing" secondItem="f1S-uj-vAq" secondAttribute="trailing" id="GWB-dr-2ha"/>
+                            <constraint firstItem="1uR-Dl-H90" firstAttribute="top" secondItem="mQN-db-bkY" secondAttribute="bottom" id="L7x-j7-1Db"/>
                             <constraint firstItem="mQN-db-bkY" firstAttribute="top" secondItem="4mc-HX-ncm" secondAttribute="bottom" constant="-20" id="j6x-7i-Gkf"/>
                             <constraint firstItem="mQN-db-bkY" firstAttribute="leading" secondItem="oax-hD-lFb" secondAttribute="leading" id="uxX-fl-nx1"/>
                             <constraint firstAttribute="trailing" secondItem="mQN-db-bkY" secondAttribute="trailing" id="yxH-zU-gGI"/>
