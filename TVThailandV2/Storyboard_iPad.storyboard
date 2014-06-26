@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B36-9F-unX">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="882"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="619" translatesAutoresizingMaskIntoConstraints="NO" id="aTJ-54-yAc">
@@ -53,7 +53,7 @@
                                 <constraints>
                                     <constraint firstItem="aTJ-54-yAc" firstAttribute="leading" secondItem="B36-9F-unX" secondAttribute="leading" constant="75" id="3VZ-Vr-il6"/>
                                     <constraint firstItem="aTJ-54-yAc" firstAttribute="top" secondItem="B36-9F-unX" secondAttribute="top" constant="73" id="7Xs-xB-Ucb"/>
-                                    <constraint firstAttribute="bottom" secondItem="GdK-E8-nwK" secondAttribute="bottom" constant="485" id="Aca-GV-OCh"/>
+                                    <constraint firstAttribute="bottom" secondItem="GdK-E8-nwK" secondAttribute="bottom" constant="627" id="Aca-GV-OCh"/>
                                     <constraint firstItem="bvR-Fb-lwp" firstAttribute="leading" secondItem="B36-9F-unX" secondAttribute="leading" constant="75" id="BAw-7a-KuR"/>
                                     <constraint firstItem="bvR-Fb-lwp" firstAttribute="top" secondItem="GdK-E8-nwK" secondAttribute="bottom" constant="8" id="MAu-5R-LNS"/>
                                     <constraint firstAttribute="trailing" secondItem="aTJ-54-yAc" secondAttribute="trailing" constant="74" id="UMG-ZB-Pfa"/>
@@ -62,17 +62,17 @@
                                     <constraint firstAttribute="centerX" secondItem="bvR-Fb-lwp" secondAttribute="centerX" constant="-0.5" id="cNv-AM-DC3"/>
                                     <constraint firstAttribute="centerX" secondItem="GdK-E8-nwK" secondAttribute="centerX" constant="-0.5" id="jIB-Qk-T1z"/>
                                     <constraint firstItem="GdK-E8-nwK" firstAttribute="top" secondItem="aTJ-54-yAc" secondAttribute="bottom" constant="8" id="lDZ-2z-nB8"/>
-                                    <constraint firstAttribute="bottom" secondItem="bvR-Fb-lwp" secondAttribute="bottom" constant="28" id="r9f-LA-65r"/>
+                                    <constraint firstAttribute="bottom" secondItem="bvR-Fb-lwp" secondAttribute="bottom" constant="170" id="r9f-LA-65r"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTh-tY-VZx">
-                                <rect key="frame" x="354" y="913" width="60" height="60"/>
+                                <rect key="frame" x="688" y="944" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="F4q-Nw-iex"/>
-                                    <constraint firstAttribute="width" constant="60" id="bvo-sU-MXV"/>
+                                    <constraint firstAttribute="height" constant="80" id="F4q-Nw-iex"/>
+                                    <constraint firstAttribute="width" constant="80" id="bvo-sU-MXV"/>
                                 </constraints>
-                                <state key="normal" image="close_circle_btn">
+                                <state key="normal" image="close_btn">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -82,12 +82,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UK9-BM-g3N" firstAttribute="top" secondItem="B36-9F-unX" secondAttribute="bottom" constant="142" id="7r0-Ar-Y20"/>
+                            <constraint firstItem="UK9-BM-g3N" firstAttribute="top" secondItem="B36-9F-unX" secondAttribute="bottom" id="7r0-Ar-Y20"/>
                             <constraint firstItem="B36-9F-unX" firstAttribute="leading" secondItem="EFC-UW-vgv" secondAttribute="leading" id="D3o-Rr-zJQ"/>
                             <constraint firstItem="B36-9F-unX" firstAttribute="top" secondItem="xkU-gh-2tZ" secondAttribute="bottom" constant="-20" id="DeY-TG-tKB"/>
-                            <constraint firstAttribute="centerX" secondItem="GTh-tY-VZx" secondAttribute="centerX" id="FOR-Zk-lM2"/>
+                            <constraint firstAttribute="trailing" secondItem="GTh-tY-VZx" secondAttribute="trailing" id="Nfn-JB-OHj"/>
                             <constraint firstAttribute="trailing" secondItem="B36-9F-unX" secondAttribute="trailing" id="jyc-ca-OsM"/>
-                            <constraint firstItem="UK9-BM-g3N" firstAttribute="top" secondItem="GTh-tY-VZx" secondAttribute="bottom" constant="51" id="ron-fQ-9Y4"/>
+                            <constraint firstItem="UK9-BM-g3N" firstAttribute="top" secondItem="GTh-tY-VZx" secondAttribute="bottom" id="ron-fQ-9Y4"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1963,7 +1963,6 @@
         <image name="bg_ipad" width="1" height="2048"/>
         <image name="button_go_to_top" width="100" height="30"/>
         <image name="close_btn" width="100" height="100"/>
-        <image name="close_circle_btn" width="100" height="100"/>
         <image name="fb_icon" width="81" height="81"/>
         <image name="ic_cate_empty" width="48" height="48"/>
         <image name="icb_fav" width="30" height="30"/>
