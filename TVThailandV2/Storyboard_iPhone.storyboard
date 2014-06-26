@@ -475,7 +475,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXp-Ly-aVS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="494"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="r7A-XR-jtc">
@@ -511,7 +511,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Nml-3j-VXa" secondAttribute="centerX" id="0ju-ca-8yw"/>
-                                    <constraint firstAttribute="bottom" secondItem="4Bi-bm-hl5" secondAttribute="bottom" constant="20" id="2Ow-Mu-hNM"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Bi-bm-hl5" secondAttribute="bottom" constant="94" id="2Ow-Mu-hNM"/>
                                     <constraint firstItem="r7A-XR-jtc" firstAttribute="centerX" secondItem="Nml-3j-VXa" secondAttribute="centerX" id="EEn-ct-GKG"/>
                                     <constraint firstItem="r7A-XR-jtc" firstAttribute="top" secondItem="Nml-3j-VXa" secondAttribute="bottom" constant="8" id="GWM-iR-Fxi"/>
                                     <constraint firstItem="4Bi-bm-hl5" firstAttribute="centerX" secondItem="r7A-XR-jtc" secondAttribute="centerX" id="Mdn-fP-mI4"/>
@@ -524,13 +524,13 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxR-2j-KrL">
-                                <rect key="frame" x="140" y="508" width="40" height="40"/>
+                                <rect key="frame" x="280" y="528" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CHO-bu-UF3"/>
                                     <constraint firstAttribute="width" constant="40" id="ipz-FZ-Tqa"/>
                                 </constraints>
-                                <state key="normal" image="close_circle_btn">
+                                <state key="normal" image="close_btn">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -542,10 +542,10 @@
                         <constraints>
                             <constraint firstItem="TXp-Ly-aVS" firstAttribute="leading" secondItem="Xm5-0q-gBB" secondAttribute="leading" id="5hX-KH-RJ5"/>
                             <constraint firstItem="TXp-Ly-aVS" firstAttribute="top" secondItem="upS-QZ-rxm" secondAttribute="bottom" constant="-20" id="F5c-cy-0tV"/>
-                            <constraint firstItem="mPk-jT-57V" firstAttribute="top" secondItem="gxR-2j-KrL" secondAttribute="bottom" constant="20" id="GKl-8d-VKC"/>
+                            <constraint firstItem="mPk-jT-57V" firstAttribute="top" secondItem="gxR-2j-KrL" secondAttribute="bottom" id="GKl-8d-VKC"/>
                             <constraint firstAttribute="trailing" secondItem="TXp-Ly-aVS" secondAttribute="trailing" id="QJd-Pc-vSJ"/>
-                            <constraint firstItem="gxR-2j-KrL" firstAttribute="centerX" secondItem="TXp-Ly-aVS" secondAttribute="centerX" id="rzu-5F-FYb"/>
-                            <constraint firstItem="mPk-jT-57V" firstAttribute="top" secondItem="TXp-Ly-aVS" secondAttribute="bottom" constant="74" id="x8C-js-5qk"/>
+                            <constraint firstAttribute="trailing" secondItem="gxR-2j-KrL" secondAttribute="trailing" id="t9Z-ch-Qfe"/>
+                            <constraint firstItem="mPk-jT-57V" firstAttribute="top" secondItem="TXp-Ly-aVS" secondAttribute="bottom" id="x8C-js-5qk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3Zx-Mr-feM"/>
@@ -1959,7 +1959,6 @@
         <image name="button_go_to_top" width="100" height="30"/>
         <image name="close_btn" width="100" height="100"/>
         <image name="close_btn_pressed" width="100" height="100"/>
-        <image name="close_circle_btn" width="100" height="100"/>
         <image name="fb_icon" width="81" height="81"/>
         <image name="ic_cate_empty" width="48" height="48"/>
         <image name="icb_fav" width="30" height="30"/>
