@@ -67,8 +67,8 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     [[ApiClient sharedInstance]
-            GET:[NSString stringWithFormat:@"api2/whatsnew/%d?device=ios&time%@",
-                 start, [df stringFromDate:[NSDate date]]]
+            GET:[NSString stringWithFormat:@"api2/whatsnew/%@?device=ios&time%@",
+                 [[NSNumber numberWithInteger:start] stringValue], [df stringFromDate:[NSDate date]]]
         parameters:nil
         success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];
@@ -95,8 +95,8 @@
     [df setDateFormat:@"yyyyMMddHHmm"];
     
     [[ApiClient sharedInstance]
-     GET:[NSString stringWithFormat:@"api2/category/%@/%d?device=ios&time=%@",
-          Id, start, [df stringFromDate:[NSDate date]]]
+     GET:[NSString stringWithFormat:@"api2/category/%@/%@?device=ios&time=%@",
+          Id, [[NSNumber numberWithInteger:start] stringValue], [df stringFromDate:[NSDate date]]]
      parameters:nil
         success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];
@@ -127,7 +127,7 @@
     [df setDateFormat:@"yyyyMMddHHmm"];
     
     [[ApiClient sharedInstance]
-        GET:[NSString stringWithFormat:@"api2/channel/%@/%d?device=ios&time=%@", Id, start, [df stringFromDate:[NSDate date]]]
+        GET:[NSString stringWithFormat:@"api2/channel/%@/%@?device=ios&time=%@", Id, [[NSNumber numberWithInteger:start] stringValue], [df stringFromDate:[NSDate date]]]
         parameters:nil
         success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];

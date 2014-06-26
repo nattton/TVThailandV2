@@ -114,7 +114,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%d",indexPath.row];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%@",[[NSNumber numberWithInteger:indexPath.row] stringValue]];
     NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
 
 
@@ -131,7 +131,7 @@
         UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
         partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
         partTitleLabel.textColor = [UIColor whiteColor];
-        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d/%d", (indexPath.row+1), self.episode.videos.count ]];
+        [partTitleLabel setText:[NSString stringWithFormat:@"Part %@/%@", [[NSNumber numberWithInteger:(indexPath.row + 1)] stringValue], [[NSNumber numberWithInteger:self.episode.videos.count] stringValue] ]];
         partTitleLabel.numberOfLines = 0;
 
         if (self.episode.videos.count != 1 ){
@@ -160,7 +160,7 @@
     return 157;
 }
 
-- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     // This will create a "invisible" footer
     return 0.01f;
 }

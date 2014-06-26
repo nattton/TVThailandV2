@@ -115,7 +115,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%d",indexPath.row];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%@", [[NSNumber numberWithInteger:indexPath.row] stringValue]];
 //    NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
     NSString *imageUrl = [[self.otvEpisode.parts objectAtIndex:indexPath.row] thumbnail];
     
@@ -162,7 +162,7 @@
     return 157;
 }
 
-- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     // This will create a "invisible" footer
     return 0.01f;
 }

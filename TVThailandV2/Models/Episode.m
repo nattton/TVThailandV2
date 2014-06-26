@@ -53,7 +53,7 @@
     if (!Id) return;
     
     [[ApiClient sharedInstance]
-         GET:[NSString stringWithFormat:@"api2/episode/%@/%d?device=ios", Id, start]
+         GET:[NSString stringWithFormat:@"api2/episode/%@/%@?device=ios", Id, [[NSNumber numberWithInteger:start] stringValue]]
          parameters:nil
          success:^(AFHTTPRequestOperation *operation, id JSON) {
              Show *show;
@@ -108,7 +108,7 @@
                 [display appendString:_title];
             }
         } else {
-            [display appendFormat:@"ตอนที่ %d", _ep];
+            [display appendFormat:@"ตอนที่ %@", [[NSNumber numberWithInteger:_ep] stringValue]];
             if (![_title isEqualToString:@""]) {
                 [display appendFormat:@" - %@", _title];
             }
