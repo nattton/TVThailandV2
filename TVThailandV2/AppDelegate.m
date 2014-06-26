@@ -29,7 +29,7 @@
         [[UIBarButtonItem appearance] setTintColor:kThemeColor];
         
         [[UISearchBar appearance] setBackgroundImage:[UIImage imageWithColor:kThemeColor]];
-        [[UIToolbar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:34/255.0f green:113/255.0f blue:179/255.0f alpha:1]] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        [[UIToolbar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     } else {
         [[UINavigationBar appearance] setTintColor:kThemeColor];
     }

@@ -475,13 +475,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
+#endif
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
