@@ -65,7 +65,6 @@
 		3B9587A919384E25002C303F /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9587A819384E25002C303F /* SDWebImage.framework */; };
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
-		3BBA068D1940527D0049BFD3 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBA068C1940527D0049BFD3 /* JavaScriptCore.framework */; };
 		3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* PlayerViewController.m */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
 		3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */; };
@@ -336,7 +335,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBA068D1940527D0049BFD3 /* JavaScriptCore.framework in Frameworks */,
 				3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */,
 				3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */,
 				F0DC4DF415BA012E0009BFCD /* CoreGraphics.framework in Frameworks */,
@@ -1098,7 +1096,7 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
+				PROVISIONING_PROFILE = "A7971A27-BBE6-4806-B64E-20414170590F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -1114,7 +1112,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nattapong Tonprasert (3G244XJS59)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1146,7 +1144,7 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
+				PROVISIONING_PROFILE = "A7971A27-BBE6-4806-B64E-20414170590F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
