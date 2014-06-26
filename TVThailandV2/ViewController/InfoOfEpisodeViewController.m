@@ -30,18 +30,8 @@
 {
     [super viewDidLoad];
     
-    UIFontDescriptor *baseFont =
-    [UIFontDescriptor fontDescriptorWithFontAttributes:
-     @{UIFontDescriptorFamilyAttribute:@"Helvetica Neue"}];
-    UIFontDescriptor *italicBase =
-    [baseFont fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic];
-    UIFont *font = [UIFont fontWithDescriptor:italicBase size:24];
-    self.detailTextView.font = font;
     
-    self.episodeName.text = self.otvEpisode.nameTh;
-    self.updateDate.text = self.otvEpisode.date;
-    self.detailTextView.text = self.otvEpisode.detail;
-
+    [self initializeUI];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -52,6 +42,19 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initializeUI {
+    [self.detailTextView setEditable:YES];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self.detailTextView setFont:[UIFont fontWithName:@"Helvetica" size:24]];
+    } else {
+        [self.detailTextView setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    }
+    
+    self.episodeName.text = self.otvEpisode.nameTh;
+    self.updateDate.text = self.otvEpisode.date;
+    self.detailTextView.text = self.otvEpisode.detail;
 }
 
 - (IBAction)closeButtonTapped:(id)sender {

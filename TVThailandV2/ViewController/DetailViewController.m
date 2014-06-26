@@ -7,15 +7,16 @@
 //
 
 #import "DetailViewController.h"
-#import "Show.h"
-#import "OTVShow.h"
+
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "XLMediaZoom.h"
 
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-#import <SDWebImage/UIImageView+WebCache.h>
-#import "XLMediaZoom.h"
+#import "Show.h"
+#import "OTVShow.h"
 
 @interface DetailViewController ()
 
@@ -51,8 +52,15 @@
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
-- (void)initializeUI
-{
+- (void)initializeUI {
+    [self.detailTextView setEditable:YES];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self.detailTextView setFont:[UIFont fontWithName:@"Helvetica" size:24]];
+    } else {
+        [self.detailTextView setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    }
+    
+    [self.detailTextView setEditable:NO];
     if (self.show) {
         self.titleLabel.text = self.show.title;
         self.detailTextView.text = self.show.detail;
