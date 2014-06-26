@@ -16,7 +16,8 @@
 }
 
 #pragma mark - Static Variable
-static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
+
+static NSString *CellIdentifier = @"part_cell";
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width
 {
@@ -97,11 +98,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%@", [[NSNumber numberWithInteger:indexPath.row] stringValue]];
-    //    NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     NSString *imageUrl = [[_shows objectAtIndex:indexPath.row] thumbnailUrl];
     
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

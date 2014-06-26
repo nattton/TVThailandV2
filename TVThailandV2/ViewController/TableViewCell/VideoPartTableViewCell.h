@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *partNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 
-- (void)configureWithVideoPart:(Episode *)episode partNumber:(long)partNumber;
+- (void)configureWithVideoPart:(Episode *)episode partNumber:(NSInteger)partNumber;
 - (void)configureWithOTVVideoPart:(OTVEpisode *)otvEpisode partNumber:(NSInteger)partNumber;
 - (void)configureWithOTVRelateShows:(Show *)relateOTVShow;
 

@@ -22,8 +22,7 @@
     long _currentEpIndex;
 }
 
-
-
+static NSString *CellIdentifier = @"part_cell";
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width
 {
@@ -65,8 +64,6 @@
         [hortable setSeparatorColor:[UIColor clearColor]];
 		[self addSubview:hortable];
 
-        
-
     }
     return self;
 }
@@ -78,8 +75,6 @@
     _currentEpIndex = currentEpIndex;
 
     [self configureWithSlider:episode];
-    
-
 }
 
 - (void)configureWithSlider:(Episode *)episode {
@@ -90,33 +85,20 @@
     [goForwardImgSlider setImage:[UIImage animatedImageNamed:@"forwardImg" duration:0.8]];
     [self addSubview:goForwardImgSlider];
     
-
-    
     if (episode.videos.count == 1) {
         goForwardImgSlider.hidden = YES;
     }
-    
-
-
 }
 
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return  self.episode.videos.count;
-    
-    
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%@",[[NSNumber numberWithInteger:indexPath.row] stringValue]];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
-
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil){
@@ -155,8 +137,7 @@
 	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 157;
 }
 

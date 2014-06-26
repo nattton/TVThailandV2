@@ -36,11 +36,11 @@
     // Configure the view for the selected state
 }
 
-- (void)configureWithVideoPart:(Episode *)episode partNumber:(long)partNumber {
+- (void)configureWithVideoPart:(Episode *)episode partNumber:(NSInteger)partNumber {
     if ([episode.videos count] == 1) {
         self.partNameLabel.text = @"";
     } else {
-        self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%ld", partNumber+1, (long)episode.videos.count ];
+        self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%@", partNumber+1, [[NSNumber numberWithInteger:episode.videos.count] stringValue] ];
     }
     
     self.episodeNameLabel.text = episode.titleDisplay;
