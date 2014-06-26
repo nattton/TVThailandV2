@@ -28,6 +28,7 @@
 @interface OTVEpisodePartViewController () <UITableViewDataSource, UITableViewDelegate, OTVEpisodePartTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *portTableView;
+@property (weak, nonatomic) IBOutlet UILabel *noContentLabel;
 
 @end
 
@@ -231,6 +232,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
         [_refreshControl endRefreshing];
         _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         
+        self.noContentLabel.hidden = _otvEpisodes.count > 0;
     }];
 }
 

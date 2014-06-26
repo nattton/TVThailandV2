@@ -120,7 +120,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
                              Block:^(Show *show, NSArray *tempEpisodes, NSError *error)
     {
         [SVProgressHUD dismiss];
-         if (show.isOTV)
+         if (!(floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) && show.isOTV)
              [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
          else
              [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];

@@ -21,7 +21,6 @@
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */; };
-		11D1DCE51910D23C00A51026 /* HomeContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE41910D23C00A51026 /* HomeContentViewController.m */; };
 		11DCB022195447FF000D76D1 /* InfoOfEpisodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */; };
 		11E09BF31950249A0098663C /* OTVRelateShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E09BF21950249A0098663C /* OTVRelateShowTableViewCell.m */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
@@ -155,8 +154,6 @@
 		11D011F51924726300216898 /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
 		11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSlideMenuViewController.h; sourceTree = "<group>"; };
 		11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSlideMenuViewController.m; sourceTree = "<group>"; };
-		11D1DCE31910D23C00A51026 /* HomeContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeContentViewController.h; sourceTree = "<group>"; };
-		11D1DCE41910D23C00A51026 /* HomeContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeContentViewController.m; sourceTree = "<group>"; };
 		11DCB020195447FF000D76D1 /* InfoOfEpisodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoOfEpisodeViewController.h; sourceTree = "<group>"; };
 		11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoOfEpisodeViewController.m; sourceTree = "<group>"; };
 		11E09BF11950249A0098663C /* OTVRelateShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVRelateShowTableViewCell.h; sourceTree = "<group>"; };
@@ -398,8 +395,6 @@
 				117388B318C8364000D4F187 /* CMAccountViewController.m */,
 				11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */,
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
-				11D1DCE31910D23C00A51026 /* HomeContentViewController.h */,
-				11D1DCE41910D23C00A51026 /* HomeContentViewController.m */,
 				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
 				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
 				3BBA068E1940549C0049BFD3 /* PlayerViewController.h */,
@@ -920,7 +915,6 @@
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
-				11D1DCE51910D23C00A51026 /* HomeContentViewController.m in Sources */,
 				3BD13952190F691A004F6785 /* OTVVideoPlayerViewController.m in Sources */,
 				1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,

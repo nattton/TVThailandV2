@@ -394,16 +394,17 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    Show *show = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        Show *show = _searchShows[indexPath.row];
-        if (show.isOTV)
-            [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
-        else
-            [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+        show = _searchShows[indexPath.row];
     }
     else {
-        Show *show = _shows[indexPath.row];
-        if (show.isOTV)
+        show = _shows[indexPath.row];
+    }
+    
+    if (show != nil) {
+        if (!(floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) && show.isOTV)
             [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
         else
             [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];

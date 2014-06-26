@@ -27,6 +27,7 @@
 @interface EpisodePartViewController ()<UITableViewDataSource, UITableViewDelegate, EPPartCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *portTableView;
+@property (weak, nonatomic) IBOutlet UILabel *noContentLabel;
 
 @end
 
@@ -207,6 +208,8 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
         
         [_refreshControl endRefreshing];
         _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+        
+        self.noContentLabel.hidden = _episodes.count > 0;
     }];
 }
 

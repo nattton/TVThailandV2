@@ -30,6 +30,8 @@
         
         [[UISearchBar appearance] setBackgroundImage:[UIImage imageWithColor:kThemeColor]];
         [[UIToolbar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+        
     } else {
         [[UINavigationBar appearance] setTintColor:kThemeColor];
     }
