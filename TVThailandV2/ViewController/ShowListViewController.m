@@ -90,23 +90,18 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         videoPlayerViewController.navigationItem.title = [NSString stringWithFormat:@"Live : %@", self.navigationItem.title];
     }
     else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
-        
         Show *show = (Show *)sender;
-        
         OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
-//        otvEpAndPartViewController.navigationItem.title = show.title;
-        
         otvEpAndPartViewController.show = show;
-        
     }
 }
+
+#pragma mark - UIViewController
 
 - (void) setChannel:(Channel *)channel {
     _channel = channel;
     self.navigationItem.title = channel.title;
 }
-
-#pragma mark - UIViewController
 
 - (void)viewDidLoad
 {

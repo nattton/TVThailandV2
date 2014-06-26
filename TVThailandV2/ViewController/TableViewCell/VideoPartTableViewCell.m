@@ -40,13 +40,11 @@
     if ([episode.videos count] == 1) {
         self.partNameLabel.text = @"";
     } else {
-        self.partNameLabel.text = [NSString stringWithFormat:@"Part %ld/%@", partNumber+1, [[NSNumber numberWithInteger:episode.videos.count] stringValue] ];
+        self.partNameLabel.text = [NSString stringWithFormat:@"Part %@/%@", [[NSNumber numberWithInteger:partNumber+1] stringValue], [[NSNumber numberWithInteger:episode.videos.count] stringValue] ];
     }
     
     self.episodeNameLabel.text = episode.titleDisplay;
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:[episode videoThumbnail:partNumber]] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"] options:SDWebImageProgressiveDownload];
-
-    
 }
 
 - (void)configureWithOTVVideoPart:(OTVEpisode *)otvEpisode partNumber:(NSInteger)partNumber {
