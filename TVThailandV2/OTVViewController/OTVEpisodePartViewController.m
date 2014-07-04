@@ -279,11 +279,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    OTVEpisodePartTableViewCell *cell = (OTVEpisodePartTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
-    
-    
-    cell = [[OTVEpisodePartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
+    OTVEpisodePartTableViewCell *cell = [[OTVEpisodePartTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
                                              reuseIdentifier:cellname
                                                        width:CGRectGetWidth(self.view.frame)];
 	
@@ -293,9 +289,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
     
     [cell configureWithEpisode:_otvEpisodes[indexPath.section]];
     
-    
     cell.delegate = self;
-    
     
     return cell;
 }
