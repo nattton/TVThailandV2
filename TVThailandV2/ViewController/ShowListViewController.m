@@ -492,7 +492,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         dispatch_async(dispatch_get_main_queue(), ^{
 //            DLog(@"Yayyy, we have the interwebs!");
             
-            weakSelf.alertTitle.text = @"connection fail, try again";
+            weakSelf.alertTitle.text = @"Connection Fail, Try again";
             
         });
     };
@@ -502,8 +502,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     {
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.alertTitle.text = @"no internet connection";
-            weakSelf.alertTitleView.alpha = 0.85;
+            weakSelf.alertTitle.text = @"No Internet Connection";
+            weakSelf.alertTitleView.alpha = 0.75;
             
             
         });

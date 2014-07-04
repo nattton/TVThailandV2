@@ -1609,14 +1609,56 @@
                                     <action selector="goToTopTapped:" destination="4ei-xy-CaA" eventType="touchUpInside" id="XgR-7V-NgZ"/>
                                 </connections>
                             </button>
+                            <view alpha="0.74999999999999978" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QR5-Rc-rop" userLabel="Internet info">
+                                <rect key="frame" x="0.0" y="64" width="320" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJ5-M5-h3a">
+                                        <rect key="frame" x="145" y="39" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="gVs-GT-HQJ"/>
+                                            <constraint firstAttribute="width" constant="30" id="nqF-Zh-EsN"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_refresh_white">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="alertRefreshButtonTouched:" destination="4ei-xy-CaA" eventType="touchUpInside" id="gby-CT-RW5"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet Connection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GR-gy-Rem">
+                                        <rect key="frame" x="20" y="11" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="0O0-2P-CgC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="5pc-ef-BXl"/>
+                                    <constraint firstAttribute="centerX" secondItem="pJ5-M5-h3a" secondAttribute="centerX" id="DFy-IK-tPl"/>
+                                    <constraint firstItem="pJ5-M5-h3a" firstAttribute="top" secondItem="9GR-gy-Rem" secondAttribute="bottom" constant="7" id="G6N-Mi-BZa"/>
+                                    <constraint firstItem="9GR-gy-Rem" firstAttribute="top" secondItem="QR5-Rc-rop" secondAttribute="top" constant="11" id="cfY-aR-Jsf"/>
+                                    <constraint firstAttribute="trailing" secondItem="9GR-gy-Rem" secondAttribute="trailing" constant="20" id="iS6-e9-Fih"/>
+                                    <constraint firstItem="9GR-gy-Rem" firstAttribute="leading" secondItem="QR5-Rc-rop" secondAttribute="leading" constant="20" id="tgM-wf-IFT"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QR5-Rc-rop" firstAttribute="leading" secondItem="ugL-u5-pxl" secondAttribute="leading" id="52u-fA-j7q"/>
                             <constraint firstAttribute="trailing" secondItem="1aS-hy-9fC" secondAttribute="trailing" id="5qT-AU-af5"/>
                             <constraint firstItem="5eE-3y-1NJ" firstAttribute="top" secondItem="1aS-hy-9fC" secondAttribute="bottom" id="HgW-1C-VH4"/>
                             <constraint firstItem="1aS-hy-9fC" firstAttribute="top" secondItem="LPg-Xq-9XU" secondAttribute="bottom" id="PRN-aQ-Pmd"/>
                             <constraint firstItem="1aS-hy-9fC" firstAttribute="leading" secondItem="ugL-u5-pxl" secondAttribute="leading" id="YQe-Tl-Gu6"/>
+                            <constraint firstAttribute="trailing" secondItem="QR5-Rc-rop" secondAttribute="trailing" id="Zby-Cz-qNV"/>
                             <constraint firstItem="iIP-9y-zB8" firstAttribute="top" secondItem="LPg-Xq-9XU" secondAttribute="bottom" constant="8" id="lvL-9Y-kCI"/>
+                            <constraint firstItem="QR5-Rc-rop" firstAttribute="top" secondItem="LPg-Xq-9XU" secondAttribute="bottom" id="y3l-z1-iUX"/>
                             <constraint firstAttribute="centerX" secondItem="iIP-9y-zB8" secondAttribute="centerX" id="ymf-og-adr"/>
                         </constraints>
                     </view>
@@ -1629,6 +1671,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="alertTitle" destination="9GR-gy-Rem" id="xlK-Jk-cBX"/>
+                        <outlet property="alertTitleView" destination="QR5-Rc-rop" id="T40-q4-JIA"/>
                         <outlet property="goToTopButton" destination="iIP-9y-zB8" id="CiZ-Vk-Hpo"/>
                         <outlet property="mkAdView" destination="7DL-Xj-FtK" id="kk6-BW-0XY"/>
                         <outlet property="searchDisplayController" destination="UcB-93-wBL" id="Yon-WG-jNM"/>
@@ -1989,6 +2033,7 @@
         <image name="close_btn_pressed" width="100" height="100"/>
         <image name="fb_icon" width="81" height="81"/>
         <image name="ic_cate_empty" width="48" height="48"/>
+        <image name="ic_refresh_white" width="50" height="51"/>
         <image name="icb_fav" width="30" height="30"/>
         <image name="icb_info" width="30" height="30"/>
         <image name="icon-pause" width="128" height="128"/>
@@ -2006,11 +2051,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="saQ-9b-nco"/>
-        <segue reference="lNR-3f-Xrl"/>
         <segue reference="gcw-2o-Hcb"/>
         <segue reference="tRJ-5v-ocZ"/>
-        <segue reference="lLI-Wr-qoe"/>
+        <segue reference="551-Zy-Guf"/>
+        <segue reference="rKb-JG-vfa"/>
         <segue reference="xdc-Rh-odR"/>
+        <segue reference="lLI-Wr-qoe"/>
     </inferredMetricsTieBreakers>
 </document>
