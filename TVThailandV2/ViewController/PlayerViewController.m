@@ -30,7 +30,11 @@
 #import "OTVEpisode.h"
 #import "OTVPart.h"
 
-
+// IMA SDK
+#import "IMAAVPlayerContentPlayhead.h"
+#import "IMAAd.h"
+#import "IMAAdsLoader.h"
+#import "IMAAdsManager.h"
 
 @interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate>
 

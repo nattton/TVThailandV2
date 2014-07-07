@@ -24,6 +24,7 @@
 		11DCB022195447FF000D76D1 /* InfoOfEpisodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */; };
 		11E09BF31950249A0098663C /* OTVRelateShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E09BF21950249A0098663C /* OTVRelateShowTableViewCell.m */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
+		3B0DA03C196AAB4000833FA5 /* libGoogleIMA3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0DA03B196AAB4000833FA5 /* libGoogleIMA3.a */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
 		3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24817FF328A006FA479 /* MakathonAdView.m */; };
 		3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24B17FF346C006FA479 /* MakathonAd.m */; };
@@ -158,6 +159,19 @@
 		11E09BF11950249A0098663C /* OTVRelateShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVRelateShowTableViewCell.h; sourceTree = "<group>"; };
 		11E09BF21950249A0098663C /* OTVRelateShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVRelateShowTableViewCell.m; sourceTree = "<group>"; };
 		320AF8492C47A4D819F7C450 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.frameworks; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3B0DA02F196AAB4000833FA5 /* IMAAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAd.h; sourceTree = "<group>"; };
+		3B0DA030196AAB4000833FA5 /* IMAAdError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdError.h; sourceTree = "<group>"; };
+		3B0DA031196AAB4000833FA5 /* IMAAdEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdEvent.h; sourceTree = "<group>"; };
+		3B0DA032196AAB4000833FA5 /* IMAAdPlaybackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdPlaybackInfo.h; sourceTree = "<group>"; };
+		3B0DA033196AAB4000833FA5 /* IMAAdPodInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdPodInfo.h; sourceTree = "<group>"; };
+		3B0DA034196AAB4000833FA5 /* IMAAdsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsLoader.h; sourceTree = "<group>"; };
+		3B0DA035196AAB4000833FA5 /* IMAAdsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsManager.h; sourceTree = "<group>"; };
+		3B0DA036196AAB4000833FA5 /* IMAAdsRenderingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsRenderingSettings.h; sourceTree = "<group>"; };
+		3B0DA037196AAB4000833FA5 /* IMAAdsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsRequest.h; sourceTree = "<group>"; };
+		3B0DA038196AAB4000833FA5 /* IMAAVPlayerContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAVPlayerContentPlayhead.h; sourceTree = "<group>"; };
+		3B0DA039196AAB4000833FA5 /* IMACompanionAdSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMACompanionAdSlot.h; sourceTree = "<group>"; };
+		3B0DA03A196AAB4000833FA5 /* IMAContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAContentPlayhead.h; sourceTree = "<group>"; };
+		3B0DA03B196AAB4000833FA5 /* libGoogleIMA3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleIMA3.a; sourceTree = "<group>"; };
 		3B15D22A17FD86FB006FA479 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		3B15D22B17FD86FB006FA479 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		3B15D24717FF328A006FA479 /* MakathonAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakathonAdView.h; sourceTree = "<group>"; };
@@ -356,6 +370,7 @@
 				F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */,
 				F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */,
 				F0A3C83715BB21AB000CD962 /* MobileCoreServices.framework in Frameworks */,
+				3B0DA03C196AAB4000833FA5 /* libGoogleIMA3.a in Frameworks */,
 				3BDF82FD19098B9000AD12D0 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
@@ -369,6 +384,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B0DA02E196AAB4000833FA5 /* GoogleIMASDK3 */ = {
+			isa = PBXGroup;
+			children = (
+				3B0DA02F196AAB4000833FA5 /* IMAAd.h */,
+				3B0DA030196AAB4000833FA5 /* IMAAdError.h */,
+				3B0DA031196AAB4000833FA5 /* IMAAdEvent.h */,
+				3B0DA032196AAB4000833FA5 /* IMAAdPlaybackInfo.h */,
+				3B0DA033196AAB4000833FA5 /* IMAAdPodInfo.h */,
+				3B0DA034196AAB4000833FA5 /* IMAAdsLoader.h */,
+				3B0DA035196AAB4000833FA5 /* IMAAdsManager.h */,
+				3B0DA036196AAB4000833FA5 /* IMAAdsRenderingSettings.h */,
+				3B0DA037196AAB4000833FA5 /* IMAAdsRequest.h */,
+				3B0DA038196AAB4000833FA5 /* IMAAVPlayerContentPlayhead.h */,
+				3B0DA039196AAB4000833FA5 /* IMACompanionAdSlot.h */,
+				3B0DA03A196AAB4000833FA5 /* IMAContentPlayhead.h */,
+				3B0DA03B196AAB4000833FA5 /* libGoogleIMA3.a */,
+			);
+			path = GoogleIMASDK3;
+			sourceTree = "<group>";
+		};
 		3B67F7A117E09A1D00C9CD23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +796,7 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				3B0DA02E196AAB4000833FA5 /* GoogleIMASDK3 */,
 				3BDF8351190A78CC00AD12D0 /* DVVAST */,
 				3BDF833C190A74EE00AD12D0 /* KissXML */,
 				3BDF82F419098B9000AD12D0 /* GoogleAnalyticsServicesiOS_3.06 */,
@@ -1086,6 +1122,7 @@
 					"$(SRCROOT)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.06",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleIMASDK3",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -1134,6 +1171,7 @@
 					"$(SRCROOT)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.06",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleIMASDK3",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
