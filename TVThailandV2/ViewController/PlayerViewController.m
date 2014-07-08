@@ -30,13 +30,21 @@
 #import "OTVEpisode.h"
 #import "OTVPart.h"
 
-// IMA SDK
-#import "IMAAVPlayerContentPlayhead.h"
-#import "IMAAd.h"
-#import "IMAAdsLoader.h"
-#import "IMAAdsManager.h"
+const char* AdEventNames[] = {
+    "All Ads Complete",
+    "Clicked",
+    "Complete",
+    "First Quartile",
+    "Loaded",
+    "Midpoint",
+    "Pause",
+    "Resume",
+    "Third Quartile",
+    "Started",
+};
 
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate>
+
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
@@ -60,12 +68,16 @@
 -(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
 - (void) movieDurationAvailableDidChange:(NSNotification*)notification;
 
+// Private functions
+- (void)unloadAdsManager;
+
 @end
 
 @implementation PlayerViewController {
     NSString *_videoId;
     CGSize _size;
     BOOL _isContent;
+    BOOL _isGoogleIMAAds;
     BOOL _isLoading;
     OTVPart *_part;
     CGFloat _widthOfCH7iFrame;
@@ -101,6 +113,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
+    [self createAdsLoader];
+
     
 }
 
@@ -129,6 +143,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.tableViewLeftSpace.constant = 608.0f;
             self.tableViewTopSpace.constant = 15.f;
         }
+        self.adsManager.adView.frame = self.videoContainerView.bounds;
     } else {
         _widthOfCH7iFrame = 280;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
@@ -137,6 +152,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         } else {
             self.videoContainerHeight.constant = 236.0f;
         }
+        self.adsManager.adView.frame = self.videoContainerView.bounds;
+
     }
 }
 
@@ -509,14 +526,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (IBAction)closeButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
-
+    [self unloadAdsManager];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
 }
 
 - (IBAction)playOTVButtonTapped:(id)sender {
-    
+
     if (self.otvEpisode && self.show.isOTV) {
         [self startOTV];
     } else {
@@ -612,6 +629,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
     }
     else if (self.show.isOTV && indexPath.section == SECTION_RELATED) {
+        [self unloadAdsManager];
         
         [self.otvEPController setShow:self.otvRelateShows[indexPath.row]];
         [self.otvEPController reload];
@@ -669,10 +687,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                                                            forKey:[GAIFields customDimensionForIndex:4]] build]];
         
         [self playMovieStream:videoAds.ad.mediaFileURL];
+        
+        
     }
     else
     {
-        _isContent = !_isContent;
+//        _isContent = !_isContent;
+        _isGoogleIMAAds = YES;
         [self playCurrentVideo];
     }
 }
@@ -873,7 +894,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     
     _isContent = !_isContent;
-    
+    _isGoogleIMAAds = NO;
     
     if (_isContent)
     {
@@ -1000,13 +1021,19 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             {
                 [self openWithIFRAME:_part.streamURL];
             }
+            _isGoogleIMAAds = NO;
         }
-        else
+        else if (!_isGoogleIMAAds && !_isContent)
         {
+            
             [SVProgressHUD showWithStatus:@"Loading..."];
             _isLoading = YES;
             self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
             self.videoAds.delegate = self;
+            
+        }else if (_isGoogleIMAAds && !_isContent){
+            
+            [self requestAdsTag:_part.vastURL];
         }
     }
 }
@@ -1024,6 +1051,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             _part = [self.otvEpisode.parts objectAtIndex:_idx];
             
             //            [self initializeUI];
+            [self initVideoPlayer:_idx sectionOfVideo:0];
         }
         
         else
@@ -1048,6 +1076,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         //        [self enableOrDisableNextPreviousButton];
         if (self.otvEpisode.parts) {
             //            [self initializeUI];
+            [self initVideoPlayer:_idx sectionOfVideo:0];
             
         } else
         {
@@ -1059,6 +1088,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
 }
 
+- (void)initializeUIOTV {
+    
+}
+
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -1068,5 +1101,136 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
     return YES;
 }
+
+
+#pragma mark - Google IMA Vast Set Up
+
+- (void)createAdsLoader {
+    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
+     self.adsLoader.delegate = self;
+}
+
+- (IMASettings *) createIMASettings {
+    IMASettings *settings = [[IMASettings alloc] init];
+    settings.ppid = @"IMA_PPID_0";
+    settings.language = @"en";
+    return settings;
+}
+
+- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
+    // Loading was successful.
+    DLog(@"Ad loading successful!");
+    
+    self.adsManager = adsLoadedData.adsManager;
+    self.adsManager.delegate = self;
+    self.adsManager.adView.frame = self.videoContainerView.bounds;
+    
+    // By default, allow in-app web browser.
+    self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
+    self.adsRenderingSettings.webOpenerDelegate = self;
+    self.adsRenderingSettings.webOpenerPresentingController = self;
+    self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
+    self.adsRenderingSettings.mimeTypes = @[];
+    
+    [self.videoContainerView addSubview:self.adsManager.adView];
+    [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
+    
+}
+
+- (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
+    // Loading failed, log it.
+    DLog(@"Ad loading error: %@", adErrorData.adError);
+}
+
+- (void)requestAdsTag:(NSString *)adTag {
+    [self unloadAdsManager];
+    IMAAdsRequest *request =
+    [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
+                             companionSlots:nil
+                                userContext:nil];
+    [self.adsLoader requestAdsWithRequest:request];
+    
+}
+
+- (void)startAds {
+    [self.adsManager start];
+}
+
+- (void)unloadAdsManager {
+    if (self.adsManager != nil) {
+        [self.adsManager destroy];
+        self.adsManager.delegate = nil;
+        self.adsManager = nil;
+    }
+}
+
+#pragma mark - ads Manager
+
+- (void)adsManagerDidRequestContentPause:(IMAAdsManager *)adsManager {
+    // Pause the content.
+    DLog(@"adsManagerDidRequestContentPause");
+}
+
+- (void)adsManagerDidRequestContentResume:(IMAAdsManager *)adsManager {
+    // Resume or start (if not started yet) the content.
+     DLog(@"adsManagerDidRequestContentResume");
+    
+    _isContent = !_isContent;
+    [self playCurrentVideo];
+}
+
+// Process ad events.
+- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdEvent:(IMAAdEvent *)event {
+    DLog(@"AdsManager event (%s).", AdEventNames[event.type]);
+    // Perform different actions based on the event type.
+    switch (event.type) {
+        case kIMAAdEvent_LOADED:
+            [self.adsManager start];
+            break;
+        case kIMAAdEvent_STARTED:
+            DLog(@"Ad has started.");
+            break;
+        case kIMAAdEvent_ALL_ADS_COMPLETED:
+            [self unloadAdsManager];
+            break;
+        default:
+            break;
+    }
+}
+
+// Process ad playing errors.
+- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
+    // There was an error while playing the ad.
+    DLog(@"Error during ad playback: %@", error);
+}
+
+// Optional: receive updates about individual ad progress.
+- (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
+    // This can be very noisy log - called 5 times a second.
+//    DLog(@"Current ad time: %lf", mediaTime);
+}
+
+#pragma mark IMABrowser delegate functions
+
+- (void)willOpenExternalBrowser {
+    DLog(@"External browser will open.");
+}
+
+- (void)willOpenInAppBrowser {
+    DLog(@"In-app browser will open");
+}
+
+- (void)didOpenInAppBrowser {
+    DLog(@"In-app browser did open");
+}
+
+- (void)willCloseInAppBrowser {
+    DLog(@"In-app browser will close");
+}
+
+- (void)didCloseInAppBrowser {
+    DLog(@"In-app browser did close");
+}
+
 
 @end

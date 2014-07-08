@@ -11,13 +11,18 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <CoreMedia/CoreMedia.h>
 
+// IMA SDK
+#import "IMAAVPlayerContentPlayhead.h"
+#import "IMAAd.h"
+#import "IMAAdsLoader.h"
+#import "IMAAdsManager.h"
 
 @class Episode;
 @class Show;
 @class OTVEpisode;
 @class OTVEpisodePartViewController;
 
-@interface PlayerViewController : UIViewController
+@interface PlayerViewController : UIViewController 
 
 @property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) Episode *episode;
@@ -43,5 +48,10 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailOTV;
+
+
+@property(nonatomic, strong) IMAAdsLoader *adsLoader;
+@property(nonatomic, strong) IMAAdsManager *adsManager;
+@property(nonatomic, strong) IMAAdsRenderingSettings *adsRenderingSettings;
 
 @end
