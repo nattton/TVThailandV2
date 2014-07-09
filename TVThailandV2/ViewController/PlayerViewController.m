@@ -77,7 +77,7 @@ const char* AdEventNames[] = {
     NSString *_videoId;
     CGSize _size;
     BOOL _isContent;
-    BOOL _isGoogleIMAAds;
+    BOOL _isGoogleIMAAdsLoaded;
     BOOL _isLoading;
     OTVPart *_part;
     CGFloat _widthOfCH7iFrame;
@@ -143,7 +143,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.tableViewLeftSpace.constant = 608.0f;
             self.tableViewTopSpace.constant = 15.f;
         }
-        self.adsManager.adView.frame = self.videoContainerView.bounds;
+
+
+        
     } else {
         _widthOfCH7iFrame = 280;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
@@ -152,9 +154,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         } else {
             self.videoContainerHeight.constant = 236.0f;
         }
-        self.adsManager.adView.frame = self.videoContainerView.bounds;
-
     }
+    
+    self.adsManager.adView.frame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
 }
 
 - (void) initLableContainner {
@@ -526,6 +528,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (IBAction)closeButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
+
     [self unloadAdsManager];
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -692,8 +695,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
     else
     {
-//        _isContent = !_isContent;
-        _isGoogleIMAAds = YES;
+        _isContent = !_isContent;
         [self playCurrentVideo];
     }
 }
@@ -709,6 +711,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)playMovieStream:(NSURL *)movieFileURL
 {
+    if (self.movieController != nil) {
+        [self.movieController stop];
+    }
     
     MPMovieSourceType movieSourceType = MPMovieSourceTypeUnknown;
     
@@ -876,6 +881,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) moviePlayBackDidFinish:(NSNotification*)notification
 {
+    MPMoviePlayerController *player = [notification object];
+    if (player != self.movieController) {
+        return;
+    }
     if (!_isContent && self.videoAds) {
         [self.videoAds hitTrackingEvent:COMPLETE];
         id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
@@ -884,17 +893,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                 value:@"Player"];
         [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.videoAds.URL
                                                            forKey:[GAIFields customDimensionForIndex:5]] build]];
+        
+
     }
     
-    MPMoviePlayerController *player = [notification object];
+
     
     [self removeMovieNotificationHandlers:player];
     [self.movieController.view removeFromSuperview];
     self.movieController = nil;
     
-    
     _isContent = !_isContent;
-    _isGoogleIMAAds = NO;
     
     if (_isContent)
     {
@@ -1021,20 +1030,25 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             {
                 [self openWithIFRAME:_part.streamURL];
             }
-            _isGoogleIMAAds = NO;
-        }
-        else if (!_isGoogleIMAAds && !_isContent)
-        {
-            
-            [SVProgressHUD showWithStatus:@"Loading..."];
-            _isLoading = YES;
-            self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
-            self.videoAds.delegate = self;
-            
-        }else if (_isGoogleIMAAds && !_isContent){
-            
+
+        } else {
             [self requestAdsTag:_part.vastURL];
         }
+//        //Check if Ads old API
+//        else if (!_isGoogleIMAAds && !_isContent)
+//        {
+//            
+//            [SVProgressHUD showWithStatus:@"Loading..."];
+//            _isLoading = YES;
+//            self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
+//            self.videoAds.delegate = self;
+//
+//        }
+//        //Check if Ads new API (Beta)
+//        else if (_isGoogleIMAAds && !_isContent){
+//            
+//            [self requestAdsTag:_part.vastURL];
+//        }
     }
 }
 
@@ -1123,7 +1137,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
-    self.adsManager.adView.frame = self.videoContainerView.bounds;
+
+    self.adsManager.adView.frame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
     
     // By default, allow in-app web browser.
     self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
@@ -1138,8 +1153,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
-    // Loading failed, log it.
     DLog(@"Ad loading error: %@", adErrorData.adError);
+    
 }
 
 - (void)requestAdsTag:(NSString *)adTag {
@@ -1182,13 +1197,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 // Process ad events.
 - (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdEvent:(IMAAdEvent *)event {
     DLog(@"AdsManager event (%s).", AdEventNames[event.type]);
+    
     // Perform different actions based on the event type.
     switch (event.type) {
         case kIMAAdEvent_LOADED:
+            _isLoading = NO;
+            _isGoogleIMAAdsLoaded = YES;
             [self.adsManager start];
-            break;
-        case kIMAAdEvent_STARTED:
-            DLog(@"Ad has started.");
             break;
         case kIMAAdEvent_ALL_ADS_COMPLETED:
             [self unloadAdsManager];
@@ -1200,8 +1215,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 // Process ad playing errors.
 - (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
-    // There was an error while playing the ad.
+
     DLog(@"Error during ad playback: %@", error);
+    if (_isGoogleIMAAdsLoaded) {
+        _isGoogleIMAAdsLoaded = NO;
+        [self unloadAdsManager];
+    
+        [SVProgressHUD showWithStatus:@"Loading..."];
+        _isLoading = YES;
+        self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
+        self.videoAds.delegate = self;
+    }
 }
 
 // Optional: receive updates about individual ad progress.
