@@ -43,6 +43,10 @@ const char* AdEventNames[] = {
     "Started",
 };
 
+typedef enum {
+    PlayButton,
+    PauseButton
+} PlayButtonType;
 
 @interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
 
@@ -106,6 +110,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self initLableContainner];
     
     if (self.show) {
+        _part = [self.otvEpisode.parts objectAtIndex:0];
         [self initVideoPlayer:_idx sectionOfVideo:0];
     }
 
@@ -113,9 +118,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
-    [self createAdsLoader];
-
     
+    [self setupAdsLoader];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -147,12 +151,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         
     } else {
-        _widthOfCH7iFrame = 280;
+        _widthOfCH7iFrame = 210;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
             self.videoContainerHeight.constant = 320.0f;
         } else {
-            self.videoContainerHeight.constant = 236.0f;
+            self.videoContainerHeight.constant = 210.0f;
         }
     }
     
@@ -515,6 +519,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark UIOutlet function implementations
+
 - (IBAction)partInfoButtonTapped:(id)sender {
     
     [self performSegueWithIdentifier:InfoOfEPSegue sender:self.otvEpisode];
@@ -530,6 +536,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [SVProgressHUD dismiss];
 
     [self unloadAdsManager];
+    [_contentPlayer pause];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
@@ -545,6 +552,29 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
    
 }
+
+// Playhead control method.
+- (IBAction)onPlayPauseClicked:(id)sender {
+    
+    if (_contentPlayer.rate == 0) {
+        [_contentPlayer play];
+    } else {
+        [_contentPlayer pause];
+    }
+    
+}
+
+// Called when the user seeks.
+- (IBAction)playHeadValueChanged:(id)sender {
+    if (![sender isKindOfClass:[UISlider class]]) {
+        return;
+    }
+    UISlider *slider = (UISlider *)sender;
+    // If the playhead value changed by the user, skip to that point of the
+    // content is skippable.
+    [self.contentPlayer seekToTime:CMTimeMake(slider.value, 1)];
+}
+
 
 - (void)startOTV {
     if (self.show.isOTV && !_isLoading) {
@@ -1014,10 +1044,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         DLog(@"vastURL : %@", _part.vastURL);
         
-        if (_isContent) {
-            if ([_part.mediaCode isEqualToString:kCodeStream])
-            {
-                [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
+        if (_isContent || _part.vastURL == nil) {
+            if ([_part.mediaCode isEqualToString:kCodeStream]) {
+//                [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
+                
+                [_contentPlayer play];
+                [self setPlayButtonType:PlayButton];
                 
                 id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
                                                                      trackingId:kOTVTracker];
@@ -1032,8 +1064,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             }
 
         } else {
+            if ([_part.mediaCode isEqualToString:kCodeStream]) {
+                [self setUpContentPlayer:_part.streamURL];
+            }
             [self requestAdsTag:_part.vastURL];
         }
+        
 //        //Check if Ads old API
 //        else if (!_isGoogleIMAAds && !_isContent)
 //        {
@@ -1119,17 +1155,132 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma mark - Google IMA Vast Set Up
 
-- (void)createAdsLoader {
-    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
-     self.adsLoader.delegate = self;
-}
-
 - (IMASettings *) createIMASettings {
     IMASettings *settings = [[IMASettings alloc] init];
     settings.ppid = @"IMA_PPID_0";
     settings.language = @"en";
     return settings;
 }
+
+- (void)setupAdsLoader {
+    // Initalize Google IMA ads Loader.
+    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
+    // Implement delegate methods to get callbacks from the adsLoader.
+    self.adsLoader.delegate = self;
+}
+
+- (void)setUpContentPlayer:(NSString *)contentURL {
+    // Create a content player item and set it in the content player.
+    AVAsset *contentAsset =
+    [AVURLAsset URLAssetWithURL:[NSURL URLWithString:contentURL] options:0];
+    AVPlayerItem *contentPlayerItem = [AVPlayerItem playerItemWithAsset:contentAsset];
+    self.contentPlayer = [AVPlayer playerWithPlayerItem:contentPlayerItem];
+    __weak PlayerViewController *controller = self;
+    self.playHeadObserver = [controller.contentPlayer
+                             addPeriodicTimeObserverForInterval:CMTimeMake(1, 30)
+                             queue:NULL
+                             usingBlock:^(CMTime time) {
+                                 CMTime duration = [controller getPlayerItemDuration:self.contentPlayer.currentItem];
+                                 [controller updatePlayHeadWithTime:time
+                                                           duration:duration];
+                             }];
+    [self.contentPlayer addObserver:self
+                         forKeyPath:@"rate"
+                            options:0
+                            context:@"contentPlayerRate"];
+    [self.contentPlayer addObserver:self
+                         forKeyPath:@"currentItem.duration"
+                            options:0
+                            context:@"playerDuration"];
+    self.contentPlayhead =
+    [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.contentPlayer];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(contentDidFinishPlaying)
+     name:AVPlayerItemDidPlayToEndTimeNotification
+     object:contentPlayerItem];
+    
+    // Attach the content player to the Video view.
+    self.contentPlayerLayer =
+    [AVPlayerLayer playerLayerWithPlayer:self.contentPlayer];
+    self.contentPlayerLayer.frame = self.videoContainerView.layer.bounds;
+    [self.videoContainerView.layer addSublayer:self.contentPlayerLayer];
+}
+
+- (void)contentDidFinishPlaying {
+    DLog(@"Content has completed");
+    [self.adsLoader contentComplete];
+}
+
+- (void)updatePlayHeadWithTime:(CMTime)time duration:(CMTime)duration{
+    if (CMTIME_IS_INVALID(time)) {
+        return;
+    }
+    Float64 currentTime = CMTimeGetSeconds(time);
+    if (isnan(currentTime)) {
+        return;
+    }
+    self.progressBar.value = currentTime;
+    self.playHeadTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)currentTime / 60, (int)currentTime % 60];
+    [self updatePlayHeadDurationWithTime:duration];
+}
+
+// Get the duration value from the player item.
+- (CMTime)getPlayerItemDuration:(AVPlayerItem *)item {
+    CMTime itemDuration = kCMTimeInvalid;
+    if ([item respondsToSelector:@selector(duration)]) {
+        itemDuration = item.duration;
+    }
+    else {
+        if (item.asset &&
+            [item.asset respondsToSelector:@selector(duration)]) {
+            // Sometimes the test app hangs here for ios 4.2.
+            itemDuration = item.asset.duration;
+        }
+    }
+    return itemDuration;
+}
+
+// Update the current playhead duration
+- (void)updatePlayHeadDurationWithTime:(CMTime)duration {
+    if (CMTIME_IS_INVALID(duration)) {
+        return;
+    }
+    Float64 durationValue = CMTimeGetSeconds(duration);
+    if (isnan(durationValue)) {
+        return;
+    }
+    self.progressBar.maximumValue = durationValue;
+    self.durationTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)durationValue / 60, (int)durationValue % 60];
+}
+
+
+// Handler for keypath listener that is added.
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (context == @"contentPlayerRate" && self.contentPlayer == object) {
+        [self updatePlayHeadState:(self.contentPlayer.rate != 0)];
+    } else if (context == @"playerDuration" &&
+               self.contentPlayer == object) {
+        [self updatePlayHeadDurationWithTime:
+         [self getPlayerItemDuration:self.contentPlayer.currentItem]];
+    }
+}
+
+// Update the playHead state based on the content player rate changes.
+- (void)updatePlayHeadState:(BOOL)isPlaying {
+    [self setPlayButtonType:isPlaying ? PauseButton : PlayButton];
+}
+
+- (void)setPlayButtonType:(PlayButtonType)buttonType {
+    self.playHeadButton.tag = buttonType;
+//    [self.playHeadButton setImage:buttonType == PauseButton ? self.pauseBtnBG : self.playBtnBG forState:UIControlStateNormal];
+    self.playHeadButton.titleLabel.text = PauseButton ? @"Pause" : @"Play";
+}
+
 
 - (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
     // Loading was successful.
@@ -1158,6 +1309,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)requestAdsTag:(NSString *)adTag {
+    DLog(@"Requesting ads.");
     [self unloadAdsManager];
     IMAAdsRequest *request =
     [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
@@ -1165,10 +1317,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                                 userContext:nil];
     [self.adsLoader requestAdsWithRequest:request];
     
-}
-
-- (void)startAds {
-    [self.adsManager start];
 }
 
 - (void)unloadAdsManager {
@@ -1190,7 +1338,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // Resume or start (if not started yet) the content.
      DLog(@"adsManagerDidRequestContentResume");
     
-    _isContent = !_isContent;
+    _isContent = YES;
     [self playCurrentVideo];
 }
 
@@ -1230,8 +1378,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 // Optional: receive updates about individual ad progress.
 - (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
-    // This can be very noisy log - called 5 times a second.
-//    DLog(@"Current ad time: %lf", mediaTime);
+    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
+    CMTime duration = CMTimeMakeWithSeconds(totalTime, 1000);
+    [self updatePlayHeadWithTime:time duration:duration];
+    self.progressBar.maximumValue = totalTime;
+    [self setPlayButtonType:PauseButton];
 }
 
 #pragma mark IMABrowser delegate functions

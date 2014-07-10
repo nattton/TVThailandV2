@@ -32,7 +32,7 @@
 
 #define kOTV_URL_BASE @"http://api.otv.co.th/api/index.php"
 #define kOTV_APP_ID @"16"
-#define kOTV_API_VERSION @"1.0"
+#define kOTV_API_VERSION @"2.0.1.2"
 #define kOTV_CH7 @"Ch7"
 
 #define kFBShareUrl @"https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Ftv-thailand-free-version%2Fid458429827%3Fl%3Dth%26ls%3D1%26mt%3D8"

@@ -50,8 +50,21 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailOTV;
 
 
+@property (weak, nonatomic) IBOutlet UIButton *playHeadButton;
+@property (weak, nonatomic) IBOutlet UISlider *progressBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *playHeadTimeText;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *durationTimeText;
+
 @property(nonatomic, strong) IMAAdsLoader *adsLoader;
 @property(nonatomic, strong) IMAAdsManager *adsManager;
 @property(nonatomic, strong) IMAAdsRenderingSettings *adsRenderingSettings;
+// The player that plays the content.
+@property(nonatomic, strong) AVPlayer *contentPlayer;
+// The layer for the player
+@property(nonatomic, strong) AVPlayerLayer *contentPlayerLayer;
+// Player observer for playback UI.
+@property(nonatomic, strong) id playHeadObserver;
+// The content playhead used for content tracking.
+@property(nonatomic, strong) IMAAVPlayerContentPlayhead *contentPlayhead;
 
 @end
