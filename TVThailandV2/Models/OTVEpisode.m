@@ -96,11 +96,10 @@
                     NSString *mediaCode = dictPart[@"media_code"] != nil ? dictPart[@"media_code"] : @"";
                     
                     if ([@"1001"  isEqual: mediaCode]) {
-                        part.vastURL = dictPart[@"stream_url"];
+                        part.vastURL = ( dictPart[@"stream_url"] == nil || [dictPart[@"stream_url"] isEqualToString:@""] ) ? @"" : dictPart[@"stream_url"];
                     } else if ([@"1000"  isEqual: mediaCode] || [@"1002"  isEqual: mediaCode]) {
                         
                         [part setPartContent:dictPart];
-                        part.vastURL = dictPart[@"stream_url"];
                         [mutableParts addObject:part ];
                         part = nil;
                     }
