@@ -65,7 +65,7 @@
     ? [NSString stringWithFormat:@"Ch7/content/%@/%@", kOTV_APP_ID, showID]
     : [NSString stringWithFormat:@"Content/index/%@/%@/%@/%@/", kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
     
-//    NSLog(@"URL===== http://api.otv.co.th/api/index.php/%@", url);
+    DLog(@"OTV Episode URL ===== http://api.otv.co.th/api/index.php/%@", url);
     
     [client GET:url
      parameters:nil
