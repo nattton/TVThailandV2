@@ -16,8 +16,9 @@
 @property (nonatomic, readonly) NSString *thumbnail;
 @property (nonatomic, readonly) NSString *cover;
 @property (nonatomic, strong) NSString *streamURL;
-@property (nonatomic, strong) NSString *vastURL;
 @property (nonatomic, readonly) NSString *mediaCode;
+@property (nonatomic, strong) NSString *vastURL;
+@property (nonatomic, strong) NSString *vastType;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 - (void)setPartContent:(NSDictionary *)dictionary;
