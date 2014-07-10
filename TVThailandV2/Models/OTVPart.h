@@ -20,5 +20,6 @@
 @property (nonatomic, readonly) NSString *mediaCode;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+- (void)setPartContent:(NSDictionary *)dictionary;
 
 @end
