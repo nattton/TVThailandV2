@@ -1032,7 +1032,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             }
 
         } else {
-            [self requestAdsTag:_part.vastURL];
+            if (_part.vastURL){
+                [self requestAdsTag:_part.vastURL];
+            } else {
+                _isContent = !_isContent;
+                [self playCurrentVideo];
+            }
+            
         }
 //        //Check if Ads old API
 //        else if (!_isGoogleIMAAds && !_isContent)
