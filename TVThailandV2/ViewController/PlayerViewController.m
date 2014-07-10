@@ -546,6 +546,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     if (self.otvEpisode && self.show.isOTV) {
         [self startOTV];
+        self.playButton.hidden = YES;
     } else {
         [self openWebSite:_videoId];
         
@@ -1067,24 +1068,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
                 [self setUpContentPlayer:_part.streamURL];
             }
-            [self requestAdsTag:_part.vastURL];
+            if ([_part.vastType isEqualToString:@"videoplaza"] || [_part.vastType isEqualToString:@"google_ima"]) {
+                [self requestAdsTag:_part.vastURL];
+            } else {
+                self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
+                self.videoAds.delegate = self;
+            }
         }
-        
-//        //Check if Ads old API
-//        else if (!_isGoogleIMAAds && !_isContent)
-//        {
-//            
-//            [SVProgressHUD showWithStatus:@"Loading..."];
-//            _isLoading = YES;
-//            self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
-//            self.videoAds.delegate = self;
-//
-//        }
-//        //Check if Ads new API (Beta)
-//        else if (_isGoogleIMAAds && !_isContent){
-//            
-//            [self requestAdsTag:_part.vastURL];
-//        }
     }
 }
 
@@ -1265,8 +1255,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         [self updatePlayHeadState:(self.contentPlayer.rate != 0)];
     } else if (context == @"playerDuration" &&
                self.contentPlayer == object) {
-        [self updatePlayHeadDurationWithTime:
-         [self getPlayerItemDuration:self.contentPlayer.currentItem]];
+        [self updatePlayHeadDurationWithTime:[self getPlayerItemDuration:self.contentPlayer.currentItem]];
     }
 }
 
