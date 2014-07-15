@@ -17,11 +17,38 @@ PODS:
   - AFNetworking/Serialization (2.1.0)
   - AFNetworking/UIKit (2.1.0):
     - AFNetworking/NSURLConnection
+  - CocoaLumberjack (1.7.0):
+    - CocoaLumberjack/Core
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.7.0)
+  - CocoaLumberjack/Extensions (1.7.0):
+    - CocoaLumberjack/Core
+  - DTCoreText (1.6.13):
+    - DTFoundation/Core (~> 1.7.1)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.1)
+    - DTFoundation/DTHTMLParser (~> 1.7.1)
+    - DTFoundation/UIKit (~> 1.7.1)
+  - DTFoundation/Core (1.7.1)
+  - DTFoundation/DTAnimatedGIF (1.7.1)
+  - DTFoundation/DTHTMLParser (1.7.1):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.1):
+    - DTFoundation/Core
+  - FXImageView (1.3.3)
   - Objective-C-HMTL-Parser (0.0.1)
   - Reachability (3.1.1)
   - SASlideMenu (2.0.3)
   - SVProgressHUD (1.0)
   - SVWebViewController (HEAD based on 1.0)
+  - VKFoundation (0.1.1):
+    - CocoaLumberjack (~> 1.7.0)
+    - DTCoreText (~> 1.6.11)
+    - FXImageView (~> 1.3.3)
+    - Reachability (~> 3.1.1)
+  - VKVideoPlayer (0.1.2):
+    - CocoaLumberjack (~> 1.7.0)
+    - DTCoreText (~> 1.6.11)
+    - VKFoundation (= 0.1.1)
   - XLMediaZoom (2.0.1)
 
 DEPENDENCIES:
@@ -31,15 +58,22 @@ DEPENDENCIES:
   - SASlideMenu
   - SVProgressHUD
   - SVWebViewController (HEAD)
+  - VKVideoPlayer (~> 0.1.1)
   - XLMediaZoom
 
 SPEC CHECKSUMS:
   AFNetworking: 7c33510b46f994bc75b75c6e63c1d83414ca40f2
+  CocoaLumberjack: 744856111d9431252611e696ea460ffe36fdc5ae
+  DTCoreText: 84eb8ba2e70448fdd9d837540e371f9f587b65ba
+  DTFoundation: ef6fb95da64f202d1600bc23dde79c6fd74c0c2d
+  FXImageView: 0f3496c1be409a450a424f2c06b448fd27cbb9cc
   Objective-C-HMTL-Parser: f81bfc686fa447486477b7a2ef0cdca36d516b48
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   SASlideMenu: 93a4ff0a25fdd00ce9b8c77e1d98bc4ffb9cb648
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
+  VKFoundation: 39b420ace3adc7aedcd98f84b71500ced0f6f5e1
+  VKVideoPlayer: aa524930be7b2def8862f7b22bc96f6d2a38a433
   XLMediaZoom: 3b32c799e81a0026ef4a9b4bf92f5a8bc7a4838e
 
 COCOAPODS: 0.33.1

@@ -30,6 +30,10 @@
 #import "OTVEpisode.h"
 #import "OTVPart.h"
 
+#import "VKVideoPlayerCaptionSRT.h"
+#import "VKVideoPlayerView.h"
+
+
 const char* AdEventNames[] = {
     "All Ads Complete",
     "Clicked",
@@ -72,8 +76,13 @@ typedef enum {
 -(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
 - (void) movieDurationAvailableDidChange:(NSNotification*)notification;
 
+
+//VK Property
+@property (nonatomic, strong) NSString *currentLanguageCode;
+
 // Private functions
 - (void)unloadAdsManager;
+
 
 @end
 
@@ -87,6 +96,7 @@ typedef enum {
     CGFloat _widthOfCH7iFrame;
     AVPlayerLayer *_layer;
     NSString *_sourceType;
+    CGRect _screenSmallOfContainer;
 }
 
 #pragma mark - Staic Variable
@@ -160,7 +170,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         }
     }
     
-    self.adsManager.adView.frame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
+    _screenSmallOfContainer = CGRectMake(0, 20.0f, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
+
+    
 }
 
 - (void) initLableContainner {
@@ -537,6 +549,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     [self unloadAdsManager];
     [_contentPlayer pause];
+    [self.player pauseContent];
+    [self.player.view removeFromSuperview];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
@@ -580,6 +594,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)startOTV {
     if (self.show.isOTV && !_isLoading) {
         _isContent = NO;
+        [self.player pauseContent];
         [self playCurrentVideo];
     }
 }
@@ -1045,12 +1060,19 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         DLog(@"vastURL : %@", _part.vastURL);
         
+        if (self.player.view == nil) {
+            [self setUpVKContentPlayer];
+        }
+
+        
         if (_isContent || _part.vastURL == nil) {
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
 //                [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
                 
-                [_contentPlayer play];
-                [self setPlayButtonType:PlayButton];
+//                [_contentPlayer play];
+//                [self setPlayButtonType:PlayButton];
+                
+                 [self playStream:[NSURL URLWithString:_part.streamURL]];
                 
                 id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
                                                                      trackingId:kOTVTracker];
@@ -1066,14 +1088,20 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         } else {
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
-                [self setUpContentPlayer:_part.streamURL];
+                /**If _part.vastURL == nill at First time ?? will it call setUpcontentPlayer?? **/
+//                [self setUpContentPlayer:_part.streamURL];
+                
             }
+          
+            
             if ([_part.vastType isEqualToString:@"videoplaza"] || [_part.vastType isEqualToString:@"google_ima"]) {
                 [self requestAdsTag:_part.vastURL];
             } else {
                 self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
                 self.videoAds.delegate = self;
             }
+            
+
         }
     }
 }
@@ -1198,6 +1226,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self.videoContainerView.layer addSublayer:self.contentPlayerLayer];
 }
 
+
 - (void)contentDidFinishPlaying {
     DLog(@"Content has completed");
     [self.adsLoader contentComplete];
@@ -1278,7 +1307,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
 
-    self.adsManager.adView.frame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
+    self.adsManager.adView.frame = self.videoContainerView.bounds;
     
     // By default, allow in-app web browser.
     self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
@@ -1287,7 +1316,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
     self.adsRenderingSettings.mimeTypes = @[];
     
-    [self.videoContainerView addSubview:self.adsManager.adView];
+//    [self.videoContainerView addSubview:self.adsManager.adView];
+    [self.player.view addSubview:self.adsManager.adView];
+
     [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
     
 }
@@ -1396,5 +1427,81 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     DLog(@"In-app browser did close");
 }
 
+
+#pragma mark - VK Player
+
+- (void)setUpVKContentPlayer {
+
+    self.player = [[VKVideoPlayer alloc] init];
+    self.player.delegate = self;
+    self.player.forceRotate = YES;
+    self.player.view.frame = _screenSmallOfContainer;
+    [self.view addSubview:self.player.view];
+    
+    self.player.view.fullscreenButton.hidden = NO;
+    
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)playStream:(NSURL*)url {
+    VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
+    track.hasNext = NO;
+    [self.player loadVideoWithTrack:track];
+}
+
+
+#pragma mark - App States
+
+- (void)applicationWillResignActive {
+    self.player.view.controlHideCountdown = -1;
+    if (self.player.state == VKVideoPlayerStateContentPlaying) [self.player pauseContent:NO completionHandler:nil];
+}
+
+- (void)applicationDidBecomeActive {
+    self.player.view.controlHideCountdown = kPlayerControlsDisableAutoHide;
+}
+
+#pragma mark - VKVideoPlayerControllerDelegate
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didControlByEvent:(VKVideoPlayerControlEvent)event {
+    NSLog(@"%s event:%d", __FUNCTION__, event);
+//    __weak __typeof(self) weakSelf = self;
+    
+    if (event == VKVideoPlayerControlEventTapDone) {
+        [self.player pauseContent];
+        self.closeCircleButton.hidden = NO;
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    if (event == VKVideoPlayerControlEventTapFullScreen) {
+
+        if (self.player.isFullScreen) {
+            self.closeCircleButton.hidden = YES;
+            self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+            
+        }else {
+            self.closeCircleButton.hidden = NO;
+            self.player.view.frame = _screenSmallOfContainer;
+        }
+        
+    }
+    
+}
+
+
+#pragma mark - Orientation
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    if (self.player.isFullScreen) {
+        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    } else {
+        return NO;
+    }
+}
 
 @end

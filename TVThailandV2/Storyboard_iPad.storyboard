@@ -399,6 +399,7 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="closeCircleButton" destination="Wvd-5i-oiG" id="zs5-4A-sUI"/>
                         <outlet property="episodeNameLabel" destination="RCj-mY-wYV" id="e7m-Ir-yZO"/>
                         <outlet property="infoOfEpisodeButton" destination="tvX-N8-czg" id="vKd-yF-Qm8"/>
                         <outlet property="openWithButton" destination="XOB-12-3o6" id="ssy-aB-Cgd"/>

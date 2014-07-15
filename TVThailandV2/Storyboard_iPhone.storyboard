@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="EbE-5B-lKf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="EbE-5B-lKf">
     <dependencies>
         <deployment version="1536" defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -335,6 +335,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="dIm-oD-fOE"/>
                     <connections>
+                        <outlet property="closeCircleButton" destination="icB-u4-u8U" id="fI6-sS-ZvB"/>
                         <outlet property="episodeNameLabel" destination="RXL-E8-kYe" id="Psy-3s-2yT"/>
                         <outlet property="infoOfEpisodeButton" destination="ivk-1t-8pR" id="Ilf-zR-d6E"/>
                         <outlet property="openWithButton" destination="QcO-Qx-pKg" id="CrR-78-m9j"/>

@@ -17,12 +17,15 @@
 #import "IMAAdsLoader.h"
 #import "IMAAdsManager.h"
 
+// VK VideoPlyer
+#import "VKVideoPlayer.h"
+
 @class Episode;
 @class Show;
 @class OTVEpisode;
 @class OTVEpisodePartViewController;
 
-@interface PlayerViewController : UIViewController 
+@interface PlayerViewController : UIViewController <VKVideoPlayerDelegate>
 
 @property (nonatomic, weak) Show *show;
 @property (nonatomic, weak) Episode *episode;
@@ -43,6 +46,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *episodeNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *infoOfEpisodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *openWithButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeCircleButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableOfVideoPart;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -66,5 +70,10 @@
 @property(nonatomic, strong) id playHeadObserver;
 // The content playhead used for content tracking.
 @property(nonatomic, strong) IMAAVPlayerContentPlayhead *contentPlayhead;
+
+
+// VK Player
+@property (nonatomic, strong) VKVideoPlayer* player;
+
 
 @end
