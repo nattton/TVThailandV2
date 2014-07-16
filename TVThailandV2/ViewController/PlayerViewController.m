@@ -90,7 +90,6 @@ typedef enum {
     NSString *_videoId;
     CGSize _size;
     BOOL _isContent;
-    BOOL _isGoogleIMAAdsLoaded;
     BOOL _isLoading;
     OTVPart *_part;
     CGFloat _widthOfCH7iFrame;
@@ -599,7 +598,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)startOTV {
     if (self.show.isOTV && !_isLoading) {
         _isContent = NO;
-        [self.player pauseContent];
+        
         [self playCurrentVideo];
     }
 }
@@ -676,6 +675,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     /* re assign value to _idx inorder to use in openWithVideoUrl method to show thumbnail of video */
     _idx = indexPath.row;
+
     
     if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
         [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
@@ -1060,6 +1060,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)playCurrentVideo
 {
+    [self.player pauseContent];
     if (!_isLoading) {
         self.webView.hidden = YES;
         
@@ -1312,7 +1313,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
 
-    self.adsManager.adView.frame = self.videoContainerView.bounds;
+    self.adsManager.adView.frame = _screenSmallOfContainer;
     
     // By default, allow in-app web browser.
     self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
@@ -1321,12 +1322,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
     self.adsRenderingSettings.mimeTypes = @[];
     
-//    [self.videoContainerView addSubview:self.adsManager.adView];
-    [self.player.view addSubview:self.adsManager.adView];
+//    [self.player.view addSubviewForControl:self.adsManager.adView toView:self.player.view];
+//    [self.adsManager.adView setContentMode: UIViewAutoresizingFlexibleHeight];
+    [self.view addSubview:self.adsManager.adView];
+
+
 
     [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
     
 }
+
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
     DLog(@"Ad loading error: %@", adErrorData.adError);
@@ -1375,7 +1380,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     switch (event.type) {
         case kIMAAdEvent_LOADED:
             _isLoading = NO;
-            _isGoogleIMAAdsLoaded = YES;
+//            _isGoogleIMAAdsLoaded = YES;
             [self.adsManager start];
             break;
         case kIMAAdEvent_ALL_ADS_COMPLETED:
@@ -1390,15 +1395,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
 
     DLog(@"Error during ad playback: %@", error);
-    if (_isGoogleIMAAdsLoaded) {
-        _isGoogleIMAAdsLoaded = NO;
-        [self unloadAdsManager];
-    
-        [SVProgressHUD showWithStatus:@"Loading..."];
-        _isLoading = YES;
-        self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
-        self.videoAds.delegate = self;
-    }
+
 }
 
 // Optional: receive updates about individual ad progress.
@@ -1454,7 +1451,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)playStream:(NSURL*)url {
     VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
-    track.hasNext = NO;
+    track.hasNext = YES;
     [self.player loadVideoWithTrack:track];
 }
 
@@ -1474,13 +1471,19 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma mark - VKVideoPlayerControllerDelegate
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer didControlByEvent:(VKVideoPlayerControlEvent)event {
-    NSLog(@"%s event:%d", __FUNCTION__, event);
+    DLog(@"%s event:%d", __FUNCTION__, event);
 //    __weak __typeof(self) weakSelf = self;
     
-    if (event == VKVideoPlayerControlEventTapDone) {
-        [self.player pauseContent];
+    if (event == VKVideoPlayerControlEventTapDone && _isContent) {
+
         self.closeCircleButton.hidden = NO;
+        [self unloadAdsManager];
+        [_contentPlayer pause];
+        [self.player pauseContent];
+        [self.player.view removeFromSuperview];
+        
         [self dismissViewControllerAnimated:YES completion:nil];
+        
     }
     
     if (event == VKVideoPlayerControlEventTapFullScreen) {
@@ -1488,12 +1491,21 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
             self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-  
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
         }
         
+    }
+    
+    if (event == VKVideoPlayerControlEventTapNext) {
+
+        if (self.show.isOTV) {
+            _idx++;
+            [self initVideoPlayer:_idx sectionOfVideo:0];
+            [self startOTV];
+            
+        }
     }
     
 }
@@ -1510,6 +1522,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     } else {
         return NO;
     }
+}
+
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
+    
+     [UIView animateWithDuration:0.3f animations:^{
+         if (UIInterfaceOrientationIsLandscape(orientation)) {
+             self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+         } else {
+            self.adsManager.adView.frame =  CGRectMake(0, self.view.center.y-100.0f, self.view.frame.size.height/1.8, self.view.frame.size.width/1.8);
+         }
+    }];
 }
 
 @end
