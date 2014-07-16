@@ -97,6 +97,8 @@ typedef enum {
     AVPlayerLayer *_layer;
     NSString *_sourceType;
     CGRect _screenSmallOfContainer;
+    
+    BOOL _isiPhoneForceRotateValue; /** Use to fix rotation btw iPhone&iPad **/
 }
 
 #pragma mark - Staic Variable
@@ -144,6 +146,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
      _widthOfCH7iFrame = 640;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _isiPhoneForceRotateValue = NO;
         _widthOfCH7iFrame = 480;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
@@ -152,15 +155,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.tableViewLeftSpace.constant = 0.0f;
             self.tableViewTopSpace.constant = self.videoContainerWidth.constant + 15.f;
         } else {
-            self.videoContainerWidth.constant = 768.0f;
-            self.videoContainerHeight.constant = 470.0f;
-            self.tableViewLeftSpace.constant = 608.0f;
-            self.tableViewTopSpace.constant = 15.f;
+//            self.videoContainerWidth.constant = 768.0f;
+//            self.videoContainerHeight.constant = 470.0f;
+//            self.tableViewLeftSpace.constant = 608.0f;
+//            self.tableViewTopSpace.constant = 15.f;
         }
 
 
         
     } else {
+        _isiPhoneForceRotateValue = YES;
         _widthOfCH7iFrame = 210;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
             orientation == UIInterfaceOrientationLandscapeRight) {
@@ -568,27 +572,28 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
    
 }
 
+
 // Playhead control method.
-- (IBAction)onPlayPauseClicked:(id)sender {
-    
-    if (_contentPlayer.rate == 0) {
-        [_contentPlayer play];
-    } else {
-        [_contentPlayer pause];
-    }
-    
-}
+//- (IBAction)onPlayPauseClicked:(id)sender {
+//    
+//    if (_contentPlayer.rate == 0) {
+//        [_contentPlayer play];
+//    } else {
+//        [_contentPlayer pause];
+//    }
+//    
+//}
 
 // Called when the user seeks.
-- (IBAction)playHeadValueChanged:(id)sender {
-    if (![sender isKindOfClass:[UISlider class]]) {
-        return;
-    }
-    UISlider *slider = (UISlider *)sender;
-    // If the playhead value changed by the user, skip to that point of the
-    // content is skippable.
-    [self.contentPlayer seekToTime:CMTimeMake(slider.value, 1)];
-}
+//- (IBAction)playHeadValueChanged:(id)sender {
+//    if (![sender isKindOfClass:[UISlider class]]) {
+//        return;
+//    }
+//    UISlider *slider = (UISlider *)sender;
+//    // If the playhead value changed by the user, skip to that point of the
+//    // content is skippable.
+//    [self.contentPlayer seekToTime:CMTimeMake(slider.value, 1)];
+//}
 
 
 - (void)startOTV {
@@ -1093,7 +1098,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                 
             }
           
-            
+            DLog(@"Ads Type: %@", _part.vastType);
             if ([_part.vastType isEqualToString:@"videoplaza"] || [_part.vastType isEqualToString:@"google_ima"]) {
                 [self requestAdsTag:_part.vastURL];
             } else {
@@ -1240,9 +1245,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     if (isnan(currentTime)) {
         return;
     }
-    self.progressBar.value = currentTime;
-    self.playHeadTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)currentTime / 60, (int)currentTime % 60];
-    [self updatePlayHeadDurationWithTime:duration];
+//    self.progressBar.value = currentTime;
+//    self.playHeadTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)currentTime / 60, (int)currentTime % 60];
+//    [self updatePlayHeadDurationWithTime:duration];
 }
 
 // Get the duration value from the player item.
@@ -1262,42 +1267,42 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 // Update the current playhead duration
-- (void)updatePlayHeadDurationWithTime:(CMTime)duration {
-    if (CMTIME_IS_INVALID(duration)) {
-        return;
-    }
-    Float64 durationValue = CMTimeGetSeconds(duration);
-    if (isnan(durationValue)) {
-        return;
-    }
-    self.progressBar.maximumValue = durationValue;
-    self.durationTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)durationValue / 60, (int)durationValue % 60];
-}
+//- (void)updatePlayHeadDurationWithTime:(CMTime)duration {
+//    if (CMTIME_IS_INVALID(duration)) {
+//        return;
+//    }
+//    Float64 durationValue = CMTimeGetSeconds(duration);
+//    if (isnan(durationValue)) {
+//        return;
+//    }
+//    self.progressBar.maximumValue = durationValue;
+//    self.durationTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)durationValue / 60, (int)durationValue % 60];
+//}
 
 
 // Handler for keypath listener that is added.
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (context == @"contentPlayerRate" && self.contentPlayer == object) {
-        [self updatePlayHeadState:(self.contentPlayer.rate != 0)];
-    } else if (context == @"playerDuration" &&
-               self.contentPlayer == object) {
-        [self updatePlayHeadDurationWithTime:[self getPlayerItemDuration:self.contentPlayer.currentItem]];
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath
+//                      ofObject:(id)object
+//                        change:(NSDictionary *)change
+//                       context:(void *)context {
+//    if (context == @"contentPlayerRate" && self.contentPlayer == object) {
+//        [self updatePlayHeadState:(self.contentPlayer.rate != 0)];
+//    } else if (context == @"playerDuration" &&
+//               self.contentPlayer == object) {
+//        [self updatePlayHeadDurationWithTime:[self getPlayerItemDuration:self.contentPlayer.currentItem]];
+//    }
+//}
 
 // Update the playHead state based on the content player rate changes.
-- (void)updatePlayHeadState:(BOOL)isPlaying {
-    [self setPlayButtonType:isPlaying ? PauseButton : PlayButton];
-}
-
-- (void)setPlayButtonType:(PlayButtonType)buttonType {
-    self.playHeadButton.tag = buttonType;
-//    [self.playHeadButton setImage:buttonType == PauseButton ? self.pauseBtnBG : self.playBtnBG forState:UIControlStateNormal];
-    self.playHeadButton.titleLabel.text = PauseButton ? @"Pause" : @"Play";
-}
+//- (void)updatePlayHeadState:(BOOL)isPlaying {
+//    [self setPlayButtonType:isPlaying ? PauseButton : PlayButton];
+//}
+//
+//- (void)setPlayButtonType:(PlayButtonType)buttonType {
+//    self.playHeadButton.tag = buttonType;
+////    [self.playHeadButton setImage:buttonType == PauseButton ? self.pauseBtnBG : self.playBtnBG forState:UIControlStateNormal];
+//    self.playHeadButton.titleLabel.text = PauseButton ? @"Pause" : @"Play";
+//}
 
 
 - (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
@@ -1397,13 +1402,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 // Optional: receive updates about individual ad progress.
-- (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
-    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
-    CMTime duration = CMTimeMakeWithSeconds(totalTime, 1000);
-    [self updatePlayHeadWithTime:time duration:duration];
-    self.progressBar.maximumValue = totalTime;
-    [self setPlayButtonType:PauseButton];
-}
+//- (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
+//    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
+//    CMTime duration = CMTimeMakeWithSeconds(totalTime, 1000);
+//    [self updatePlayHeadWithTime:time duration:duration];
+//    self.progressBar.maximumValue = totalTime;
+//    [self setPlayButtonType:PauseButton];
+//}
 
 #pragma mark IMABrowser delegate functions
 
@@ -1434,11 +1439,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     self.player = [[VKVideoPlayer alloc] init];
     self.player.delegate = self;
-    self.player.forceRotate = YES;
+    self.player.forceRotate = _isiPhoneForceRotateValue;
     self.player.view.frame = _screenSmallOfContainer;
     [self.view addSubview:self.player.view];
     
     self.player.view.fullscreenButton.hidden = NO;
+    
     
 }
 
@@ -1458,10 +1464,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)applicationWillResignActive {
     self.player.view.controlHideCountdown = -1;
     if (self.player.state == VKVideoPlayerStateContentPlaying) [self.player pauseContent:NO completionHandler:nil];
+    
 }
 
 - (void)applicationDidBecomeActive {
     self.player.view.controlHideCountdown = kPlayerControlsDisableAutoHide;
+
 }
 
 #pragma mark - VKVideoPlayerControllerDelegate
@@ -1480,7 +1488,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
             self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-            
+  
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
@@ -1493,7 +1501,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma mark - Orientation
 - (BOOL)shouldAutorotate {
-    return NO;
+    return !_isiPhoneForceRotateValue;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

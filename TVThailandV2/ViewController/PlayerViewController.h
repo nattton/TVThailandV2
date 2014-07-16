@@ -54,10 +54,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnailOTV;
 
 
-@property (weak, nonatomic) IBOutlet UIButton *playHeadButton;
-@property (weak, nonatomic) IBOutlet UISlider *progressBar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *playHeadTimeText;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *durationTimeText;
+//@property (weak, nonatomic) IBOutlet UIButton *playHeadButton;
+//@property (weak, nonatomic) IBOutlet UISlider *progressBar;
+//@property (weak, nonatomic) IBOutlet UIBarButtonItem *playHeadTimeText;
 
 @property(nonatomic, strong) IMAAdsLoader *adsLoader;
 @property(nonatomic, strong) IMAAdsManager *adsManager;
