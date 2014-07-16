@@ -1070,6 +1070,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             [self setUpVKContentPlayer];
         }
 
+
         
         if (_isContent || _part.vastURL == nil) {
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
@@ -1500,14 +1501,31 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     if (event == VKVideoPlayerControlEventTapNext) {
 
-        if (self.show.isOTV) {
-            _idx++;
-            [self initVideoPlayer:_idx sectionOfVideo:0];
-            [self startOTV];
-            
-        }
+        [self playNextOTVVideo];
     }
     
+    if (event == VKVideoPlayerControlEventSwipeNext) {
+        
+        [self playNextOTVVideo];
+    }
+}
+
+/** This method is called finished to play video. You can start to play next video here. **/
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didPlayToEnd:(id<VKVideoPlayerTrackProtocol>)track {
+    
+    [self playNextOTVVideo];
+    
+}
+
+- (void) playNextOTVVideo {
+    
+    if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
+        _idx++;
+        [self initVideoPlayer:_idx sectionOfVideo:0];
+        [self startOTV];
+    } else {
+        self.player.view.nextButton.enabled = NO;
+    }
 }
 
 
@@ -1525,6 +1543,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
+    
+//    self.player.view.titleLabel.frame = CGRectMake(30 ,-140, 30, self.view.frame.size.width);
+//    self.player.view.titleLabel.text = [_part.nameTh stringByAppendingFormat: @" | %@",self.show.title];
     
      [UIView animateWithDuration:0.3f animations:^{
          if (UIInterfaceOrientationIsLandscape(orientation)) {
