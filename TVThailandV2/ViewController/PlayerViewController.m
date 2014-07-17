@@ -1070,13 +1070,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         DLog(@"vastURL : %@", _part.vastURL);
         
-        if (self.player.view == nil) {
+        if (self.player.view == nil && ![_part.mediaCode isEqualToString: kCodeIframe]) {
             [self setUpVKContentPlayer];
         }
 
 
         
-        if (_isContent || _part.vastURL == nil) {
+        if (_isContent || _part.vastURL == nil ) {
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
 
                 
