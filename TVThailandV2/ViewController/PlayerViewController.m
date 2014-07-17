@@ -718,7 +718,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 
-#pragma mark - Delegate VideoAds
+#pragma mark - Delegate CM VideoAds
 
 - (void)didRequestVideoAds:(CMVideoAds *)videoAds success:(BOOL)success {
     _isLoading = NO;
@@ -762,9 +762,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)playMovieStream:(NSURL *)movieFileURL
 {
-    if (self.movieController != nil) {
-        [self.movieController stop];
-    }
+//    if (self.movieController != nil) {
+//        [self.movieController stop];
+//    }
     
     MPMovieSourceType movieSourceType = MPMovieSourceTypeUnknown;
     
@@ -865,6 +865,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 	{
         DLog(@"%@", @"interrupted");
 	}
+
 }
 
 /* Notifies observers of a change in the prepared-to-play state of an object
@@ -953,6 +954,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self removeMovieNotificationHandlers:player];
     [self.movieController.view removeFromSuperview];
     self.movieController = nil;
+
     
     _isContent = !_isContent;
     
@@ -960,13 +962,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     {
         [self playCurrentVideo];
     }
-    else
-    {
-        if ([self moveNextVideo])
-        {
-            [self playCurrentVideo];
-        }
-    }
+//    else
+//    {
+//        if ([self moveNextVideo])
+//        {
+//            [self playCurrentVideo];
+//        }
+//    }
     
 }
 
@@ -1035,6 +1037,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent
 {
     if (receivedEvent.type == UIEventTypeRemoteControl) {
+        
         switch (receivedEvent.subtype) {
             case UIEventSubtypeRemoteControlTogglePlayPause:
                 
@@ -1050,6 +1053,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             case UIEventSubtypeRemoteControlNextTrack:
                 [self.movieController setCurrentPlaybackTime:self.movieController.currentPlaybackTime + 10];
                 break;
+
             default:
                 break;
         }
@@ -1074,7 +1078,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         if (_isContent || _part.vastURL == nil) {
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
-//                [self playMovieStream:[NSURL URLWithString:_part.streamURL]];
+
                 
 //                [_contentPlayer play];
 //                [self setPlayButtonType:PlayButton];
@@ -1323,11 +1327,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
     self.adsRenderingSettings.mimeTypes = @[];
     
-//    [self.player.view addSubviewForControl:self.adsManager.adView toView:self.player.view];
-//    [self.adsManager.adView setContentMode: UIViewAutoresizingFlexibleHeight];
     [self.view addSubview:self.adsManager.adView];
-
-
 
     [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
     
@@ -1438,6 +1438,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.player = [[VKVideoPlayer alloc] init];
     self.player.delegate = self;
     self.player.forceRotate = _isiPhoneForceRotateValue;
+    
     self.player.view.frame = _screenSmallOfContainer;
     [self.view addSubview:self.player.view];
     
@@ -1495,6 +1496,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
+            self.adsManager.adView.frame = _screenSmallOfContainer;
         }
         
     }
@@ -1518,6 +1520,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void) playNextOTVVideo {
+    [self layoutForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
         _idx++;
@@ -1549,11 +1552,32 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
      [UIView animateWithDuration:0.3f animations:^{
          if (UIInterfaceOrientationIsLandscape(orientation)) {
-             self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+             self.adsManager.adView.frame = self.player.landscapeFrame;
          } else {
-            self.adsManager.adView.frame =  CGRectMake(0, self.view.center.y-100.0f, self.view.frame.size.height/1.8, self.view.frame.size.width/1.8);
+             self.adsManager.adView.frame = self.player.portraitFrame;
          }
     }];
 }
+
+- (void)layoutForOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    [UIView animateWithDuration:0.3f animations:^{
+      if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
+
+          if(self.player.view.fullscreenButton.selected){
+              [self.player.view fullscreenButtonTapped:self];
+          }
+          
+      } else {
+
+          if (_isiPhoneForceRotateValue && self.player.view.frame.size.height > 320.0f) {
+              [self.player.view fullscreenButtonTapped:self];
+              [self.player.view fullscreenButtonTapped:self];
+          }
+      }
+    }];
+    
+}
+
+
 
 @end
