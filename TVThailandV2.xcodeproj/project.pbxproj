@@ -30,8 +30,10 @@
 		3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24B17FF346C006FA479 /* MakathonAd.m */; };
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
-		3B3DA61E195C00A700D44D31 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3DA61D195C00A700D44D31 /* FacebookSDK.framework */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
+		3B581E931979C53A00F300C3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
+		3B581E951979C75400F300C3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E941979C75400F300C3 /* FacebookSDK.framework */; };
+		3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E961979C76700F300C3 /* SDWebImage.framework */; };
 		3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */; };
 		3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */; };
 		3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BC1711CCD8009B4B65 /* Security.framework */; };
@@ -63,7 +65,6 @@
 		3B910C3E17340387008F67ED /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3B17340387008F67ED /* Channel.m */; };
 		3B94AAFD1952AD4B00A0A5BD /* KapookAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B94AAFC1952AD4B00A0A5BD /* KapookAds.m */; };
 		3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */; };
-		3B9587A919384E25002C303F /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9587A819384E25002C303F /* SDWebImage.framework */; };
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
 		3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* PlayerViewController.m */; };
@@ -113,7 +114,6 @@
 		F0A3C86815BB258D000CD962 /* UserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A3C86515BB258D000CD962 /* UserAgent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C89915BB2D54000CD962 /* libxml2.dylib */; };
 		F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C89B15BB2F96000CD962 /* libsqlite3.0.dylib */; };
-		F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C5D15BC2A9200B56EE4 /* AudioToolbox.framework */; };
 		F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BD0C6015BC2A9F00B56EE4 /* MessageUI.framework */; };
 		F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D4C59F15CB028000988376 /* CoreData.framework */; };
@@ -181,9 +181,10 @@
 		3B39B0A517E322EE0027B242 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
-		3B3DA61D195C00A700D44D31 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
+		3B581E941979C75400F300C3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		3B581E961979C76700F300C3 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = TVThailandV2/Frameworks/SDWebImage.framework; sourceTree = "<group>"; };
 		3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B63C8BC1711CCD8009B4B65 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -225,7 +226,6 @@
 		3B94AAFC1952AD4B00A0A5BD /* KapookAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KapookAds.m; sourceTree = "<group>"; };
 		3B9587A5193848F5002C303F /* UIImage+RoundedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedImage.h"; sourceTree = "<group>"; };
 		3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedImage.m"; sourceTree = "<group>"; };
-		3B9587A819384E25002C303F /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCacheRounded.h"; sourceTree = "<group>"; };
 		3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCacheRounded.m"; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -358,8 +358,9 @@
 				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
 				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
 				3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */,
-				3B3DA61E195C00A700D44D31 /* FacebookSDK.framework in Frameworks */,
+				3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */,
 				3B910C341733FE25008F67ED /* CFNetwork.framework in Frameworks */,
+				3B581E951979C75400F300C3 /* FacebookSDK.framework in Frameworks */,
 				3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */,
 				3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */,
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
@@ -374,10 +375,9 @@
 				3BDF82FD19098B9000AD12D0 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
-				3B9587A919384E25002C303F /* SDWebImage.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
-				F0B4AC02161DF0BB00CF843A /* AdSupport.framework in Frameworks */,
 				F2A59C82B72E4E7F945E7BD1 /* libPods.a in Frameworks */,
+				3B581E931979C53A00F300C3 /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,8 +728,8 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B3DA61D195C00A700D44D31 /* FacebookSDK.framework */,
-				3B9587A819384E25002C303F /* SDWebImage.framework */,
+				3B581E961979C76700F300C3 /* SDWebImage.framework */,
+				3B581E941979C75400F300C3 /* FacebookSDK.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
 				3BD0496818ED3C030083C32B /* EventKit.framework */,
 				3B688EC518B239EC0009050B /* libxml2.2.dylib */,
@@ -1099,7 +1099,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1131,8 +1131,8 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "A7971A27-BBE6-4806-B64E-20414170590F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -1147,8 +1147,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nattapong Tonprasert (3G244XJS59)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1181,7 +1181,7 @@
 				);
 				PRODUCT_NAME = "TV Thailand";
 				PROVISIONING_PROFILE = "A7971A27-BBE6-4806-B64E-20414170590F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A7971A27-BBE6-4806-B64E-20414170590F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

@@ -142,6 +142,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 -(void) skipAdsButtonTouched {
     [self unloadAdsManager];
+    [self sendTrackerAdCompleted:self.videoAds.URL];
     _isContent = YES;
     [self playCurrentVideo];
 }
@@ -774,14 +775,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
         [self.videoAds hitTrackingEvent:MIDPOINT];
         [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
-        
-        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-                                                             trackingId:kOTVTracker];
-        [tracker2 set:kGAIScreenName
-                value:@"Player"];
-        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:videoAds.URL
-                                                           forKey:[GAIFields customDimensionForIndex:4]] build]];
-        
+        [self sendTrackerAdStarted:videoAds.URL];
         [self playMovieStream:videoAds.ad.mediaFileURL];
         
         
@@ -982,17 +976,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
     if (!_isContent && self.videoAds) {
         [self.videoAds hitTrackingEvent:COMPLETE];
-        id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-                                                             trackingId:kOTVTracker];
-        [tracker2 set:kGAIScreenName
-                value:@"Player"];
-        [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.videoAds.URL
-                                                           forKey:[GAIFields customDimensionForIndex:5]] build]];
-        
-
+        [self sendTrackerAdCompleted:self.videoAds.URL];
     }
-    
-
     
     [self removeMovieNotificationHandlers:player];
     [self.movieController.view removeFromSuperview];
@@ -1051,12 +1036,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             NSString *iframeURL = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
             if(iframeURL)
             {
-                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-                                                                     trackingId:kOTVTracker];
-                [tracker2 set:kGAIScreenName
-                        value:@"OTVEpisode"];
-                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:iframeURL
-                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
+                [self sendTrackerPlayContent:iframeURL];
             }
             
         }
@@ -1121,19 +1101,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         if (_isContent || _part.vastURL == nil ) {
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
-
                 
 //                [_contentPlayer play];
 //                [self setPlayButtonType:PlayButton];
-                
+
                  [self playStream:[NSURL URLWithString:_part.streamURL]];
-                
-                id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-                                                                     trackingId:kOTVTracker];
-                [tracker2 set:kGAIScreenName
-                        value:@"OTVEpisode"];
-                [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:_part.streamURL
-                                                                   forKey:[GAIFields customDimensionForIndex:6]] build]];
+                [self sendTrackerPlayContent:_part.streamURL];
             }
             else if ([_part.mediaCode isEqualToString:kCodeIframe])
             {
@@ -1208,10 +1181,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     } else {
         return NO;
     }
-}
-
-- (void)initializeUIOTV {
-    
 }
 
 #pragma mark - UIWebViewDelegate
@@ -1451,9 +1420,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         case kIMAAdEvent_LOADED:
             _isLoading = NO;
             [self.adsManager start];
+            [self sendTrackerAdStarted:self.videoAds.URL];
             break;
         case kIMAAdEvent_ALL_ADS_COMPLETED:
             [self unloadAdsManager];
+            [self sendTrackerAdCompleted:self.videoAds.URL];
             break;
         default:
             break;
@@ -1668,6 +1639,33 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
 }
 
+#pragma mark - Send Tracker
 
+- (void)sendTrackerAdStarted:(NSString *)url {
+    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                         trackingId:kOTVTracker];
+    [tracker2 set:kGAIScreenName
+            value:@"Player"];
+    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
+                                                       forKey:[GAIFields customDimensionForIndex:4]] build]];
+}
+
+- (void)sendTrackerAdCompleted:(NSString *)url {
+    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                         trackingId:kOTVTracker];
+    [tracker2 set:kGAIScreenName
+            value:@"Player"];
+    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
+                                                       forKey:[GAIFields customDimensionForIndex:5]] build]];
+}
+
+- (void)sendTrackerPlayContent:(NSString *)url {
+    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                         trackingId:kOTVTracker];
+    [tracker2 set:kGAIScreenName
+            value:@"Player"];
+    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
+                                                       forKey:[GAIFields customDimensionForIndex:6]] build]];
+}
 
 @end
