@@ -17,7 +17,7 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 #import "DVInlineVideoAd.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import "CMVideoAds.h"
 
 #import "VideoPartTableViewCell.h"
@@ -99,6 +99,8 @@ typedef enum {
     
     BOOL _isiPhoneForceRotateValue; /** Use to fix rotation btw iPhone&iPad **/
     BOOL _isiPhone;
+    
+    UIButton *_skipAdsButton;
 }
 
 #pragma mark - Staic Variable
@@ -132,7 +134,34 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
     
     [self setupAdsLoader];
+    
+    [self initSkipAdsButton];
+    
+    
 }
+
+-(void) skipAdsButtonTouched {
+    [self unloadAdsManager];
+    _isContent = YES;
+    [self playCurrentVideo];
+}
+
+-(void)initSkipAdsButton {
+    
+     _skipAdsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_skipAdsButton addTarget:self
+                      action:@selector(skipAdsButtonTouched)
+            forControlEvents:UIControlEventTouchUpInside];
+    [_skipAdsButton setTitle:@"skip" forState:UIControlStateNormal];
+    [_skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    CALayer * layer = [_skipAdsButton layer];
+    [layer setMasksToBounds:YES];
+    [layer setCornerRadius:0.0]; //when radius is 0, the border is a rectangle
+    [layer setBorderWidth:1.0];
+    [layer setBorderColor:[[UIColor whiteColor] CGColor]];
+    
+}
+
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [self setUpOrientation:toInterfaceOrientation];
@@ -1352,6 +1381,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     } else {
         [self.player.view.playerLayerView addSubview:self.adsManager.adView];
+        
+        _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
+        [self.adsManager.adView addSubview:_skipAdsButton];
+        _skipAdsButton.hidden = YES;
 
     }
     
@@ -1368,6 +1401,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
 }
 
+- (void) skipButtonShow {
+    _skipAdsButton.hidden = NO;
+}
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
     DLog(@"Ad loading error: %@", adErrorData.adError);
@@ -1416,8 +1452,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     switch (event.type) {
         case kIMAAdEvent_LOADED:
             _isLoading = NO;
-//            _isGoogleIMAAdsLoaded = YES;
             [self.adsManager start];
+            [self performSelector:@selector(skipButtonShow) withObject:self afterDelay:8.0 ];
             break;
         case kIMAAdEvent_ALL_ADS_COMPLETED:
             [self unloadAdsManager];
@@ -1538,11 +1574,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
             self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-            self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);;
+            self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+            _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
             self.adsManager.adView.frame = _screenSmallOfContainer;
+            _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
         }
         
     }
@@ -1599,8 +1637,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
      [UIView animateWithDuration:0.3f animations:^{
          if (UIInterfaceOrientationIsLandscape(orientation)) {
              self.adsManager.adView.frame = self.player.landscapeFrame;
+             _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
          } else {
              self.adsManager.adView.frame = self.player.portraitFrame;
+             _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
          }
     }];
 }
