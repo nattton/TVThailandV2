@@ -1338,8 +1338,15 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
     self.adsRenderingSettings.mimeTypes = @[];
 
+    if ([_part.mediaCode isEqualToString:kCodeIframe]) {
+        [self.view addSubview:self.adsManager.adView];
+
+    } else {
+        [self.player.view.playerLayerView addSubview:self.adsManager.adView];
+
+    }
     
-    [self.player.view.playerLayerView addSubview:self.adsManager.adView];
+    
     
 
     self.player.view.controls.hidden = YES;
