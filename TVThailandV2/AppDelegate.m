@@ -148,7 +148,10 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         // Check whether it implements a dummy methods called canRotate
-        if ([currentViewController respondsToSelector:@selector(canRotate)] || [@"MPInlineVideoFullscreenViewController" isEqualToString: NSStringFromClass(currentViewController.class)]) {
+        if ([currentViewController respondsToSelector:@selector(canRotate)]
+            || [@"MPInlineVideoFullscreenViewController" isEqualToString: NSStringFromClass(currentViewController.class)]
+            || [@"MPFullScreenTransitionViewController" isEqualToString: NSStringFromClass(currentViewController.class)]
+            ) {
             // Unlock landscape view orientations for this view controller
             return UIInterfaceOrientationMaskAllButUpsideDown;
         }
