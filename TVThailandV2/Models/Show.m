@@ -95,8 +95,8 @@
     [df setDateFormat:@"yyyyMMddHHmm"];
     
     [[ApiClient sharedInstance]
-     GET:[NSString stringWithFormat:@"api2/category/%@/%@?device=ios&time=%@",
-          Id, [[NSNumber numberWithInteger:start] stringValue], [df stringFromDate:[NSDate date]]]
+     GET:[NSString stringWithFormat:@"api2/category/%@/%@?device=ios&app_version=%@&build=%@&time=%@",
+          Id, [[NSNumber numberWithInteger:start] stringValue], kAPP_VERSION, kAPP_BUILD, [df stringFromDate:[NSDate date]]]
      parameters:nil
         success:^(AFHTTPRequestOperation *operation, id JSON) {
             NSArray *programs = [JSON valueForKeyPath:@"programs"];

@@ -15,7 +15,8 @@
 
 #import <CoreData/CoreData.h>
 
-#define kAPP_VERSION @"4.0"
+#define kAPP_VERSION [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]
+#define kAPP_BUILD [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey]
 
 #define kAppTracker @"UA-22403997-3"
 #define kOTVTracker @"UA-22403997-4"

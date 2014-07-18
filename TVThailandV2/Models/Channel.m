@@ -34,7 +34,7 @@
 + (void)loadData:(void (^)(NSArray *channels ,NSError *error))block {
      
     [[ApiClient sharedInstance]
-         GET:[NSString stringWithFormat:@"api2/channel?device=ios&time=%@", [NSString getUnixTimeKey]]
+         GET:[NSString stringWithFormat:@"api2/channel?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]]
          parameters:nil
          success:^(AFHTTPRequestOperation *operation, id JSON) {
              NSArray *jCategories = [JSON valueForKeyPath:@"channels"];

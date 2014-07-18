@@ -153,6 +153,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                       action:@selector(skipAdsButtonTouched)
             forControlEvents:UIControlEventTouchUpInside];
     [_skipAdsButton setTitle:@"skip" forState:UIControlStateNormal];
+    [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
     [_skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     CALayer * layer = [_skipAdsButton layer];
     [layer setMasksToBounds:YES];
@@ -962,6 +963,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMovieDurationAvailableNotification object:player];
 }
 
 /* Delete the movie player object, and remove the movie notification observers. */
@@ -1382,10 +1384,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     } else {
         [self.player.view.playerLayerView addSubview:self.adsManager.adView];
         
-        _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
+        _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
         [self.adsManager.adView addSubview:_skipAdsButton];
-        _skipAdsButton.hidden = YES;
-
+        _skipAdsButton.enabled = NO;
+        [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
     }
     
     
@@ -1399,10 +1401,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
     
-}
-
-- (void) skipButtonShow {
-    _skipAdsButton.hidden = NO;
 }
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
@@ -1453,7 +1451,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         case kIMAAdEvent_LOADED:
             _isLoading = NO;
             [self.adsManager start];
-            [self performSelector:@selector(skipButtonShow) withObject:self afterDelay:8.0 ];
             break;
         case kIMAAdEvent_ALL_ADS_COMPLETED:
             [self unloadAdsManager];
@@ -1471,13 +1468,24 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 // Optional: receive updates about individual ad progress.
-//- (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
-//    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
+- (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
+    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
 //    CMTime duration = CMTimeMakeWithSeconds(totalTime, 1000);
 //    [self updatePlayHeadWithTime:time duration:duration];
+    int s = (int)CMTimeGetSeconds(time);
+    DLog(@"Progress : %d", s);
+    if (s <= 8) {
+        _skipAdsButton.enabled = NO;
+        [_skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", 8 - s] forState:UIControlStateDisabled];
+    } else {
+        _skipAdsButton.enabled = YES;
+        [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+    }
+
+    
 //    self.progressBar.maximumValue = totalTime;
 //    [self setPlayButtonType:PauseButton];
-//}
+}
 
 #pragma mark IMABrowser delegate functions
 
@@ -1514,8 +1522,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self.view addSubview:self.player.view];
     
     self.player.view.fullscreenButton.hidden = NO;
-    
-    
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -1575,13 +1581,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.closeCircleButton.hidden = YES;
             self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
             self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-            _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
             self.adsManager.adView.frame = _screenSmallOfContainer;
-            _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
         }
+        _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
         
     }
     
@@ -1637,11 +1642,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
      [UIView animateWithDuration:0.3f animations:^{
          if (UIInterfaceOrientationIsLandscape(orientation)) {
              self.adsManager.adView.frame = self.player.landscapeFrame;
-             _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
          } else {
              self.adsManager.adView.frame = self.player.portraitFrame;
-             _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-70, self.adsManager.adView.bounds.size.height-70, 50, 25);
          }
+         _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
     }];
 }
 
