@@ -522,8 +522,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 //#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)viewWillAppear:(BOOL)animated {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _isiPhone = NO;
+    } else {
+        _isiPhone = YES;
+    }
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -1326,9 +1332,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     if (self.player.view.frame.size.width > 321 && _isiPhone) {
         self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    } else if (self.player.view.frame.size.width > 701 && !_isiPhone){
+        self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
     } else {
-        self.adsManager.adView.frame = _screenSmallOfContainer;
+         self.adsManager.adView.frame = _screenSmallOfContainer;
     }
+
     
     
     // By default, allow in-app web browser.
