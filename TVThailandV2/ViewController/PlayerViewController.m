@@ -32,7 +32,7 @@
 
 #import "VKVideoPlayerCaptionSRT.h"
 #import "VKVideoPlayerView.h"
-
+#import "VKVideoPlayerLayerView.h"
 
 const char* AdEventNames[] = {
     "All Ads Complete",
@@ -98,6 +98,7 @@ typedef enum {
     CGRect _screenSmallOfContainer;
     
     BOOL _isiPhoneForceRotateValue; /** Use to fix rotation btw iPhone&iPad **/
+    BOOL _isiPhone;
 }
 
 #pragma mark - Staic Variable
@@ -145,6 +146,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
      _widthOfCH7iFrame = 640;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _isiPhone = NO;
         _isiPhoneForceRotateValue = NO;
         _widthOfCH7iFrame = 480;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
@@ -163,6 +165,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         
     } else {
+        _isiPhone = YES;
         _isiPhoneForceRotateValue = YES;
         _widthOfCH7iFrame = 210;
         if (orientation == UIInterfaceOrientationLandscapeLeft ||
@@ -173,7 +176,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         }
     }
     
-    _screenSmallOfContainer = CGRectMake(0, 20.0f, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
+    _screenSmallOfContainer = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
 
     
 }
@@ -517,7 +520,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+//#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
@@ -527,7 +530,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [super viewDidDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
-#endif
+//#endif
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -678,6 +681,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     
     if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
+        
+        
+        
         [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
         [self startOTV];
         
@@ -1318,7 +1324,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
 
-    self.adsManager.adView.frame = _screenSmallOfContainer;
+    if (self.player.view.frame.size.width > 321 && _isiPhone) {
+        self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    } else {
+        self.adsManager.adView.frame = _screenSmallOfContainer;
+    }
+    
     
     // By default, allow in-app web browser.
     self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
@@ -1326,9 +1337,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsRenderingSettings.webOpenerPresentingController = self;
     self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
     self.adsRenderingSettings.mimeTypes = @[];
-    
-    [self.view addSubview:self.adsManager.adView];
 
+    
+    [self.player.view.playerLayerView addSubview:self.adsManager.adView];
+    
+
+    self.player.view.controls.hidden = YES;
+    self.player.view.playButton.enabled = NO;
+    self.player.view.bigPlayButton.hidden = YES;
+    self.player.view.activityIndicator.hidden = YES;
+
+    
     [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
     
 }
@@ -1464,6 +1483,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.player.view.controlHideCountdown = -1;
     if (self.player.state == VKVideoPlayerStateContentPlaying) [self.player pauseContent:NO completionHandler:nil];
     
+    
 }
 
 - (void)applicationDidBecomeActive {
@@ -1476,7 +1496,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     DLog(@"%s event:%d", __FUNCTION__, event);
 //    __weak __typeof(self) weakSelf = self;
     
-    if (event == VKVideoPlayerControlEventTapDone && _isContent) {
+    
+//    if (event == VKVideoPlayerControlEventTapPlayerView) {
+//        if (self.player.view.controls.isHidden) {
+//            self.player.view.controls.hidden = NO;
+//        } else {
+//            self.player.view.controls.hidden = YES;
+//        }
+//    }
+    
+    if (event == VKVideoPlayerControlEventTapDone) {
 
         self.closeCircleButton.hidden = NO;
         [self unloadAdsManager];
@@ -1493,6 +1522,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
             self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+            self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);;
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
@@ -1520,7 +1550,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void) playNextOTVVideo {
-    [self layoutForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+//    [self layoutForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
         _idx++;
