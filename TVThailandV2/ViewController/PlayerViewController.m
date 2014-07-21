@@ -1490,6 +1490,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.player.forceRotate = _isiPhoneForceRotateValue;
     
     self.player.view.frame = _screenSmallOfContainer;
+    
     [self.view addSubview:self.player.view];
     
     self.player.view.fullscreenButton.hidden = NO;
@@ -1503,6 +1504,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
     track.hasNext = YES;
     [self.player loadVideoWithTrack:track];
+    self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.frame.size.width - 50, 30);
+    self.player.view.titleLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.otvEpisode.date stringByReplacingOccurrencesOfString: @"ออกอากาศ " withString:@""], _part.nameTh];
 }
 
 
