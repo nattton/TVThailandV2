@@ -33,6 +33,7 @@
 #import "VKVideoPlayerCaptionSRT.h"
 #import "VKVideoPlayerView.h"
 #import "VKVideoPlayerLayerView.h"
+#import "VKVideoPlayerAirPlay.h"
 
 const char* AdEventNames[] = {
     "All Ads Complete",
@@ -264,6 +265,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     [self setSelectedPositionOfVideoPartAtRow:row section:section];
     
+    [VKSharedAirplay setup];
 }
 
 - (void) initTvThVideoPlayer:(NSInteger)row sectionOfVideo:(long)section {
@@ -574,6 +576,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)close {
+    [self unloadAdsManager];
+    [_contentPlayer pause];
+    [self.player pauseContent];
+    [self.player.view removeFromSuperview];
+}
+
 #pragma mark UIOutlet function implementations
 
 - (IBAction)partInfoButtonTapped:(id)sender {
@@ -590,10 +599,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (IBAction)closeButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
 
-    [self unloadAdsManager];
-    [_contentPlayer pause];
-    [self.player pauseContent];
-    [self.player.view removeFromSuperview];
+    [self close];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
@@ -1448,7 +1454,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 //    CMTime duration = CMTimeMakeWithSeconds(totalTime, 1000);
 //    [self updatePlayHeadWithTime:time duration:duration];
     int s = (int)CMTimeGetSeconds(time);
-    DLog(@"Progress : %d", s);
     if (s <= 8) {
         _skipAdsButton.enabled = NO;
         [_skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", 8 - s] forState:UIControlStateDisabled];
@@ -1551,10 +1556,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     if (event == VKVideoPlayerControlEventTapDone) {
 
         self.closeCircleButton.hidden = NO;
-        [self unloadAdsManager];
-        [_contentPlayer pause];
-        [self.player pauseContent];
-        [self.player.view removeFromSuperview];
+        [self close];
         
         [self dismissViewControllerAnimated:YES completion:nil];
         
