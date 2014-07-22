@@ -1366,6 +1366,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     self.player.view.controls.hidden = YES;
     self.player.view.playButton.enabled = NO;
+    self.player.view.nextButton.hidden = YES;
+    self.player.view.rewindButton.hidden = YES;
     self.player.view.bigPlayButton.hidden = YES;
     self.player.view.activityIndicator.hidden = YES;
 
@@ -1506,11 +1508,18 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
     track.hasNext = YES;
     [self.player loadVideoWithTrack:track];
+    
+    [self setVideoTitleToTopLayer];
+    
+    self.player.view.nextButton.hidden = NO;
+    self.player.view.rewindButton.hidden = NO;
+}
+
+- (void) setVideoTitleToTopLayer {
+    
     self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.frame.size.width - 50, 30);
     self.player.view.titleLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.otvEpisode.date stringByReplacingOccurrencesOfString: @"ออกอากาศ " withString:@""], _part.nameTh];
 }
-
-
 #pragma mark - App States
 
 - (void)applicationWillResignActive {
@@ -1585,7 +1594,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void) playNextOTVVideo {
-//    [self layoutForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
         _idx++;
@@ -1594,6 +1602,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     } else {
         self.player.view.nextButton.enabled = NO;
     }
+    
+    [self setVideoTitleToTopLayer];
 }
 
 
@@ -1625,23 +1635,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }];
 }
 
-- (void)layoutForOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    [UIView animateWithDuration:0.3f animations:^{
-      if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
-
-          if(self.player.view.fullscreenButton.selected){
-              [self.player.view fullscreenButtonTapped:self];
-          }
-          
-      } else {
-
-          if (_isiPhoneForceRotateValue && self.player.view.frame.size.height > 320.0f) {
-              [self.player.view fullscreenButtonTapped:self];
-              [self.player.view fullscreenButtonTapped:self];
-          }
-      }
-    }];
-    
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeOrientationFrom:(UIInterfaceOrientation)orientation {
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        [self.player.view.topControlOverlay setFrameOriginY:0.0f];
+        self.player.view.topControlOverlay.hidden = NO;
+        self.player.view.topPortraitControlOverlay.hidden = YES;
+        self.player.view.controls.hidden = NO;
+    }
 }
 
 #pragma mark - Send Tracker
