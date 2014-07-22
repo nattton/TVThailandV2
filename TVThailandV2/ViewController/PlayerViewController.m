@@ -1642,7 +1642,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         [self.player.view.topControlOverlay setFrameOriginY:0.0f];
         self.player.view.topControlOverlay.hidden = NO;
         self.player.view.topPortraitControlOverlay.hidden = YES;
-        self.player.view.controls.hidden = NO;
     }
 }
 
