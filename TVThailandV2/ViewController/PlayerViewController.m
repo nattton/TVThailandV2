@@ -1335,9 +1335,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
-
+    
     if (self.player.view.frame.size.width > 321 && _isiPhone) {
         self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    } else if (self.player.view.frame.size.height > 500 && _isiPhone) {
+        self.adsManager.adView.frame = CGRectMake(0, (self.player.view.frame.size.height/2)-(self.player.view.frame.size.height/4), self.player.view.frame.size.width, self.player.view.frame.size.height/2);
     } else if (self.player.view.frame.size.width > 701 && !_isiPhone){
         self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
     } else {
@@ -1495,6 +1497,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.player.forceRotate = _isiPhoneForceRotateValue;
     
     self.player.view.frame = _screenSmallOfContainer;
+    
     [self.view addSubview:self.player.view];
     
     self.player.view.fullscreenButton.hidden = NO;
@@ -1508,6 +1511,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
     track.hasNext = YES;
     [self.player loadVideoWithTrack:track];
+    self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.frame.size.width - 50, 30);
+    self.player.view.titleLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.otvEpisode.date stringByReplacingOccurrencesOfString: @"ออกอากาศ " withString:@""], _part.nameTh];
 }
 
 
