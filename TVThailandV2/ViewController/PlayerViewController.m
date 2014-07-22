@@ -1329,9 +1329,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
-
+    
     if (self.player.view.frame.size.width > 321 && _isiPhone) {
         self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    } else if (self.player.view.frame.size.height > 500 && _isiPhone) {
+        self.adsManager.adView.frame = CGRectMake(0, (self.player.view.frame.size.height/2)-(self.player.view.frame.size.height/4), self.player.view.frame.size.width, self.player.view.frame.size.height/2);
     } else if (self.player.view.frame.size.width > 701 && !_isiPhone){
         self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
     } else {
