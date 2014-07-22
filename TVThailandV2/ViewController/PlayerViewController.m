@@ -134,7 +134,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
     
-    [self setupAdsLoader];
+    
     
     [self initSkipAdsButton];
     
@@ -581,6 +581,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [_contentPlayer pause];
     [self.player pauseContent];
     [self.player.view removeFromSuperview];
+    
+    self.adsLoader = nil;
+    self.player = nil;
 }
 
 #pragma mark UIOutlet function implementations
@@ -725,8 +728,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
         
-        
-        
+        [self close];
         [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
         [self startOTV];
         
@@ -1099,6 +1101,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         DLog(@"vastURL : %@", _part.vastURL);
         
+        if (self.adsLoader == nil) {
+            [self setupAdsLoader];
+        }
+        
         if (self.player.view == nil && ![_part.mediaCode isEqualToString: kCodeIframe]) {
             [self setUpVKContentPlayer];
         }
@@ -1361,12 +1367,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     } else {
         [self.player.view.playerLayerView addSubview:self.adsManager.adView];
         
-        _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
-        [self.adsManager.adView addSubview:_skipAdsButton];
-        _skipAdsButton.enabled = NO;
-        [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
     }
     
+    _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
+    [self.adsManager.adView addSubview:_skipAdsButton];
+    _skipAdsButton.enabled = NO;
+    [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
     
     
 
@@ -1385,6 +1391,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
     DLog(@"Ad loading error: %@", adErrorData.adError);
     
+    _isContent = !_isContent;
+    [self playCurrentVideo];
 }
 
 - (void)requestAdsTag:(NSString *)adTag {
@@ -1436,6 +1444,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             [self unloadAdsManager];
             [self sendTrackerAdCompleted:self.videoAds.URL];
             break;
+ 
         default:
             break;
     }
@@ -1597,6 +1606,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) playNextOTVVideo {
     
+    self.adsLoader = nil;
     if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
         _idx++;
         [self initVideoPlayer:_idx sectionOfVideo:0];
