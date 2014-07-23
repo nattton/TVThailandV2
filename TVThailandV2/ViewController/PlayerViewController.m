@@ -555,13 +555,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 //#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _isiPhone = NO;
     } else {
         _isiPhone = YES;
     }
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    
+    [self layoutAdsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
 }
 
@@ -1655,6 +1659,21 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
 }
 
+
+- (void)layoutAdsForOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    [UIView animateWithDuration:0.3f animations:^{
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
+            self.adsManager.adView.frame = self.player.landscapeFrame;
+        }
+        
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.frame.size.height >500) {
+            self.adsManager.adView.frame = CGRectMake(0, (self.player.view.frame.size.height/2)-(self.player.view.frame.size.height/4), self.player.view.frame.size.width, self.player.view.frame.size.height/2);
+        }
+        
+    }];
+}
+     
+
 #pragma mark - Send Tracker
 
 - (void)sendTrackerAdStarted:(NSString *)url {
@@ -1683,5 +1702,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
                                                        forKey:[GAIFields customDimensionForIndex:6]] build]];
 }
+
+
 
 @end
