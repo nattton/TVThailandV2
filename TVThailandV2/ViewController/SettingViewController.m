@@ -74,8 +74,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        [cell.textLabel setTextColor:[UIColor darkGrayColor]];
     }
-    
+
     if (indexPath.row == rowAbout) {
         cell.textLabel.text = @"About";
         
