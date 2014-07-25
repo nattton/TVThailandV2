@@ -740,7 +740,7 @@
                                             <color key="backgroundColor" red="0.4862441046" green="0.49028097390000003" blue="0.50239158159999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooE-X5-w1T" userLabel="seperator">
-                                            <rect key="frame" x="0.0" y="44" width="320" height="1"/>
+                                            <rect key="frame" x="0.0" y="44" width="768" height="1"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
@@ -782,7 +782,7 @@
                                             </constraints>
                                         </imageView>
                                         <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hz-Ni-NVj" userLabel="seperator">
-                                            <rect key="frame" x="0.0" y="44" width="320" height="1"/>
+                                            <rect key="frame" x="0.0" y="44" width="768" height="1"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
@@ -820,6 +820,11 @@
                                                 <constraint firstAttribute="width" constant="30" id="R0Y-1C-Yqi"/>
                                             </constraints>
                                         </imageView>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vgb-Lv-mJj" userLabel="seperator">
+                                            <rect key="frame" x="0.0" y="44" width="768" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="h2P-J4-fkP" firstAttribute="leading" secondItem="wDI-iv-cpX" secondAttribute="leading" constant="11" id="0CD-9H-uRx"/>
@@ -854,6 +859,11 @@
                                                 <constraint firstAttribute="height" constant="30" id="Jvp-IH-uHs"/>
                                             </constraints>
                                         </imageView>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TqS-Rs-IdS" userLabel="seperator">
+                                            <rect key="frame" x="0.0" y="44" width="768" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="New-WP-pZJ" firstAttribute="leading" secondItem="Ee9-Ol-2g6" secondAttribute="leading" constant="11" id="Ahh-Lu-mwl"/>
@@ -888,6 +898,11 @@
                                                 <constraint firstAttribute="height" constant="30" id="S6e-Dj-X1n"/>
                                             </constraints>
                                         </imageView>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s9w-yL-KOx" userLabel="seperator">
+                                            <rect key="frame" x="0.0" y="43" width="768" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jKc-bU-YDQ" firstAttribute="leading" secondItem="edt-4h-V3E" secondAttribute="leading" constant="11" id="Nt4-ez-TQA"/>
@@ -2111,11 +2126,34 @@
                                             <constraint firstAttribute="height" constant="6" id="zGf-XW-cPv"/>
                                         </constraints>
                                     </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ccr-c5-2Uq">
+                                        <rect key="frame" x="0.0" y="6" width="768" height="954"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="56" id="k0l-fH-4hw">
+                                                <rect key="frame" x="0.0" y="22" width="768" height="56"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k0l-fH-4hw" id="5cz-Bx-WG7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="768" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="E25-Wo-zQP" id="Ozw-qs-GGV"/>
+                                            <outlet property="delegate" destination="E25-Wo-zQP" id="QMW-dL-RP2"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Ccr-c5-2Uq" secondAttribute="trailing" id="1Fa-7J-cFb"/>
+                                    <constraint firstItem="Ccr-c5-2Uq" firstAttribute="leading" secondItem="yB0-hX-cDg" secondAttribute="leading" id="G2u-c4-KhX"/>
                                     <constraint firstItem="6am-3c-USE" firstAttribute="top" secondItem="yB0-hX-cDg" secondAttribute="top" id="aN9-ze-ES5"/>
+                                    <constraint firstItem="Ccr-c5-2Uq" firstAttribute="top" secondItem="yB0-hX-cDg" secondAttribute="top" constant="6" id="jdH-pE-HEl"/>
                                     <constraint firstItem="6am-3c-USE" firstAttribute="leading" secondItem="yB0-hX-cDg" secondAttribute="leading" id="m40-VO-BPT"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ccr-c5-2Uq" secondAttribute="bottom" id="myY-wM-4b9"/>
                                     <constraint firstAttribute="trailing" secondItem="6am-3c-USE" secondAttribute="trailing" id="ug4-HT-Hky"/>
                                 </constraints>
                             </view>
@@ -2160,11 +2198,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pw3-vt-0Bo"/>
-        <segue reference="9af-dL-MCq"/>
         <segue reference="qIP-8M-6fw"/>
         <segue reference="lwT-fV-NuI"/>
-        <segue reference="EJu-lf-Pgw"/>
+        <segue reference="Ptd-yi-pKe"/>
+        <segue reference="Fnv-34-7PY"/>
         <segue reference="idi-Wp-ZFY"/>
+        <segue reference="pw3-vt-0Bo"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -817,6 +817,11 @@
                                                 <constraint firstAttribute="width" constant="30" id="Yx0-K1-pE1"/>
                                             </constraints>
                                         </imageView>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OtE-Sq-C9o" userLabel="seperator">
+                                            <rect key="frame" x="0.0" y="44" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="WtJ-6Z-ve0" firstAttribute="leading" secondItem="DQe-WO-JqH" secondAttribute="leading" constant="11" id="0hH-Jn-r2H"/>
@@ -851,6 +856,11 @@
                                                 <constraint firstAttribute="width" constant="30" id="EZj-l6-mlU"/>
                                             </constraints>
                                         </imageView>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXT-4N-Tei" userLabel="seperator">
+                                            <rect key="frame" x="0.0" y="44" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="K18-j2-PpK" firstAttribute="top" secondItem="ae8-at-GAh" secondAttribute="top" constant="7" id="LtG-BS-YNe"/>
@@ -885,6 +895,11 @@
                                                 <constraint firstAttribute="width" constant="30" id="K4W-xl-K0q"/>
                                             </constraints>
                                         </imageView>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QCO-0P-j28" userLabel="seperator">
+                                            <rect key="frame" x="0.0" y="44" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="eIK-xG-xQj" firstAttribute="top" secondItem="4jd-hU-Mck" secondAttribute="top" constant="7" id="cvb-XH-Jdh"/>
@@ -2104,12 +2119,35 @@
                                             <constraint firstAttribute="height" constant="5" id="l43-G8-ZJf"/>
                                         </constraints>
                                     </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ajP-HW-rAB">
+                                        <rect key="frame" x="0.0" y="5" width="320" height="499"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="48" id="ptM-K7-tPY">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="48"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ptM-K7-tPY" id="gwL-Q9-drY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="jMR-hv-4nG" id="9RR-z7-uk3"/>
+                                            <outlet property="delegate" destination="jMR-hv-4nG" id="Lfn-ME-v44"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="ajP-HW-rAB" firstAttribute="leading" secondItem="wTz-xX-knp" secondAttribute="leading" id="77V-tv-kDq"/>
                                     <constraint firstItem="F8V-UU-MX2" firstAttribute="leading" secondItem="wTz-xX-knp" secondAttribute="leading" id="N9A-7q-rpx"/>
+                                    <constraint firstAttribute="trailing" secondItem="ajP-HW-rAB" secondAttribute="trailing" id="aWs-R0-Xer"/>
+                                    <constraint firstAttribute="bottom" secondItem="ajP-HW-rAB" secondAttribute="bottom" id="ddK-bb-WMb"/>
                                     <constraint firstAttribute="trailing" secondItem="F8V-UU-MX2" secondAttribute="trailing" id="huY-2o-b54"/>
                                     <constraint firstItem="F8V-UU-MX2" firstAttribute="top" secondItem="wTz-xX-knp" secondAttribute="top" id="oEX-Gl-HQL"/>
+                                    <constraint firstItem="ajP-HW-rAB" firstAttribute="top" secondItem="wTz-xX-knp" secondAttribute="top" constant="5" id="oeV-u1-epH"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2154,11 +2192,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gcw-2o-Hcb"/>
         <segue reference="tRJ-5v-ocZ"/>
-        <segue reference="551-Zy-Guf"/>
-        <segue reference="rKb-JG-vfa"/>
-        <segue reference="xdc-Rh-odR"/>
+        <segue reference="NEH-IP-205"/>
+        <segue reference="weI-C5-TSh"/>
         <segue reference="lLI-Wr-qoe"/>
+        <segue reference="xdc-Rh-odR"/>
+        <segue reference="551-Zy-Guf"/>
     </inferredMetricsTieBreakers>
 </document>
