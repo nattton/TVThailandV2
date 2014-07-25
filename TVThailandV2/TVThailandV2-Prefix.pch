@@ -36,6 +36,8 @@
 #define kOTV_API_VERSION @"2.0.1.2"
 #define kOTV_CH7 @"Ch7"
 
+#define kPrivacyPolicy_URL @"http://tv.makathon.com/privacy/mobile"
+
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define isPortrait [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown
 

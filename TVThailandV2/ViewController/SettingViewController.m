@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import <SVWebViewController/SVWebViewController.h>
 
 @interface SettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -41,21 +42,26 @@ static NSString *CellIdentifier = @"CellIdentifier";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
 }
-*/
+
 
 #pragma - mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -77,13 +83,25 @@ static NSString *CellIdentifier = @"CellIdentifier";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:kPrivacyPolicy_URL]];
+    
+    if (indexPath.row == rowPrivacyPolicy) {
+        if (self.parentViewController && self.parentViewController.navigationController) {
+            [self.parentViewController.navigationController pushViewController:webViewController animated:YES];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kPrivacyPolicy_URL]];
+        }
+    } else {
+        //Perform performSegueWithIdentifier to AboutViewController
+        
+    }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"";
+    
+    
 }
 
 #pragma - mark UITableViewDelegate
