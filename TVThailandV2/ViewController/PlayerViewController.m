@@ -625,29 +625,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 
-// Playhead control method.
-//- (IBAction)onPlayPauseClicked:(id)sender {
-//    
-//    if (_contentPlayer.rate == 0) {
-//        [_contentPlayer play];
-//    } else {
-//        [_contentPlayer pause];
-//    }
-//    
-//}
-
-// Called when the user seeks.
-//- (IBAction)playHeadValueChanged:(id)sender {
-//    if (![sender isKindOfClass:[UISlider class]]) {
-//        return;
-//    }
-//    UISlider *slider = (UISlider *)sender;
-//    // If the playhead value changed by the user, skip to that point of the
-//    // content is skippable.
-//    [self.contentPlayer seekToTime:CMTimeMake(slider.value, 1)];
-//}
-
-
 - (void)startOTV {
     if (self.show.isOTV && !_isLoading) {
         _isContent = NO;
@@ -1299,44 +1276,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
     return itemDuration;
 }
-
-// Update the current playhead duration
-//- (void)updatePlayHeadDurationWithTime:(CMTime)duration {
-//    if (CMTIME_IS_INVALID(duration)) {
-//        return;
-//    }
-//    Float64 durationValue = CMTimeGetSeconds(duration);
-//    if (isnan(durationValue)) {
-//        return;
-//    }
-//    self.progressBar.maximumValue = durationValue;
-//    self.durationTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)durationValue / 60, (int)durationValue % 60];
-//}
-
-
-// Handler for keypath listener that is added.
-//- (void)observeValueForKeyPath:(NSString *)keyPath
-//                      ofObject:(id)object
-//                        change:(NSDictionary *)change
-//                       context:(void *)context {
-//    if (context == @"contentPlayerRate" && self.contentPlayer == object) {
-//        [self updatePlayHeadState:(self.contentPlayer.rate != 0)];
-//    } else if (context == @"playerDuration" &&
-//               self.contentPlayer == object) {
-//        [self updatePlayHeadDurationWithTime:[self getPlayerItemDuration:self.contentPlayer.currentItem]];
-//    }
-//}
-
-// Update the playHead state based on the content player rate changes.
-//- (void)updatePlayHeadState:(BOOL)isPlaying {
-//    [self setPlayButtonType:isPlaying ? PauseButton : PlayButton];
-//}
-//
-//- (void)setPlayButtonType:(PlayButtonType)buttonType {
-//    self.playHeadButton.tag = buttonType;
-////    [self.playHeadButton setImage:buttonType == PauseButton ? self.pauseBtnBG : self.playBtnBG forState:UIControlStateNormal];
-//    self.playHeadButton.titleLabel.text = PauseButton ? @"Pause" : @"Play";
-//}
 
 
 - (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
