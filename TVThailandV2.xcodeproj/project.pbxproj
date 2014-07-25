@@ -68,6 +68,7 @@
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
 		3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */; };
 		3B976CBE19822DCF0011DF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
+		3B976CC1198276060011DF75 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B976CC0198276060011DF75 /* AboutViewController.m */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
 		3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* PlayerViewController.m */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
@@ -242,6 +243,8 @@
 		3B976CB81981E2F70011DF75 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
 		3B976CB91981E2F70011DF75 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
 		3B976CBA1981E2F70011DF75 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		3B976CBF198276060011DF75 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		3B976CC0198276060011DF75 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3BBA068E1940549C0049BFD3 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		3BBA068F1940549C0049BFD3 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
@@ -432,8 +435,6 @@
 				3B15D22B17FD86FB006FA479 /* DetailViewController.m */,
 				117388B218C8364000D4F187 /* CMAccountViewController.h */,
 				117388B318C8364000D4F187 /* CMAccountViewController.m */,
-				1179B5E0198269C7009A0F1F /* SettingViewController.h */,
-				1179B5E1198269C7009A0F1F /* SettingViewController.m */,
 				11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */,
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
@@ -444,6 +445,10 @@
 				11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */,
 				116ADEE219599C82009167E7 /* WebViewController.h */,
 				116ADEE319599C82009167E7 /* WebViewController.m */,
+				1179B5E0198269C7009A0F1F /* SettingViewController.h */,
+				1179B5E1198269C7009A0F1F /* SettingViewController.m */,
+				3B976CBF198276060011DF75 /* AboutViewController.h */,
+				3B976CC0198276060011DF75 /* AboutViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -960,6 +965,7 @@
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
+				3B976CC1198276060011DF75 /* AboutViewController.m in Sources */,
 				3BD13952190F691A004F6785 /* OTVVideoPlayerViewController.m in Sources */,
 				1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,

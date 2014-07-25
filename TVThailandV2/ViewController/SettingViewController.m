@@ -16,8 +16,11 @@
 @implementation SettingViewController
 
 /** sequence of row **/
-static NSInteger rowAbout = 0;
-static NSInteger rowPrivacyPolicy = 1;
+
+const int rowAbout = 0;
+const int rowPrivacyPolicy = 1;
+
+static NSString *aboutViewSegue = @"AboutViewSegue";
 
 static NSString *CellIdentifier = @"CellIdentifier";
 
@@ -85,23 +88,23 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:[NSURL URLWithString:kPrivacyPolicy_URL]];
-    
-    if (indexPath.row == rowPrivacyPolicy) {
-        if (self.parentViewController && self.parentViewController.navigationController) {
-            [self.parentViewController.navigationController pushViewController:webViewController animated:YES];
-        } else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kPrivacyPolicy_URL]];
-        }
-    } else {
-        //Perform performSegueWithIdentifier to AboutViewController
-        
+
+    switch (indexPath.row) {
+            case rowAbout:
+            [self performSegueWithIdentifier:aboutViewSegue sender:nil];
+            break;
+        case rowPrivacyPolicy:
+            [self openPrivacyWeb];
+            break;
+        default:
+            break;
     }
-
-
     
-    
+}
+
+- (void)openPrivacyWeb {
+    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithAddress:kPrivacyPolicy_URL];
+    [self.navigationController pushViewController:webViewController animated:YES];
 }
 
 #pragma - mark UITableViewDelegate
