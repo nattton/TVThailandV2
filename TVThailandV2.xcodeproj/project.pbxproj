@@ -31,7 +31,6 @@
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
-		3B581E931979C53A00F300C3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
 		3B581E951979C75400F300C3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E941979C75400F300C3 /* FacebookSDK.framework */; };
 		3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E961979C76700F300C3 /* SDWebImage.framework */; };
 		3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */; };
@@ -66,6 +65,8 @@
 		3B94AAFD1952AD4B00A0A5BD /* KapookAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B94AAFC1952AD4B00A0A5BD /* KapookAds.m */; };
 		3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */; };
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
+		3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */; };
+		3B976CBC1981E3590011DF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
 		3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* PlayerViewController.m */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
@@ -87,7 +88,6 @@
 		3BD1396A190F6E46004F6785 /* PartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13963190F6E46004F6785 /* PartTableViewCell.m */; };
 		3BD1396B190F6E46004F6785 /* ShowCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */; };
 		3BD1396C190F6E46004F6785 /* ShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13967190F6E46004F6785 /* ShowTableViewCell.m */; };
-		3BDF82FD19098B9000AD12D0 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF82F519098B9000AD12D0 /* libGoogleAnalyticsServices.a */; };
 		3BDF834C190A74EE00AD12D0 /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF833F190A74EE00AD12D0 /* DDXMLElementAdditions.m */; };
 		3BDF834D190A74EE00AD12D0 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF8342190A74EE00AD12D0 /* NSString+DDXML.m */; };
 		3BDF834E190A74EE00AD12D0 /* DDXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF8345190A74EE00AD12D0 /* DDXMLDocument.m */; };
@@ -228,6 +228,17 @@
 		3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedImage.m"; sourceTree = "<group>"; };
 		3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCacheRounded.h"; sourceTree = "<group>"; };
 		3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCacheRounded.m"; sourceTree = "<group>"; };
+		3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		3B976CB11981E2F70011DF75 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		3B976CB21981E2F70011DF75 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		3B976CB31981E2F70011DF75 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
+		3B976CB41981E2F70011DF75 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		3B976CB51981E2F70011DF75 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		3B976CB61981E2F70011DF75 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		3B976CB71981E2F70011DF75 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		3B976CB81981E2F70011DF75 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		3B976CB91981E2F70011DF75 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		3B976CBA1981E2F70011DF75 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3BBA068E1940549C0049BFD3 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		3BBA068F1940549C0049BFD3 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
@@ -267,13 +278,6 @@
 		3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowCategoryTableViewCell.m; sourceTree = "<group>"; };
 		3BD13966190F6E46004F6785 /* ShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTableViewCell.h; sourceTree = "<group>"; };
 		3BD13967190F6E46004F6785 /* ShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewCell.m; sourceTree = "<group>"; };
-		3BDF82F519098B9000AD12D0 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		3BDF82F719098B9000AD12D0 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		3BDF82F819098B9000AD12D0 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		3BDF82F919098B9000AD12D0 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		3BDF82FA19098B9000AD12D0 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		3BDF82FB19098B9000AD12D0 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		3BDF82FC19098B9000AD12D0 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		3BDF833E190A74EE00AD12D0 /* DDXMLElementAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElementAdditions.h; sourceTree = "<group>"; };
 		3BDF833F190A74EE00AD12D0 /* DDXMLElementAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElementAdditions.m; sourceTree = "<group>"; };
 		3BDF8341190A74EE00AD12D0 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
@@ -371,13 +375,13 @@
 				F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */,
 				F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */,
 				F0A3C83715BB21AB000CD962 /* MobileCoreServices.framework in Frameworks */,
+				3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */,
 				3B0DA03C196AAB4000833FA5 /* libGoogleIMA3.a in Frameworks */,
-				3BDF82FD19098B9000AD12D0 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
 				F2A59C82B72E4E7F945E7BD1 /* libPods.a in Frameworks */,
-				3B581E931979C53A00F300C3 /* AdSupport.framework in Frameworks */,
+				3B976CBC1981E3590011DF75 /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +493,32 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3B976CAE1981E2F70011DF75 /* GoogleAnalyticsServicesiOS_3.08 */ = {
+			isa = PBXGroup;
+			children = (
+				3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */,
+				3B976CB01981E2F70011DF75 /* Library */,
+			);
+			path = GoogleAnalyticsServicesiOS_3.08;
+			sourceTree = "<group>";
+		};
+		3B976CB01981E2F70011DF75 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				3B976CB11981E2F70011DF75 /* GAI.h */,
+				3B976CB21981E2F70011DF75 /* GAIDictionaryBuilder.h */,
+				3B976CB31981E2F70011DF75 /* GAIEcommerceFields.h */,
+				3B976CB41981E2F70011DF75 /* GAIEcommerceProduct.h */,
+				3B976CB51981E2F70011DF75 /* GAIEcommerceProductAction.h */,
+				3B976CB61981E2F70011DF75 /* GAIEcommercePromotion.h */,
+				3B976CB71981E2F70011DF75 /* GAIFields.h */,
+				3B976CB81981E2F70011DF75 /* GAILogger.h */,
+				3B976CB91981E2F70011DF75 /* GAITrackedViewController.h */,
+				3B976CBA1981E2F70011DF75 /* GAITracker.h */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		3BC5253F1934890100596F92 /* CollectionItemView */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,28 +592,6 @@
 				116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */,
 			);
 			path = TableViewCell;
-			sourceTree = "<group>";
-		};
-		3BDF82F419098B9000AD12D0 /* GoogleAnalyticsServicesiOS_3.06 */ = {
-			isa = PBXGroup;
-			children = (
-				3BDF82F519098B9000AD12D0 /* libGoogleAnalyticsServices.a */,
-				3BDF82F619098B9000AD12D0 /* Library */,
-			);
-			path = GoogleAnalyticsServicesiOS_3.06;
-			sourceTree = "<group>";
-		};
-		3BDF82F619098B9000AD12D0 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				3BDF82F719098B9000AD12D0 /* GAI.h */,
-				3BDF82F819098B9000AD12D0 /* GAIDictionaryBuilder.h */,
-				3BDF82F919098B9000AD12D0 /* GAIFields.h */,
-				3BDF82FA19098B9000AD12D0 /* GAILogger.h */,
-				3BDF82FB19098B9000AD12D0 /* GAITrackedViewController.h */,
-				3BDF82FC19098B9000AD12D0 /* GAITracker.h */,
-			);
-			path = Library;
 			sourceTree = "<group>";
 		};
 		3BDF833C190A74EE00AD12D0 /* KissXML */ = {
@@ -796,10 +804,10 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				3B976CAE1981E2F70011DF75 /* GoogleAnalyticsServicesiOS_3.08 */,
 				3B0DA02E196AAB4000833FA5 /* GoogleIMASDK3 */,
 				3BDF8351190A78CC00AD12D0 /* DVVAST */,
 				3BDF833C190A74EE00AD12D0 /* KissXML */,
-				3BDF82F419098B9000AD12D0 /* GoogleAnalyticsServicesiOS_3.06 */,
 				F042D50D15BCA5590037E120 /* Base64 */,
 			);
 			path = Library;
@@ -1123,6 +1131,7 @@
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.06",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleIMASDK3",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.08",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -1131,8 +1140,8 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CAF8C6C6-7F10-45CD-A030-48C07708761C";
+				PROVISIONING_PROFILE = "860EE9EB-F5B5-4DC1-A38E-7B0AE159FDD4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "860EE9EB-F5B5-4DC1-A38E-7B0AE159FDD4";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -1147,7 +1156,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nattapong Tonprasert (3G244XJS59)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1172,6 +1181,7 @@
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.06",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleIMASDK3",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.08",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
