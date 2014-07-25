@@ -18,6 +18,7 @@
 		116816871941AB2E0013F5BB /* VideoPartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */; };
 		116ADEE419599C82009167E7 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116ADEE319599C82009167E7 /* WebViewController.m */; };
 		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
+		1179B5E2198269C7009A0F1F /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1179B5E1198269C7009A0F1F /* SettingViewController.m */; };
 		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */; };
@@ -148,6 +149,8 @@
 		116ADEE319599C82009167E7 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
 		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
+		1179B5E0198269C7009A0F1F /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		1179B5E1198269C7009A0F1F /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
 		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		11D011F41924726300216898 /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
@@ -429,6 +432,8 @@
 				3B15D22B17FD86FB006FA479 /* DetailViewController.m */,
 				117388B218C8364000D4F187 /* CMAccountViewController.h */,
 				117388B318C8364000D4F187 /* CMAccountViewController.m */,
+				1179B5E0198269C7009A0F1F /* SettingViewController.h */,
+				1179B5E1198269C7009A0F1F /* SettingViewController.m */,
 				11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */,
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
@@ -965,6 +970,7 @@
 				3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */,
 				11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */,
 				3B94AAFD1952AD4B00A0A5BD /* KapookAds.m in Sources */,
+				1179B5E2198269C7009A0F1F /* SettingViewController.m in Sources */,
 				1136AC4618D81DAD004BFE4D /* OTVShow.m in Sources */,
 				3BDF8370190A78CC00AD12D0 /* DVVideoPlayBreak.m in Sources */,
 				F0A3C86815BB258D000CD962 /* UserAgent.m in Sources */,

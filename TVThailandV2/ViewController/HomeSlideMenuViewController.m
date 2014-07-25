@@ -42,6 +42,7 @@ static NSString *favoriteCellIdentifier = @"favoriteCellIdentifier";
 static NSString *channelCellIdentifier = @"channelCellIdentifier";
 static NSString *cateCellIdentifier = @"cateCellIdentifier";
 static NSString *radioCellIdentifier = @"radioCellIdentifier";
+static NSString *settingCellIdentifier = @"settingCellIdentifier";
 static NSString *searchCellIdentifier = @"searchCellIdentifier";
 
 //** content segue Identifier **//
@@ -50,6 +51,7 @@ static NSString *FBContentSegue = @"FBContentSegue";
 static NSString *favoriteContentSegue = @"favoriteContentSegue";
 static NSString *channelContentSegue = @"channelContentSegue";
 static NSString *radioContentSegue = @"radioContentSegue";
+static NSString *settingContentSegue = @"settingContentSegue";
 static NSString *showListContentSegue = @"showListContentSegue";
 
 //** sending segue **//
@@ -61,7 +63,8 @@ static NSInteger secFacebook = 0;
 static NSInteger secFavorite = 1;
 static NSInteger secChannel = 2;
 static NSInteger secRadio = 3;
-static NSInteger secCategory = 4;
+static NSInteger secSetting = 4;
+static NSInteger secCategory = 5;
 
 
 -(void)tap:(id)sender{
@@ -179,7 +182,7 @@ static NSInteger secCategory = 4;
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
 
-        return [NSIndexPath indexPathForRow:0 inSection:4];
+        return [NSIndexPath indexPathForRow:0 inSection:5];
     
 }
 
@@ -197,6 +200,8 @@ static NSInteger secCategory = 4;
         return favoriteContentSegue;
     } else if (section == secChannel) {
         return channelContentSegue;
+    } else if (section == secSetting){
+        return settingContentSegue;
     } else {
         return homeContentSegue;
     }
@@ -216,7 +221,7 @@ static NSInteger secCategory = 4;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return 1;
     }
-    return 5;
+    return 6;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -228,7 +233,7 @@ static NSInteger secCategory = 4;
 //        return _searchShows.count;
 //    }
 
-    if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio) {
+    if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio || section == secSetting) {
         return 1;
     } else if (section == secCategory){
         return [_categoryList count];
@@ -271,9 +276,10 @@ static NSInteger secCategory = 4;
             CMUser *cm_user = [CMUser sharedInstance];
             
             if (cm_user.fbId == nil || [cm_user.fbId isEqualToString: @""]) {
-                [cellOfFB configureWithTitle:@"Login with Facebook"];
+                [cellOfFB configureWithTitle:@"Login"];
             }else{
-                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"Hello, %@", cm_user.firstName]];
+//                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"Hello, %@", cm_user.firstName]];
+                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"My Profile"]];
             }
             
             return cellOfFB;
@@ -289,6 +295,10 @@ static NSInteger secCategory = 4;
             UITableViewCell* cellOfRadio = [self.tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
             cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
             return cellOfRadio;
+        } else if (section == secSetting){
+            UITableViewCell* cellOfSetting = [self.tableView dequeueReusableCellWithIdentifier:settingCellIdentifier];
+            cellOfSetting.selectedBackgroundView = selectedBackgroundViewForCell;
+            return cellOfSetting;
         } else if (section == secCategory){
             ShowCategoryTableViewCell *cellOfCate = [self.tableView dequeueReusableCellWithIdentifier:cateCellIdentifier];
             cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
@@ -340,6 +350,10 @@ static NSInteger secCategory = 4;
         
             [self performSegueWithIdentifier:FBContentSegue sender:nil];
         
+        }else if (section == secSetting) {
+            
+            [self performSegueWithIdentifier:settingContentSegue sender:nil];
+            
         }
 //        else {
 //            [super tableView:tableView didSelectRowAtIndexPath:indexPath];
@@ -446,6 +460,8 @@ static NSInteger secCategory = 4;
         return underline;
     } else if (section == secRadio){
         return underline;
+    } else if (section == secSetting){
+        return underline;
     } else if (section == secCategory){
         return view;
     } else {
@@ -463,6 +479,8 @@ static NSInteger secCategory = 4;
     } else if (section == secChannel){
         return 0;
     } else if (section == secRadio){
+        return 0;
+    } else if (section == secSetting){
         return 0;
     } else if (section == secCategory){
         return 10;
