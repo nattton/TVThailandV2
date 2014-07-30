@@ -19,9 +19,11 @@
 #import "AppDelegate.h"
 
 #import "FavoriteViewController.h"
+#import "SearchSlideMenuViewController.h"
 
 @interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *searchView;
 
 @end
 
@@ -32,6 +34,8 @@
  UIRefreshControl *_refreshControl;
  ShowCategoryList *_categoryList;
  NSArray *_searchShows;
+ UIView *_searchUIView;
+    NSInteger *_numSection;
     
 }
 
@@ -53,6 +57,7 @@ static NSString *channelContentSegue = @"channelContentSegue";
 static NSString *radioContentSegue = @"radioContentSegue";
 static NSString *settingContentSegue = @"settingContentSegue";
 static NSString *showListContentSegue = @"showListContentSegue";
+static NSString *searchMenuSegue = @"searchMenuSegue";
 
 //** sending segue **//
 static NSString *showListSegue = @"ShowListSegue";
@@ -65,7 +70,7 @@ static NSInteger secChannel = 2;
 static NSInteger secRadio = 3;
 static NSInteger secSetting = 4;
 static NSInteger secCategory = 5;
-
+const NSInteger totalSection = 6;
 
 -(void)tap:(id)sender{
     
@@ -89,6 +94,10 @@ static NSInteger secCategory = 5;
 //    self.tableView.tableHeaderView = search;
 
     [SVProgressHUD showWithStatus:@"Loading..."];
+    _numSection = totalSection;
+    
+    UITapGestureRecognizer *searchTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchTapped)];
+    [self.searchView addGestureRecognizer:searchTapRecognizer];
     
     _categoryList = [[ShowCategoryList alloc] initWithWhatsNew];
     
@@ -100,7 +109,9 @@ static NSInteger secCategory = 5;
     [self.tableView addSubview:_refreshControl];
     self.tableView.separatorColor = [UIColor clearColor];
     
+    
     [self reload];
+    
 
 }
 
@@ -152,6 +163,35 @@ static NSInteger secCategory = 5;
 
 -(BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     return YES;
+}
+
+
+- (void)searchTapped {
+    DLog(@"!!!!!!!!!!!!!!TAPPED");
+//    [self performSegueWithIdentifier:searchMenuSegue sender:nil];
+    
+//    UIViewController *searchViewController = [[UIViewController alloc] init];
+    if (_searchUIView == nil) {
+        _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 90, 260, self.tableView.frame.size.height)];
+        _searchUIView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_searchUIView];
+        _searchUIView.hidden = YES;
+        _numSection = totalSection;
+    }
+    
+    if (_searchUIView.hidden) {
+        _searchUIView.hidden = NO;
+        _numSection = 0;
+    }else{
+        _searchUIView.hidden = YES;
+        _numSection = totalSection;
+    }
+    
+    [self.tableView reloadData];
+    
+//    [self.navigationController pushViewController:searchViewController animated:YES];
+    
+
 }
 
 #pragma mark -
@@ -218,10 +258,10 @@ static NSInteger secCategory = 5;
 #pragma mark UITableViewDataSource
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return 1;
-    }
-    return 6;
+//    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        return 1;
+//    }
+    return _numSection;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -384,6 +424,7 @@ static NSInteger secCategory = 5;
         controller.navigationItem.title = selectedCat.title;
         [controller reloadWithMode:kCategory Id:selectedCat.Id];
     }
+    
     
 }
 
