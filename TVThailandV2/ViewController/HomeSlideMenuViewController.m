@@ -19,11 +19,18 @@
 #import "AppDelegate.h"
 
 #import "FavoriteViewController.h"
-#import "SearchSlideMenuViewController.h"
 
-@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
+#import "EpisodePartViewController.h"
+#import "OTVEpisodePartViewController.h"
+
+@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *searchView;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (weak, nonatomic) IBOutlet UIButton *backToSlideMenuButton;
+@property (weak, nonatomic) IBOutlet UIButton *clearSearchFieldButton;
+@property (weak, nonatomic) IBOutlet UILabel *tvThailandLabel;
+@property (weak, nonatomic) IBOutlet UILabel *searchLabel;
 
 @end
 
@@ -35,7 +42,9 @@
  ShowCategoryList *_categoryList;
  NSArray *_searchShows;
  UIView *_searchUIView;
-    NSInteger *_numSection;
+ NSInteger *_numSection;
+    
+ UITableView *_searchTable;
     
 }
 
@@ -59,6 +68,10 @@ static NSString *settingContentSegue = @"settingContentSegue";
 static NSString *showListContentSegue = @"showListContentSegue";
 static NSString *searchMenuSegue = @"searchMenuSegue";
 
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
+
+
 //** sending segue **//
 static NSString *showListSegue = @"ShowListSegue";
 
@@ -71,6 +84,9 @@ static NSInteger secRadio = 3;
 static NSInteger secSetting = 4;
 static NSInteger secCategory = 5;
 const NSInteger totalSection = 6;
+
+/** TAG of tableview **/
+static NSInteger tagSearchTable = 999;
 
 -(void)tap:(id)sender{
     
@@ -94,10 +110,15 @@ const NSInteger totalSection = 6;
 //    self.tableView.tableHeaderView = search;
 
     [SVProgressHUD showWithStatus:@"Loading..."];
-    _numSection = totalSection;
     
-    UITapGestureRecognizer *searchTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchTapped)];
-    [self.searchView addGestureRecognizer:searchTapRecognizer];
+    _numSection = totalSection;
+    self.searchTextField.delegate = self;
+    [self.searchTextField addTarget:self
+                             action:@selector(textFieldDidChange)
+        forControlEvents:UIControlEventEditingChanged];
+    
+//    UITapGestureRecognizer *searchTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchTapped)];
+//    [self.searchView addGestureRecognizer:searchTapRecognizer];
     
     _categoryList = [[ShowCategoryList alloc] initWithWhatsNew];
     
@@ -165,34 +186,112 @@ const NSInteger totalSection = 6;
     return YES;
 }
 
+#pragma mark - Search UI
+//- (void)searchTapped {
+//    
+////    [self performSegueWithIdentifier:searchMenuSegue sender:nil];
+//    
+////    UIViewController *searchViewController = [[UIViewController alloc] init];
+//    if (_searchUIView == nil) {
+//        _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 260, self.tableView.frame.size.height)];
+//        _searchUIView.backgroundColor = [UIColor whiteColor];
+//        [self.view addSubview:_searchUIView];
+//        
+//        
+//        _searchUIView.hidden = YES;
+//        _numSection = totalSection;
+//        
+//    }
+//    
+//    if (_searchUIView.hidden) {
+//        _searchUIView.hidden = NO;
+//        _numSection = 0;
+//    }else{
+//        _searchUIView.hidden = YES;
+//        _numSection = totalSection;
+//    }
+//    
+//    [self.tableView reloadData];
+//    
+////    [self.navigationController pushViewController:searchViewController animated:YES];
+//    
+//
+//}
 
-- (void)searchTapped {
-    DLog(@"!!!!!!!!!!!!!!TAPPED");
-//    [self performSegueWithIdentifier:searchMenuSegue sender:nil];
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
-//    UIViewController *searchViewController = [[UIViewController alloc] init];
-    if (_searchUIView == nil) {
-        _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 90, 260, self.tableView.frame.size.height)];
+    if (_searchUIView == nil  && _searchTable == nil) {
+        _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 260, self.tableView.frame.size.height)];
         _searchUIView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_searchUIView];
-        _searchUIView.hidden = YES;
-        _numSection = totalSection;
+        
+        _searchTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 260, self.tableView.frame.size.height - 90) style:UITableViewStylePlain];
+        _searchTable.tag = tagSearchTable;
+        _searchTable.delegate = self;
+        _searchTable.dataSource = self;
+        [_searchTable setBackgroundColor:[UIColor clearColor]];
+		[_searchUIView addSubview:_searchTable];
+        
     }
     
-    if (_searchUIView.hidden) {
-        _searchUIView.hidden = NO;
-        _numSection = 0;
-    }else{
-        _searchUIView.hidden = YES;
-        _numSection = totalSection;
+    self.tvThailandLabel.hidden = YES;
+    self.backToSlideMenuButton.hidden = NO;
+    self.searchLabel.hidden = NO;
+    
+    _searchUIView.hidden = NO;
+    _numSection = 0;
+    [self.tableView reloadData];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+   
+    return YES;
+}
+
+- (void)textFieldDidChange{
+    
+    if ([self.searchTextField.text length] == 0) {
+        self.clearSearchFieldButton.hidden = YES;
+    } else {
+        self.clearSearchFieldButton.hidden = NO;
     }
     
+    [self search:self.searchTextField.text];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.searchTextField endEditing:YES];
+    return YES;
+}
+
+- (IBAction)backToSlideMenuTapped:(id)sender {
+    self.searchTextField.text = @"";
+    self.clearSearchFieldButton.hidden = YES;
+    
+    self.tvThailandLabel.hidden = NO;
+    self.backToSlideMenuButton.hidden = YES;
+    self.searchLabel.hidden = YES;
+    
+    _searchUIView.hidden = YES;
+    _numSection = totalSection;
     [self.tableView reloadData];
     
-//    [self.navigationController pushViewController:searchViewController animated:YES];
-    
-
+    _searchShows = nil;
+    [_searchTable reloadData];
+    [self.searchTextField resignFirstResponder];
 }
+
+- (IBAction)clearTextFieldTapped:(id)sender {
+    self.searchTextField.text = @"";
+    self.clearSearchFieldButton.hidden = YES;
+    _searchShows = nil;
+    [_searchTable reloadData];
+}
+
+
 
 #pragma mark -
 #pragma mark SASlideMenuDataSource
@@ -258,9 +357,10 @@ const NSInteger totalSection = 6;
 #pragma mark UITableViewDataSource
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        return 1;
-//    }
+    if (tableView.tag == tagSearchTable) {
+        return 1;
+    }
+    
     return _numSection;
 }
 
@@ -269,9 +369,9 @@ const NSInteger totalSection = 6;
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        return _searchShows.count;
-//    }
+    if (tableView.tag == tagSearchTable) {
+        return _searchShows.count;
+    }
 
     if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio || section == secSetting) {
         return 1;
@@ -295,11 +395,13 @@ const NSInteger totalSection = 6;
     NSInteger section = indexPath.section;
     
 
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView.tag == tagSearchTable) {
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:searchCellIdentifier];
+            [cell.textLabel setTextColor:[UIColor darkGrayColor]];
         }
+        
         Show *show = _searchShows[indexPath.row];
         cell.textLabel.text = show.title;
         
@@ -368,7 +470,22 @@ const NSInteger totalSection = 6;
    
 
     NSInteger section = indexPath.section;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView.tag == tagSearchTable) {
+        
+      [self.searchTextField endEditing:YES];
+        
+        Show *show = _searchShows[indexPath.row];
+        
+        if (show != nil) {
+            if (!(floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) && show.isOTV) {
+                [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+            } else {
+                [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+            }
+        }
+        
+        
+        
     } else {
         if (section == secCategory) {
         
@@ -403,9 +520,10 @@ const NSInteger totalSection = 6;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    UINavigationController *content = segue.destinationViewController;
+    
     if ([segue.identifier isEqualToString:showListContentSegue]) {
 
-        UINavigationController *content = segue.destinationViewController;
         ShowListViewController* controller = [content.viewControllers firstObject];
         
         ShowCategory *selectedCat;
@@ -423,8 +541,15 @@ const NSInteger totalSection = 6;
         
         controller.navigationItem.title = selectedCat.title;
         [controller reloadWithMode:kCategory Id:selectedCat.Id];
+    } else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
+        Show *show = (Show *)sender;
+        EpisodePartViewController *episodeAndPartListViewController = [content.viewControllers firstObject];
+        episodeAndPartListViewController.show = show;
+    } else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
+        Show *show = (Show *)sender;
+        OTVEpisodePartViewController *otvEpAndPartViewController = [content.viewControllers firstObject];
+        otvEpAndPartViewController.show = show;
     }
-    
     
 }
 
@@ -439,7 +564,9 @@ const NSInteger totalSection = 6;
     if (![keyword isEqualToString:@""]) {
         [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
             _searchShows = tempShows;
-            [self.searchDisplayController.searchResultsTableView reloadData];
+           
+//            [self.searchDisplayController.searchResultsTableView reloadData];
+            [_searchTable reloadData];
         }];
     }
 }
@@ -528,6 +655,14 @@ const NSInteger totalSection = 6;
     } else {
         return 0;
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    if (self.tvThailandLabel.hidden && [self.searchTextField isEditing]) {
+        [self.searchTextField endEditing:YES];
+    }
+
 }
 
 
