@@ -23,7 +23,7 @@
 #import "EpisodePartViewController.h"
 #import "OTVEpisodePartViewController.h"
 
-@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *searchView;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -555,10 +555,6 @@ static NSInteger tagSearchTable = 999;
 
 #pragma mark - Search
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self search:searchString];
-    return YES;
-}
 
 - (void)search:(NSString *)keyword {
     if (![keyword isEqualToString:@""]) {
@@ -570,15 +566,7 @@ static NSInteger tagSearchTable = 999;
         }];
     }
 }
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
-{
-//    [self.searchBarView setFrame:CGRectMake(0, 36, self.searchBarView.frame.size.width, self.searchBarView.frame.size.height)];
-}
 
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-//    [self.searchBarView setFrame:CGRectMake(0, 36, self.searchBarView.frame.size.width, self.searchBarView.frame.size.height)];
-}
 
 
 

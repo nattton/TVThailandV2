@@ -1012,7 +1012,6 @@
                     <connections>
                         <outlet property="backToSlideMenuButton" destination="Rlw-kz-9nE" id="fWo-ig-k6H"/>
                         <outlet property="clearSearchFieldButton" destination="K97-Sk-3GT" id="VCP-Lu-xoG"/>
-                        <outlet property="searchDisplayController" destination="o2G-vj-Dlt" id="ksl-mD-tkM"/>
                         <outlet property="searchLabel" destination="qVj-zf-shu" id="OsD-Pn-4lF"/>
                         <outlet property="searchTextField" destination="ot1-4l-LkP" id="CMC-oM-Fgd"/>
                         <outlet property="searchView" destination="Idc-c2-5mP" id="6xs-Sf-Ese"/>
@@ -1029,14 +1028,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fg9-Ep-eSU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="o2G-vj-Dlt">
-                    <connections>
-                        <outlet property="delegate" destination="OYw-CO-DB2" id="sdX-w0-1q2"/>
-                        <outlet property="searchContentsController" destination="OYw-CO-DB2" id="lmj-iC-drg"/>
-                        <outlet property="searchResultsDataSource" destination="OYw-CO-DB2" id="NPB-sg-fri"/>
-                        <outlet property="searchResultsDelegate" destination="OYw-CO-DB2" id="av5-1K-VNI"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-627" y="-181"/>
         </scene>
@@ -1611,17 +1602,9 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="83" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7lr-cT-TD7">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <searchBar key="tableHeaderView" contentMode="redraw" id="5fh-4j-10S">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="4ei-xy-CaA" id="O74-H4-xa5"/>
-                                            </connections>
-                                        </searchBar>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowCellIdentifier" rowHeight="83" id="Cah-ur-3eN" customClass="ShowTableViewCell">
-                                                <rect key="frame" x="0.0" y="66" width="320" height="83"/>
+                                                <rect key="frame" x="0.0" y="22" width="320" height="83"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cah-ur-3eN" id="NqD-F2-Lri">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
@@ -1779,7 +1762,6 @@
                         <outlet property="alertTitleView" destination="QR5-Rc-rop" id="T40-q4-JIA"/>
                         <outlet property="goToTopButton" destination="iIP-9y-zB8" id="CiZ-Vk-Hpo"/>
                         <outlet property="mkAdView" destination="7DL-Xj-FtK" id="kk6-BW-0XY"/>
-                        <outlet property="searchDisplayController" destination="UcB-93-wBL" id="Yon-WG-jNM"/>
                         <outlet property="tableView" destination="7lr-cT-TD7" id="6uD-eB-y3M"/>
                         <segue destination="Jb5-3U-4hm" kind="push" identifier="EPAndPartIdentifier" id="rKb-JG-vfa"/>
                         <segue destination="dF1-92-GZN" kind="push" identifier="OTVEPAndPartIdentifier" id="gcw-2o-Hcb"/>
@@ -1787,15 +1769,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZV4-Fk-uyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="UcB-93-wBL">
-                    <connections>
-                        <outlet property="delegate" destination="4ei-xy-CaA" id="4Lx-J5-0sb"/>
-                        <outlet property="searchBar" destination="5fh-4j-10S" id="roR-hA-afq"/>
-                        <outlet property="searchContentsController" destination="4ei-xy-CaA" id="HT9-IE-tkj"/>
-                        <outlet property="searchResultsDataSource" destination="4ei-xy-CaA" id="aJs-kN-TOh"/>
-                        <outlet property="searchResultsDelegate" destination="4ei-xy-CaA" id="u1Y-Ih-Jtm"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="577" y="510"/>
         </scene>
@@ -2296,7 +2269,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Ssr-aO-vE5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mpZ-3U-LXi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="l5H-xf-ANw" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="xIj-aB-3ON"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="F1F-pv-PPZ">
@@ -2311,13 +2283,13 @@
                         <segue destination="Jb5-3U-4hm" kind="relationship" relationship="rootViewController" id="mau-OU-PBV"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpZ-3U-LXi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1097" y="-415"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xcn-ZL-L4t">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RJd-ot-nBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="bQH-7w-zT4" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="wUi-L9-SLN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2l-Ht-3iS">
@@ -2332,6 +2304,7 @@
                         <segue destination="dF1-92-GZN" kind="relationship" relationship="rootViewController" id="BKI-gq-IuC"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RJd-ot-nBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1125" y="1681"/>
         </scene>
@@ -2366,11 +2339,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="U1O-u5-wMC"/>
-        <segue reference="mau-OU-PBV"/>
-        <segue reference="BKI-gq-IuC"/>
-        <segue reference="tRJ-5v-ocZ"/>
         <segue reference="46G-Qc-OaU"/>
-        <segue reference="saQ-9b-nco"/>
+        <segue reference="rKb-JG-vfa"/>
+        <segue reference="tRJ-5v-ocZ"/>
+        <segue reference="551-Zy-Guf"/>
+        <segue reference="gcw-2o-Hcb"/>
+        <segue reference="U1O-u5-wMC"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -32,7 +32,7 @@
 
 #import "Channel.h"
 
-@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIScrollViewDelegate>
+@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -441,43 +441,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     
     [self reload];
-}
-
-
-#pragma mark - Search
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self search:searchString];
-    return YES;
-}
-
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-//    self.searchDisplayController.searchBar.hidden = NO;
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
-//        [UIView animateWithDuration:0.25 animations:^{
-//            for (UIView *subview in self.view.subviews)
-//                subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height);
-//        }];
-//    }
-}
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
-//    self.searchDisplayController.searchBar.hidden = YES;
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//        [UIView animateWithDuration:0.25 animations:^{
-//            for (UIView *subview in self.view.subviews)
-//                subview.transform = CGAffineTransformIdentity;
-//        }];
-//    }
-}
-
-- (void)search:(NSString *)keyword {
-    if (![keyword isEqualToString:@""]) {
-        [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
-            _searchShows = tempShows;
-            [self.searchDisplayController.searchResultsTableView reloadData];
-        }];
-    }
 }
 
 - (void)testInternetConnection

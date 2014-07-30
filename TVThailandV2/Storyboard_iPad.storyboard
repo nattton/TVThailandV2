@@ -1505,17 +1505,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <searchBar key="tableHeaderView" contentMode="redraw" id="0aM-qb-zI3">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="J81-OE-jis" id="uKT-1C-rYs"/>
-                                            </connections>
-                                        </searchBar>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowCellIdentifier" rowHeight="144" id="K05-Aa-Wbv" customClass="ShowTableViewCell">
-                                                <rect key="frame" x="0.0" y="66" width="768" height="144"/>
+                                                <rect key="frame" x="0.0" y="22" width="768" height="144"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K05-Aa-Wbv" id="A1w-8Q-6dM">
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="143"/>
@@ -1666,7 +1658,6 @@
                         <outlet property="alertTitleView" destination="u7Z-wl-ZTP" id="PeQ-ae-iSU"/>
                         <outlet property="goToTopButton" destination="gJL-RV-wcD" id="rma-t7-cpq"/>
                         <outlet property="mkAdView" destination="7Lm-xn-TCV" id="kjZ-rR-5ud"/>
-                        <outlet property="searchDisplayController" destination="FOc-wy-v8g" id="yb2-Rb-TSd"/>
                         <outlet property="tableView" destination="nch-fU-EQ6" id="Ft6-oE-z06"/>
                         <segue destination="j48-3v-fnT" kind="push" identifier="EPAndPartIdentifier" id="EJu-lf-Pgw"/>
                         <segue destination="aBE-f4-3nf" kind="push" identifier="OTVEPAndPartIdentifier" id="9af-dL-MCq"/>
@@ -1674,15 +1665,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kC4-ji-0eY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="FOc-wy-v8g">
-                    <connections>
-                        <outlet property="delegate" destination="J81-OE-jis" id="1GJ-6h-f4E"/>
-                        <outlet property="searchBar" destination="0aM-qb-zI3" id="HmK-ML-XNM"/>
-                        <outlet property="searchContentsController" destination="J81-OE-jis" id="AA8-0f-ptI"/>
-                        <outlet property="searchResultsDataSource" destination="J81-OE-jis" id="2mR-vb-kAS"/>
-                        <outlet property="searchResultsDelegate" destination="J81-OE-jis" id="TeT-eI-AmL"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="818" y="1081"/>
         </scene>
@@ -2377,11 +2359,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="oua-PY-uWB"/>
+        <segue reference="qIP-8M-6fw"/>
+        <segue reference="9af-dL-MCq"/>
+        <segue reference="EJu-lf-Pgw"/>
+        <segue reference="lwT-fV-NuI"/>
         <segue reference="idi-Wp-ZFY"/>
         <segue reference="pw3-vt-0Bo"/>
-        <segue reference="Fnv-34-7PY"/>
-        <segue reference="qIP-8M-6fw"/>
-        <segue reference="lwT-fV-NuI"/>
     </inferredMetricsTieBreakers>
 </document>
