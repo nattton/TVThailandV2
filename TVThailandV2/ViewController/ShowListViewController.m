@@ -111,6 +111,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     }
     
+    UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonTapped:)];
+    
+    self.navigationItem.rightBarButtonItem = searchBarButton;
+    
     [self setUpGoToTop];
     
     self.mkAdView.parentViewController = self;
@@ -173,6 +177,9 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 }
 - (IBAction)searchButtonTapped:(id)sender {
     
+    [self.homeSlideMenuViewController revealLeftMenu];
+    [self.homeSlideMenuViewController searchTapped];
+    [self.homeSlideMenuViewController.searchTextField becomeFirstResponder];
     
 }
 

@@ -26,7 +26,6 @@
 @interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *searchView;
-@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIButton *backToSlideMenuButton;
 @property (weak, nonatomic) IBOutlet UIButton *clearSearchFieldButton;
 @property (weak, nonatomic) IBOutlet UILabel *tvThailandLabel;
@@ -187,39 +186,7 @@ static NSInteger tagSearchTable = 999;
 }
 
 #pragma mark - Search UI
-//- (void)searchTapped {
-//    
-////    [self performSegueWithIdentifier:searchMenuSegue sender:nil];
-//    
-////    UIViewController *searchViewController = [[UIViewController alloc] init];
-//    if (_searchUIView == nil) {
-//        _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 260, self.tableView.frame.size.height)];
-//        _searchUIView.backgroundColor = [UIColor whiteColor];
-//        [self.view addSubview:_searchUIView];
-//        
-//        
-//        _searchUIView.hidden = YES;
-//        _numSection = totalSection;
-//        
-//    }
-//    
-//    if (_searchUIView.hidden) {
-//        _searchUIView.hidden = NO;
-//        _numSection = 0;
-//    }else{
-//        _searchUIView.hidden = YES;
-//        _numSection = totalSection;
-//    }
-//    
-//    [self.tableView reloadData];
-//    
-////    [self.navigationController pushViewController:searchViewController animated:YES];
-//    
-//
-//}
-
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+- (void)searchTapped {
     
     if (_searchUIView == nil  && _searchTable == nil) {
         _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 260, self.tableView.frame.size.height)];
@@ -242,6 +209,15 @@ static NSInteger tagSearchTable = 999;
     _searchUIView.hidden = NO;
     _numSection = 0;
     [self.tableView reloadData];
+    
+
+}
+
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
+    [self searchTapped];
+    
     return YES;
 }
 
@@ -539,8 +515,10 @@ static NSInteger tagSearchTable = 999;
             selectedCat = _categoryList[0];
         }
         
+        controller.homeSlideMenuViewController = self;
         controller.navigationItem.title = selectedCat.title;
         [controller reloadWithMode:kCategory Id:selectedCat.Id];
+        
     } else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
         Show *show = (Show *)sender;
         EpisodePartViewController *episodeAndPartListViewController = [content.viewControllers firstObject];

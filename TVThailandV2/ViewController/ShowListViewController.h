@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "SASlideMenuViewController.h"
+#import "HomeSlideMenuViewController.h"
 
 typedef enum {
     kWhatsNew = 0,
@@ -20,6 +21,7 @@ typedef enum {
 @interface ShowListViewController : UIViewController
 
 @property (nonatomic, weak) Channel *channel;
+@property (nonatomic, weak) HomeSlideMenuViewController *homeSlideMenuViewController;
 
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id;
 

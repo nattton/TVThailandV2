@@ -1749,14 +1749,7 @@
                             <constraint firstAttribute="centerX" secondItem="iIP-9y-zB8" secondAttribute="centerX" id="ymf-og-adr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Categories" id="G5G-Fc-pkh">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="W03-Vp-K6s">
-                            <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="searchButtonTapped:" destination="4ei-xy-CaA" id="dWR-Hw-eBo"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Categories" id="G5G-Fc-pkh"/>
                     <connections>
                         <outlet property="alertTitle" destination="9GR-gy-Rem" id="xlK-Jk-cBX"/>
                         <outlet property="alertTitleView" destination="QR5-Rc-rop" id="T40-q4-JIA"/>
