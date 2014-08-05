@@ -553,6 +553,7 @@ static NSInteger tagSearchTable = 999;
 
 -(void) slideMenuWillSlideIn:(UINavigationController *)selectedContent{
 //    NSLog(@"slideMenuWillSlideIn");
+    [self.searchTextField endEditing:YES];
 }
 -(void) slideMenuDidSlideIn:(UINavigationController *)selectedContent{
 //    NSLog(@"slideMenuDidSlideIn");
