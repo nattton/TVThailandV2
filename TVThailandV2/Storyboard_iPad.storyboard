@@ -230,7 +230,7 @@
                                             <constraint firstAttribute="width" constant="55" id="5Vt-33-FgP"/>
                                             <constraint firstAttribute="height" constant="55" id="AVC-qV-dEc"/>
                                         </constraints>
-                                        <state key="normal" image="open_with_web_btn">
+                                        <state key="normal" image="open_with_web">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -2345,7 +2345,7 @@
         <image name="icb_info" width="30" height="30"/>
         <image name="icon-pause" width="128" height="128"/>
         <image name="icon-play" width="64" height="64"/>
-        <image name="open_with_web_btn" width="53" height="53"/>
+        <image name="open_with_web" width="64" height="64"/>
         <image name="placeholder_hi" width="128" height="128"/>
         <image name="play_alt" width="69" height="69"/>
         <image name="play_video_btn" width="97" height="97"/>
