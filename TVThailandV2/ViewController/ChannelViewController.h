@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeSlideMenuViewController.h"
 
 @interface ChannelViewController : UICollectionViewController
+
+@property (nonatomic, weak) HomeSlideMenuViewController *homeSlideMenuViewController;
 
 @end

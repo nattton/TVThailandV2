@@ -203,19 +203,17 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     _mode = mode;
     _Id = Id;
     
-    if (_mode == kChannel) {
-        if (self.channel != nil && self.channel.videoUrl != nil && ![self.channel.videoUrl isEqualToString:@""]) {
-            UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
-            liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
-            self.navigationItem.rightBarButtonItem = liveButton;
-        }else{
-            self.navigationItem.rightBarButtonItem = nil;
-        }
-    }else if(_mode == kCategory){
-         self.navigationItem.rightBarButtonItem = nil;
-    }
-
-    
+//    if (_mode == kChannel) {
+//        if (self.channel != nil && self.channel.videoUrl != nil && ![self.channel.videoUrl isEqualToString:@""]) {
+//            UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
+//            liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
+//            self.navigationItem.rightBarButtonItem = liveButton;
+//        }else{
+//            self.navigationItem.rightBarButtonItem = nil;
+//        }
+//    }else if(_mode == kCategory){
+//         self.navigationItem.rightBarButtonItem = nil;
+//    }
 
 }
 

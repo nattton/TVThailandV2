@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 
 #import "ShowListViewController.h"
+#import "ChannelViewController.h"
 #import "ShowCategory.h"
 #import "Show.h"
 #import "CMUser.h"
@@ -500,7 +501,7 @@ static NSInteger tagSearchTable = 999;
     
     if ([segue.identifier isEqualToString:showListContentSegue]) {
 
-        ShowListViewController* controller = [content.viewControllers firstObject];
+        ShowListViewController* showListController = [content.viewControllers firstObject];
         
         ShowCategory *selectedCat;
         if ([sender isKindOfClass:[ShowCategory class]]) {
@@ -515,10 +516,13 @@ static NSInteger tagSearchTable = 999;
             selectedCat = _categoryList[0];
         }
         
-        controller.homeSlideMenuViewController = self;
-        controller.navigationItem.title = selectedCat.title;
-        [controller reloadWithMode:kCategory Id:selectedCat.Id];
+        showListController.homeSlideMenuViewController = self;
+        showListController.navigationItem.title = selectedCat.title;
+        [showListController reloadWithMode:kCategory Id:selectedCat.Id];
         
+    } else if ([segue.identifier isEqualToString:channelContentSegue]) {
+        ChannelViewController* channelController = [content.viewControllers firstObject];
+        channelController.homeSlideMenuViewController = self;
     } else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
         Show *show = (Show *)sender;
         EpisodePartViewController *episodeAndPartListViewController = [content.viewControllers firstObject];

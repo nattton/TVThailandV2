@@ -129,6 +129,8 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:showListSegue]) {
         ShowListViewController *showListViewController = segue.destinationViewController;
+        showListViewController.homeSlideMenuViewController = self.homeSlideMenuViewController;
+        
         if (sender) {
             Channel *channel = (Channel *)sender;
             showListViewController.channel = channel;
