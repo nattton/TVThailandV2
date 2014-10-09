@@ -1518,8 +1518,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
-            self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-            self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+            self.player.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+            self.adsManager.adView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
