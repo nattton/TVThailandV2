@@ -476,12 +476,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString *clipUrl = nil;
-    NSString *varKey = @"defaultClip";
+    NSString *varKey = @"{ mp4:  \"http";
     NSRange indexStart = [responseDataString rangeOfString:varKey];
     if (indexStart.location != NSNotFound)
     {
-        clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length];
-        NSRange indexEnd = [clipUrl rangeOfString:@";"];
+        clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length - 4];
+        NSRange indexEnd = [clipUrl rangeOfString:@"}"];
         if (indexEnd.location != NSNotFound)
         {
             clipUrl = [clipUrl substringToIndex:indexEnd.location];
