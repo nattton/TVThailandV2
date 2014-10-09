@@ -49,6 +49,8 @@
     }];
 }
 
+- (void)canRotate { }
+
 /*
 #pragma mark - Navigation
 

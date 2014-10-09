@@ -65,7 +65,7 @@
     ? [NSString stringWithFormat:@"Ch7/content/%@/%@", kOTV_APP_ID, showID]
     : [NSString stringWithFormat:@"Content/index/%@/%@/%@/%@/", kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
     
-//    NSLog(@"URL=====%@", url);
+    DLog(@"OTV Episode URL ===== http://api.otv.co.th/api/index.php/%@", url);
     
     [client GET:url
      parameters:nil
@@ -78,27 +78,34 @@
             NSArray *jEpisodes = [responseObject valueForKey:@"contentList"];
             NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[jEpisodes count]];
             
+            
+            
             for (NSDictionary *dictEp in jEpisodes){
                 
                 
                 OTVEpisode *episode = [[OTVEpisode alloc]initWithDictionary:dictEp];
                 
-                //                NSLog(@"EP:%@, Part_count: %d", episode.date , [episode.parts count]);
-                
-                NSInteger count = 0;
-                NSString *vast_url_temp = @"";
                 NSMutableArray *mutableParts = [NSMutableArray arrayWithCapacity:[episode.parts count]];
+                OTVPart *part;
                 for (NSDictionary *dictPart in [episode parts]) {
-                    OTVPart *part = [[OTVPart alloc]initWithDictionary:dictPart];
                     
-                    if ((count+1)%2 == 0) {
-                        part.vastURL = vast_url_temp;
-                        [mutableParts addObject:part ];
-                        //                        NSLog(@"Part: %@",[part description]);
-                    } else {
-                        vast_url_temp = part.streamURL;
+                    if (!part) {
+                            part = [[OTVPart alloc]init];
                     }
-                    count++;
+                   
+                    NSString *mediaCode = dictPart[@"media_code"] != nil ? dictPart[@"media_code"] : @"";
+                    
+                    if ([@"1001"  isEqual: mediaCode]) {
+                        part.vastURL = ( dictPart[@"stream_url"] != nil) ? dictPart[@"stream_url"]: @"";
+                        part.vastType = (dictPart[@"vast_type"] != nil) ? dictPart[@"vast_type"]: @"";
+                    } else if ([@"1000"  isEqual: mediaCode] || [@"1002"  isEqual: mediaCode]) {
+                        
+                        [part setPartContent:dictPart];
+                        [mutableParts addObject:part ];
+                        part = nil;
+                    }
+                    
+                
                 }
                 
                 if ([cateName isEqualToString:kOTV_CH7]) {

@@ -12,4 +12,8 @@
 
 @interface HomeSlideMenuViewController : SASlideMenuViewController
 
+- (void)searchTapped;
+
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+
 @end

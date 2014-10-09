@@ -98,36 +98,40 @@ static NSString *kMediaFileXMP4 = @"video/x-mp4";
          NSError *error = nil;
          
          DVVideoAdServingTemplate *adTemplate = [[DVVideoAdServingTemplate alloc] initWithData:data error:&error];
-         NSArray *ads = adTemplate.ads;
-         for (id ad in ads)
-         {
-             DLog(@"%@", NSStringFromClass([ad class]));
-             if ([@"DVInlineVideoAd" isEqualToString:NSStringFromClass([ad class])])
+         if (adTemplate) {
+             NSArray *ads = adTemplate.ads;
+             for (id ad in ads)
              {
-                 self.ad = (DVInlineVideoAd *)ad;
-             }
-             else if ([@"DVWrapperVideoAd" isEqualToString:NSStringFromClass([ad class])])
-             {
-                 DVWrapperVideoAd *wrapperAd = (DVWrapperVideoAd *)ad;
-                 
-                 [self loadWithVastTagURL:[wrapperAd.URL absoluteString]];
-                 
-                 return;
-             }
-             
-             if (self.delegate && [self.delegate respondsToSelector:@selector(didRequestVideoAds:success:)]) {
-                 
-                 if (self.ad)
+                 DLog(@"%@", NSStringFromClass([ad class]));
+                 if ([@"DVInlineVideoAd" isEqualToString:NSStringFromClass([ad class])])
                  {
-                     [self.delegate didRequestVideoAds:self success:YES];
+                     self.ad = (DVInlineVideoAd *)ad;
                  }
-                 else
+                 else if ([@"DVWrapperVideoAd" isEqualToString:NSStringFromClass([ad class])])
                  {
-                     [self.delegate didRequestVideoAds:self success:NO];
+                     DVWrapperVideoAd *wrapperAd = (DVWrapperVideoAd *)ad;
+                     
+                     [self loadWithVastTagURL:[wrapperAd.URL absoluteString]];
+                     
+                     return;
                  }
                  
-                 return;
+                 if (self.delegate && [self.delegate respondsToSelector:@selector(didRequestVideoAds:success:)]) {
+                     
+                     if (self.ad)
+                     {
+                         [self.delegate didRequestVideoAds:self success:YES];
+                     }
+                     else
+                     {
+                         [self.delegate didRequestVideoAds:self success:NO];
+                     }
+                     
+                     return;
+                 }
              }
+         } else {
+             [self.delegate didRequestVideoAds:self success:NO];
          }
      }];
 }

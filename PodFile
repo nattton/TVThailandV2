@@ -3,9 +3,10 @@ workspace 'TVThailandV2.xcworkspace'
 platform :ios, '7.0'
 
 pod 'Reachability'
-pod 'AFNetworking', '~> 2.0'
+pod 'AFNetworking', '~> 2.4.1'
 pod 'SVProgressHUD'
 pod 'Objective-C-HMTL-Parser'
 pod 'XLMediaZoom'
 pod 'SASlideMenu'
 pod 'SVWebViewController', :head
+pod "VKVideoPlayer", "~> 0.1.1"

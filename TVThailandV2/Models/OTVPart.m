@@ -33,4 +33,15 @@
     return self;
 }
 
+- (void)setPartContent:(NSDictionary *)dictionary {
+    _partId = ([dictionary objectForKey:@"id"] ? [dictionary objectForKey:@"id"] : [NSString string]);
+    _nameTh = ([dictionary objectForKey:@"name_th"] ? [dictionary objectForKey:@"name_th"] : [NSString string]);
+    _thumbnail = ([dictionary objectForKey:@"thumbnail"] ? [dictionary objectForKey:@"thumbnail"] : [NSString string]);
+    if ([_thumbnail isKindOfClass:[NSNull class]]) {
+        _thumbnail = [NSString string];
+    }
+    _streamURL = ([dictionary objectForKey:@"stream_url"] ? [dictionary objectForKey:@"stream_url"] : [NSString string]);
+    _mediaCode = ([dictionary objectForKey:@"media_code"] ? [dictionary objectForKey:@"media_code"] : [NSString string]);
+}
+
 @end

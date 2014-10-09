@@ -107,29 +107,38 @@ static NSString *CellIdentifier = @"part_cell";
 
 
         UIImageView *partImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 155, 120)];
-        [partImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
+        [partImageView setTag:101];
         [cell addSubview:partImageView];
         
         UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
         partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+        [partTitleLabel setTag:102];
         partTitleLabel.textColor = [UIColor whiteColor];
-        [partTitleLabel setText:[NSString stringWithFormat:@"Part %@/%@", [[NSNumber numberWithInteger:(indexPath.row + 1)] stringValue], [[NSNumber numberWithInteger:self.episode.videos.count] stringValue] ]];
+       
         partTitleLabel.numberOfLines = 0;
-
-        if (self.episode.videos.count != 1 ){
-            [cell addSubview:partTitleLabel];
-        }
-        
+        [cell addSubview:partTitleLabel];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setBackgroundColor:[UIColor clearColor]];
-
-
 	}
+    
+    UIImageView *thumbnailImageView = (UIImageView *)[cell viewWithTag:101];
+    [thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
+    
+    UILabel *titleLable = (UILabel *)[cell viewWithTag:102];
+    if (self.episode.videos.count != 1 ){
+        [titleLable setText:[NSString stringWithFormat:@"Part %@/%@", [[NSNumber numberWithInteger:(indexPath.row + 1)] stringValue], [[NSNumber numberWithInteger:self.episode.videos.count] stringValue] ]];
+        titleLable.hidden = NO;
+    }
+    else {
+        titleLable.hidden = YES;
+    }
+
+    
     
     if (self.episode.videos.count*157 > self.frame.size.width ) {
         goForwardImgSlider.hidden = NO;
-    }else{
+    } else {
         goForwardImgSlider.hidden = YES;
         hortable.scrollEnabled = NO;
     }

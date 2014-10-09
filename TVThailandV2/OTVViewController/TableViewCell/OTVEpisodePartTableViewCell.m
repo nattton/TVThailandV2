@@ -16,6 +16,8 @@
     UIImageView *goForwardImgSlider;
 }
 
+static NSString *CellIdentifier = @"otv_part_cell";
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier width:(CGFloat)width
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -114,11 +116,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%@", [[NSNumber numberWithInteger:indexPath.row] stringValue]];
-//    NSString *imageUrl = [self.episode videoThumbnail:indexPath.row];
-    NSString *imageUrl = [[self.otvEpisode.parts objectAtIndex:indexPath.row] thumbnail];
-    
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -126,27 +123,31 @@
         
         
         UIImageView *partImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 155, 120)];
-        [partImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
+        [partImageView setTag:101];
         [cell addSubview:partImageView];
         
         UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
+        [partTitleLabel setTag:102];
         partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
         partTitleLabel.textColor = [UIColor whiteColor];
-//        [partTitleLabel setText:[NSString stringWithFormat:@"Part %d/%d", (indexPath.row+1), self.episode.videos.count ]];
-        [partTitleLabel setText:[[self.otvEpisode.parts objectAtIndex:indexPath.row] nameTh]];
         partTitleLabel.numberOfLines = 1;
-
-        
-        if (self.otvEpisode.parts.count != 1 ){
-            [cell addSubview:partTitleLabel];
-        }
-        
+        [cell addSubview:partTitleLabel];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setBackgroundColor:[UIColor clearColor]];
-        
-        
 	}
+    
+    NSString *imageUrl = [[self.otvEpisode.parts objectAtIndex:indexPath.row] thumbnail];
+    UIImageView *thumbnailImageView = (UIImageView *)[cell viewWithTag:101];
+    [thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
+    
+    UILabel *titleLable = (UILabel *)[cell viewWithTag:102];
+    if (self.otvEpisode.parts.count != 1 ){
+        [titleLable setText:[[self.otvEpisode.parts objectAtIndex:indexPath.row] nameTh]];
+        titleLable.hidden = NO;
+    } else {
+        titleLable.hidden = YES;
+    }
     
     if (self.otvEpisode.parts.count*157 > self.frame.size.width ) {
         goForwardImgSlider.hidden = NO;

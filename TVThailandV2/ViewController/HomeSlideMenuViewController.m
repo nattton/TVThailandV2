@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 
 #import "ShowListViewController.h"
+#import "ChannelViewController.h"
 #import "ShowCategory.h"
 #import "Show.h"
 #import "CMUser.h"
@@ -20,8 +21,16 @@
 
 #import "FavoriteViewController.h"
 
-@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
+#import "EpisodePartViewController.h"
+#import "OTVEpisodePartViewController.h"
 
+@interface HomeSlideMenuViewController () <SASlideMenuDataSource, SASlideMenuDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *searchView;
+@property (weak, nonatomic) IBOutlet UIButton *backToSlideMenuButton;
+@property (weak, nonatomic) IBOutlet UIButton *clearSearchFieldButton;
+@property (weak, nonatomic) IBOutlet UILabel *tvThailandLabel;
+@property (weak, nonatomic) IBOutlet UILabel *searchLabel;
 
 @end
 
@@ -32,6 +41,10 @@
  UIRefreshControl *_refreshControl;
  ShowCategoryList *_categoryList;
  NSArray *_searchShows;
+ UIView *_searchUIView;
+ NSInteger *_numSection;
+    
+ UITableView *_searchTable;
     
 }
 
@@ -42,6 +55,7 @@ static NSString *favoriteCellIdentifier = @"favoriteCellIdentifier";
 static NSString *channelCellIdentifier = @"channelCellIdentifier";
 static NSString *cateCellIdentifier = @"cateCellIdentifier";
 static NSString *radioCellIdentifier = @"radioCellIdentifier";
+static NSString *settingCellIdentifier = @"settingCellIdentifier";
 static NSString *searchCellIdentifier = @"searchCellIdentifier";
 
 //** content segue Identifier **//
@@ -50,7 +64,13 @@ static NSString *FBContentSegue = @"FBContentSegue";
 static NSString *favoriteContentSegue = @"favoriteContentSegue";
 static NSString *channelContentSegue = @"channelContentSegue";
 static NSString *radioContentSegue = @"radioContentSegue";
+static NSString *settingContentSegue = @"settingContentSegue";
 static NSString *showListContentSegue = @"showListContentSegue";
+static NSString *searchMenuSegue = @"searchMenuSegue";
+
+static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
+static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
+
 
 //** sending segue **//
 static NSString *showListSegue = @"ShowListSegue";
@@ -61,8 +81,12 @@ static NSInteger secFacebook = 0;
 static NSInteger secFavorite = 1;
 static NSInteger secChannel = 2;
 static NSInteger secRadio = 3;
-static NSInteger secCategory = 4;
+static NSInteger secSetting = 4;
+static NSInteger secCategory = 5;
+const NSInteger totalSection = 6;
 
+/** TAG of tableview **/
+static NSInteger tagSearchTable = 999;
 
 -(void)tap:(id)sender{
     
@@ -87,6 +111,15 @@ static NSInteger secCategory = 4;
 
     [SVProgressHUD showWithStatus:@"Loading..."];
     
+    _numSection = totalSection;
+    self.searchTextField.delegate = self;
+    [self.searchTextField addTarget:self
+                             action:@selector(textFieldDidChange)
+        forControlEvents:UIControlEventEditingChanged];
+    
+//    UITapGestureRecognizer *searchTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchTapped)];
+//    [self.searchView addGestureRecognizer:searchTapRecognizer];
+    
     _categoryList = [[ShowCategoryList alloc] initWithWhatsNew];
     
     [self.tableView reloadData];
@@ -97,7 +130,9 @@ static NSInteger secCategory = 4;
     [self.tableView addSubview:_refreshControl];
     self.tableView.separatorColor = [UIColor clearColor];
     
+    
     [self reload];
+    
 
 }
 
@@ -151,6 +186,90 @@ static NSInteger secCategory = 4;
     return YES;
 }
 
+#pragma mark - Search UI
+- (void)searchTapped {
+    
+    if (_searchUIView == nil  && _searchTable == nil) {
+        _searchUIView = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 260, self.tableView.frame.size.height)];
+        _searchUIView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_searchUIView];
+        
+        _searchTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 260, self.tableView.frame.size.height - 90) style:UITableViewStylePlain];
+        _searchTable.tag = tagSearchTable;
+        _searchTable.delegate = self;
+        _searchTable.dataSource = self;
+        [_searchTable setBackgroundColor:[UIColor clearColor]];
+		[_searchUIView addSubview:_searchTable];
+        
+    }
+    
+    self.tvThailandLabel.hidden = YES;
+    self.backToSlideMenuButton.hidden = NO;
+    self.searchLabel.hidden = NO;
+    
+    _searchUIView.hidden = NO;
+    _numSection = 0;
+    [self.tableView reloadData];
+    
+
+}
+
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
+    [self searchTapped];
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+   
+    return YES;
+}
+
+- (void)textFieldDidChange{
+    
+    if ([self.searchTextField.text length] == 0) {
+        self.clearSearchFieldButton.hidden = YES;
+    } else {
+        self.clearSearchFieldButton.hidden = NO;
+    }
+    
+    [self search:self.searchTextField.text];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.searchTextField endEditing:YES];
+    return YES;
+}
+
+- (IBAction)backToSlideMenuTapped:(id)sender {
+    self.searchTextField.text = @"";
+    self.clearSearchFieldButton.hidden = YES;
+    
+    self.tvThailandLabel.hidden = NO;
+    self.backToSlideMenuButton.hidden = YES;
+    self.searchLabel.hidden = YES;
+    
+    _searchUIView.hidden = YES;
+    _numSection = totalSection;
+    [self.tableView reloadData];
+    
+    _searchShows = nil;
+    [_searchTable reloadData];
+    [self.searchTextField resignFirstResponder];
+}
+
+- (IBAction)clearTextFieldTapped:(id)sender {
+    self.searchTextField.text = @"";
+    self.clearSearchFieldButton.hidden = YES;
+    _searchShows = nil;
+    [_searchTable reloadData];
+}
+
+
+
 #pragma mark -
 #pragma mark SASlideMenuDataSource
 
@@ -179,7 +298,7 @@ static NSInteger secCategory = 4;
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
 
-        return [NSIndexPath indexPathForRow:0 inSection:4];
+        return [NSIndexPath indexPathForRow:0 inSection:5];
     
 }
 
@@ -197,6 +316,8 @@ static NSInteger secCategory = 4;
         return favoriteContentSegue;
     } else if (section == secChannel) {
         return channelContentSegue;
+    } else if (section == secSetting){
+        return settingContentSegue;
     } else {
         return homeContentSegue;
     }
@@ -213,10 +334,11 @@ static NSInteger secCategory = 4;
 #pragma mark UITableViewDataSource
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView.tag == tagSearchTable) {
         return 1;
     }
-    return 5;
+    
+    return _numSection;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -224,11 +346,11 @@ static NSInteger secCategory = 4;
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        return _searchShows.count;
-//    }
+    if (tableView.tag == tagSearchTable) {
+        return _searchShows.count;
+    }
 
-    if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio) {
+    if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio || section == secSetting) {
         return 1;
     } else if (section == secCategory){
         return [_categoryList count];
@@ -250,11 +372,13 @@ static NSInteger secCategory = 4;
     NSInteger section = indexPath.section;
     
 
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView.tag == tagSearchTable) {
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:searchCellIdentifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:searchCellIdentifier];
+            [cell.textLabel setTextColor:[UIColor darkGrayColor]];
         }
+        
         Show *show = _searchShows[indexPath.row];
         cell.textLabel.text = show.title;
         
@@ -271,9 +395,10 @@ static NSInteger secCategory = 4;
             CMUser *cm_user = [CMUser sharedInstance];
             
             if (cm_user.fbId == nil || [cm_user.fbId isEqualToString: @""]) {
-                [cellOfFB configureWithTitle:@"Login with Facebook"];
+                [cellOfFB configureWithTitle:@"Login"];
             }else{
-                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"Hello, %@", cm_user.firstName]];
+//                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"Hello, %@", cm_user.firstName]];
+                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"My Profile"]];
             }
             
             return cellOfFB;
@@ -289,6 +414,10 @@ static NSInteger secCategory = 4;
             UITableViewCell* cellOfRadio = [self.tableView dequeueReusableCellWithIdentifier:radioCellIdentifier];
             cellOfRadio.selectedBackgroundView = selectedBackgroundViewForCell;
             return cellOfRadio;
+        } else if (section == secSetting){
+            UITableViewCell* cellOfSetting = [self.tableView dequeueReusableCellWithIdentifier:settingCellIdentifier];
+            cellOfSetting.selectedBackgroundView = selectedBackgroundViewForCell;
+            return cellOfSetting;
         } else if (section == secCategory){
             ShowCategoryTableViewCell *cellOfCate = [self.tableView dequeueReusableCellWithIdentifier:cateCellIdentifier];
             cellOfCate.selectedBackgroundView = selectedBackgroundViewForCell;
@@ -318,7 +447,22 @@ static NSInteger secCategory = 4;
    
 
     NSInteger section = indexPath.section;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView.tag == tagSearchTable) {
+        
+      [self.searchTextField endEditing:YES];
+        
+        Show *show = _searchShows[indexPath.row];
+        
+        if (show != nil) {
+            if (!(floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) && show.isOTV) {
+                [self performSegueWithIdentifier:OTVEPAndPartIdentifier sender:show];
+            } else {
+                [self performSegueWithIdentifier:EPAndPartIdentifier sender:show];
+            }
+        }
+        
+        
+        
     } else {
         if (section == secCategory) {
         
@@ -340,6 +484,10 @@ static NSInteger secCategory = 4;
         
             [self performSegueWithIdentifier:FBContentSegue sender:nil];
         
+        }else if (section == secSetting) {
+            
+            [self performSegueWithIdentifier:settingContentSegue sender:nil];
+            
         }
 //        else {
 //            [super tableView:tableView didSelectRowAtIndexPath:indexPath];
@@ -349,10 +497,11 @@ static NSInteger secCategory = 4;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    UINavigationController *content = segue.destinationViewController;
+    
     if ([segue.identifier isEqualToString:showListContentSegue]) {
 
-        UINavigationController *content = segue.destinationViewController;
-        ShowListViewController* controller = [content.viewControllers firstObject];
+        ShowListViewController* showListController = [content.viewControllers firstObject];
         
         ShowCategory *selectedCat;
         if ([sender isKindOfClass:[ShowCategory class]]) {
@@ -367,36 +516,39 @@ static NSInteger secCategory = 4;
             selectedCat = _categoryList[0];
         }
         
-        controller.navigationItem.title = selectedCat.title;
-        [controller reloadWithMode:kCategory Id:selectedCat.Id];
+        showListController.homeSlideMenuViewController = self;
+        showListController.navigationItem.title = selectedCat.title;
+        [showListController reloadWithMode:kCategory Id:selectedCat.Id];
+        
+    } else if ([segue.identifier isEqualToString:channelContentSegue]) {
+        ChannelViewController* channelController = [content.viewControllers firstObject];
+        channelController.homeSlideMenuViewController = self;
+    } else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
+        Show *show = (Show *)sender;
+        EpisodePartViewController *episodeAndPartListViewController = [content.viewControllers firstObject];
+        episodeAndPartListViewController.show = show;
+    } else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier ]) {
+        Show *show = (Show *)sender;
+        OTVEpisodePartViewController *otvEpAndPartViewController = [content.viewControllers firstObject];
+        otvEpAndPartViewController.show = show;
     }
     
 }
 
 #pragma mark - Search
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self search:searchString];
-    return YES;
-}
 
 - (void)search:(NSString *)keyword {
     if (![keyword isEqualToString:@""]) {
         [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
             _searchShows = tempShows;
-            [self.searchDisplayController.searchResultsTableView reloadData];
+           
+//            [self.searchDisplayController.searchResultsTableView reloadData];
+            [_searchTable reloadData];
         }];
     }
 }
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
-{
-//    [self.searchBarView setFrame:CGRectMake(0, 36, self.searchBarView.frame.size.width, self.searchBarView.frame.size.height)];
-}
 
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-//    [self.searchBarView setFrame:CGRectMake(0, 36, self.searchBarView.frame.size.width, self.searchBarView.frame.size.height)];
-}
 
 
 
@@ -405,6 +557,7 @@ static NSInteger secCategory = 4;
 
 -(void) slideMenuWillSlideIn:(UINavigationController *)selectedContent{
 //    NSLog(@"slideMenuWillSlideIn");
+    [self.searchTextField endEditing:YES];
 }
 -(void) slideMenuDidSlideIn:(UINavigationController *)selectedContent{
 //    NSLog(@"slideMenuDidSlideIn");
@@ -446,6 +599,8 @@ static NSInteger secCategory = 4;
         return underline;
     } else if (section == secRadio){
         return underline;
+    } else if (section == secSetting){
+        return underline;
     } else if (section == secCategory){
         return view;
     } else {
@@ -464,11 +619,21 @@ static NSInteger secCategory = 4;
         return 0;
     } else if (section == secRadio){
         return 0;
+    } else if (section == secSetting){
+        return 0;
     } else if (section == secCategory){
         return 10;
     } else {
         return 0;
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    if (self.tvThailandLabel.hidden && [self.searchTextField isEditing]) {
+        [self.searchTextField endEditing:YES];
+    }
+
 }
 
 

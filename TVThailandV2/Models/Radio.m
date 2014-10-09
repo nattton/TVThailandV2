@@ -36,7 +36,7 @@
 + (void)loadData:(void (^)(NSArray *radioCategories, NSArray *radios ,NSError *error))block {
     
     [[ApiClient sharedInstance]
-     GET:[NSString stringWithFormat:@"api2/radio?device=ios&time=%@", [NSString getUnixTimeKey]]
+     GET:[NSString stringWithFormat:@"api2/radio?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]]
      parameters:nil
      success:^(AFHTTPRequestOperation *operation, id JSON) {
          NSArray *jRadioes = [JSON valueForKeyPath:@"radios"];

@@ -46,10 +46,11 @@
 #pragma mark - Load Data
 
 - (void)loadData:(void (^)(NSError *error))block {
+    NSString *url = [NSString stringWithFormat:@"api2/category?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
     [[ApiClient sharedInstance]
-     GET:[NSString stringWithFormat:@"api2/category?device=ios&time=%@", [NSString getUnixTimeKey]]
+            GET:url
      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id JSON) {
+        success:^(AFHTTPRequestOperation *operation, id JSON) {
              NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
              
              NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];

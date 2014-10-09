@@ -32,7 +32,7 @@
 
 #import "Channel.h"
 
-@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIScrollViewDelegate>
+@interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -111,6 +111,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     }
     
+    UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonTapped:)];
+    
+    self.navigationItem.rightBarButtonItem = searchBarButton;
+    
     [self setUpGoToTop];
     
     self.mkAdView.parentViewController = self;
@@ -173,6 +177,9 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 }
 - (IBAction)searchButtonTapped:(id)sender {
     
+    [self.homeSlideMenuViewController revealLeftMenu];
+    [self.homeSlideMenuViewController searchTapped];
+    [self.homeSlideMenuViewController.searchTextField becomeFirstResponder];
     
 }
 
@@ -196,19 +203,17 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     _mode = mode;
     _Id = Id;
     
-    if (_mode == kChannel) {
-        if (self.channel != nil && self.channel.videoUrl != nil && ![self.channel.videoUrl isEqualToString:@""]) {
-            UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
-            liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
-            self.navigationItem.rightBarButtonItem = liveButton;
-        }else{
-            self.navigationItem.rightBarButtonItem = nil;
-        }
-    }else if(_mode == kCategory){
-         self.navigationItem.rightBarButtonItem = nil;
-    }
-
-    
+//    if (_mode == kChannel) {
+//        if (self.channel != nil && self.channel.videoUrl != nil && ![self.channel.videoUrl isEqualToString:@""]) {
+//            UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
+//            liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
+//            self.navigationItem.rightBarButtonItem = liveButton;
+//        }else{
+//            self.navigationItem.rightBarButtonItem = nil;
+//        }
+//    }else if(_mode == kCategory){
+//         self.navigationItem.rightBarButtonItem = nil;
+//    }
 
 }
 
@@ -443,43 +448,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self reload];
 }
 
-
-#pragma mark - Search
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self search:searchString];
-    return YES;
-}
-
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-//    self.searchDisplayController.searchBar.hidden = NO;
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//        CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
-//        [UIView animateWithDuration:0.25 animations:^{
-//            for (UIView *subview in self.view.subviews)
-//                subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height);
-//        }];
-//    }
-}
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
-//    self.searchDisplayController.searchBar.hidden = YES;
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-//        [UIView animateWithDuration:0.25 animations:^{
-//            for (UIView *subview in self.view.subviews)
-//                subview.transform = CGAffineTransformIdentity;
-//        }];
-//    }
-}
-
-- (void)search:(NSString *)keyword {
-    if (![keyword isEqualToString:@""]) {
-        [Show loadSearchDataWithKeyword:keyword Block:^(NSArray *tempShows, NSError *error) {
-            _searchShows = tempShows;
-            [self.searchDisplayController.searchResultsTableView reloadData];
-        }];
-    }
-}
-
 - (void)testInternetConnection
 {
     __weak typeof(self) weakSelf = self;
@@ -492,7 +460,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         dispatch_async(dispatch_get_main_queue(), ^{
 //            DLog(@"Yayyy, we have the interwebs!");
             
-            weakSelf.alertTitle.text = @"connection fail, try again";
+            weakSelf.alertTitle.text = @"Connection Fail, Try again";
             
         });
     };
@@ -502,8 +470,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     {
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.alertTitle.text = @"no internet connection";
-            weakSelf.alertTitleView.alpha = 0.85;
+            weakSelf.alertTitle.text = @"No Internet Connection";
+            weakSelf.alertTitleView.alpha = 0.75;
             
             
         });

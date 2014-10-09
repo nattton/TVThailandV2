@@ -322,15 +322,9 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
 }
 
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
-    EpisodePartCell *cell = (EpisodePartCell *)[tableView dequeueReusableCellWithIdentifier:cellname];
-    
-    
-    cell = [[EpisodePartCell alloc] initWithStyle:UITableViewCellStyleDefault
+    EpisodePartCell *cell = [[EpisodePartCell alloc] initWithStyle:UITableViewCellStyleDefault
                                  reuseIdentifier:cellname
                                            width:CGRectGetWidth(self.view.frame)];
 	

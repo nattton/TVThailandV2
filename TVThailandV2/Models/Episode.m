@@ -53,7 +53,7 @@
     if (!Id) return;
     
     [[ApiClient sharedInstance]
-         GET:[NSString stringWithFormat:@"api2/episode/%@/%@?device=ios", Id, [[NSNumber numberWithInteger:start] stringValue]]
+         GET:[NSString stringWithFormat:@"api2/episode/%@/%@?device=ios&app_version=%@&build=%@", Id, [[NSNumber numberWithInteger:start] stringValue], kAPP_VERSION, kAPP_BUILD]
          parameters:nil
          success:^(AFHTTPRequestOperation *operation, id JSON) {
              Show *show;
@@ -87,7 +87,7 @@
 
 - (void)sendViewEpisode {
     [[ApiClient sharedInstance]
-     GET:[NSString stringWithFormat:@"api2/view_episode/%@?device=ios", self.Id]
+     GET:[NSString stringWithFormat:@"api2/view_episode/%@?device=ios&app_version=%@&build=%@", self.Id, kAPP_VERSION, kAPP_BUILD]
      parameters:nil
      success:^(AFHTTPRequestOperation *operation, id responseObject) {
          
