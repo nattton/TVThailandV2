@@ -30,8 +30,8 @@
 		3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24B17FF346C006FA479 /* MakathonAd.m */; };
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
+		3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4872E119E6BDA900E30999 /* FacebookSDK.framework */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
-		3B581E951979C75400F300C3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E941979C75400F300C3 /* FacebookSDK.framework */; };
 		3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E961979C76700F300C3 /* SDWebImage.framework */; };
 		3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */; };
 		3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */; };
@@ -129,7 +129,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		1100E2DD192F1354009189C2 /* FBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTableViewCell.h; sourceTree = "<group>"; };
 		1100E2DE192F1354009189C2 /* FBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTableViewCell.m; sourceTree = "<group>"; };
 		1136AC3E18D8158D004BFE4D /* OTVApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVApiClient.h; sourceTree = "<group>"; };
@@ -154,6 +153,7 @@
 		1179B5E1198269C7009A0F1F /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
 		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
+		11B5451D80C3148E7A38E308 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		11D011F41924726300216898 /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
 		11D011F51924726300216898 /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
 		11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSlideMenuViewController.h; sourceTree = "<group>"; };
@@ -172,9 +172,9 @@
 		3B39B0A517E322EE0027B242 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
+		3B4872E119E6BDA900E30999 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
-		3B581E941979C75400F300C3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		3B581E961979C76700F300C3 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = TVThailandV2/Frameworks/SDWebImage.framework; sourceTree = "<group>"; };
 		3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -320,6 +320,7 @@
 		3BDF8368190A78CC00AD12D0 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		3BE6091417FB57D100497D39 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		3BE6091517FB57D100497D39 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		6E57CAB1517084A7FC7C25CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A2EB0925A5094553A025770B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F042D50E15BCA5590037E120 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		F042D50F15BCA5590037E120 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
@@ -369,9 +370,9 @@
 				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
 				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
 				3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */,
+				3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */,
 				3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */,
 				3B910C341733FE25008F67ED /* CFNetwork.framework in Frameworks */,
-				3B581E951979C75400F300C3 /* FacebookSDK.framework in Frameworks */,
 				3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */,
 				3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */,
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
@@ -394,6 +395,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BC8AB4B9DEC87E2CAC73AD2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6E57CAB1517084A7FC7C25CF /* Pods.debug.xcconfig */,
+				11B5451D80C3148E7A38E308 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3B67F7A117E09A1D00C9CD23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,8 +740,8 @@
 				F0DC4DF515BA012E0009BFCD /* TVThailandV2 */,
 				F0DC4DEE15BA012E0009BFCD /* Frameworks */,
 				F0DC4DEC15BA012E0009BFCD /* Products */,
-				0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */,
 				3BA59C061806930F0094D758 /* Podfile */,
+				2BC8AB4B9DEC87E2CAC73AD2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -746,8 +756,8 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B4872E119E6BDA900E30999 /* FacebookSDK.framework */,
 				3B581E961979C76700F300C3 /* SDWebImage.framework */,
-				3B581E941979C75400F300C3 /* FacebookSDK.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
 				3BD0496818ED3C030083C32B /* EventKit.framework */,
 				3B688EC518B239EC0009050B /* libxml2.2.dylib */,
@@ -851,7 +861,7 @@
 		F0DC4DE215BA012E0009BFCD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "luciferultram@gmail.com";
 				TargetAttributes = {
 					F0DC4DEA15BA012E0009BFCD = {
@@ -938,7 +948,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1040,17 +1050,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1080,17 +1091,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1112,10 +1124,9 @@
 		};
 		F0DC4E0D15BA012E0009BFCD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */;
+			baseConfigurationReference = 6E57CAB1517084A7FC7C25CF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
@@ -1161,10 +1172,9 @@
 		};
 		F0DC4E0E15BA012E0009BFCD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DE9EB14C43E43AE8A2E6171 /* Pods.xcconfig */;
+			baseConfigurationReference = 11B5451D80C3148E7A38E308 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";

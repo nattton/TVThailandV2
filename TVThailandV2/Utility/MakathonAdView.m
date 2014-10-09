@@ -62,7 +62,7 @@
     {
         self.frame = adFrame;
         [self.webViewShow setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
-        [self.webViewShow setFrame:CGRectMake(adFrame.size.width - 1, adFrame.size.height - 1, 1, 1)];
+        [self.webView1x1 setFrame:CGRectMake(adFrame.size.width - 1, adFrame.size.height - 1, 1, 1)];
     }
 }
 
