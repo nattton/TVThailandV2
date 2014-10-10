@@ -211,7 +211,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOB-12-3o6" userLabel="Open With Button">
-                                        <rect key="frame" x="681" y="57" width="55" height="55"/>
+                                        <rect key="frame" x="678" y="54" width="55" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="5Vt-33-FgP"/>
                                             <constraint firstAttribute="height" constant="55" id="AVC-qV-dEc"/>
@@ -234,10 +234,10 @@
                                     <constraint firstAttribute="trailing" secondItem="tvX-N8-czg" secondAttribute="trailing" constant="8" id="IOX-W6-F7X"/>
                                     <constraint firstItem="RCj-mY-wYV" firstAttribute="top" secondItem="Bqu-sN-bUR" secondAttribute="top" constant="47" id="bBf-2g-7Fs"/>
                                     <constraint firstAttribute="height" constant="115" id="dsN-Gm-MXf"/>
-                                    <constraint firstAttribute="bottom" secondItem="XOB-12-3o6" secondAttribute="bottom" constant="3" id="f7k-nX-Rdo"/>
+                                    <constraint firstAttribute="bottom" secondItem="XOB-12-3o6" secondAttribute="bottom" constant="6" id="f7k-nX-Rdo"/>
                                     <constraint firstAttribute="bottom" secondItem="Wd0-zE-azC" secondAttribute="bottom" constant="75" id="iw8-P6-K8T"/>
                                     <constraint firstAttribute="trailing" secondItem="Wd0-zE-azC" secondAttribute="trailing" constant="13" id="pvo-lC-KRP"/>
-                                    <constraint firstAttribute="trailing" secondItem="XOB-12-3o6" secondAttribute="trailing" constant="3" id="rfi-V4-Bgn"/>
+                                    <constraint firstAttribute="trailing" secondItem="XOB-12-3o6" secondAttribute="trailing" constant="6" id="rfi-V4-Bgn"/>
                                     <constraint firstAttribute="trailing" secondItem="RCj-mY-wYV" secondAttribute="trailing" constant="13" id="t8C-dz-Efg"/>
                                     <constraint firstItem="0W1-YV-jBW" firstAttribute="leading" secondItem="Bqu-sN-bUR" secondAttribute="leading" constant="13" id="tYL-hs-Mod"/>
                                     <constraint firstAttribute="trailing" secondItem="0W1-YV-jBW" secondAttribute="trailing" constant="13" id="tjk-5o-e11"/>

@@ -294,13 +294,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         self.viewCountLabel.text = episode.viewCount;
         self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)episode.videos.count ];
         
+        [self.openWithButton setImage:[UIImage imageNamed:@"open_with_web"] forState:UIControlStateNormal];
         if ([_sourceType isEqualToString:@"0"]) {
             self.webView.hidden = NO;
+            [self.openWithButton setImage:[UIImage imageNamed:@"open_with_youtube"] forState:UIControlStateNormal];
             self.openWithButton.hidden = NO;
             [self openWithYoutubePlayerEmbed:_videoId];
         }
         else if ([_sourceType isEqualToString:@"1"]) {
             self.webView.hidden = NO;
+            [self.openWithButton setImage:[UIImage imageNamed:@"open_with_dailymotion"] forState:UIControlStateNormal];
             self.openWithButton.hidden = NO;
             [self openWithDailymotionEmbed];
         }
