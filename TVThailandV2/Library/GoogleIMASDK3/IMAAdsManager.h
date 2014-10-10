@@ -80,13 +80,6 @@
 /// The IMAAdsManager class is responsible for playing ads.
 @interface IMAAdsManager : NSObject
 
-/// The view where ads will be shown. Add this view to your application
-/// before calling initializeWithContentPlayhead:adsRenderingSettings:.
-/// We recommend setting the size of this view to the size of the content
-/// video player and placing it diretly above it.
-/// In order to resize ads during playback, resize this view.
-@property(nonatomic, readonly) UIView *adView;
-
 /// The delegate to notify with events during ad playback.
 @property(nonatomic, assign) NSObject<IMAAdsManagerDelegate> *delegate;
 

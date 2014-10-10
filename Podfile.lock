@@ -41,14 +41,14 @@ PODS:
   - Objective-C-HMTL-Parser (0.0.1)
   - Reachability (3.1.1)
   - SASlideMenu (2.0.3)
-  - SVProgressHUD (1.0)
+  - SVProgressHUD (HEAD based on 1.0)
   - SVWebViewController (HEAD based on 1.0)
   - VKFoundation (0.1.1):
     - CocoaLumberjack (~> 1.7.0)
     - DTCoreText (~> 1.6.11)
     - FXImageView (~> 1.3.3)
     - Reachability (~> 3.1.1)
-  - VKVideoPlayer (0.1.2):
+  - VKVideoPlayer (0.1.4):
     - CocoaLumberjack (~> 1.7.0)
     - DTCoreText (~> 1.6.11)
     - VKFoundation (= 0.1.1)
@@ -59,7 +59,7 @@ DEPENDENCIES:
   - Objective-C-HMTL-Parser
   - Reachability
   - SASlideMenu
-  - SVProgressHUD
+  - SVProgressHUD (HEAD)
   - SVWebViewController (HEAD)
   - VKVideoPlayer (~> 0.1.1)
   - XLMediaZoom
@@ -76,7 +76,7 @@ SPEC CHECKSUMS:
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
   VKFoundation: 39b420ace3adc7aedcd98f84b71500ced0f6f5e1
-  VKVideoPlayer: aa524930be7b2def8862f7b22bc96f6d2a38a433
+  VKVideoPlayer: 87e52d0d4b3045fc1b9714135e83233bb86479bb
   XLMediaZoom: 3b32c799e81a0026ef4a9b4bf92f5a8bc7a4838e
 
 COCOAPODS: 0.34.2

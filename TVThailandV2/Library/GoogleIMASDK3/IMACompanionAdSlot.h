@@ -39,7 +39,8 @@
 /// Receive events from the companion ad slot.
 @property(nonatomic, weak) id<IMACompanionDelegate> delegate;
 
-- (id)initWithWidth:(int)width
-             height:(int)height;
+- (instancetype)initWithView:(UIView *)view
+                       width:(int)width
+                      height:(int)height;
 
 @end

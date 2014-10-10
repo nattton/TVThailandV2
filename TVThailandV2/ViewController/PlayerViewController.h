@@ -56,6 +56,8 @@
 @property(nonatomic, strong) IMAAdsLoader *adsLoader;
 @property(nonatomic, strong) IMAAdsManager *adsManager;
 @property(nonatomic, strong) IMAAdsRenderingSettings *adsRenderingSettings;
+@property(nonatomic, strong) IMAAdDisplayContainer *adDisplayContainer;
+
 // The player that plays the content.
 @property(nonatomic, strong) AVPlayer *contentPlayer;
 // The layer for the player

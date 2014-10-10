@@ -2,8 +2,9 @@
 //  IMAAdPlaybackInfo.h
 //  GoogleIMA3
 //
-//  Created by John Hicks on 3/19/13.
+//  Copyright (c) 2014 Google Inc. All rights reserved.
 //
+//  Defines a protocol for providing ad playback information.
 
 #import <Foundation/Foundation.h>
 

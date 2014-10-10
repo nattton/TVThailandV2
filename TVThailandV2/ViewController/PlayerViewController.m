@@ -1093,6 +1093,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         
         if (_isContent || _part.vastURL == nil ) {
+            self.adDisplayContainer.adContainer.hidden = YES;
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
                 
 //                [_contentPlayer play];
@@ -1285,17 +1286,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
     
-    if (self.player.view.frame.size.width > 321 && _isiPhone) {
-        self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-    } else if (self.player.view.frame.size.height > 500 && _isiPhone) {
-        self.adsManager.adView.frame = CGRectMake(0, (self.player.view.frame.size.height/2)-(self.player.view.frame.size.height/4), self.player.view.frame.size.width, self.player.view.frame.size.height/2);
-    } else if (self.player.view.frame.size.width > 701 && !_isiPhone){
-        self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-    } else {
-         self.adsManager.adView.frame = _screenSmallOfContainer;
-    }
+//    if (self.player.view.bounds.size.width > 321 && _isiPhone) {
+//        self.adDisplayContainer.adContainer.frame = CGRectMake(0, 0, self.view.bounds.size.height, self.view.bounds.size.width);
+//    } else if (self.player.view.bounds.size.height > 500 && _isiPhone) {
+//        self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
+//    } else if (self.player.view.bounds.size.width > 701 && !_isiPhone){
+//        self.adDisplayContainer.adContainer.frame = CGRectMake(0, 0, self.view.bounds.size.height, self.view.bounds.size.width);
+//    } else {
+//         self.adDisplayContainer.adContainer.frame = _screenSmallOfContainer;
+//    }
 
-    
+    self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
     
     // By default, allow in-app web browser.
     self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
@@ -1305,18 +1306,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsRenderingSettings.mimeTypes = @[];
 
     if ([_part.mediaCode isEqualToString:kCodeIframe]) {
-        [self.view addSubview:self.adsManager.adView];
+        [self.view addSubview:self.adDisplayContainer.adContainer];
 
     } else {
-        [self.player.view.playerLayerView addSubview:self.adsManager.adView];
+        [self.player.view.playerLayerView addSubview:self.adDisplayContainer.adContainer];
         
     }
     
-    _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
-    [self.adsManager.adView addSubview:_skipAdsButton];
+    _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
+    [self.adDisplayContainer.adContainer addSubview:_skipAdsButton];
     _skipAdsButton.enabled = NO;
     [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
-    
     
 
     self.player.view.controls.hidden = YES;
@@ -1328,7 +1328,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     
     [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
-    
 }
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
@@ -1341,10 +1340,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)requestAdsTag:(NSString *)adTag {
     DLog(@"Requesting ads.");
     [self unloadAdsManager];
-    IMAAdsRequest *request =
-    [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
-                             companionSlots:nil
-                                userContext:nil];
+    
+    self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainerView
+                                                                  companionSlots:nil];
+    IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
+                                                  adDisplayContainer:self.adDisplayContainer
+                                                         userContext:nil];
     [self.adsLoader requestAdsWithRequest:request];
     
 }
@@ -1474,7 +1475,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) setVideoTitleToTopLayer {
     
-    self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.frame.size.width - 50, 30);
+    self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.bounds.size.width - 50, 30);
     self.player.view.titleLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.otvEpisode.date stringByReplacingOccurrencesOfString: @"ออกอากาศ " withString:@""], _part.nameTh];
 }
 #pragma mark - App States
@@ -1518,14 +1519,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
-            self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-            self.adsManager.adView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+            self.player.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+
         }else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
-            self.adsManager.adView.frame = _screenSmallOfContainer;
         }
-        _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
+        
+        self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
+        
+        _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
         
     }
     
@@ -1576,17 +1579,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
-    
-//    self.player.view.titleLabel.frame = CGRectMake(30 ,-140, 30, self.view.frame.size.width);
-//    self.player.view.titleLabel.text = [_part.nameTh stringByAppendingFormat: @" | %@",self.show.title];
-    
      [UIView animateWithDuration:0.3f animations:^{
          if (UIInterfaceOrientationIsLandscape(orientation)) {
-             self.adsManager.adView.frame = self.player.landscapeFrame;
+             self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
          } else {
-             self.adsManager.adView.frame = self.player.portraitFrame;
+             self.adDisplayContainer.adContainer.frame = self.player.portraitFrame;
          }
-         _skipAdsButton.frame = CGRectMake(self.adsManager.adView.bounds.size.width-100, self.adsManager.adView.bounds.size.height-70, 90, 25);
+         _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
     }];
 }
 
@@ -1595,18 +1594,18 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         [self.player.view.topControlOverlay setFrameOriginY:0.0f];
         self.player.view.topControlOverlay.hidden = NO;
         self.player.view.topPortraitControlOverlay.hidden = YES;
+        self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
     }
 }
-
 
 - (void)layoutAdsForOrientation:(UIInterfaceOrientation)interfaceOrientation {
     [UIView animateWithDuration:0.3f animations:^{
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
-            self.adsManager.adView.frame = self.player.landscapeFrame;
+            self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
         }
         
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.frame.size.height >500) {
-            self.adsManager.adView.frame = CGRectMake(0, (self.player.view.frame.size.height/2)-(self.player.view.frame.size.height/4), self.player.view.frame.size.width, self.player.view.frame.size.height/2);
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.bounds.size.height >500) {
+            self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
         }
         
     }];

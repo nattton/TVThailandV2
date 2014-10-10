@@ -18,6 +18,6 @@
 
 /// Initializes with the |player| to track. It will attach a periodic time
 /// observer to the player immediately.
-- (id)initWithAVPlayer:(AVPlayer *)player;
+- (instancetype)initWithAVPlayer:(AVPlayer *)player;
 
 @end
