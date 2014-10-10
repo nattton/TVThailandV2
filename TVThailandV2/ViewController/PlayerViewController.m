@@ -53,7 +53,7 @@ typedef enum {
     PauseButton
 } PlayButtonType;
 
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIAlertViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
@@ -321,14 +321,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.openWithButton.hidden = YES;
             [self openWithVideoUrl:_videoId];
         }
-        else if ([_sourceType isEqualToString:@"14"]) {
+        else if ([_sourceType isEqualToString:@"14"] || [_sourceType isEqualToString:@"13"]) {
             self.webView.hidden = NO;
-            self.openWithButton.hidden = YES;
+            self.openWithButton.hidden = NO;
             [self loadMThaiWebVideo];
         }
         else if ([_sourceType isEqualToString:@"15"]) {
             self.webView.hidden = NO;
-            self.openWithButton.hidden = YES;
+            self.openWithButton.hidden = NO;
             [self loadMThaiWebVideoWithPassword:episode.password];
         }
     }
@@ -390,17 +390,23 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)openWebSite:(NSString *)stringUrl {
-    
-    
     if ([_sourceType isEqualToString:@"0"]) {
-        
         [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
-    }
-    else if ([_sourceType isEqualToString:@"1"]) {
+    } else if ([_sourceType isEqualToString:@"1"]) {
         [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
-    }
-    else if ([_sourceType isEqualToString:@"11"]) {
+    } else if ([_sourceType isEqualToString:@"11"]) {
         [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
+    } else if ([_sourceType isEqualToString:@"13"] || [_sourceType isEqualToString:@"14"] || [_sourceType isEqualToString:@"15"]) {
+        if ([_sourceType isEqualToString:@"15"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video has password"
+                                                            message:[NSString stringWithFormat:@"Password : %@", self.episode.password]
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        NSString *mthaiUrl = [NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html", stringUrl];
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:mthaiUrl];
     }
 }
 
@@ -424,6 +430,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
     [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if (buttonIndex == 1) {
+//        // do stuff
+//    }
 }
 
 #pragma mark - Load Video Mthai
