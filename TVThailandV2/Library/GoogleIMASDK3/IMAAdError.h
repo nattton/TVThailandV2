@@ -34,9 +34,10 @@ typedef enum {
   /// The ad response was not understood and cannot be parsed.
   kIMAError_UNKNOWN_AD_RESPONSE = 200,
 
-  /// Failed to request ads from the server, timeout was reached.
-  /// The default timeout for all requests, including following VAST wrappers,
-  /// is 5000 milliseconds.
+  /// The VAST URI provided, or a VAST URI provided in a subsequent Wrapper
+  /// element, was either unavailable or reached a timeout, as defined by the
+  /// video player. The timeout is 8 seconds for initial VAST requests and 4
+  /// seconds for each subsequent Wrapper.
   kIMAError_VAST_LOAD_TIMEOUT = 301,
 
   /// The maximum number of VAST wrapper redirects has been reached.
@@ -48,6 +49,10 @@ typedef enum {
 
   /// There was an error playing the video ad.
   kIMAError_VIDEO_PLAY_ERROR = 400,
+
+  /// Failed to load media assets from a VAST response.
+  /// The default timeout for media loading is 15 seconds.
+  kIMAError_VAST_MEDIA_LOAD_TIMEOUT = 402,
 
   /// Assets were found in the VAST ad response for linear ad, but none of them
   /// matched the video player's capabilities.

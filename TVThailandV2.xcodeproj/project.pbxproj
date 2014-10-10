@@ -69,7 +69,7 @@
 		3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */; };
 		3B976CBE19822DCF0011DF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
 		3B976CC1198276060011DF75 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B976CC0198276060011DF75 /* AboutViewController.m */; };
-		3B976CD019828DE80011DF75 /* libGoogleIMA3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B976CCF19828DE80011DF75 /* libGoogleIMA3.a */; };
+		3BA50B9819E7AAFB003D4C90 /* libGoogleIMA3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA50B9719E7AAFB003D4C90 /* libGoogleIMA3.a */; };
 		3BA59C071806930F0094D758 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3BA59C061806930F0094D758 /* Podfile */; };
 		3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* PlayerViewController.m */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
@@ -232,19 +232,20 @@
 		3B976CBA1981E2F70011DF75 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		3B976CBF198276060011DF75 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		3B976CC0198276060011DF75 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		3B976CC319828DE80011DF75 /* IMAAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAd.h; sourceTree = "<group>"; };
-		3B976CC419828DE80011DF75 /* IMAAdError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdError.h; sourceTree = "<group>"; };
-		3B976CC519828DE80011DF75 /* IMAAdEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdEvent.h; sourceTree = "<group>"; };
-		3B976CC619828DE80011DF75 /* IMAAdPlaybackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdPlaybackInfo.h; sourceTree = "<group>"; };
-		3B976CC719828DE80011DF75 /* IMAAdPodInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdPodInfo.h; sourceTree = "<group>"; };
-		3B976CC819828DE80011DF75 /* IMAAdsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsLoader.h; sourceTree = "<group>"; };
-		3B976CC919828DE80011DF75 /* IMAAdsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsManager.h; sourceTree = "<group>"; };
-		3B976CCA19828DE80011DF75 /* IMAAdsRenderingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsRenderingSettings.h; sourceTree = "<group>"; };
-		3B976CCB19828DE80011DF75 /* IMAAdsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsRequest.h; sourceTree = "<group>"; };
-		3B976CCC19828DE80011DF75 /* IMAAVPlayerContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAVPlayerContentPlayhead.h; sourceTree = "<group>"; };
-		3B976CCD19828DE80011DF75 /* IMACompanionAdSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMACompanionAdSlot.h; sourceTree = "<group>"; };
-		3B976CCE19828DE80011DF75 /* IMAContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAContentPlayhead.h; sourceTree = "<group>"; };
-		3B976CCF19828DE80011DF75 /* libGoogleIMA3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleIMA3.a; sourceTree = "<group>"; };
+		3BA50B8A19E7AAFB003D4C90 /* IMAAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAd.h; sourceTree = "<group>"; };
+		3BA50B8B19E7AAFB003D4C90 /* IMAAdDisplayContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdDisplayContainer.h; sourceTree = "<group>"; };
+		3BA50B8C19E7AAFB003D4C90 /* IMAAdError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdError.h; sourceTree = "<group>"; };
+		3BA50B8D19E7AAFB003D4C90 /* IMAAdEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdEvent.h; sourceTree = "<group>"; };
+		3BA50B8E19E7AAFB003D4C90 /* IMAAdPlaybackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdPlaybackInfo.h; sourceTree = "<group>"; };
+		3BA50B8F19E7AAFB003D4C90 /* IMAAdPodInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdPodInfo.h; sourceTree = "<group>"; };
+		3BA50B9019E7AAFB003D4C90 /* IMAAdsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsLoader.h; sourceTree = "<group>"; };
+		3BA50B9119E7AAFB003D4C90 /* IMAAdsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsManager.h; sourceTree = "<group>"; };
+		3BA50B9219E7AAFB003D4C90 /* IMAAdsRenderingSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsRenderingSettings.h; sourceTree = "<group>"; };
+		3BA50B9319E7AAFB003D4C90 /* IMAAdsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAdsRequest.h; sourceTree = "<group>"; };
+		3BA50B9419E7AAFB003D4C90 /* IMAAVPlayerContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAVPlayerContentPlayhead.h; sourceTree = "<group>"; };
+		3BA50B9519E7AAFB003D4C90 /* IMACompanionAdSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMACompanionAdSlot.h; sourceTree = "<group>"; };
+		3BA50B9619E7AAFB003D4C90 /* IMAContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAContentPlayhead.h; sourceTree = "<group>"; };
+		3BA50B9719E7AAFB003D4C90 /* libGoogleIMA3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleIMA3.a; sourceTree = "<group>"; };
 		3BA59C061806930F0094D758 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3BBA068E1940549C0049BFD3 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		3BBA068F1940549C0049BFD3 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
@@ -381,7 +382,7 @@
 				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
 				F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */,
 				F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */,
-				3B976CD019828DE80011DF75 /* libGoogleIMA3.a in Frameworks */,
+				3BA50B9819E7AAFB003D4C90 /* libGoogleIMA3.a in Frameworks */,
 				F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */,
 				F0A3C83715BB21AB000CD962 /* MobileCoreServices.framework in Frameworks */,
 				3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */,
@@ -519,22 +520,23 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
-		3B976CC219828DE80011DF75 /* GoogleIMASDK3 */ = {
+		3BA50B8919E7AAFB003D4C90 /* GoogleIMASDK3 */ = {
 			isa = PBXGroup;
 			children = (
-				3B976CC319828DE80011DF75 /* IMAAd.h */,
-				3B976CC419828DE80011DF75 /* IMAAdError.h */,
-				3B976CC519828DE80011DF75 /* IMAAdEvent.h */,
-				3B976CC619828DE80011DF75 /* IMAAdPlaybackInfo.h */,
-				3B976CC719828DE80011DF75 /* IMAAdPodInfo.h */,
-				3B976CC819828DE80011DF75 /* IMAAdsLoader.h */,
-				3B976CC919828DE80011DF75 /* IMAAdsManager.h */,
-				3B976CCA19828DE80011DF75 /* IMAAdsRenderingSettings.h */,
-				3B976CCB19828DE80011DF75 /* IMAAdsRequest.h */,
-				3B976CCC19828DE80011DF75 /* IMAAVPlayerContentPlayhead.h */,
-				3B976CCD19828DE80011DF75 /* IMACompanionAdSlot.h */,
-				3B976CCE19828DE80011DF75 /* IMAContentPlayhead.h */,
-				3B976CCF19828DE80011DF75 /* libGoogleIMA3.a */,
+				3BA50B8A19E7AAFB003D4C90 /* IMAAd.h */,
+				3BA50B8B19E7AAFB003D4C90 /* IMAAdDisplayContainer.h */,
+				3BA50B8C19E7AAFB003D4C90 /* IMAAdError.h */,
+				3BA50B8D19E7AAFB003D4C90 /* IMAAdEvent.h */,
+				3BA50B8E19E7AAFB003D4C90 /* IMAAdPlaybackInfo.h */,
+				3BA50B8F19E7AAFB003D4C90 /* IMAAdPodInfo.h */,
+				3BA50B9019E7AAFB003D4C90 /* IMAAdsLoader.h */,
+				3BA50B9119E7AAFB003D4C90 /* IMAAdsManager.h */,
+				3BA50B9219E7AAFB003D4C90 /* IMAAdsRenderingSettings.h */,
+				3BA50B9319E7AAFB003D4C90 /* IMAAdsRequest.h */,
+				3BA50B9419E7AAFB003D4C90 /* IMAAVPlayerContentPlayhead.h */,
+				3BA50B9519E7AAFB003D4C90 /* IMACompanionAdSlot.h */,
+				3BA50B9619E7AAFB003D4C90 /* IMAContentPlayhead.h */,
+				3BA50B9719E7AAFB003D4C90 /* libGoogleIMA3.a */,
 			);
 			path = GoogleIMASDK3;
 			sourceTree = "<group>";
@@ -824,7 +826,7 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				3B976CC219828DE80011DF75 /* GoogleIMASDK3 */,
+				3BA50B8919E7AAFB003D4C90 /* GoogleIMASDK3 */,
 				3B976CAE1981E2F70011DF75 /* GoogleAnalyticsServicesiOS_3.08 */,
 				3BDF8351190A78CC00AD12D0 /* DVVAST */,
 				3BDF833C190A74EE00AD12D0 /* KissXML */,

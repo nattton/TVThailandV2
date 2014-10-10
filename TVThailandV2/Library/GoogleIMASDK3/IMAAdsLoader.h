@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import "IMAAdError.h"
 #import "IMAAdsManager.h"
 #import "IMAAdsRequest.h"
-#import "IMAAdError.h"
 
 #pragma mark IMASettings
 
@@ -84,7 +84,7 @@
 + (NSString *)sdkVersion;
 
 /// Initializes the adsLoader with SDK wide |settings|.
-- (id)initWithSettings:(IMASettings *)settings;
+- (instancetype)initWithSettings:(IMASettings *)settings;
 
 /// Request ads from the ad server.
 - (void)requestAdsWithRequest:(IMAAdsRequest *)request;
