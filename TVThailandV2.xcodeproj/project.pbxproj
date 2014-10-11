@@ -47,6 +47,8 @@
 		3B688EC218B2399B0009050B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B688EC118B2399B0009050B /* CoreLocation.framework */; };
 		3B688EC418B239DF0009050B /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B688EC318B239DF0009050B /* libz.1.1.3.dylib */; };
 		3B688EC618B239EC0009050B /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B688EC518B239EC0009050B /* libxml2.2.dylib */; };
+		3B726B0E19E90C3200B39196 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B726B0C19E90C3200B39196 /* libAdIdAccess.a */; };
+		3B726B0F19E90C3300B39196 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B726B0D19E90C3200B39196 /* libGoogleAnalyticsServices.a */; };
 		3B743BD017E1D8060086C519 /* Episode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B743BCF17E1D8060086C519 /* Episode.m */; };
 		3B743BD717E25DA40086C519 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B743BD617E25DA40086C519 /* Storyboard_iPad.storyboard */; };
 		3B8657351805F2EB00BC61AC /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B86572B1805F2EB00BC61AC /* Default-Landscape@2x~ipad.png */; };
@@ -66,7 +68,6 @@
 		3B94AAFD1952AD4B00A0A5BD /* KapookAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B94AAFC1952AD4B00A0A5BD /* KapookAds.m */; };
 		3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */; };
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
-		3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */; };
 		3B976CBE19822DCF0011DF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
 		3B976CC1198276060011DF75 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B976CC0198276060011DF75 /* AboutViewController.m */; };
 		3BA50B9819E7AAFB003D4C90 /* libGoogleIMA3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA50B9719E7AAFB003D4C90 /* libGoogleIMA3.a */; };
@@ -193,6 +194,18 @@
 		3B688EC118B2399B0009050B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3B688EC318B239DF0009050B /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		3B688EC518B239EC0009050B /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		3B726B0219E90C3200B39196 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		3B726B0319E90C3200B39196 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		3B726B0419E90C3200B39196 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
+		3B726B0519E90C3200B39196 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		3B726B0619E90C3200B39196 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		3B726B0719E90C3200B39196 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		3B726B0819E90C3200B39196 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		3B726B0919E90C3200B39196 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		3B726B0A19E90C3200B39196 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		3B726B0B19E90C3200B39196 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		3B726B0C19E90C3200B39196 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdIdAccess.a; sourceTree = "<group>"; };
+		3B726B0D19E90C3200B39196 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		3B743BCE17E1D8060086C519 /* Episode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Episode.h; sourceTree = "<group>"; };
 		3B743BCF17E1D8060086C519 /* Episode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Episode.m; sourceTree = "<group>"; };
 		3B743BD617E25DA40086C519 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
@@ -219,17 +232,6 @@
 		3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedImage.m"; sourceTree = "<group>"; };
 		3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCacheRounded.h"; sourceTree = "<group>"; };
 		3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCacheRounded.m"; sourceTree = "<group>"; };
-		3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		3B976CB11981E2F70011DF75 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		3B976CB21981E2F70011DF75 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		3B976CB31981E2F70011DF75 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		3B976CB41981E2F70011DF75 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		3B976CB51981E2F70011DF75 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		3B976CB61981E2F70011DF75 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		3B976CB71981E2F70011DF75 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		3B976CB81981E2F70011DF75 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		3B976CB91981E2F70011DF75 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		3B976CBA1981E2F70011DF75 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		3B976CBF198276060011DF75 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		3B976CC0198276060011DF75 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		3BA50B8A19E7AAFB003D4C90 /* IMAAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAAd.h; sourceTree = "<group>"; };
@@ -379,13 +381,14 @@
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
 				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
 				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
+				3B726B0E19E90C3200B39196 /* libAdIdAccess.a in Frameworks */,
 				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
 				F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */,
+				3B726B0F19E90C3300B39196 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0A3C89C15BB2F96000CD962 /* libsqlite3.0.dylib in Frameworks */,
 				3BA50B9819E7AAFB003D4C90 /* libGoogleIMA3.a in Frameworks */,
 				F0A3C89A15BB2D54000CD962 /* libxml2.dylib in Frameworks */,
 				F0A3C83715BB21AB000CD962 /* MobileCoreServices.framework in Frameworks */,
-				3B976CBB1981E2F70011DF75 /* libGoogleAnalyticsServices.a in Frameworks */,
 				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				F0A3C83915BB21BA000CD962 /* libz.dylib in Frameworks */,
@@ -444,6 +447,41 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		3B726AFF19E90C3200B39196 /* GoogleAnalyticsServicesiOS_3.09 */ = {
+			isa = PBXGroup;
+			children = (
+				3B726B0019E90C3200B39196 /* GoogleAnalytics */,
+				3B726B0C19E90C3200B39196 /* libAdIdAccess.a */,
+				3B726B0D19E90C3200B39196 /* libGoogleAnalyticsServices.a */,
+			);
+			path = GoogleAnalyticsServicesiOS_3.09;
+			sourceTree = "<group>";
+		};
+		3B726B0019E90C3200B39196 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				3B726B0119E90C3200B39196 /* Library */,
+			);
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
+		3B726B0119E90C3200B39196 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				3B726B0219E90C3200B39196 /* GAI.h */,
+				3B726B0319E90C3200B39196 /* GAIDictionaryBuilder.h */,
+				3B726B0419E90C3200B39196 /* GAIEcommerceFields.h */,
+				3B726B0519E90C3200B39196 /* GAIEcommerceProduct.h */,
+				3B726B0619E90C3200B39196 /* GAIEcommerceProductAction.h */,
+				3B726B0719E90C3200B39196 /* GAIEcommercePromotion.h */,
+				3B726B0819E90C3200B39196 /* GAIFields.h */,
+				3B726B0919E90C3200B39196 /* GAILogger.h */,
+				3B726B0A19E90C3200B39196 /* GAITrackedViewController.h */,
+				3B726B0B19E90C3200B39196 /* GAITracker.h */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		3B86572A1805F29F00BC61AC /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,32 +530,6 @@
 				1136AC4B18D81DD7004BFE4D /* OTVPart.m */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		3B976CAE1981E2F70011DF75 /* GoogleAnalyticsServicesiOS_3.08 */ = {
-			isa = PBXGroup;
-			children = (
-				3B976CAF1981E2F70011DF75 /* libGoogleAnalyticsServices.a */,
-				3B976CB01981E2F70011DF75 /* Library */,
-			);
-			path = GoogleAnalyticsServicesiOS_3.08;
-			sourceTree = "<group>";
-		};
-		3B976CB01981E2F70011DF75 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				3B976CB11981E2F70011DF75 /* GAI.h */,
-				3B976CB21981E2F70011DF75 /* GAIDictionaryBuilder.h */,
-				3B976CB31981E2F70011DF75 /* GAIEcommerceFields.h */,
-				3B976CB41981E2F70011DF75 /* GAIEcommerceProduct.h */,
-				3B976CB51981E2F70011DF75 /* GAIEcommerceProductAction.h */,
-				3B976CB61981E2F70011DF75 /* GAIEcommercePromotion.h */,
-				3B976CB71981E2F70011DF75 /* GAIFields.h */,
-				3B976CB81981E2F70011DF75 /* GAILogger.h */,
-				3B976CB91981E2F70011DF75 /* GAITrackedViewController.h */,
-				3B976CBA1981E2F70011DF75 /* GAITracker.h */,
-			);
-			path = Library;
 			sourceTree = "<group>";
 		};
 		3BA50B8919E7AAFB003D4C90 /* GoogleIMASDK3 */ = {
@@ -826,8 +838,8 @@
 		F0DC4E0F15BA01DD0009BFCD /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				3B726AFF19E90C3200B39196 /* GoogleAnalyticsServicesiOS_3.09 */,
 				3BA50B8919E7AAFB003D4C90 /* GoogleIMASDK3 */,
-				3B976CAE1981E2F70011DF75 /* GoogleAnalyticsServicesiOS_3.08 */,
 				3BDF8351190A78CC00AD12D0 /* DVVAST */,
 				3BDF833C190A74EE00AD12D0 /* KissXML */,
 				F042D50D15BCA5590037E120 /* Base64 */,
@@ -1156,7 +1168,7 @@
 					"$(SRCROOT)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleIMASDK3",
-					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.08",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -1205,7 +1217,7 @@
 					"$(SRCROOT)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleIMASDK3",
-					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.08",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -1215,8 +1227,8 @@
 					"-fno-objc-arc",
 				);
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "1F652916-A30F-479F-AB92-0F8F185B5C71";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F652916-A30F-479F-AB92-0F8F185B5C71";
+				PROVISIONING_PROFILE = "E6F7CB9C-3624-4BF6-81F1-47396E003088";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E6F7CB9C-3624-4BF6-81F1-47396E003088";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

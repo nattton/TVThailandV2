@@ -1524,15 +1524,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 //    }
     
     if (event == VKVideoPlayerControlEventTapDone) {
-
+        if (_isiPhone) {
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated: NO];
+        }
         self.closeCircleButton.hidden = NO;
         [self close];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
         
-    }
-    
-    if (event == VKVideoPlayerControlEventTapFullScreen) {
+    } else if (event == VKVideoPlayerControlEventTapFullScreen) {
 
         if (self.player.isFullScreen) {
             self.closeCircleButton.hidden = YES;
@@ -1547,15 +1546,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
         
-    }
-    
-    if (event == VKVideoPlayerControlEventTapNext) {
-
+    } else if (event == VKVideoPlayerControlEventTapNext) {
         [self playNextOTVVideo];
-    }
-    
-    if (event == VKVideoPlayerControlEventSwipeNext) {
-        
+    } else if (event == VKVideoPlayerControlEventSwipeNext) {
         [self playNextOTVVideo];
     }
 }
@@ -1661,6 +1654,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                                                        forKey:[GAIFields customDimensionForIndex:6]] build]];
 }
 
-
+//- (BOOL)shouldVideoPlayer:(VKVideoPlayer*)videoPlayer changeStateTo:(VKVideoPlayerState)toState
+//{
+//    
+//}
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeStateTo:(VKVideoPlayerState)toState {
+    
+}
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeStateFrom:(VKVideoPlayerState)fromState {
+    
+}
+//- (BOOL)shouldVideoPlayer:(VKVideoPlayer*)videoPlayer startVideo:(id<VKVideoPlayerTrackProtocol>)track;
 
 @end

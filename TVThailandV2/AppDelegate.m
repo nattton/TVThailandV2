@@ -149,6 +149,7 @@
         
         // Check whether it implements a dummy methods called canRotate
         if ([currentViewController respondsToSelector:@selector(canRotate)]
+            || [@"AVFullScreenViewController" isEqualToString: NSStringFromClass(currentViewController.class)]
             || [@"MPInlineVideoFullscreenViewController" isEqualToString: NSStringFromClass(currentViewController.class)]
             || [@"MPFullScreenTransitionViewController" isEqualToString: NSStringFromClass(currentViewController.class)]
             ) {

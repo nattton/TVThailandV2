@@ -10,4 +10,4 @@ pod 'Objective-C-HMTL-Parser'
 pod 'XLMediaZoom'
 pod 'SASlideMenu'
 pod 'SVWebViewController', :head
-pod "VKVideoPlayer", "~> 0.1.1"
+pod 'VKVideoPlayer', '~> 0.1.1'
