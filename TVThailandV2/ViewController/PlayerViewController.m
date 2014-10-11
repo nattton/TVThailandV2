@@ -1616,16 +1616,19 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)layoutAdsForOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    [UIView animateWithDuration:0.3f animations:^{
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
-            self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
-        }
-        
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.bounds.size.height >500) {
-            self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
-        }
-        
-    }];
+    if (self.adDisplayContainer) {
+        [UIView animateWithDuration:0.3f animations:^{
+            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.bounds.size.height >500) {
+                self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
+            }
+            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
+                self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
+            }
+            
+            
+            
+        }];
+    }
 }
      
 

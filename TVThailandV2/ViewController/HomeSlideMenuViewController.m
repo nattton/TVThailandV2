@@ -117,9 +117,6 @@ static NSInteger tagSearchTable = 999;
                              action:@selector(textFieldDidChange)
         forControlEvents:UIControlEventEditingChanged];
     
-//    UITapGestureRecognizer *searchTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(searchTapped)];
-//    [self.searchView addGestureRecognizer:searchTapRecognizer];
-    
     _categoryList = [[ShowCategoryList alloc] initWithWhatsNew];
     
     [self.tableView reloadData];
@@ -187,6 +184,11 @@ static NSInteger tagSearchTable = 999;
 }
 
 #pragma mark - Search UI
+
+- (IBAction)searchTapped:(id)sender {
+    [self searchTapped];
+}
+
 - (void)searchTapped {
     
     if (_searchUIView == nil  && _searchTable == nil) {

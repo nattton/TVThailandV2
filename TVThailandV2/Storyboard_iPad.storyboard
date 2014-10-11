@@ -648,15 +648,21 @@
                                                 <action selector="clearTextFieldTapped:" destination="2QN-ZO-GBc" eventType="touchUpInside" id="BV2-NC-xkl"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="8Br-FC-gzx">
-                                            <rect key="frame" x="10" y="7" width="28" height="28"/>
-                                        </imageView>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fui-MF-PrB">
                                             <rect key="frame" x="46" y="5" width="170" height="30"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IZ-Ah-7FF">
+                                            <rect key="frame" x="10" y="7" width="28" height="28"/>
+                                            <state key="normal" title="Search" image="ic_search" backgroundImage="ic_search">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="searchTapped:" destination="2QN-ZO-GBc" eventType="touchUpInside" id="04N-xi-rru"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
