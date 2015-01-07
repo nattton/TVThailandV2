@@ -91,7 +91,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
 - (void)reload
 {
-    [_categoryList retriveData:^(NSError *error) {
+    [_categoryList retrieveData:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self.tableView reloadData];
         

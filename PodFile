@@ -9,4 +9,4 @@ pod 'XLMediaZoom'
 pod 'SASlideMenu'
 pod 'SVWebViewController', :head
 pod 'GoogleAds-IMA-iOS-SDK', '~> 3.0.beta.11'
-#pod 'VKVideoPlayer', '~> 0.1.1'
+pod 'VKVideoPlayer', '~> 0.1.1'

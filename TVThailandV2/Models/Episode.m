@@ -52,7 +52,7 @@
     
     if (!Id) return;
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", Id, [[NSNumber numberWithInteger:start] stringValue], kAPI_URL_BASE , kAPP_VERSION, kAPP_BUILD]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD]];
     IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
     [http retrieveURL:url successBlock:^(NSData *response) {
         NSError *error = nil;

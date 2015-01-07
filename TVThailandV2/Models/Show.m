@@ -149,7 +149,7 @@
     IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
     [http retrieveURL:url successBlock:^(NSData *response) {
         NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:data
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
                                                              options:0
                                                                error:&error];
         if (!error) {

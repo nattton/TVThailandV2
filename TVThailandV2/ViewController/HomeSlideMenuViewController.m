@@ -145,7 +145,7 @@ static NSInteger tagSearchTable = 999;
 
 - (void)reload
 {
-    [_categoryList retriveData:^(NSError *error) {
+    [_categoryList retrieveData:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self.tableView reloadData];
         

@@ -13,7 +13,7 @@
 @property (nonatomic, readonly) NSUInteger count;
 
 - (id)initWithWhatsNew;
-- (void)retriveData:(void (^)(NSError *error))block;
+- (void)retrieveData:(void (^)(NSError *error))block;
 - (ShowCategory *)genreAtIndex:(NSUInteger)idx;
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;
 
