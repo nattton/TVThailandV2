@@ -7,7 +7,7 @@
 //
 
 #import "KapookAds.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "IAHTTPCommunication.h"
 
 @implementation KapookAds
 
@@ -20,20 +20,24 @@
     return self;
 }
 
-+ (void)loadApi:(void (^)(KapookAds *kapook, NSError *error))block {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://kapi.kapook.com/partner/url"
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             KapookAds *kapookAds = [[KapookAds alloc] initWithDictionary:responseObject];
-             if (block) {
-                 block(kapookAds, nil);
-             }
-    }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             if (block) {
-                 block(nil, error);
-             }
++ (void)retrieveData:(void (^)(KapookAds *kapook, NSError *error))block {
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    NSURL *url = [NSURL URLWithString:@"http://kapi.kapook.com/partner/url"];
+    [http retrieveURL:url successBlock:^(NSData *response) {
+        NSError *error = nil;
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
+                                                            options:0
+                                                              error:&error];
+        if (!error) {
+            KapookAds *kapookAds = [[KapookAds alloc] initWithDictionary:data];
+            if (block) {
+                block(kapookAds, nil);
+            }
+        } else {
+            if (block) {
+                block(nil, error);
+            }
+        }
     }];
 }
 

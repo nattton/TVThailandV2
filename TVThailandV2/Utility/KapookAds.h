@@ -13,6 +13,6 @@
 @property (nonatomic, strong) NSString *url1x1;
 @property (nonatomic, strong) NSString *urlShow;
 
-+ (void)loadApi:(void (^)(KapookAds *kapook, NSError *error))block;
++ (void)retrieveData:(void (^)(KapookAds *kapook, NSError *error))block;
 
 @end

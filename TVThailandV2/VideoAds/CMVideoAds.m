@@ -8,7 +8,6 @@
 
 #import "CMVideoAds.h"
 #import "DDXML.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "NSString+Utils.h"
 #import "DVVideoAdServingTemplate.h"
 #import "DVVideoAdServingTemplate+Parsing.h"

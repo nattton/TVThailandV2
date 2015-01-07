@@ -142,9 +142,6 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
         }];
     }
     
-    
-    
-    
 }
 
 - (void)sendTracker
@@ -200,7 +197,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
     _isLoading = YES;
     
     // TODO : New API Content
-    [OTVEpisode loadOTVEpisodeAndPartWithCateName:self.show.otvApiName
+    [OTVEpisode retrieveDataWithCateName:self.show.otvApiName
                                            ShowID:self.show.otvId
                                             start:start
                                             Block:^(OTVShow *otvShow, NSArray *tempOtvEpisodes, NSArray *tempRelateShows, NSError *error)

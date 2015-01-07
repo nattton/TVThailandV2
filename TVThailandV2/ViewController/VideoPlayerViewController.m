@@ -14,10 +14,6 @@
 
 #import "SVProgressHUD.h"
 
-#import "AFHTTPSessionManager.h"
-#import "AFHTTPRequestOperation.h"
-#import "AFHTTPRequestOperationManager.h"
-
 #import "HTMLParser.h"
 
 #import "MakathonAdView.h"

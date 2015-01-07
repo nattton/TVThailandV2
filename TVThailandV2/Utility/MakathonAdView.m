@@ -75,7 +75,7 @@
 }
 
 - (void)requestKapookAds {
-    [KapookAds loadApi:^(KapookAds *kapook, NSError *error) {
+    [KapookAds retrieveData:^(KapookAds *kapook, NSError *error) {
         if (!error) {
             [self.webView1x1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kapook.url1x1]]];
             [self.webViewShow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kapook.urlShow]]];

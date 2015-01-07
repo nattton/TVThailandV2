@@ -78,7 +78,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)refresh {
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    [Channel loadData:^(NSArray *channels, NSError *error) {
+    [Channel retrieveData:^(NSArray *channels, NSError *error) {
         
         [SVProgressHUD dismiss];
         

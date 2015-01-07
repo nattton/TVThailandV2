@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #import "GAI.h"
 #import "NSString+Utils.h"
 #import "CMUser.h"
@@ -21,6 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Fabric with:@[CrashlyticsKit]];
+    
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         
         NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:kThemeColor, UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];

@@ -1,0 +1,21 @@
+dependencies: \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/ViewController/RadioViewController.m \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/ViewController/RadioViewController.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Frameworks/SDWebImage.framework/Headers/UIImageView+WebCache.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Frameworks/SDWebImage.framework/Headers/SDWebImageCompat.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Frameworks/SDWebImage.framework/Headers/SDWebImageManager.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Frameworks/SDWebImage.framework/Headers/SDWebImageOperation.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Frameworks/SDWebImage.framework/Headers/SDWebImageDownloader.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Frameworks/SDWebImage.framework/Headers/SDImageCache.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Models/Radio.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/ViewController/CollectionItemView/RadioCollectionHeaderView.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/ViewController/CollectionItemView/RadioCollectionViewCell.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAI.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAILogger.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAITracker.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAITrackedViewController.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAIFields.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAIDictionaryBuilder.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAIEcommerceProduct.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAIEcommerceProductAction.h \
+  /Users/nattapong/github/CodeMobi/TVThailandV2/TVThailandV2/Library/GoogleAnalyticsServicesiOS_3.09/GoogleAnalytics/Library/GAIEcommercePromotion.h

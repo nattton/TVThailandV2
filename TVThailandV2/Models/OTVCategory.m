@@ -7,8 +7,7 @@
 //
 
 #import "OTVCategory.h"
-
-#import "OTVApiClient.h"
+#import "IAHTTPCommunication.h"
 
 @implementation OTVCategory {
 
@@ -47,15 +46,16 @@
     return [[OTVCategory alloc]initWithId:kOTV_CH7 CateName:kOTV_CH7 Title:@"ช่อง 7" ThumbnailURL:@""];
 }
 
-+ (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block {
-    
-    OTVApiClient *client = [OTVApiClient sharedInstance];
-    
-    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION ] parameters:nil
-        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
++ (void)retrieveData:(void (^)(NSArray *otvCategories, NSError *error)) block {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/CategoryList/index/%@/%@/%@/", kOTV_URL_BASE,kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION ]];
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    [http retrieveURL:url successBlock:^(NSData *response) {
+        NSError *error = nil;
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
+                                                             options:0
+                                                               error:&error];
+        if (!error) {
+            NSArray *jcategories = [data valueForKeyPath:@"items"];
             
             // Capacity + (1)Ch7
             NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count] + 1];
@@ -67,24 +67,56 @@
                 [mutableCategories addObject:category];
             }
             
-
+            
             
             if (block) {
                 block([NSArray arrayWithArray:mutableCategories], nil);
             }
-        
-        
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (block) {
-                block([NSArray array], error);
-                
-                DLog(@"failure loadOTVCategory: %@", error);
-//                NSLog(@"URL:%@",[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kOTV_APP_VERSION, kOTV_API_VERSION ]);
-            }
-     
-        }];
-    
+        } else {
+            block([NSArray array], error);
+            
+            DLog(@"failure loadOTVCategory: %@", error);
+        }
+    }];
 }
+
+//+ (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block {
+//    
+//    OTVApiClient *client = [OTVApiClient sharedInstance];
+//    
+//    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+//    
+//    [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION ] parameters:nil
+//        success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
+//            
+//            // Capacity + (1)Ch7
+//            NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count] + 1];
+//            OTVCategory * category = [OTVCategory initWithCH7];
+//            
+//            [mutableCategories addObject:category];
+//            for (NSDictionary *dictCategory in jcategories){
+//                OTVCategory * category = [[OTVCategory alloc] initWithDictionary:dictCategory];
+//                [mutableCategories addObject:category];
+//            }
+//            
+//
+//            
+//            if (block) {
+//                block([NSArray arrayWithArray:mutableCategories], nil);
+//            }
+//        
+//        
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            if (block) {
+//                block([NSArray array], error);
+//                
+//                DLog(@"failure loadOTVCategory: %@", error);
+//            }
+//     
+//        }];
+//    
+//}
 
 
 @end

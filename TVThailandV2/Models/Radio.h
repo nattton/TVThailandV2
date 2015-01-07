@@ -20,6 +20,6 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)loadData:(void (^)(NSArray *radioCategories, NSArray *radios ,NSError *error))block;
++ (void)retrieveData:(void (^)(NSArray *radioCategories, NSArray *radios ,NSError *error))block;
 
 @end

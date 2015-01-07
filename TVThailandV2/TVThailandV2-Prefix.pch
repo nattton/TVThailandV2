@@ -31,7 +31,7 @@
 #define kEmailSupport @"makathon.labs@gmail.com"
 #define kFBFanPage @"http://goo.gl/LVJOM"
 
-#define kOTV_URL_BASE @"http://api.otv.co.th/api/index.php"
+#define kOTV_URL_BASE @"http://api.otv.co.th/api/index.php/v202"
 #define kOTV_APP_ID @"16"
 #define kOTV_API_VERSION @"2.0.1.2"
 #define kOTV_CH7 @"Ch7"

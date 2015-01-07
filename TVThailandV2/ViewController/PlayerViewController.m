@@ -7,10 +7,8 @@
 //
 
 #import "PlayerViewController.h"
+#import "IAHTTPCommunication.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "AFHTTPSessionManager.h"
-#import "AFHTTPRequestOperation.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "SVProgressHUD.h"
 #import "HTMLParser.h"
 #import "GAI.h"
@@ -445,47 +443,27 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void) loadMThaiWebVideo {
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    AFHTTPRequestSerializer * requestSerializer = [AFHTTPRequestSerializer serializer];
-    [requestSerializer setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
-             forHTTPHeaderField:@"User-Agent"];
-    manager.requestSerializer = requestSerializer;
-    
-    [manager GET:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             [self startMThaiVideoFromData:responseObject];
-              [SVProgressHUD dismiss];
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             DLog(@"Error: %@", error);
-              [SVProgressHUD dismiss];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    [http retrieveURL:url
+            userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
+         successBlock:^(NSData *response) {
+             [self startMThaiVideoFromData:response];
+             [SVProgressHUD dismiss];
          }];
-    
 }
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    AFHTTPRequestSerializer * requestSerializer = [AFHTTPRequestSerializer serializer];
-    [requestSerializer setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
-             forHTTPHeaderField:@"User-Agent"];
-    manager.requestSerializer = requestSerializer;
-    
-    [manager POST:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]
-       parameters:@{@"clip_password": password}
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [self startMThaiVideoFromData:responseObject];
-               [SVProgressHUD dismiss];
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              [SVProgressHUD dismiss];
-          }];
-    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    [http postURL:url userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
+           params:@{@"clip_password": password}
+     successBlock:^(NSData *response) {
+         [self startMThaiVideoFromData:response];
+         [SVProgressHUD dismiss];
+     }];
 }
 
 - (void) startMThaiVideoFromData:(NSData *)data {

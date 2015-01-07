@@ -7,7 +7,7 @@
 //
 
 #import "OTVEpisode.h"
-#import "OTVApiClient.h"
+#import "IAHTTPCommunication.h"
 #import "OTVShow.h"
 #import "OTVPart.h"
 #import "Show.h"
@@ -49,36 +49,24 @@
     return  self;
 }
 
-+ (void)loadOTVEpisodeAndPartWithCateName:(NSString *)cateName
++ (void)retrieveDataWithCateName:(NSString *)cateName
                                    ShowID:(NSString *)showID
                                     start:(NSInteger)start
-                                    Block:(void (^)(OTVShow *otvShow, NSArray *otvEpisodes, NSArray *ralateShows, NSError *error)) block
-{
-    
-    OTVApiClient *client = [OTVApiClient sharedInstance];
-
-    client.responseSerializer = [AFJSONResponseSerializer serializer];
-    client.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json", @"text/html", nil];
-
-    
-    NSString *url = ([cateName isEqualToString:kOTV_CH7])
-    ? [NSString stringWithFormat:@"Ch7/content/%@/%@", kOTV_APP_ID, showID]
-    : [NSString stringWithFormat:@"Content/index/%@/%@/%@/%@/", kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
-    
-    DLog(@"OTV Episode URL ===== http://api.otv.co.th/api/index.php/%@", url);
-    
-    [client GET:url
-     parameters:nil
-        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            OTVShow *otvShow = [[OTVShow alloc] initWithDictionary:responseObject];
+                                    Block:(void (^)(OTVShow *otvShow, NSArray *otvEpisodes, NSArray *ralateShows, NSError *error)) block {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/Content/index/%@/%@/%@/%@/0/50/0", kOTV_URL_BASE,kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID]];
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    [http retrieveURL:url successBlock:^(NSData *response) {
+        NSError *error = nil;
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
+                                                             options:0
+                                                               error:&error];
+        if (!error) {
+            OTVShow *otvShow = [[OTVShow alloc] initWithDictionary:data];
             
             
             /** OTV Episode content **/
-            NSArray *jEpisodes = [responseObject valueForKey:@"contentList"];
+            NSArray *jEpisodes = [data valueForKey:@"contentList"];
             NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[jEpisodes count]];
-            
-            
             
             for (NSDictionary *dictEp in jEpisodes){
                 
@@ -90,9 +78,9 @@
                 for (NSDictionary *dictPart in [episode parts]) {
                     
                     if (!part) {
-                            part = [[OTVPart alloc]init];
+                        part = [[OTVPart alloc]init];
                     }
-                   
+                    
                     NSString *mediaCode = dictPart[@"media_code"] != nil ? dictPart[@"media_code"] : @"";
                     
                     if ([@"1001"  isEqual: mediaCode]) {
@@ -105,7 +93,7 @@
                         part = nil;
                     }
                     
-                
+                    
                 }
                 
                 if ([cateName isEqualToString:kOTV_CH7]) {
@@ -126,13 +114,13 @@
             }
             
             /** OTV Show relate content **/
-            NSArray *jRelateShows = [responseObject valueForKey:@"relate_content"];
+            NSArray *jRelateShows = [data valueForKey:@"relate_content"];
             NSMutableArray *mutableRelateShows = [NSMutableArray arrayWithCapacity:[jRelateShows count]];
             
             for (NSDictionary *dictShow in jRelateShows){
                 
                 Show *relateShow = [[Show alloc] initWithRelateOTVShow:dictShow];
-
+                
                 
                 [mutableRelateShows addObject:relateShow];
                 
@@ -142,91 +130,89 @@
             if (block) {
                 block(otvShow, [NSArray arrayWithArray:mutableEpisodes], [NSArray arrayWithArray:mutableRelateShows], nil);
             }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
+        } else {
             if (block) {
                 block(nil, [NSArray array], [NSArray array], error);
                 
                 DLog(@"failure loadOTVEpisode: %@", error);
             }
-            
-        }];
-    
-}
-
-+ (void)loadOTVEpisodeAndPart:(NSString *)cateName showID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block{
-
-    NSString *url = ([cateName isEqualToString:kOTV_CH7])
-                    ? [NSString stringWithFormat:@"%@/content/%@/%@", kOTV_CH7, kOTV_APP_ID, showID]
-                    : [NSString stringWithFormat:@"%@/detail/%@/%@/%@/%@/",cateName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
-    
-    OTVApiClient *client = [OTVApiClient sharedInstance];
-    
-    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    [client GET:url
-        parameters:nil
-        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-            NSArray *jEpisodes = [responseObject valueForKey:@"contentList"];
-            NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[jEpisodes count]];
-            
-            for (NSDictionary *dictEp in jEpisodes){
-                
-
-                OTVEpisode *episode = [[OTVEpisode alloc]initWithDictionary:dictEp];
-                
-//                NSLog(@"EP:%@, Part_count: %d", episode.date , [episode.parts count]);
-                
-                NSInteger count = 0;
-                NSString *vast_url_temp = @"";
-                NSMutableArray *mutableParts = [NSMutableArray arrayWithCapacity:[episode.parts count]];
-                for (NSDictionary *dictPart in [episode parts]) {
-                    OTVPart *part = [[OTVPart alloc]initWithDictionary:dictPart];
-                    
-                    if ((count+1)%2 == 0) {
-                        part.vastURL = vast_url_temp;
-                        [mutableParts addObject:part ];
-//                        NSLog(@"Part: %@",[part description]);
-                    } else {
-                        vast_url_temp = part.streamURL;
-                    }
-                    count++;
-                }
-                
-                if ([cateName isEqualToString:kOTV_CH7]) {
-                    NSSortDescriptor *sortById = [NSSortDescriptor sortDescriptorWithKey:@"partId"
-                                                                               ascending:YES];
-                    NSArray *sortDescriptors = [NSArray arrayWithObject:sortById];
-                    NSArray *sortedArray = [mutableParts sortedArrayUsingDescriptors:sortDescriptors];
-                    
-                    episode.parts = [NSArray arrayWithArray:sortedArray];
-                }
-                else
-                {
-                    episode.parts = [NSArray arrayWithArray:mutableParts];
-                }
-                
-                [mutableEpisodes addObject:episode];
-                
-                
-            }
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutableEpisodes], nil);
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            if (block) {
-                block([NSArray array], error);
-                
-                DLog(@"failure loadOTVEpisode: %@", error);
-            }
-        
+        }
     }];
-    
 }
+
+
+//+ (void)loadOTVEpisodeAndPart:(NSString *)cateName showID:(NSString *)showID start:(NSInteger)start Block:(void (^)(NSArray *otvEpisodes, NSError *error)) block{
+//
+//    NSString *url = ([cateName isEqualToString:kOTV_CH7])
+//                    ? [NSString stringWithFormat:@"%@/content/%@/%@", kOTV_CH7, kOTV_APP_ID, showID]
+//                    : [NSString stringWithFormat:@"%@/detail/%@/%@/%@/%@/",cateName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
+//    
+//    OTVApiClient *client = [OTVApiClient sharedInstance];
+//    
+//    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+//    
+//    [client GET:url
+//        parameters:nil
+//        success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//            NSArray *jEpisodes = [responseObject valueForKey:@"contentList"];
+//            NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[jEpisodes count]];
+//            
+//            for (NSDictionary *dictEp in jEpisodes){
+//                
+//
+//                OTVEpisode *episode = [[OTVEpisode alloc]initWithDictionary:dictEp];
+//                
+////                NSLog(@"EP:%@, Part_count: %d", episode.date , [episode.parts count]);
+//                
+//                NSInteger count = 0;
+//                NSString *vast_url_temp = @"";
+//                NSMutableArray *mutableParts = [NSMutableArray arrayWithCapacity:[episode.parts count]];
+//                for (NSDictionary *dictPart in [episode parts]) {
+//                    OTVPart *part = [[OTVPart alloc]initWithDictionary:dictPart];
+//                    
+//                    if ((count+1)%2 == 0) {
+//                        part.vastURL = vast_url_temp;
+//                        [mutableParts addObject:part ];
+////                        NSLog(@"Part: %@",[part description]);
+//                    } else {
+//                        vast_url_temp = part.streamURL;
+//                    }
+//                    count++;
+//                }
+//                
+//                if ([cateName isEqualToString:kOTV_CH7]) {
+//                    NSSortDescriptor *sortById = [NSSortDescriptor sortDescriptorWithKey:@"partId"
+//                                                                               ascending:YES];
+//                    NSArray *sortDescriptors = [NSArray arrayWithObject:sortById];
+//                    NSArray *sortedArray = [mutableParts sortedArrayUsingDescriptors:sortDescriptors];
+//                    
+//                    episode.parts = [NSArray arrayWithArray:sortedArray];
+//                }
+//                else
+//                {
+//                    episode.parts = [NSArray arrayWithArray:mutableParts];
+//                }
+//                
+//                [mutableEpisodes addObject:episode];
+//                
+//                
+//            }
+//            
+//            if (block) {
+//                block([NSArray arrayWithArray:mutableEpisodes], nil);
+//            }
+//            
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            
+//            if (block) {
+//                block([NSArray array], error);
+//                
+//                DLog(@"failure loadOTVEpisode: %@", error);
+//            }
+//        
+//    }];
+//    
+//}
 
 @end

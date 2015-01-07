@@ -18,6 +18,6 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)loadData:(void (^)(NSArray *channels ,NSError *error))block;
++ (void)retrieveData:(void (^)(NSArray *channels ,NSError *error))block;
 
 @end

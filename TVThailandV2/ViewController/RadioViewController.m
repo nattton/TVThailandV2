@@ -88,7 +88,7 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
 - (void) refresh {
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    [Radio loadData:^(NSArray *radioCategories, NSArray *radios, NSError *error) {
+    [Radio retrieveData:^(NSArray *radioCategories, NSArray *radios, NSError *error) {
         [SVProgressHUD dismiss];
         _radioCategories = radioCategories;
         _radios = radios;

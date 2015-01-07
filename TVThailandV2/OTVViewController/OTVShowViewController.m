@@ -63,32 +63,7 @@ static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     isLoading = YES;
     if ([_otvCategory.IdCate isEqualToString:kOTV_CH7]) {
      
-        [OTVShow loadOTVShowWithCH7:self.otvCategory.cateName Start:start Block:^(NSArray *otvShows, NSError *error) {
-            
-            if ([otvShows count] == 0) {
-                isEnding = YES;
-            }
-            
-            if (start == 0) {
-                [SVProgressHUD dismiss];
-                _shows = otvShows;
-                
-            } else {
-                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
-                [mergeArray addObjectsFromArray:otvShows];
-                _shows = [NSArray arrayWithArray:mergeArray];
-            }
-            
-            
-            [self.tableView reloadData];
-            isLoading = NO;
-            
-            [_refreshControl endRefreshing];
-            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-        }];
-        
-    } else {
-        [OTVShow loadOTVShow:self.otvCategory.cateName Start:0 Block:^(NSArray *otvShows, NSError *error) {
+        [OTVShow retrieveData:self.otvCategory.cateName Start:0 Block:^(NSArray *otvShows, NSError *error) {
             
             
             if ([otvShows count] == 0) {
@@ -105,7 +80,7 @@ static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
                 _shows = [NSArray arrayWithArray:mergeArray];
             }
             
-
+            
             [self.tableView reloadData];
             isLoading = NO;
             
@@ -113,7 +88,6 @@ static NSString *otvEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
             _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         }];
     }
-
 }
 
 - (void)refreshView:(UIRefreshControl *)refresh {

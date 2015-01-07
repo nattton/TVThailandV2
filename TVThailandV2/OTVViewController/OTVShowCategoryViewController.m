@@ -56,7 +56,7 @@ static NSString *OTVShowListSegue = @"OTVShowListSegue";
 }
 
 - (void)reload {
-    [OTVCategory loadOTVCategory:^(NSArray *otvCategories, NSError *error) {
+    [OTVCategory retrieveData:^(NSArray *otvCategories, NSError *error) {
         [SVProgressHUD dismiss];
         _categories = otvCategories;
         

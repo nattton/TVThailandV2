@@ -27,6 +27,6 @@
 - (NSString *)videoThumbnail:(NSUInteger)idx;
 - (void)sendViewEpisode;
 
-+ (void)loadEpisodeDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block;
++ (void)retrieveDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block;
 
 @end

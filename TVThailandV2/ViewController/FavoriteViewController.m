@@ -115,7 +115,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
      Program *program = (Program*)[self.fetchedResultsController objectAtIndexPath:indexPath];
     
     [SVProgressHUD showWithStatus:@"Loading"];
-    [Episode loadEpisodeDataWithId:program.program_id
+    [Episode retrieveDataWithId:program.program_id
                              Start:0
                              Block:^(Show *show, NSArray *tempEpisodes, NSError *error)
     {

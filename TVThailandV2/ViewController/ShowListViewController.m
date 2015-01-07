@@ -20,7 +20,6 @@
 #import "GAIDictionaryBuilder.h"
 
 #import "EpisodePartViewController.h"
-#import "Reachability.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
@@ -54,7 +53,6 @@
     bool isLoading;
     bool isEnding;
     UIRefreshControl *_refreshControl;
-    Reachability *internetReachableTVThailand;
 }
 
 #pragma mark - Static Variable
@@ -228,7 +226,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     
     isLoading = YES;
     if (_mode == kWhatsNew) {
-        [self testInternetConnection];
         [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
@@ -267,7 +264,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         }];
     }
     else if (_mode == kCategory) {
-        [self testInternetConnection];
         [Show loadCategoryDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
@@ -305,7 +301,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         }];
     }
     else if (_mode == kChannel) {
-        [self testInternetConnection];
         [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
             
             [SVProgressHUD dismiss];
@@ -446,38 +441,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     
     [self reload];
-}
-
-- (void)testInternetConnection
-{
-    __weak typeof(self) weakSelf = self;
-    internetReachableTVThailand = [Reachability reachabilityWithHostname:@"www.google.com"];
-    
-    // Internet is reachable
-    internetReachableTVThailand.reachableBlock = ^(Reachability*reach)
-    {
-        // Update the UI on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            DLog(@"Yayyy, we have the interwebs!");
-            
-            weakSelf.alertTitle.text = @"Connection Fail, Try again";
-            
-        });
-    };
-    
-    // Internet is not reachable
-    internetReachableTVThailand.unreachableBlock = ^(Reachability*reach)
-    {
-        // Update the UI on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.alertTitle.text = @"No Internet Connection";
-            weakSelf.alertTitleView.alpha = 0.75;
-            
-            
-        });
-    };
-    
-    [internetReachableTVThailand startNotifier];
 }
 
 - (IBAction)alertRefreshButtonTouched:(id)sender {

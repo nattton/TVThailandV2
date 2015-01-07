@@ -17,7 +17,6 @@
 
 
 - (id) initWithDictionary:(NSDictionary *) dictionary;
-+ (void)loadOTVShow:(NSString *)cate_name Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block;
-+ (void)loadOTVShowWithCH7:(NSString *)cate_name Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block;
++ (void)retrieveData:(NSString *)categoryName Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block;
 
 @end

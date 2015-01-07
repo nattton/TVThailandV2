@@ -18,7 +18,7 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block;
++ (void)retrieveData:(void (^)(NSArray *otvCategories, NSError *error)) block;
 
 - (id)initWithId:(NSString *)IdCate CateName:(NSString *)cateName Title:(NSString *)title ThumbnailURL:(NSString *)thubmnailURL;
 + (OTVCategory *)initWithCH7;
