@@ -8,7 +8,6 @@
 
 #import "MakathonAdView.h"
 #import "MakathonAd.h"
-#import "KapookAds.h"
 #import <SVWebViewController/SVWebViewController.h>
 
 @implementation MakathonAdView {
@@ -54,33 +53,20 @@
         self.webViewShow.delegate = self;
         [self.webViewShow.scrollView setScrollEnabled:NO];
         [self addSubview:self.webViewShow];
-        
-        self.webView1x1 = [[UIWebView alloc] initWithFrame:CGRectMake(adFrame.size.width - 1, adFrame.size.height - 1, 1, 1)];
-        [self addSubview:self.webView1x1];
     }
     else
     {
         self.frame = adFrame;
         [self.webViewShow setFrame:CGRectMake(0, 0, adFrame.size.width, adFrame.size.height)];
-        [self.webView1x1 setFrame:CGRectMake(adFrame.size.width - 1, adFrame.size.height - 1, 1, 1)];
     }
 }
 
 - (void)requestAd {
-    [MakathonAd loadAds:^(NSArray *ads, NSError *error) {
+    [MakathonAd retrieveData:^(NSArray *ads, NSError *error) {
         _ads = ads;
         [self startRotateAd];
     }];
     
-}
-
-- (void)requestKapookAds {
-    [KapookAds retrieveData:^(KapookAds *kapook, NSError *error) {
-        if (!error) {
-            [self.webView1x1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kapook.url1x1]]];
-            [self.webViewShow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kapook.urlShow]]];
-        }
-    }];
 }
 
 - (void)startRotateAd
@@ -89,11 +75,8 @@
         int x = arc4random() % [_ads count];
         MakathonAd *ad = [_ads objectAtIndex:x];
         delayAd = [ad.time doubleValue] / 1000.0f;
-        if ([[ad.name lowercaseString] rangeOfString:@"kapook"].length != NSNotFound) {
-            [self requestKapookAds];
-        } else {
-            [self.webViewShow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ad.url]]];
-        }
+        [self.webViewShow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ad.url]]];
+        
     }
 }
 

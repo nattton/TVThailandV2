@@ -298,10 +298,18 @@ static NSString *kCodeIframe = @"1002";
 //    DLog(@"streamURL : %@", _part.streamURL);
     
     if (success) {
-        [self.videoAds hitTrackingEvent:START];
-        [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
-        [self.videoAds hitTrackingEvent:MIDPOINT];
-        [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            [self.videoAds hitTrackingEvent:START];
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 4 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 6 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            [self.videoAds hitTrackingEvent:MIDPOINT];
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
+        });
         
         id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
                                                              trackingId:kOTVTracker];

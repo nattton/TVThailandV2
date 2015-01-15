@@ -11,6 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 #import "Episode.h"
+#import "PreRollAd.h"
 
 #import "SVProgressHUD.h"
 
@@ -26,9 +27,6 @@
 
 @interface VideoPlayerViewController ()
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
-//@property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
-
 @end
 
 @implementation VideoPlayerViewController {
@@ -40,7 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.webView.scrollView.scrollEnabled = NO;
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -51,9 +48,11 @@
         _size = CGSizeMake(320, 240);
     }
     
-    [self openWithVideoUrl:self.channel.videoUrl];
-    
     [self sendTracker];
+    
+    [self setUpContentPlayer];
+    
+    [self requestAds];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
@@ -102,5 +101,119 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Content Player Setup
+
+- (void)setUpContentPlayer {
+    // Load AVPlayer with path to our content.
+    NSURL *contentURL = [NSURL URLWithString:self.channel.videoUrl];
+    self.contentPlayer = [AVPlayer playerWithURL:contentURL];
+    
+    // Create a player layer for the player.
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.contentPlayer];
+    
+    // Size, position, and display the AVPlayer.
+    playerLayer.frame = self.videoView.layer.bounds;
+    [self.videoView.layer addSublayer:playerLayer];
+}
+
+#pragma mark SDK Setup
+
+- (void)setupAdsLoader {
+    self.webView.hidden = YES;
+    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:nil];
+    self.adsLoader.delegate = self;
+}
+
+- (void)setUpAdDisplayContainer {
+    // Create our AdDisplayContainer. Initialize it with our videoView as the container. This
+    // will result in ads being displayed over our content video.
+    self.adDisplayContainer =
+    [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoView companionSlots:nil];
+}
+
+- (void)requestAds {
+    [PreRollAd retrieveData:^(NSArray *ads, NSError *error) {
+        if (error == nil) {
+            PreRollAd *ad = [PreRollAd selectedAd:ads];
+            if (ad != nil) {
+                [self setupAdsLoader];
+                [self setUpAdDisplayContainer];
+                // Create an ad request with our ad tag, display container, and optional user context.
+                IMAAdsRequest *request =
+                [[IMAAdsRequest alloc] initWithAdTagUrl:ad.url
+                                     adDisplayContainer:self.adDisplayContainer
+                                            userContext:nil];
+                [self.adsLoader requestAdsWithRequest:request];
+                return;
+            }
+        }
+        
+        [self playContent];
+    }];
+}
+
+- (void)createAdsRenderingSettings {
+    self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
+    self.adsRenderingSettings.webOpenerPresentingController = self;
+}
+
+- (void)createContentPlayhead {
+    self.contentPlayhead = [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.contentPlayer];
+}
+
+#pragma mark AdsLoader Delegates
+
+- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
+    // Grab the instance of the IMAAdsManager and set ourselves as the delegate.
+    self.adsManager = adsLoadedData.adsManager;
+    self.adsManager.delegate = self;
+    // Create ads rendering settings to tell the SDK to use the in-app browser.
+    [self createAdsRenderingSettings];
+    // Create a content playhead so the SDK can track our content for VMAP and ad rules.
+    [self createContentPlayhead];
+    // Initialize the ads manager.
+    [self.adsManager initializeWithContentPlayhead:self.contentPlayhead
+                              adsRenderingSettings:self.adsRenderingSettings];
+}
+
+- (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
+    // Something went wrong loading ads. Log the error and play the content.
+    NSLog(@"Error loading ads: %@", adErrorData.adError.message);
+    [self playContent];
+}
+
+#pragma mark AdsManager Delegates
+
+- (void)adsManager:(IMAAdsManager *)adsManager
+ didReceiveAdEvent:(IMAAdEvent *)event {
+    // When the SDK notified us that ads have been loaded, play them.
+    if (event.type == kIMAAdEvent_LOADED) {
+        [adsManager start];
+    }
+}
+
+- (void)adsManager:(IMAAdsManager *)adsManager
+ didReceiveAdError:(IMAAdError *)error {
+    // Something went wrong with the ads manager after ads were loaded. Log the error and play the
+    // content.
+    NSLog(@"AdsManager error: %@", error.message);
+    [self playContent];
+}
+
+- (void)adsManagerDidRequestContentPause:(IMAAdsManager *)adsManager {
+    // The SDK is going to play ads, so pause the content.
+    [_contentPlayer pause];
+}
+
+- (void)adsManagerDidRequestContentResume:(IMAAdsManager *)adsManager {
+    // The SDK is done playing ads (at least for now), so resume the content.
+    [self playContent];
+}
+
+- (void)playContent {
+    self.webView.hidden = NO;
+    self.videoView.hidden = YES;
+    [self openWithVideoUrl:self.channel.videoUrl];
+}
 
 @end

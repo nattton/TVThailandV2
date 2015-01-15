@@ -565,15 +565,26 @@
                                     <constraint firstAttribute="height" constant="300" id="G2W-Nn-LLW"/>
                                 </constraints>
                             </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2g-Hv-J9q">
+                                <rect key="frame" x="0.0" y="134" width="320" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="7H5-AU-KVG"/>
+                                    <constraint firstAttribute="height" constant="300" id="aY3-R2-BML"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="S2g-Hv-J9q" firstAttribute="top" secondItem="cka-Co-NVk" secondAttribute="top" id="5g0-jZ-TdW"/>
                             <constraint firstAttribute="centerY" secondItem="cka-Co-NVk" secondAttribute="centerY" id="QlZ-7B-yOb"/>
+                            <constraint firstItem="S2g-Hv-J9q" firstAttribute="leading" secondItem="cka-Co-NVk" secondAttribute="leading" id="eJg-YW-54O"/>
                             <constraint firstAttribute="centerX" secondItem="cka-Co-NVk" secondAttribute="centerX" id="hwK-7P-HcA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Oa2-wk-jY5"/>
                     <connections>
+                        <outlet property="videoView" destination="S2g-Hv-J9q" id="QYX-De-7SP"/>
                         <outlet property="webView" destination="cka-Co-NVk" id="yN9-v2-ajf"/>
                     </connections>
                 </viewController>
@@ -2214,11 +2225,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="46G-Qc-OaU"/>
+        <segue reference="hxP-b2-XDc"/>
         <segue reference="rKb-JG-vfa"/>
-        <segue reference="tRJ-5v-ocZ"/>
         <segue reference="551-Zy-Guf"/>
         <segue reference="gcw-2o-Hcb"/>
+        <segue reference="46G-Qc-OaU"/>
         <segue reference="U1O-u5-wMC"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -514,15 +514,26 @@
                                     <constraint firstAttribute="height" constant="500" id="sgG-TA-WzM"/>
                                 </constraints>
                             </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ef-fZ-L73">
+                                <rect key="frame" x="34" y="232" width="700" height="500"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="4WL-PL-h4S"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="TAU-4h-Odv" secondAttribute="centerX" id="4vI-vT-YUB"/>
+                            <constraint firstItem="8ef-fZ-L73" firstAttribute="leading" secondItem="TAU-4h-Odv" secondAttribute="leading" id="9rN-Th-wiM"/>
                             <constraint firstAttribute="centerY" secondItem="TAU-4h-Odv" secondAttribute="centerY" constant="30" id="S5R-FF-c7i"/>
+                            <constraint firstItem="8ef-fZ-L73" firstAttribute="top" secondItem="TAU-4h-Odv" secondAttribute="top" id="eeK-VJ-XWq"/>
+                            <constraint firstItem="8ef-fZ-L73" firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="fFj-Wa-ujh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>
                     <connections>
+                        <outlet property="videoView" destination="8ef-fZ-L73" id="rub-a0-vPO"/>
                         <outlet property="webView" destination="TAU-4h-Odv" id="pml-7E-E3P"/>
                     </connections>
                 </viewController>

@@ -15,6 +15,6 @@
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic, strong) NSString *type;
 
-+ (void)loadAds:(void (^)(NSArray *shows, NSError *error))block;
++ (void)retrieveData:(void (^)(NSArray *ads, NSError *error))block;
 
 @end

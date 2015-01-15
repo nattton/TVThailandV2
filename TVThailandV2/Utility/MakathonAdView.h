@@ -11,7 +11,6 @@
 @interface MakathonAdView : UIView <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webViewShow;
-@property (nonatomic, strong) UIWebView *webView1x1;
 @property (nonatomic, strong) UIViewController *parentViewController;
 - (void)requestAd;
 

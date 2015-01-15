@@ -1,23 +1,22 @@
 //
-//  MakathonAd.m
+//  PreRollAd.m
 //  TVThailandV2
 //
-//  Created by Nattapong Tonprasert on 10/5/56 BE.
-//  Copyright (c) 2556 luciferultram@gmail.com. All rights reserved.
+//  Created by Nattapong Tonprasert on 1/16/2558 BE.
+//  Copyright (c) 2558 luciferultram@gmail.com. All rights reserved.
 //
 
-#import "MakathonAd.h"
+#import "PreRollAd.h"
 #import "IAHTTPCommunication.h"
 
-@implementation MakathonAd
+@implementation PreRollAd
 
 - (id)initWithDictionary:(NSDictionary *)ad {
     self = [super init];
     if (self) {
         self.name = [ad objectForKey:@"name"];
         self.url = [ad objectForKey:@"url"];
-        self.time = [ad objectForKey:@"time"];
-        self.type = @"url";
+        self.skipTime = [ad objectForKey:@"skip_time"];
     }
     return self;
 }
@@ -27,7 +26,7 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/advertise?device=ios&time%@", kAPI_URL_BASE, [df stringFromDate:[NSDate date]]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/preroll_advertise?device=ios&time%@", kAPI_URL_BASE, [df stringFromDate:[NSDate date]]]];
     IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
     [http retrieveURL:url successBlock:^(NSData *response) {
         NSError *error = nil;
@@ -39,7 +38,7 @@
             
             NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
             for (NSDictionary *dictAd in jAds) {
-                MakathonAd * ad = [[MakathonAd alloc] initWithDictionary:dictAd];
+                PreRollAd * ad = [[PreRollAd alloc] initWithDictionary:dictAd];
                 [mutableAdss addObject:ad];
             }
             
@@ -52,6 +51,16 @@
             }
         }
     }];
+}
+
++ (PreRollAd *)selectedAd:(NSArray *)ads {
+    if ([ads count] > 0) {
+        int x = arc4random() % [ads count];
+        PreRollAd *ad = [ads objectAtIndex:x];
+        return ad;
+        
+    }
+    return nil;
 }
 
 @end
