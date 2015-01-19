@@ -176,7 +176,7 @@
 + (void)loadSearchDataWithKeyword:(NSString *)keyword Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"api2/search/0?keyword=%@&device=ios&time%@", keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"%@/api2/search/0?keyword=%@&device=ios&time%@", kAPI_URL_BASE, keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
     [http retrieveURL:url successBlock:^(NSData *response) {
         NSError *error = nil;

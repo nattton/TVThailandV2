@@ -996,21 +996,20 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) openWithIFRAME:(NSString *)iframeText {
     //    [self performSegueWithIdentifier:webIFrameSegue sender:_part];
-    
+    self.videoContainerView.hidden = NO;
+    self.webView.layer.zPosition = MAXFLOAT;
     self.webView.hidden = NO;
     [SVProgressHUD dismiss];
     
     
     NSString *iframeHtml= [self htmlEntityDecode:iframeText];
-    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
-                            <meta name = \"viewport\" content = \"user-scalable = no, width = %0.0f\"/></head>\
-                            <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
-                            %@</body></html>", _widthOfCH7iFrame, iframeHtml];
-    
-    
-    [self.webView loadHTMLString:htmlString
-                         baseURL:nil];
-    [self.webView setScalesPageToFit:YES];
+//    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
+//                            <meta name = \"viewport\" content = \"user-scalable = no, width = %0.0f\"/></head>\
+//                            <body style=\"margin-top:0px;margin-left:0px;margin-right:0px;\">\
+//                            %@</body></html>", _widthOfCH7iFrame, iframeHtml];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]]];
+    //    [self.webView loadHTMLString:htmlString
+//                         baseURL:nil];
     [self.webView.scrollView setScrollEnabled:NO];
     
     NSError *error = nil;
@@ -1029,6 +1028,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             NSString *iframeURL = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
             if(iframeURL)
             {
+                [self performSegueWithIdentifier:ShowWebViewSegue sender:iframeURL];
                 [self sendTrackerPlayContent:iframeURL];
             }
             

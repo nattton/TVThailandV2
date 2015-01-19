@@ -32,7 +32,7 @@
 }
 
 + (void)retrieveData:(NSString *)categoryName Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/index/%@/%@/%@/%@/50/", kOTV_URL_BASE,categoryName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, [[NSNumber numberWithInteger:start] stringValue]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/index/%@/%@/%@/%@/50/", kOTV_URL_BASE, categoryName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, [[NSNumber numberWithInteger:start] stringValue]]];
     IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
     [http retrieveURL:url successBlock:^(NSData *response) {
         NSError *error = nil;

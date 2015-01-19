@@ -234,7 +234,7 @@
                                             <action selector="playOTVButtonTapped:" destination="oZf-te-Xlg" eventType="touchUpInside" id="JDP-jU-Tsu"/>
                                         </connections>
                                     </button>
-                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHl-xS-b8A">
+                                    <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VHl-xS-b8A">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </webView>
