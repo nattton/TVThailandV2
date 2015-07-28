@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "IMAAdsLoader.h"
-#import "IMAAVPlayerContentPlayhead.h"
+@import GoogleInteractiveMediaAds;
 
 @class Channel;
 @interface VideoPlayerViewController : UIViewController<IMAAdsLoaderDelegate, IMAAdsManagerDelegate>

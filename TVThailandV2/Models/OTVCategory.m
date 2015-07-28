@@ -80,43 +80,4 @@
     }];
 }
 
-//+ (void)loadOTVCategory:(void (^)(NSArray *otvCategories, NSError *error)) block {
-//    
-//    OTVApiClient *client = [OTVApiClient sharedInstance];
-//    
-//    client.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//    
-//    [client GET:[NSString stringWithFormat:@"CategoryList/index/%@/%@/%@/",kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION ] parameters:nil
-//        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
-//            
-//            // Capacity + (1)Ch7
-//            NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count] + 1];
-//            OTVCategory * category = [OTVCategory initWithCH7];
-//            
-//            [mutableCategories addObject:category];
-//            for (NSDictionary *dictCategory in jcategories){
-//                OTVCategory * category = [[OTVCategory alloc] initWithDictionary:dictCategory];
-//                [mutableCategories addObject:category];
-//            }
-//            
-//
-//            
-//            if (block) {
-//                block([NSArray arrayWithArray:mutableCategories], nil);
-//            }
-//        
-//        
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            if (block) {
-//                block([NSArray array], error);
-//                
-//                DLog(@"failure loadOTVCategory: %@", error);
-//            }
-//     
-//        }];
-//    
-//}
-
-
 @end

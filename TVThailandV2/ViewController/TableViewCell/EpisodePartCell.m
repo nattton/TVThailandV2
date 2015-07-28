@@ -29,33 +29,11 @@ static NSString *CellIdentifier = @"part_cell";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        if (UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
-        {
-            // code for Portrait orientation
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, 770) style:UITableViewStylePlain];
-            }
-            else {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, 320) style:UITableViewStylePlain];
-            }
-            
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
         } else {
-            
-            // code for landscape orientation
-            
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, 1024) style:UITableViewStylePlain];
-                
-            }
-            else if ([[UIScreen mainScreen] bounds].size.height>500) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(214, -214, 140, 568) style:UITableViewStylePlain];
-            }
-            else
-            {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(170, -170, 140, 480) style:UITableViewStylePlain];
-            }
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, width) style:UITableViewStylePlain];
         }
-
         
         hortable.delegate = self;
         hortable.dataSource = self;
@@ -79,7 +57,6 @@ static NSString *CellIdentifier = @"part_cell";
 
 - (void)configureWithSlider:(Episode *)episode {
     CGRect viewFrame = hortable.frame;
-//    NSLog(@"X=%f Y=%f Width=%f Height=%f", viewFrame.origin.x, viewFrame.origin.y, viewFrame.size.width, viewFrame.size.height);
     
     goForwardImgSlider = [[UIImageView alloc] initWithFrame:CGRectMake(viewFrame.size.width-25, 50, 20, 20)];
     [goForwardImgSlider setImage:[UIImage animatedImageNamed:@"forwardImg" duration:0.8]];

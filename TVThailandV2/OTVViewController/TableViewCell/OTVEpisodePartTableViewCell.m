@@ -22,35 +22,11 @@ static NSString *CellIdentifier = @"otv_part_cell";
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-        
-        if (UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
-        {
-            // code for Portrait orientation
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, width) style:UITableViewStylePlain];
-            }
-            else {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, width) style:UITableViewStylePlain];
-            }
-            
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
         } else {
-            
-            // code for landscape orientation
-            
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
-                
-            }
-            else if ([[UIScreen mainScreen] bounds].size.height > 500) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(214, -214, 140, width) style:UITableViewStylePlain];
-            }
-            else
-            {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(170, -170, 140, width) style:UITableViewStylePlain];
-            }
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, width) style:UITableViewStylePlain];
         }
-        
         
         hortable.delegate = self;
         hortable.dataSource = self;
@@ -142,16 +118,16 @@ static NSString *CellIdentifier = @"otv_part_cell";
     [thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
     
     UILabel *titleLable = (UILabel *)[cell viewWithTag:102];
-    if (self.otvEpisode.parts.count != 1 ){
-        [titleLable setText:[[self.otvEpisode.parts objectAtIndex:indexPath.row] nameTh]];
+    if (self.otvEpisode.parts.count != 1 ) {
+        titleLable.text = [NSString stringWithFormat:@"%d/%d - %@", [[NSNumber numberWithInteger:indexPath.row+1] intValue], [[NSNumber numberWithInteger:self.otvEpisode.parts.count] intValue], [self.otvEpisode.parts[indexPath.row] nameTh]];
         titleLable.hidden = NO;
     } else {
         titleLable.hidden = YES;
     }
     
-    if (self.otvEpisode.parts.count*157 > self.frame.size.width ) {
+    if (self.otvEpisode.parts.count * 157 > self.frame.size.width ) {
         goForwardImgSlider.hidden = NO;
-    }else{
+    } else {
         goForwardImgSlider.hidden = YES;
     }
     
@@ -181,7 +157,6 @@ static NSString *CellIdentifier = @"otv_part_cell";
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //    NSLog(@"Y=%f | contentHeight=%f | boundsHeight=%f",hortable.contentOffset.y,hortable.contentSize.height,hortable.bounds.size.height);
     
     if (hortable.contentOffset.y == 0) {
         

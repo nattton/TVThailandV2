@@ -174,7 +174,6 @@
              stringByReplacingOccurrencesOfString:@"<" withString:@"q"]
             stringByReplacingOccurrencesOfString:@">" withString:@"r"]
            stringByReplacingOccurrencesOfString:@"?" withString:@"s"];
-    [Base64 initialize];
     NSData *data = [Base64 decode:videoStr];
     videoStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return videoStr;

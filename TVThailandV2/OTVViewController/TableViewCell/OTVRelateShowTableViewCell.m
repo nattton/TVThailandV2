@@ -24,35 +24,11 @@ static NSString *CellIdentifier = @"part_cell";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-
-        
-        if (UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
-        {
-            // code for Portrait orientation
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, width) style:UITableViewStylePlain];
-            }
-            else {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, width) style:UITableViewStylePlain];
-            }
-            
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, width) style:UITableViewStylePlain];
         } else {
-            
-            // code for landscape orientation
-            
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(315, -315, 140, width) style:UITableViewStylePlain];
-                
-            }
-            else if ([[UIScreen mainScreen] bounds].size.height > 500) {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(214, -214, 140, width) style:UITableViewStylePlain];
-            }
-            else
-            {
-                hortable = [[UITableView alloc]initWithFrame:CGRectMake(170, -170, 140, width) style:UITableViewStylePlain];
-            }
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, width) style:UITableViewStylePlain];
         }
-        
         
         hortable.delegate = self;
         hortable.dataSource = self;

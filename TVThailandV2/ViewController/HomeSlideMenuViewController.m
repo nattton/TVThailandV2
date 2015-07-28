@@ -42,8 +42,7 @@
  ShowCategoryList *_categoryList;
  NSArray *_searchShows;
  UIView *_searchUIView;
- NSInteger *_numSection;
-    
+ int _numSection;
  UITableView *_searchTable;
     
 }
@@ -83,7 +82,7 @@ static NSInteger secChannel = 2;
 static NSInteger secRadio = 3;
 static NSInteger secSetting = 4;
 static NSInteger secCategory = 5;
-const NSInteger totalSection = 6;
+static NSInteger totalSection = 6;
 
 /** TAG of tableview **/
 static NSInteger tagSearchTable = 999;
@@ -111,7 +110,7 @@ static NSInteger tagSearchTable = 999;
 
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    _numSection = totalSection;
+    _numSection = (int)totalSection;
     self.searchTextField.delegate = self;
     [self.searchTextField addTarget:self
                              action:@selector(textFieldDidChange)
@@ -187,6 +186,7 @@ static NSInteger tagSearchTable = 999;
 
 - (IBAction)searchTapped:(id)sender {
     [self searchTapped];
+    [self.searchTextField becomeFirstResponder];
 }
 
 - (void)searchTapped {
@@ -212,8 +212,6 @@ static NSInteger tagSearchTable = 999;
     _searchUIView.hidden = NO;
     _numSection = 0;
     [self.tableView reloadData];
-    
-
 }
 
 
@@ -255,7 +253,7 @@ static NSInteger tagSearchTable = 999;
     self.searchLabel.hidden = YES;
     
     _searchUIView.hidden = YES;
-    _numSection = totalSection;
+    _numSection = (int)totalSection;
     [self.tableView reloadData];
     
     _searchShows = nil;

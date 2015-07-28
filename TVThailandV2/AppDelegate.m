@@ -25,20 +25,7 @@
 {
     [Fabric with:@[CrashlyticsKit]];
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        
-        NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:kThemeColor, UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];
-        [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
-        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-        [[UIBarButtonItem appearance] setTintColor:kThemeColor];
-        
-        [[UISearchBar appearance] setBackgroundImage:[UIImage imageWithColor:kThemeColor]];
-        [[UIToolbar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
-        
-    } else {
-        [[UINavigationBar appearance] setTintColor:kThemeColor];
-    }
+    [[UINavigationBar appearance] setTintColor:kThemeColor];
     
     // Override point for customization after application launch.
     [FBLoginView class];

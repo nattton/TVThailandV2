@@ -179,20 +179,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         _isiPhone = NO;
         _isiPhoneForceRotateValue = NO;
         _widthOfCH7iFrame = 480;
-        if (orientation == UIInterfaceOrientationLandscapeLeft ||
-            orientation == UIInterfaceOrientationLandscapeRight) {
-            self.videoContainerWidth.constant = 700.0f;
-            self.videoContainerHeight.constant = 390.0f;
-            self.tableViewLeftSpace.constant = 0.0f;
-            self.tableViewTopSpace.constant = self.videoContainerWidth.constant + 15.f;
-        } else {
-//            self.videoContainerWidth.constant = 768.0f;
-//            self.videoContainerHeight.constant = 470.0f;
-//            self.tableViewLeftSpace.constant = 608.0f;
-//            self.tableViewTopSpace.constant = 15.f;
-        }
-
-
+        self.videoContainerWidth.constant = 700.0f;
+        self.videoContainerHeight.constant = 390.0f;
+        self.tableViewLeftSpace.constant = 0.0f;
+        self.tableViewTopSpace.constant = self.videoContainerWidth.constant + 15.f;
         
     } else {
         _isiPhone = YES;
@@ -1524,12 +1514,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.closeCircleButton.hidden = YES;
             self.player.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
 
-        }else {
+        } else {
             self.closeCircleButton.hidden = NO;
             self.player.view.frame = _screenSmallOfContainer;
         }
         
-        self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
+//        self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
         
         _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
         
@@ -1577,11 +1567,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
      [UIView animateWithDuration:0.3f animations:^{
-         if (UIInterfaceOrientationIsLandscape(orientation)) {
-             self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
-         } else {
-             self.adDisplayContainer.adContainer.frame = self.player.portraitFrame;
-         }
+//         if (UIInterfaceOrientationIsLandscape(orientation)) {
+//             self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
+//         } else {
+//             self.adDisplayContainer.adContainer.frame = self.player.portraitFrame;
+//         }
          _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
     }];
 }
@@ -1597,17 +1587,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)layoutAdsForOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if (self.adDisplayContainer) {
-        [UIView animateWithDuration:0.3f animations:^{
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.bounds.size.height >500) {
-                self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
-            }
-            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
-                self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
-            }
-            
-            
-            
-        }];
+//        [UIView animateWithDuration:0.3f animations:^{
+//            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.bounds.size.height >500) {
+//                self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
+//            }
+//            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
+//                self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
+//            }
+//            
+//            
+//            
+//        }];
     }
 }
      

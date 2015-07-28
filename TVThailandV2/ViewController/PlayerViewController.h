@@ -11,13 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <CoreMedia/CoreMedia.h>
 
-// IMA SDK
-#import "IMAAVPlayerContentPlayhead.h"
-#import "IMAAd.h"
-#import "IMAAdsLoader.h"
-#import "IMAAdsManager.h"
-
-// VK VideoPlyer
+@import GoogleInteractiveMediaAds;
 #import "VKVideoPlayer.h"
 
 @class Episode;
