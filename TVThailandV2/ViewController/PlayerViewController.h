@@ -50,17 +50,10 @@
 @property(nonatomic, strong) IMAAdsLoader *adsLoader;
 @property(nonatomic, strong) IMAAdsManager *adsManager;
 @property(nonatomic, strong) IMAAdsRenderingSettings *adsRenderingSettings;
-@property(nonatomic, strong) IMAAdDisplayContainer *adDisplayContainer;
+//@property(nonatomic, strong) IMAAdDisplayContainer *adDisplayContainer;
 
-// The player that plays the content.
-@property(nonatomic, strong) AVPlayer *contentPlayer;
-// The layer for the player
-@property(nonatomic, strong) AVPlayerLayer *contentPlayerLayer;
-// Player observer for playback UI.
-@property(nonatomic, strong) id playHeadObserver;
 // The content playhead used for content tracking.
 @property(nonatomic, strong) IMAAVPlayerContentPlayhead *contentPlayhead;
-
 
 // VK Player
 @property (nonatomic, strong) VKVideoPlayer* player;

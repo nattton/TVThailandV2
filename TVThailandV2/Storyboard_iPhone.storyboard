@@ -90,34 +90,23 @@
                                                         <constraint firstAttribute="width" constant="83" id="Sat-pl-PPy"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkG-ka-W1Y">
-                                                    <rect key="frame" x="111" y="35" width="149" height="21"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-Bj-wHW">
-                                                    <rect key="frame" x="111" y="16" width="179" height="21"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part Name" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkG-ka-W1Y">
+                                                    <rect key="frame" x="111" y="9" width="191" height="57"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="CkG-ka-W1Y" secondAttribute="trailing" constant="50" id="H0D-ZY-Tjd"/>
-                                                <constraint firstItem="gIP-Bj-wHW" firstAttribute="leading" secondItem="CQw-e4-1bs" secondAttribute="leading" constant="111" id="NaZ-7Y-6HD"/>
-                                                <constraint firstAttribute="trailing" secondItem="gIP-Bj-wHW" secondAttribute="trailing" constant="20" id="Qa6-Za-ppv"/>
-                                                <constraint firstItem="CkG-ka-W1Y" firstAttribute="top" secondItem="CQw-e4-1bs" secondAttribute="top" constant="35" id="S24-cl-0dZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="CkG-ka-W1Y" secondAttribute="trailing" constant="8" id="H0D-ZY-Tjd"/>
+                                                <constraint firstItem="CkG-ka-W1Y" firstAttribute="top" secondItem="CQw-e4-1bs" secondAttribute="top" constant="9" id="S24-cl-0dZ"/>
                                                 <constraint firstItem="CkG-ka-W1Y" firstAttribute="leading" secondItem="CQw-e4-1bs" secondAttribute="leading" constant="111" id="SKJ-rW-8Wi"/>
-                                                <constraint firstAttribute="bottom" secondItem="gIP-Bj-wHW" secondAttribute="bottom" constant="38" id="fvi-mK-aDN"/>
-                                                <constraint firstItem="gIP-Bj-wHW" firstAttribute="top" secondItem="CQw-e4-1bs" secondAttribute="top" constant="16" id="gSv-Zx-2B5"/>
-                                                <constraint firstAttribute="bottom" secondItem="CkG-ka-W1Y" secondAttribute="bottom" constant="19" id="iyb-s9-c4h"/>
+                                                <constraint firstAttribute="bottom" secondItem="CkG-ka-W1Y" secondAttribute="bottom" constant="10" id="iyb-s9-c4h"/>
                                                 <constraint firstItem="ya5-mc-WsE" firstAttribute="leading" secondItem="CQw-e4-1bs" secondAttribute="leading" constant="11" id="yfB-Rl-5CJ"/>
                                                 <constraint firstItem="ya5-mc-WsE" firstAttribute="top" secondItem="CQw-e4-1bs" secondAttribute="top" constant="9" id="z2n-Sj-uJF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="episodeNameLabel" destination="gIP-Bj-wHW" id="dbp-xq-QmU"/>
                                             <outlet property="partNameLabel" destination="CkG-ka-W1Y" id="SpA-u7-ItG"/>
                                             <outlet property="thumbnailImageView" destination="ya5-mc-WsE" id="Mzh-FM-y35"/>
                                         </connections>

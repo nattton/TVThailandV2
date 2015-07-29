@@ -59,8 +59,8 @@
 }
 
 - (void)configureWithOTVRelateShows:(Show *)relateOTVShow {
-    self.episodeNameLabel.text =  relateOTVShow.title;
-    self.partNameLabel.text = @"";
+    self.partNameLabel.text =  relateOTVShow.title;
+//    self.partNameLabel.text = @"";
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:relateOTVShow.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 }
 

@@ -51,15 +51,19 @@ typedef enum {
     PauseButton
 } PlayButtonType;
 
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIAlertViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerTopSpace;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLeftSpace;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopSpace;
+@property(nonatomic, assign) CGRect portraitVideoFrame;
+@property(nonatomic, assign) CGRect fullscreenVideoFrame;
+
+@property(nonatomic, assign) BOOL isFullscreen;
+@property(nonatomic, assign) BOOL isPhone;
+
 
 @property (strong, nonatomic) MPMoviePlayerController *movieController;
 
@@ -91,13 +95,8 @@ typedef enum {
     BOOL _isContent;
     BOOL _isLoading;
     OTVPart *_part;
-    CGFloat _widthOfCH7iFrame;
     AVPlayerLayer *_layer;
     NSString *_sourceType;
-    CGRect _screenSmallOfContainer;
-    
-    BOOL _isiPhoneForceRotateValue; /** Use to fix rotation btw iPhone&iPad **/
-    BOOL _isiPhone;
     
     UIButton *_skipAdsButton;
 }
@@ -117,9 +116,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.webView.delegate = self;
-    
+    [self initInstance];
     [self initLableContainner];
     
     if (self.show) {
@@ -127,16 +124,21 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         [self initVideoPlayer:_idx sectionOfVideo:0];
     }
 
-    [self setUpOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    [self viewDidEnterPortrait];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
     
     
-    
     [self initSkipAdsButton];
-    
-    
+}
+
+- (void)initInstance {
+    self.isPhone = !([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
+    self.portraitVideoFrame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    self.fullscreenVideoFrame = (self.isPhone) ? CGRectMake(0, 0, screenRect.size.height, screenRect.size.width): CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
+    self.webView.delegate = self;
 }
 
 -(void) skipAdsButtonTouched {
@@ -164,41 +166,43 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self setUpOrientation:toInterfaceOrientation];
-    [self.tableOfVideoPart reloadData];
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    switch (fromInterfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            [self viewDidEnterPortrait];
+            break;
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            [self viewDidEnterLandscape];
+        case UIInterfaceOrientationUnknown:
+            break;
+    }
 }
 
 #pragma mark - Private Method
 
-- (void)setUpOrientation:(UIInterfaceOrientation)orientation {
+- (void)viewDidEnterPortrait {
+    self.isFullscreen = NO;
+    self.player.view.frame = self.portraitVideoFrame;
+    self.videoContainerView.frame = self.portraitVideoFrame;
     
-     _widthOfCH7iFrame = 640;
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _isiPhone = NO;
-        _isiPhoneForceRotateValue = NO;
-        _widthOfCH7iFrame = 480;
-        self.videoContainerWidth.constant = 700.0f;
-        self.videoContainerHeight.constant = 390.0f;
-        self.tableViewLeftSpace.constant = 0.0f;
-        self.tableViewTopSpace.constant = self.videoContainerWidth.constant + 15.f;
-        
-    } else {
-        _isiPhone = YES;
-        _isiPhoneForceRotateValue = YES;
-        _widthOfCH7iFrame = 210;
-        if (orientation == UIInterfaceOrientationLandscapeLeft ||
-            orientation == UIInterfaceOrientationLandscapeRight) {
-            self.videoContainerHeight.constant = 320.0f;
-        } else {
-            self.videoContainerHeight.constant = 210.0f;
-        }
-    }
-    
-    _screenSmallOfContainer = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
+//    self.adDisplayContainer.adContainer.frame = self.portraitVideoFrame;
+//    [UIView animateWithDuration:0.3f animations:^{
+//        _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
+//    }];
+    [self.tableOfVideoPart reloadData];
+}
 
+- (void)viewDidEnterLandscape {
+    self.isFullscreen = YES;
+    self.player.view.frame = self.fullscreenVideoFrame;
+//    self.adDisplayContainer.adContainer.frame = self.fullscreenVideoFrame;
+//    [UIView animateWithDuration:0.3f animations:^{
+//        _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
+//    }];
     
+    [self.tableOfVideoPart reloadData];
 }
 
 - (void) initLableContainner {
@@ -420,14 +424,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [SVProgressHUD dismiss];
 }
 
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    if (buttonIndex == 1) {
-//        // do stuff
-//    }
-}
-
 #pragma mark - Load Video Mthai
 
 - (void) loadMThaiWebVideo {
@@ -540,17 +536,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 //#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 - (void)viewWillAppear:(BOOL)animated {
-
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _isiPhone = NO;
-    } else {
-        _isiPhone = YES;
-    }
-    
-    [self layoutAdsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
 }
 
@@ -567,7 +554,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)close {
     [self unloadAdsManager];
-    [_contentPlayer pause];
     [self.player pauseContent];
     [self.player.view removeFromSuperview];
     
@@ -1021,12 +1007,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                 [self performSegueWithIdentifier:ShowWebViewSegue sender:iframeURL];
                 [self sendTrackerPlayContent:iframeURL];
             }
-            
         }
-        
     }
-    
-    
 }
 
 -(NSString *)htmlEntityDecode:(NSString *)string
@@ -1068,18 +1050,28 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma mark - Video Operations
 
+- (void) playNextOTVVideo {
+    
+    self.adsLoader = nil;
+    if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
+        _idx++;
+        [self initVideoPlayer:_idx sectionOfVideo:0];
+        [self startOTV];
+    } else {
+        self.player.view.nextButton.enabled = NO;
+    }
+    
+    [self setVideoTitleToTopLayer];
+}
+
 - (void)playCurrentVideo
 {
     [self.player pauseContent];
     if (!_isLoading) {
+        
         self.webView.hidden = YES;
         
         DLog(@"vastURL : %@", _part.vastURL);
-        
-        if (self.adsLoader == nil) {
-            [self setupAdsLoader];
-        }
-        
         if (self.player.view == nil && ![_part.mediaCode isEqualToString: kCodeIframe]) {
             [self setUpVKContentPlayer];
         }
@@ -1087,30 +1079,24 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         
         if (_isContent || _part.vastURL == nil ) {
-            self.adDisplayContainer.adContainer.hidden = YES;
+//            self.adDisplayContainer.adContainer.hidden = YES;
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
-                
-//                [_contentPlayer play];
-//                [self setPlayButtonType:PlayButton];
-
-                 [self playStream:[NSURL URLWithString:_part.streamURL]];
+                [self playStream:[NSURL URLWithString:_part.streamURL]];
                 [self sendTrackerPlayContent:_part.streamURL];
             }
-            else if ([_part.mediaCode isEqualToString:kCodeIframe])
-            {
+            else if ([_part.mediaCode isEqualToString:kCodeIframe]) {
                 [self openWithIFRAME:_part.streamURL];
             }
 
         } else {
+            [self setUpIMA];
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
-                /**If _part.vastURL == nill at First time ?? will it call setUpcontentPlayer?? **/
-//                [self setUpContentPlayer:_part.streamURL];
-                
+                [self playStream:[NSURL URLWithString:_part.streamURL]];
             }
           
             DLog(@"Ads Type: %@", _part.vastType);
             if ([_part.vastType isEqualToString:@"videoplaza"] || [_part.vastType isEqualToString:@"google_ima"]) {
-                [self requestAdsTag:_part.vastURL];
+                [self requestAdsWithTag:_part.vastURL];
             } else {
                 self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
                 self.videoAds.delegate = self;
@@ -1118,56 +1104,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             
 
         }
-    }
-}
-
-- (BOOL)moveNextVideo
-{
-    self.webView.hidden = YES;
-    _isContent = NO;
-    if (_idx+1 < self.otvEpisode.parts.count) {
-        _idx = _idx+1;
-        
-        //        [self enableOrDisableNextPreviousButton];
-        if (self.otvEpisode.parts) {
-            
-            _part = [self.otvEpisode.parts objectAtIndex:_idx];
-            
-            //            [self initializeUI];
-            [self initVideoPlayer:_idx sectionOfVideo:0];
-        }
-        
-        else
-        {
-            [SVProgressHUD showErrorWithStatus:@"Video not support"];
-        }
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
-}
-
-- (BOOL)movePreviousVideo
-{
-    self.webView.hidden = YES;
-    _isContent = NO;
-    if (_idx >= 1) {
-        _idx = _idx-1;
-        
-        //        [self enableOrDisableNextPreviousButton];
-        if (self.otvEpisode.parts) {
-            //            [self initializeUI];
-            [self initVideoPlayer:_idx sectionOfVideo:0];
-            
-        } else
-        {
-            [SVProgressHUD showErrorWithStatus:@"Video not support"];
-        }
-        return YES;
-    } else {
-        return NO;
     }
 }
 
@@ -1182,7 +1118,139 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 
-#pragma mark - Google IMA Vast Set Up
+#pragma mark IMA SDK methods
+
+// Initialize ad display container.
+- (IMAAdDisplayContainer *)createAdDisplayContainer {
+    // Create our AdDisplayContainer. Initialize it with our videoView as the container. This
+    // will result in ads being displayed over our content video.
+    return [[IMAAdDisplayContainer alloc] initWithAdContainer:self.player.view companionSlots:nil];
+}
+
+// Create playhead for content tracking.
+- (void)createContentPlayhead {
+    self.contentPlayhead = [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.player.avPlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contentDidFinishPlaying:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[self.player.avPlayer currentItem]];
+}
+
+// Initialize AdsLoader.
+- (void)setUpIMA {
+    if (self.adsManager) {
+        [self.adsManager destroy];
+    }
+    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
+    [self.adsLoader contentComplete];
+    self.adsLoader.delegate = self;
+}
+
+// Request ads for provided tag.
+- (void)requestAdsWithTag:(NSString *)adTagUrl {
+    [self logMessage:@"Requesting ads"];
+    // Create an ad request with our ad tag, display container, and optional user context.
+    IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTagUrl
+                                                  adDisplayContainer:[self createAdDisplayContainer]
+                                                         userContext:nil];
+    [self.adsLoader requestAdsWithRequest:request];
+}
+
+// Notify IMA SDK when content is done for post-rolls.
+- (void)contentDidFinishPlaying:(NSNotification *)notification {
+    // Make sure we don't call contentComplete as a result of an ad completing.
+    if (notification.object == self.player.avPlayer.currentItem) {
+        [self.adsLoader contentComplete];
+    }
+}
+
+#pragma mark AdsLoader Delegates
+
+- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
+    // Grab the instance of the IMAAdsManager and set ourselves as the delegate.
+    [self logMessage:@"adsLoadedWithData"];
+    self.adsManager = adsLoadedData.adsManager;
+    self.adsManager.delegate = self;
+    // Create ads rendering settings to tell the SDK to use the in-app browser.
+    IMAAdsRenderingSettings *adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
+    adsRenderingSettings.webOpenerPresentingController = self;
+    // Create a content playhead so the SDK can track our content for VMAP and ad rules.
+    [self createContentPlayhead];
+    // Initialize the ads manager.
+    [self.adsManager initializeWithContentPlayhead:self.contentPlayhead
+                              adsRenderingSettings:adsRenderingSettings];
+}
+
+- (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
+    // Something went wrong loading ads. Log the error and play the content.
+    [self logMessage:@"Error loading ads: %@", adErrorData.adError.message];
+//    self.isAdPlayback = NO;
+    _isContent = !_isContent;
+    [self playCurrentVideo];
+}
+
+#pragma mark AdsManager Delegates
+
+- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdEvent:(IMAAdEvent *)event {
+    [self logMessage:@"AdsManager event (%s).", AdEventNames[event.type]];
+    // When the SDK notified us that ads have been loaded, play them.
+    // Perform different actions based on the event type.
+    switch (event.type) {
+        case kIMAAdEvent_LOADED:
+            _isLoading = NO;
+            [self.adsManager start];
+            [self sendTrackerAdStarted:self.videoAds.URL];
+            break;
+        case kIMAAdEvent_TAPPED:
+            [self viewDidEnterLandscape];
+            break;
+        case kIMAAdEvent_ALL_ADS_COMPLETED:
+            [self unloadAdsManager];
+            [self sendTrackerAdCompleted:self.videoAds.URL];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
+    // Something went wrong with the ads manager after ads were loaded. Log the error and play the
+    // content.
+    [self logMessage:@"AdsManager error: %@", error.message];
+//    self.isAdPlayback = NO;
+//    [self setPlayButtonType:PauseButton];
+//    [self.contentPlayer play];
+    _isContent = YES;
+    [self playCurrentVideo];
+}
+
+- (void)adsManagerDidRequestContentPause:(IMAAdsManager *)adsManager {
+    // The SDK is going to play ads, so pause the content.
+    [self logMessage:@"adsManagerDidRequestContentPause"];
+    [self.player pauseContent];
+}
+
+- (void)adsManagerDidRequestContentResume:(IMAAdsManager *)adsManager {
+    // The SDK is done playing ads (at least for now), so resume the content.
+    [self logMessage:@"adsManagerDidRequestContentPause"];
+    _isContent = YES;
+    [self playCurrentVideo];
+}
+
+#pragma mark Utility methods
+
+- (void)logMessage:(NSString *)log, ... {
+    va_list args;
+    va_start(args, log);
+    NSString *s =
+    [[NSString alloc] initWithFormat:[NSString stringWithFormat:@"%@\n", log] arguments:args];
+    NSLog(@"%@", s);
+    va_end(args);
+}
+
+
+#pragma END IMA
 
 - (IMASettings *) createIMASettings {
     IMASettings *settings = [[IMASettings alloc] init];
@@ -1198,46 +1266,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.adsLoader.delegate = self;
 }
 
-- (void)setUpContentPlayer:(NSString *)contentURL {
-    // Create a content player item and set it in the content player.
-    AVAsset *contentAsset =
-    [AVURLAsset URLAssetWithURL:[NSURL URLWithString:contentURL] options:0];
-    AVPlayerItem *contentPlayerItem = [AVPlayerItem playerItemWithAsset:contentAsset];
-    self.contentPlayer = [AVPlayer playerWithPlayerItem:contentPlayerItem];
-    __weak PlayerViewController *controller = self;
-    self.playHeadObserver = [controller.contentPlayer
-                             addPeriodicTimeObserverForInterval:CMTimeMake(1, 30)
-                             queue:NULL
-                             usingBlock:^(CMTime time) {
-                                 CMTime duration = [controller getPlayerItemDuration:self.contentPlayer.currentItem];
-                                 [controller updatePlayHeadWithTime:time
-                                                           duration:duration];
-                             }];
-    [self.contentPlayer addObserver:self
-                         forKeyPath:@"rate"
-                            options:0
-                            context:@"contentPlayerRate"];
-    [self.contentPlayer addObserver:self
-                         forKeyPath:@"currentItem.duration"
-                            options:0
-                            context:@"playerDuration"];
-    self.contentPlayhead =
-    [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.contentPlayer];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(contentDidFinishPlaying)
-     name:AVPlayerItemDidPlayToEndTimeNotification
-     object:contentPlayerItem];
-    
-    // Attach the content player to the Video view.
-    self.contentPlayerLayer =
-    [AVPlayerLayer playerLayerWithPlayer:self.contentPlayer];
-    self.contentPlayerLayer.frame = self.videoContainerView.layer.bounds;
-    [self.videoContainerView.layer addSublayer:self.contentPlayerLayer];
-}
-
-
 - (void)contentDidFinishPlaying {
     DLog(@"Content has completed");
     [self.adsLoader contentComplete];
@@ -1251,9 +1279,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     if (isnan(currentTime)) {
         return;
     }
-//    self.progressBar.value = currentTime;
-//    self.playHeadTimeText.title = [NSString stringWithFormat:@"%d:%02d", (int)currentTime / 60, (int)currentTime % 60];
-//    [self updatePlayHeadDurationWithTime:duration];
 }
 
 // Get the duration value from the player item.
@@ -1273,76 +1298,56 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 
-- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
-    // Loading was successful.
-    DLog(@"Ad loading successful!");
-    
-    self.adsManager = adsLoadedData.adsManager;
-    self.adsManager.delegate = self;
-    
-//    if (self.player.view.bounds.size.width > 321 && _isiPhone) {
-//        self.adDisplayContainer.adContainer.frame = CGRectMake(0, 0, self.view.bounds.size.height, self.view.bounds.size.width);
-//    } else if (self.player.view.bounds.size.height > 500 && _isiPhone) {
-//        self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
-//    } else if (self.player.view.bounds.size.width > 701 && !_isiPhone){
-//        self.adDisplayContainer.adContainer.frame = CGRectMake(0, 0, self.view.bounds.size.height, self.view.bounds.size.width);
+//- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
+//    // Loading was successful.
+//    DLog(@"Ad loading successful!");
+//    
+//    self.adsManager = adsLoadedData.adsManager;
+//    self.adsManager.delegate = self;
+//    
+//    self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
+//    
+//    // By default, allow in-app web browser.
+//    self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
+//    self.adsRenderingSettings.webOpenerDelegate = self;
+//    self.adsRenderingSettings.webOpenerPresentingController = self;
+//    self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
+//    self.adsRenderingSettings.mimeTypes = @[];
+//
+//    if ([_part.mediaCode isEqualToString:kCodeIframe]) {
+//        [self.view addSubview:self.adDisplayContainer.adContainer];
+//
 //    } else {
-//         self.adDisplayContainer.adContainer.frame = _screenSmallOfContainer;
+//        [self.player.view addSubview:self.adDisplayContainer.adContainer];
 //    }
+//    
+//    _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
+//    [self.adDisplayContainer.adContainer addSubview:_skipAdsButton];
+//    _skipAdsButton.enabled = NO;
+//    [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+//    
+//
+////    self.player.view.controls.hidden = YES;
+////    self.player.view.playButton.enabled = NO;
+////    self.player.view.nextButton.hidden = YES;
+////    self.player.view.rewindButton.hidden = YES;
+////    self.player.view.bigPlayButton.hidden = YES;
+////    self.player.view.activityIndicator.hidden = YES;
+//    
+//    [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
+//}
 
-    self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
-    
-    // By default, allow in-app web browser.
-    self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
-    self.adsRenderingSettings.webOpenerDelegate = self;
-    self.adsRenderingSettings.webOpenerPresentingController = self;
-    self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
-    self.adsRenderingSettings.mimeTypes = @[];
-
-    if ([_part.mediaCode isEqualToString:kCodeIframe]) {
-        [self.view addSubview:self.adDisplayContainer.adContainer];
-
-    } else {
-        [self.player.view.playerLayerView addSubview:self.adDisplayContainer.adContainer];
-        
-    }
-    
-    _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-    [self.adDisplayContainer.adContainer addSubview:_skipAdsButton];
-    _skipAdsButton.enabled = NO;
-    [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
-    
-
-    self.player.view.controls.hidden = YES;
-    self.player.view.playButton.enabled = NO;
-    self.player.view.nextButton.hidden = YES;
-    self.player.view.rewindButton.hidden = YES;
-    self.player.view.bigPlayButton.hidden = YES;
-    self.player.view.activityIndicator.hidden = YES;
-
-    
-    [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
-}
-
-- (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
-    DLog(@"Ad loading error: %@", adErrorData.adError);
-    
-    _isContent = !_isContent;
-    [self playCurrentVideo];
-}
-
-- (void)requestAdsTag:(NSString *)adTag {
-    DLog(@"Requesting ads.");
-    [self unloadAdsManager];
-    
-    self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainerView
-                                                                  companionSlots:nil];
-    IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
-                                                  adDisplayContainer:self.adDisplayContainer
-                                                         userContext:nil];
-    [self.adsLoader requestAdsWithRequest:request];
-    
-}
+//- (void)requestAdsTag:(NSString *)adTag {
+//    DLog(@"Requesting ads.");
+//    [self unloadAdsManager];
+//    
+//    self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainerView
+//                                                                  companionSlots:nil];
+//    IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
+//                                                  adDisplayContainer:self.adDisplayContainer
+//                                                         userContext:nil];
+//    [self.adsLoader requestAdsWithRequest:request];
+//}
 
 - (void)unloadAdsManager {
     if (self.adsManager != nil) {
@@ -1350,49 +1355,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         self.adsManager.delegate = nil;
         self.adsManager = nil;
     }
-}
-
-#pragma mark - ads Manager
-
-- (void)adsManagerDidRequestContentPause:(IMAAdsManager *)adsManager {
-    // Pause the content.
-    DLog(@"adsManagerDidRequestContentPause");
-}
-
-- (void)adsManagerDidRequestContentResume:(IMAAdsManager *)adsManager {
-    // Resume or start (if not started yet) the content.
-     DLog(@"adsManagerDidRequestContentResume");
-    
-    _isContent = YES;
-    [self playCurrentVideo];
-}
-
-// Process ad events.
-- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdEvent:(IMAAdEvent *)event {
-    DLog(@"AdsManager event (%s).", AdEventNames[event.type]);
-    
-    // Perform different actions based on the event type.
-    switch (event.type) {
-        case kIMAAdEvent_LOADED:
-            _isLoading = NO;
-            [self.adsManager start];
-            [self sendTrackerAdStarted:self.videoAds.URL];
-            break;
-        case kIMAAdEvent_ALL_ADS_COMPLETED:
-            [self unloadAdsManager];
-            [self sendTrackerAdCompleted:self.videoAds.URL];
-            break;
- 
-        default:
-            break;
-    }
-}
-
-// Process ad playing errors.
-- (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
-
-    DLog(@"Error during ad playback: %@", error);
-
 }
 
 // Optional: receive updates about individual ad progress.
@@ -1443,13 +1405,11 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
     self.player = [[VKVideoPlayer alloc] init];
     self.player.delegate = self;
-    self.player.forceRotate = _isiPhoneForceRotateValue;
-    
-    self.player.view.frame = _screenSmallOfContainer;
+    self.player.forceRotate = self.isPhone;
+    self.player.view.frame = self.portraitVideoFrame;
+    self.player.view.fullscreenButton.hidden = NO;
     
     [self.view addSubview:self.player.view];
-    
-    self.player.view.fullscreenButton.hidden = NO;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -1488,118 +1448,70 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma mark - VKVideoPlayerControllerDelegate
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer didControlByEvent:(VKVideoPlayerControlEvent)event {
-    DLog(@"%s event:%d", __FUNCTION__, event);
-//    __weak __typeof(self) weakSelf = self;
-    
-    
-//    if (event == VKVideoPlayerControlEventTapPlayerView) {
-//        if (self.player.view.controls.isHidden) {
-//            self.player.view.controls.hidden = NO;
-//        } else {
-//            self.player.view.controls.hidden = YES;
-//        }
-//    }
-    
-    if (event == VKVideoPlayerControlEventTapDone) {
-        if (_isiPhone) {
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated: NO];
-        }
-        self.closeCircleButton.hidden = NO;
-        [self close];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    } else if (event == VKVideoPlayerControlEventTapFullScreen) {
-
-        if (self.player.isFullScreen) {
-            self.closeCircleButton.hidden = YES;
-            self.player.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-
-        } else {
+    DLog(@"%s videoPlayer :%d", __FUNCTION__, event);
+    switch (event) {
+        case VKVideoPlayerControlEventTapDone:
             self.closeCircleButton.hidden = NO;
-            self.player.view.frame = _screenSmallOfContainer;
-        }
-        
-//        self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
-        
-        _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-        
-    } else if (event == VKVideoPlayerControlEventTapNext) {
-        [self playNextOTVVideo];
-    } else if (event == VKVideoPlayerControlEventSwipeNext) {
-        [self playNextOTVVideo];
+            [self close];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            break;
+        case VKVideoPlayerControlEventTapFullScreen:
+            if (self.player.isFullScreen) {
+                self.closeCircleButton.hidden = YES;
+                self.player.view.frame = self.fullscreenVideoFrame;
+//                self.adDisplayContainer.adContainer.frame = self.fullscreenVideoFrame;
+            } else {
+                self.closeCircleButton.hidden = NO;
+                self.player.view.frame = self.portraitVideoFrame;
+//                self.adDisplayContainer.adContainer.frame = self.portraitVideoFrame;
+            }
+//            _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
+            break;
+        case VKVideoPlayerControlEventTapNext:
+        case VKVideoPlayerControlEventSwipeNext:
+            [self playNextOTVVideo];
+        case VKVideoPlayerControlEventTapPrevious:
+        case VKVideoPlayerControlEventSwipePrevious:
+//          playPrevious
+            break;
+        default:
+            break;
     }
 }
 
 /** This method is called finished to play video. You can start to play next video here. **/
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer didPlayToEnd:(id<VKVideoPlayerTrackProtocol>)track {
-    
     [self playNextOTVVideo];
     
-}
-
-- (void) playNextOTVVideo {
-    
-    self.adsLoader = nil;
-    if (self.show.isOTV &&  _idx+1 < self.otvEpisode.parts.count) {
-        _idx++;
-        [self initVideoPlayer:_idx sectionOfVideo:0];
-        [self startOTV];
-    } else {
-        self.player.view.nextButton.enabled = NO;
-    }
-    
-    [self setVideoTitleToTopLayer];
 }
 
 
 #pragma mark - Orientation
 - (BOOL)shouldAutorotate {
-    return !_isiPhoneForceRotateValue;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    if (self.player.isFullScreen) {
-        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    } else {
-        return NO;
-    }
+    return self.isPhone;
 }
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
-     [UIView animateWithDuration:0.3f animations:^{
-//         if (UIInterfaceOrientationIsLandscape(orientation)) {
-//             self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
-//         } else {
-//             self.adDisplayContainer.adContainer.frame = self.player.portraitFrame;
-//         }
-         _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-    }];
+    
+//     [UIView animateWithDuration:0.3f animations:^{
+//         _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
+//    }];
 }
 
-- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeOrientationFrom:(UIInterfaceOrientation)orientation {
-    if (UIInterfaceOrientationIsLandscape(orientation)) {
-        [self.player.view.topControlOverlay setFrameOriginY:0.0f];
-        self.player.view.topControlOverlay.hidden = NO;
-        self.player.view.topPortraitControlOverlay.hidden = YES;
-        self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeOrientationFrom:(UIInterfaceOrientation)fromInterfaceOrientation {
+    switch (fromInterfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            [self viewDidEnterPortrait];
+            break;
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            [self viewDidEnterLandscape];
+        case UIInterfaceOrientationUnknown:
+            break;
     }
 }
 
-- (void)layoutAdsForOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    if (self.adDisplayContainer) {
-//        [UIView animateWithDuration:0.3f animations:^{
-//            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.player.view.bounds.size.height >500) {
-//                self.adDisplayContainer.adContainer.frame = CGRectMake(0, (self.player.view.bounds.size.height/2)-(self.player.view.bounds.size.height/4), self.player.view.bounds.size.width, self.player.view.bounds.size.height/2);
-//            }
-//            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad && self.player.isFullScreen) {
-//                self.adDisplayContainer.adContainer.frame = self.player.landscapeFrame;
-//            }
-//            
-//            
-//            
-//        }];
-    }
-}
      
 
 #pragma mark - Send Tracker
