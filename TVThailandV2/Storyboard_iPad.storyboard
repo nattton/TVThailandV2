@@ -374,7 +374,6 @@
                         <outlet property="tableOfVideoPart" destination="8qX-ci-kGG" id="Ukc-o9-8pw"/>
                         <outlet property="thumbnailOTV" destination="LMt-PY-Cm1" id="718-xR-oeY"/>
                         <outlet property="videoContainerHeight" destination="y7P-bl-z4A" id="woM-Kw-8g8"/>
-                        <outlet property="videoContainerTopSpace" destination="e8j-pX-8sM" id="Ann-W5-Wz7"/>
                         <outlet property="videoContainerView" destination="rBV-QU-k7P" id="Jbo-dZ-Ne0"/>
                         <outlet property="videoContainerWidth" destination="79s-FH-Mee" id="AX7-GV-1jM"/>
                         <outlet property="viewCountLabel" destination="0W1-YV-jBW" id="AjW-og-bl6"/>

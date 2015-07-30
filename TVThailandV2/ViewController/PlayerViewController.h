@@ -50,7 +50,7 @@
 @property(nonatomic, strong) IMAAdsLoader *adsLoader;
 @property(nonatomic, strong) IMAAdsManager *adsManager;
 @property(nonatomic, strong) IMAAdsRenderingSettings *adsRenderingSettings;
-//@property(nonatomic, strong) IMAAdDisplayContainer *adDisplayContainer;
+@property(nonatomic, strong) IMAAdDisplayContainer *adDisplayContainer;
 
 // The content playhead used for content tracking.
 @property(nonatomic, strong) IMAAVPlayerContentPlayhead *contentPlayhead;
@@ -58,5 +58,6 @@
 // VK Player
 @property (nonatomic, strong) VKVideoPlayer* player;
 
+@property(nonatomic, readonly) NSTimeInterval currentTime;
 
 @end

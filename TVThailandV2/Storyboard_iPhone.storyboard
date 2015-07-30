@@ -289,7 +289,6 @@
                         <outlet property="thumbnailOTV" destination="aPI-oS-YWf" id="9Hy-2X-NMW"/>
                         <outlet property="titleContainerView" destination="iwp-kI-Tav" id="bG5-LZ-BZT"/>
                         <outlet property="videoContainerHeight" destination="Azs-Pq-dFQ" id="dSG-KS-Ltq"/>
-                        <outlet property="videoContainerTopSpace" destination="52c-7U-mJY" id="G7V-kX-yrc"/>
                         <outlet property="videoContainerView" destination="CcJ-3U-IEf" id="93o-O3-9jw"/>
                         <outlet property="videoContainerWidth" destination="8Mm-pJ-uUY" id="uJ7-bz-0KG"/>
                         <outlet property="viewCountLabel" destination="BB3-OJ-5lU" id="lBu-SA-XNx"/>

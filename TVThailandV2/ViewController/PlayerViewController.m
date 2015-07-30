@@ -51,12 +51,12 @@ typedef enum {
     PauseButton
 } PlayButtonType;
 
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate>
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate, IMAContentPlayhead>
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipAdsButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerTopSpace;
 
 @property(nonatomic, assign) CGRect portraitVideoFrame;
 @property(nonatomic, assign) CGRect fullscreenVideoFrame;
@@ -64,19 +64,18 @@ typedef enum {
 @property(nonatomic, assign) BOOL isFullscreen;
 @property(nonatomic, assign) BOOL isPhone;
 
-
 @property (strong, nonatomic) MPMoviePlayerController *movieController;
 
 @property (strong, nonatomic) CMVideoAds *videoAds;
 
 
--(void)moviePlayBackDidFinish:(NSNotification*)notification;
--(void)loadStateDidChange:(NSNotification *)notification;
--(void)moviePlayBackStateDidChange:(NSNotification*)notification;
--(void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification;
--(void)installMovieNotificationObservers:(MPMoviePlayerController *)player;
--(void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player;
--(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
+- (void)moviePlayBackDidFinish:(NSNotification*)notification;
+- (void)loadStateDidChange:(NSNotification *)notification;
+- (void)moviePlayBackStateDidChange:(NSNotification*)notification;
+- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification;
+- (void)installMovieNotificationObservers:(MPMoviePlayerController *)player;
+- (void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player;
+- (void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
 - (void) movieDurationAvailableDidChange:(NSNotification*)notification;
 
 
@@ -86,19 +85,15 @@ typedef enum {
 // Private functions
 - (void)unloadAdsManager;
 
-
 @end
 
 @implementation PlayerViewController {
     NSString *_videoId;
-    CGSize _size;
     BOOL _isContent;
     BOOL _isLoading;
     OTVPart *_part;
     AVPlayerLayer *_layer;
     NSString *_sourceType;
-    
-    UIButton *_skipAdsButton;
 }
 
 #pragma mark - Staic Variable
@@ -150,73 +145,59 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 -(void)initSkipAdsButton {
     
-     _skipAdsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_skipAdsButton addTarget:self
+     self.skipAdsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.skipAdsButton addTarget:self
                       action:@selector(skipAdsButtonTouched)
             forControlEvents:UIControlEventTouchUpInside];
-    [_skipAdsButton setTitle:@"skip" forState:UIControlStateNormal];
-    [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
-    [_skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    CALayer * layer = [_skipAdsButton layer];
+    [self.skipAdsButton setTitle:@"skip" forState:UIControlStateNormal];
+    [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+    [self.skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    CALayer * layer = [self.skipAdsButton layer];
     [layer setMasksToBounds:YES];
     [layer setCornerRadius:0.0]; //when radius is 0, the border is a rectangle
     [layer setBorderWidth:1.0];
     [layer setBorderColor:[[UIColor whiteColor] CGColor]];
     
+    self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width-100, self.portraitVideoFrame.size.height-70, 90, 25);
 }
 
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    switch (fromInterfaceOrientation) {
+
+#pragma mark - Implement Rotate
+
+- (void)viewDidRotate {
+    switch ([[UIDevice currentDevice] orientation]) {
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
-            [self viewDidEnterPortrait];
+            [self viewDidEnterLandscape];
             break;
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
-            [self viewDidEnterLandscape];
-        case UIInterfaceOrientationUnknown:
+            [self viewDidEnterPortrait];
+        default:
             break;
     }
 }
 
-#pragma mark - Private Method
-
 - (void)viewDidEnterPortrait {
     self.isFullscreen = NO;
-    self.player.view.frame = self.portraitVideoFrame;
     self.videoContainerView.frame = self.portraitVideoFrame;
-    
-//    self.adDisplayContainer.adContainer.frame = self.portraitVideoFrame;
-//    [UIView animateWithDuration:0.3f animations:^{
-//        _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-//    }];
+    self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width-100, self.portraitVideoFrame.size.height-70, 90, 25);
     [self.tableOfVideoPart reloadData];
 }
 
 - (void)viewDidEnterLandscape {
     self.isFullscreen = YES;
-    self.player.view.frame = self.fullscreenVideoFrame;
-//    self.adDisplayContainer.adContainer.frame = self.fullscreenVideoFrame;
-//    [UIView animateWithDuration:0.3f animations:^{
-//        _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-//    }];
-    
+    self.videoContainerView.frame = self.fullscreenVideoFrame;
+    self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width-100, self.fullscreenVideoFrame.size.height-70, 90, 25);
     [self.tableOfVideoPart reloadData];
 }
 
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self viewDidRotate];
+}
+
 - (void) initLableContainner {
-    
-    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _size = CGSizeMake(700.0f, 390.0f);
-        
-    }
-    else
-    {
-        _size = CGSizeMake(320, 240);
-    
-    }
-    
     
     self.titleContainerView.layer.masksToBounds = NO;
     self.titleContainerView.layer.cornerRadius = 2;
@@ -231,9 +212,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self.tableOfVideoPart setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     [self.tableOfVideoPart setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
-    
-
-
 }
 
 #pragma mark - Init Video
@@ -349,180 +327,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
 }
 
-#pragma mark - Open With
-
-- (void) openWithYoutubePlayerEmbed:(NSString *)videoIdString {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    self.webView.hidden = NO;
-    
-    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
-                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
-                            <body style=\"background-color:#000 ;\">\
-                            <iframe  style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\"  id=\"player\" type=\"text/html\" width=\"%0.0f\" height=\"%0.0f\" src=\"http://www.youtube.com/embed/%@?enablejsapi=1&origin=http://www.code-mobi.com\" frameborder=\"0\"></iframe></body></html>", _size.width, _size.height, _videoId];
-    [self.webView loadHTMLString:htmlString
-                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]];
-
-    [self.webView.scrollView setScrollEnabled:NO];
-    [SVProgressHUD dismiss];
- 
-}
-
-- (void)openWithDailymotionEmbed {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
-                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
-                            <body style=\"background-color:#000 ;\">\
-                            <iframe style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\" src=\"http://www.dailymotion.com/embed/video/%@?autoplay=1\" width=\"%0.0f\" height=\"%0.0f\" frameborder=\"0\"></iframe>\
-                            </body></html>", _videoId, _size.width, _size.height];
-    
-    [self.webView loadHTMLString:htmlString
-                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
-    [self.webView.scrollView setScrollEnabled:NO];
-    [SVProgressHUD dismiss];
-}
-
-- (void)openWebSite:(NSString *)stringUrl {
-    if ([_sourceType isEqualToString:@"0"]) {
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
-    } else if ([_sourceType isEqualToString:@"1"]) {
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
-    } else if ([_sourceType isEqualToString:@"11"]) {
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
-    } else if ([_sourceType isEqualToString:@"13"] || [_sourceType isEqualToString:@"14"] || [_sourceType isEqualToString:@"15"]) {
-        if ([_sourceType isEqualToString:@"15"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video has password"
-                                                            message:[NSString stringWithFormat:@"Password : %@", self.episode.password]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-        NSString *mthaiUrl = [NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html", stringUrl];
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:mthaiUrl];
-    }
-}
-
-- (void) openWithVideoUrl:(NSString *)videoUrl {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    
-    // HTML to embed YouTube video
-    NSString *htmlString = @"<html><head>\
-    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
-    <body style=\"background-color:#000 ;\">\
-    <video style=\"margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
-    </video></body></html>";
-    
-    // Populate HTML with the URL and requested frame size
-    NSString *html = [NSString stringWithFormat:htmlString,
-                      [self.episode videoThumbnail:_idx],
-                      _size.height,
-                      _size.width,
-                      videoUrl
-                      ];
-    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
-    [self.webView.scrollView setScrollEnabled:NO];
-    [SVProgressHUD dismiss];
-}
-
-#pragma mark - Load Video Mthai
-
-- (void) loadMThaiWebVideo {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url
-            userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
-         successBlock:^(NSData *response) {
-             [self startMThaiVideoFromData:response];
-             [SVProgressHUD dismiss];
-         }];
-}
-
-- (void) loadMThaiWebVideoWithPassword:(NSString *)password {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http postURL:url userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
-           params:@{@"clip_password": password}
-     successBlock:^(NSData *response) {
-         [self startMThaiVideoFromData:response];
-         [SVProgressHUD dismiss];
-     }];
-}
-
-- (void) startMThaiVideoFromData:(NSData *)data {
-
-    
-    NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *clipUrl = nil;
-    NSString *varKey = @"{ mp4:  \"http";
-    NSRange indexStart = [responseDataString rangeOfString:varKey];
-    if (indexStart.location != NSNotFound)
-    {
-        clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length - 4];
-        NSRange indexEnd = [clipUrl rangeOfString:@"}"];
-        if (indexEnd.location != NSNotFound)
-        {
-            clipUrl = [clipUrl substringToIndex:indexEnd.location];
-            clipUrl = [[[clipUrl stringByReplacingOccurrencesOfString:@" " withString:@""]
-                                stringByReplacingOccurrencesOfString:@"=" withString:@""]
-                                stringByReplacingOccurrencesOfString:@"'" withString:@""];
-
-        }
-        
-        NSArray *seperateUrl = [clipUrl componentsSeparatedByString:@"/"];
-        if ([seperateUrl[seperateUrl.count - 1] hasPrefix:_videoId]) {
-            [self openWithVideoUrl:clipUrl];
-            return;
-        }
-    }
-    
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
-    if (error) {
-        DLog(@"Error: %@", error);
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-    NSArray *sourceNodes = [bodyNode findChildTags:@"source"];
-    NSString *videoUrl = nil;
-    for (HTMLNode *sourceNode in sourceNodes)
-    {
-        if ([sourceNode getAttributeNamed:@"src"]) {
-            NSString *videoUrl = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
-            if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
-                if ([videoUrl hasSuffix:@"flv"]) {
-                    DLog(@"FLV");
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
-                    });
-                    return;
-                }
-                else
-                {
-                    [self openWithVideoUrl:videoUrl];
-                    DLog(@"videoUrl : %@", videoUrl);
-                }
-                return;
-            }
-        }
-    }
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
-    });
-    
-    if (clipUrl != nil && clipUrl.length > 0) {
-        [self openWithVideoUrl:clipUrl];
-    } else if (videoUrl != nil && videoUrl.length > 0) {
-        [self openWithVideoUrl:videoUrl];
-    }
-    
-}
-
 
 - (void) setSelectedPositionOfVideoPartAtRow:(long)row section:(long)section {
     NSIndexPath *indexPathOfVideoPart=[NSIndexPath indexPathForRow:row inSection:section];
@@ -557,7 +361,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self.player pauseContent];
     [self.player.view removeFromSuperview];
     
-    self.adsLoader = nil;
     self.player = nil;
 }
 
@@ -676,18 +479,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
     /* re assign value to _idx inorder to use in openWithVideoUrl method to show thumbnail of video */
     _idx = indexPath.row;
-
-    
     if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
-        
         [self close];
         [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
         [self startOTV];
-        
     }
     else if (self.show.isOTV && indexPath.section == SECTION_RELATED) {
         [self unloadAdsManager];
-        
         [self.otvEPController setShow:self.otvRelateShows[indexPath.row]];
         [self.otvEPController reload];
         
@@ -1064,9 +862,20 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self setVideoTitleToTopLayer];
 }
 
+- (void) playPreviousOTVVideo {
+    
+    [self unloadAdsManager];
+    if (self.show.isOTV &&  _idx - 1 > 0) {
+        _idx--;
+        [self initVideoPlayer:_idx sectionOfVideo:0];
+        [self startOTV];
+    }
+    
+    [self setVideoTitleToTopLayer];
+}
+
 - (void)playCurrentVideo
 {
-    [self.player pauseContent];
     if (!_isLoading) {
         
         self.webView.hidden = YES;
@@ -1075,11 +884,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         if (self.player.view == nil && ![_part.mediaCode isEqualToString: kCodeIframe]) {
             [self setUpVKContentPlayer];
         }
-
-
         
         if (_isContent || _part.vastURL == nil ) {
-//            self.adDisplayContainer.adContainer.hidden = YES;
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
                 [self playStream:[NSURL URLWithString:_part.streamURL]];
                 [self sendTrackerPlayContent:_part.streamURL];
@@ -1090,8 +896,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
         } else {
             [self setUpIMA];
+            
             if ([_part.mediaCode isEqualToString:kCodeStream]) {
-                [self playStream:[NSURL URLWithString:_part.streamURL]];
+                
             }
           
             DLog(@"Ads Type: %@", _part.vastType);
@@ -1101,8 +908,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                 self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
                 self.videoAds.delegate = self;
             }
-            
-
         }
     }
 }
@@ -1124,30 +929,37 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (IMAAdDisplayContainer *)createAdDisplayContainer {
     // Create our AdDisplayContainer. Initialize it with our videoView as the container. This
     // will result in ads being displayed over our content video.
-    return [[IMAAdDisplayContainer alloc] initWithAdContainer:self.player.view companionSlots:nil];
+    
+    if (!self.adDisplayContainer) {
+        self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.player.view companionSlots:nil];
+    }
+    
+    return self.adDisplayContainer;
 }
 
-// Create playhead for content tracking.
-- (void)createContentPlayhead {
-    self.contentPlayhead = [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.player.avPlayer];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(contentDidFinishPlaying:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[self.player.avPlayer currentItem]];
+- (void)setupAdsLoader {
+    // Initalize Google IMA ads Loader.
+    if (self.adsLoader) {
+        self.adsLoader = nil;
+    }
+    IMASettings *settings = [[IMASettings alloc] init];
+    settings.language = @"en";
+    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:settings];
 }
 
 // Initialize AdsLoader.
 - (void)setUpIMA {
+    [self setupAdsLoader];
     if (self.adsManager) {
         [self.adsManager destroy];
     }
-    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
     [self.adsLoader contentComplete];
     self.adsLoader.delegate = self;
 }
 
 // Request ads for provided tag.
 - (void)requestAdsWithTag:(NSString *)adTagUrl {
+    
     [self logMessage:@"Requesting ads"];
     // Create an ad request with our ad tag, display container, and optional user context.
     IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTagUrl
@@ -1175,17 +987,15 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     IMAAdsRenderingSettings *adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
     adsRenderingSettings.webOpenerPresentingController = self;
     // Create a content playhead so the SDK can track our content for VMAP and ad rules.
-    [self createContentPlayhead];
     // Initialize the ads manager.
-    [self.adsManager initializeWithContentPlayhead:self.contentPlayhead
-                              adsRenderingSettings:adsRenderingSettings];
+    [self.adsManager initializeWithContentPlayhead:self adsRenderingSettings:adsRenderingSettings];
 }
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
     // Something went wrong loading ads. Log the error and play the content.
     [self logMessage:@"Error loading ads: %@", adErrorData.adError.message];
 //    self.isAdPlayback = NO;
-    _isContent = !_isContent;
+    _isContent = YES;
     [self playCurrentVideo];
 }
 
@@ -1200,15 +1010,21 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             _isLoading = NO;
             [self.adsManager start];
             [self sendTrackerAdStarted:self.videoAds.URL];
+            [self.adDisplayContainer.adContainer addSubview:self.skipAdsButton];
+            [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+            self.skipAdsButton.hidden = NO;
             break;
         case kIMAAdEvent_TAPPED:
-            [self viewDidEnterLandscape];
+//            [self viewDidEnterLandscape];
             break;
         case kIMAAdEvent_ALL_ADS_COMPLETED:
-            [self unloadAdsManager];
+            self.skipAdsButton.hidden = YES;
+            [self.adsLoader contentComplete];
             [self sendTrackerAdCompleted:self.videoAds.URL];
             break;
-            
+        case kIMAAdEvent_SKIPPED:
+            self.skipAdsButton.hidden = YES;
+            break;
         default:
             break;
     }
@@ -1218,9 +1034,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // Something went wrong with the ads manager after ads were loaded. Log the error and play the
     // content.
     [self logMessage:@"AdsManager error: %@", error.message];
-//    self.isAdPlayback = NO;
-//    [self setPlayButtonType:PauseButton];
-//    [self.contentPlayer play];
     _isContent = YES;
     [self playCurrentVideo];
 }
@@ -1235,6 +1048,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // The SDK is done playing ads (at least for now), so resume the content.
     [self logMessage:@"adsManagerDidRequestContentPause"];
     _isContent = YES;
+    self.skipAdsButton.hidden = YES;
     [self playCurrentVideo];
 }
 
@@ -1252,19 +1066,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 #pragma END IMA
 
-- (IMASettings *) createIMASettings {
-    IMASettings *settings = [[IMASettings alloc] init];
-    settings.ppid = @"IMA_PPID_0";
-    settings.language = @"en";
-    return settings;
-}
-
-- (void)setupAdsLoader {
-    // Initalize Google IMA ads Loader.
-    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
-    // Implement delegate methods to get callbacks from the adsLoader.
-    self.adsLoader.delegate = self;
-}
 
 - (void)contentDidFinishPlaying {
     DLog(@"Content has completed");
@@ -1297,83 +1098,23 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     return itemDuration;
 }
 
-
-//- (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
-//    // Loading was successful.
-//    DLog(@"Ad loading successful!");
-//    
-//    self.adsManager = adsLoadedData.adsManager;
-//    self.adsManager.delegate = self;
-//    
-//    self.adDisplayContainer.adContainer.frame = self.player.view.bounds;
-//    
-//    // By default, allow in-app web browser.
-//    self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
-//    self.adsRenderingSettings.webOpenerDelegate = self;
-//    self.adsRenderingSettings.webOpenerPresentingController = self;
-//    self.adsRenderingSettings.bitrate = kIMAAutodetectBitrate;
-//    self.adsRenderingSettings.mimeTypes = @[];
-//
-//    if ([_part.mediaCode isEqualToString:kCodeIframe]) {
-//        [self.view addSubview:self.adDisplayContainer.adContainer];
-//
-//    } else {
-//        [self.player.view addSubview:self.adDisplayContainer.adContainer];
-//    }
-//    
-//    _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-//    [self.adDisplayContainer.adContainer addSubview:_skipAdsButton];
-//    _skipAdsButton.enabled = NO;
-//    [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
-//    
-//
-////    self.player.view.controls.hidden = YES;
-////    self.player.view.playButton.enabled = NO;
-////    self.player.view.nextButton.hidden = YES;
-////    self.player.view.rewindButton.hidden = YES;
-////    self.player.view.bigPlayButton.hidden = YES;
-////    self.player.view.activityIndicator.hidden = YES;
-//    
-//    [self.adsManager initializeWithContentPlayhead:nil adsRenderingSettings:self.adsRenderingSettings];
-//}
-
-//- (void)requestAdsTag:(NSString *)adTag {
-//    DLog(@"Requesting ads.");
-//    [self unloadAdsManager];
-//    
-//    self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.videoContainerView
-//                                                                  companionSlots:nil];
-//    IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTag
-//                                                  adDisplayContainer:self.adDisplayContainer
-//                                                         userContext:nil];
-//    [self.adsLoader requestAdsWithRequest:request];
-//}
-
 - (void)unloadAdsManager {
-    if (self.adsManager != nil) {
-        [self.adsManager destroy];
-        self.adsManager.delegate = nil;
-        self.adsManager = nil;
-    }
+//    if (self.adsManager) {
+//        [self.adsManager destroy];
+//    }
 }
 
 // Optional: receive updates about individual ad progress.
 - (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
     CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
-//    CMTime duration = CMTimeMakeWithSeconds(totalTime, 1000);
-//    [self updatePlayHeadWithTime:time duration:duration];
     int s = (int)CMTimeGetSeconds(time);
     if (s <= 8) {
-        _skipAdsButton.enabled = NO;
-        [_skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", 8 - s] forState:UIControlStateDisabled];
+        self.skipAdsButton.enabled = NO;
+        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", 8 - s] forState:UIControlStateDisabled];
     } else {
-        _skipAdsButton.enabled = YES;
-        [_skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+        self.skipAdsButton.enabled = YES;
+        [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
     }
-
-    
-//    self.progressBar.maximumValue = totalTime;
-//    [self setPlayButtonType:PauseButton];
 }
 
 #pragma mark IMABrowser delegate functions
@@ -1407,6 +1148,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.player.delegate = self;
     self.player.forceRotate = self.isPhone;
     self.player.view.frame = self.portraitVideoFrame;
+    self.player.portraitFrame = self.portraitVideoFrame;
+    self.player.landscapeFrame = self.fullscreenVideoFrame;
     self.player.view.fullscreenButton.hidden = NO;
     
     [self.view addSubview:self.player.view];
@@ -1428,17 +1171,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void) setVideoTitleToTopLayer {
-    
     self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.bounds.size.width - 50, 30);
-    self.player.view.titleLabel.text = [NSString stringWithFormat:@"%@ - %@", [self.otvEpisode.date stringByReplacingOccurrencesOfString: @"ออกอากาศ " withString:@""], _part.nameTh];
+    self.player.view.titleLabel.text = _part.nameTh;
 }
 #pragma mark - App States
 
 - (void)applicationWillResignActive {
     self.player.view.controlHideCountdown = -1;
     if (self.player.state == VKVideoPlayerStateContentPlaying) [self.player pauseContent:NO completionHandler:nil];
-    
-    
 }
 
 - (void)applicationDidBecomeActive {
@@ -1451,28 +1191,23 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     DLog(@"%s videoPlayer :%d", __FUNCTION__, event);
     switch (event) {
         case VKVideoPlayerControlEventTapDone:
-            self.closeCircleButton.hidden = NO;
             [self close];
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
         case VKVideoPlayerControlEventTapFullScreen:
             if (self.player.isFullScreen) {
-                self.closeCircleButton.hidden = YES;
                 self.player.view.frame = self.fullscreenVideoFrame;
-//                self.adDisplayContainer.adContainer.frame = self.fullscreenVideoFrame;
             } else {
-                self.closeCircleButton.hidden = NO;
                 self.player.view.frame = self.portraitVideoFrame;
-//                self.adDisplayContainer.adContainer.frame = self.portraitVideoFrame;
             }
-//            _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
             break;
         case VKVideoPlayerControlEventTapNext:
         case VKVideoPlayerControlEventSwipeNext:
             [self playNextOTVVideo];
+            break;
         case VKVideoPlayerControlEventTapPrevious:
         case VKVideoPlayerControlEventSwipePrevious:
-//          playPrevious
+            [self playPreviousOTVVideo];
             break;
         default:
             break;
@@ -1492,10 +1227,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
-    
-//     [UIView animateWithDuration:0.3f animations:^{
-//         _skipAdsButton.frame = CGRectMake(self.adDisplayContainer.adContainer.bounds.size.width-100, self.adDisplayContainer.adContainer.bounds.size.height-70, 90, 25);
-//    }];
+
 }
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeOrientationFrom:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -1554,5 +1286,181 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     
 }
 //- (BOOL)shouldVideoPlayer:(VKVideoPlayer*)videoPlayer startVideo:(id<VKVideoPlayerTrackProtocol>)track;
+
+
+#pragma mark - Open With
+
+- (void) openWithYoutubePlayerEmbed:(NSString *)videoIdString {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    self.webView.hidden = NO;
+    
+    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
+                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
+                            <body style=\"background-color:#000 ;\">\
+                            <iframe  style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\"  id=\"player\" type=\"text/html\" width=\"%0.0f\" height=\"%0.0f\" src=\"http://www.youtube.com/embed/%@?enablejsapi=1&origin=http://www.code-mobi.com\" frameborder=\"0\"></iframe></body></html>", self.portraitVideoFrame.size.width, self.portraitVideoFrame.size.height, _videoId];
+    [self.webView loadHTMLString:htmlString
+                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]];
+    
+    [self.webView.scrollView setScrollEnabled:NO];
+    [SVProgressHUD dismiss];
+    
+}
+
+- (void)openWithDailymotionEmbed {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
+                            <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
+                            <body style=\"background-color:#000 ;\">\
+                            <iframe style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\" src=\"http://www.dailymotion.com/embed/video/%@?autoplay=1\" width=\"%0.0f\" height=\"%0.0f\" frameborder=\"0\"></iframe>\
+                            </body></html>", _videoId, self.portraitVideoFrame.size.width, self.portraitVideoFrame.size.height];
+    
+    [self.webView loadHTMLString:htmlString
+                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]]];
+    [self.webView.scrollView setScrollEnabled:NO];
+    [SVProgressHUD dismiss];
+}
+
+- (void)openWebSite:(NSString *)stringUrl {
+    if ([_sourceType isEqualToString:@"0"]) {
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
+    } else if ([_sourceType isEqualToString:@"1"]) {
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
+    } else if ([_sourceType isEqualToString:@"11"]) {
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
+    } else if ([_sourceType isEqualToString:@"13"] || [_sourceType isEqualToString:@"14"] || [_sourceType isEqualToString:@"15"]) {
+        if ([_sourceType isEqualToString:@"15"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video has password"
+                                                            message:[NSString stringWithFormat:@"Password : %@", self.episode.password]
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        NSString *mthaiUrl = [NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html", stringUrl];
+        [self performSegueWithIdentifier:ShowWebViewSegue sender:mthaiUrl];
+    }
+}
+
+- (void) openWithVideoUrl:(NSString *)videoUrl {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
+    // HTML to embed YouTube video
+    NSString *htmlString = @"<html><head>\
+    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
+    <body style=\"background-color:#000 ;\">\
+    <video style=\"margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
+    </video></body></html>";
+    
+    // Populate HTML with the URL and requested frame size
+    NSString *html = [NSString stringWithFormat:htmlString,
+                      [self.episode videoThumbnail:_idx],
+                      self.portraitVideoFrame.size.height,
+                      self.portraitVideoFrame.size.width,
+                      videoUrl
+                      ];
+    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
+    [self.webView.scrollView setScrollEnabled:NO];
+    [SVProgressHUD dismiss];
+}
+
+#pragma mark - Load Video Mthai
+
+- (void) loadMThaiWebVideo {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    [http retrieveURL:url
+            userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
+         successBlock:^(NSData *response) {
+             [self startMThaiVideoFromData:response];
+             [SVProgressHUD dismiss];
+         }];
+}
+
+- (void) loadMThaiWebVideoWithPassword:(NSString *)password {
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
+    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
+    [http postURL:url userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
+           params:@{@"clip_password": password}
+     successBlock:^(NSData *response) {
+         [self startMThaiVideoFromData:response];
+         [SVProgressHUD dismiss];
+     }];
+}
+
+- (void) startMThaiVideoFromData:(NSData *)data {
+    
+    
+    NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *clipUrl = nil;
+    NSString *varKey = @"{ mp4:  \"http";
+    NSRange indexStart = [responseDataString rangeOfString:varKey];
+    if (indexStart.location != NSNotFound)
+    {
+        clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length - 4];
+        NSRange indexEnd = [clipUrl rangeOfString:@"}"];
+        if (indexEnd.location != NSNotFound)
+        {
+            clipUrl = [clipUrl substringToIndex:indexEnd.location];
+            clipUrl = [[[clipUrl stringByReplacingOccurrencesOfString:@" " withString:@""]
+                        stringByReplacingOccurrencesOfString:@"=" withString:@""]
+                       stringByReplacingOccurrencesOfString:@"'" withString:@""];
+            
+        }
+        
+        NSArray *seperateUrl = [clipUrl componentsSeparatedByString:@"/"];
+        if ([seperateUrl[seperateUrl.count - 1] hasPrefix:_videoId]) {
+            [self openWithVideoUrl:clipUrl];
+            return;
+        }
+    }
+    
+    
+    NSError *error = nil;
+    HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
+    if (error) {
+        DLog(@"Error: %@", error);
+    }
+    
+    HTMLNode *bodyNode = [parser body];
+    NSArray *sourceNodes = [bodyNode findChildTags:@"source"];
+    NSString *videoUrl = nil;
+    for (HTMLNode *sourceNode in sourceNodes)
+    {
+        if ([sourceNode getAttributeNamed:@"src"]) {
+            NSString *videoUrl = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
+            if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
+                if ([videoUrl hasSuffix:@"flv"]) {
+                    DLog(@"FLV");
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
+                    });
+                    return;
+                }
+                else
+                {
+                    [self openWithVideoUrl:videoUrl];
+                    DLog(@"videoUrl : %@", videoUrl);
+                }
+                return;
+            }
+        }
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
+    });
+    
+    if (clipUrl != nil && clipUrl.length > 0) {
+        [self openWithVideoUrl:clipUrl];
+    } else if (videoUrl != nil && videoUrl.length > 0) {
+        [self openWithVideoUrl:videoUrl];
+    }
+    
+}
+
 
 @end
