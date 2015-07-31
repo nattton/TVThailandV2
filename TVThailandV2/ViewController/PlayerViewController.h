@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *infoOfEpisodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *openWithButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeCircleButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableOfVideoPart;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

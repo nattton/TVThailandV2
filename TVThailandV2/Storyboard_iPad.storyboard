@@ -370,6 +370,7 @@
                         <outlet property="infoOfEpisodeButton" destination="tvX-N8-czg" id="vKd-yF-Qm8"/>
                         <outlet property="openWithButton" destination="XOB-12-3o6" id="ssy-aB-Cgd"/>
                         <outlet property="partNameLabel" destination="Wd0-zE-azC" id="BxN-Dt-R4c"/>
+                        <outlet property="playButton" destination="p0P-2j-ZsS" id="VJC-i4-4pK"/>
                         <outlet property="showNameLabel" destination="Ztg-DU-BNi" id="05c-qO-OQS"/>
                         <outlet property="tableOfVideoPart" destination="8qX-ci-kGG" id="Ukc-o9-8pw"/>
                         <outlet property="thumbnailOTV" destination="LMt-PY-Cm1" id="718-xR-oeY"/>

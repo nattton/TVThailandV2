@@ -53,8 +53,7 @@ typedef enum {
 
 @interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate, IMAContentPlayhead>
 
-@property (weak, nonatomic) IBOutlet UIButton *playButton;
-@property (weak, nonatomic) IBOutlet UIButton *skipAdsButton;
+@property (strong, nonatomic) IBOutlet UIButton *skipAdsButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerHeight;
 
@@ -81,9 +80,6 @@ typedef enum {
 
 //VK Property
 @property (nonatomic, strong) NSString *currentLanguageCode;
-
-// Private functions
-- (void)unloadAdsManager;
 
 @end
 
@@ -113,19 +109,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [super viewDidLoad];
     [self initInstance];
     [self initLableContainner];
+    [self initSkipAdsButton];
+    [self viewDidEnterPortrait];
     
     if (self.show) {
         _part = [self.otvEpisode.parts objectAtIndex:0];
         [self initVideoPlayer:_idx sectionOfVideo:0];
     }
 
-    [self viewDidEnterPortrait];
-    
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
     
-    
-    [self initSkipAdsButton];
 }
 
 - (void)initInstance {
@@ -137,15 +131,19 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 -(void) skipAdsButtonTouched {
-    [self unloadAdsManager];
-    [self sendTrackerAdCompleted:self.videoAds.URL];
+    self.skipAdsButton.hidden = YES;
+    [self.adsLoader contentComplete];
+    [self.adsManager skip];
+    if (self.adsManager) {
+        [self.adsManager destroy];
+    }
     _isContent = YES;
     [self playCurrentVideo];
+    [self sendTrackerAdCompleted:self.videoAds.URL];
 }
 
 -(void)initSkipAdsButton {
-    
-     self.skipAdsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.skipAdsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.skipAdsButton addTarget:self
                       action:@selector(skipAdsButtonTouched)
             forControlEvents:UIControlEventTouchUpInside];
@@ -158,7 +156,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [layer setBorderWidth:1.0];
     [layer setBorderColor:[[UIColor whiteColor] CGColor]];
     
-    self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width-100, self.portraitVideoFrame.size.height-70, 90, 25);
+    if (self.isFullscreen) {
+        self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width - 100.0f, self.fullscreenVideoFrame.size.height - 70.0f, 90.0f, 25.0f);
+    } else {
+        self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width - 100.0f, self.portraitVideoFrame.size.height - 70.0f, 90.0f, 25.0f);
+    }
+
 }
 
 
@@ -181,6 +184,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)viewDidEnterPortrait {
     self.isFullscreen = NO;
+    self.player.view.frame = self.portraitVideoFrame;
     self.videoContainerView.frame = self.portraitVideoFrame;
     self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width-100, self.portraitVideoFrame.size.height-70, 90, 25);
     [self.tableOfVideoPart reloadData];
@@ -188,6 +192,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)viewDidEnterLandscape {
     self.isFullscreen = YES;
+    self.player.view.frame = self.fullscreenVideoFrame;
     self.videoContainerView.frame = self.fullscreenVideoFrame;
     self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width-100, self.fullscreenVideoFrame.size.height-70, 90, 25);
     [self.tableOfVideoPart reloadData];
@@ -357,7 +362,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)close {
-    [self unloadAdsManager];
     [self.player pauseContent];
     [self.player.view removeFromSuperview];
     
@@ -485,7 +489,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         [self startOTV];
     }
     else if (self.show.isOTV && indexPath.section == SECTION_RELATED) {
-        [self unloadAdsManager];
         [self.otvEPController setShow:self.otvRelateShows[indexPath.row]];
         [self.otvEPController reload];
         
@@ -864,7 +867,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) playPreviousOTVVideo {
     
-    [self unloadAdsManager];
     if (self.show.isOTV &&  _idx - 1 > 0) {
         _idx--;
         [self initVideoPlayer:_idx sectionOfVideo:0];
@@ -1098,11 +1100,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     return itemDuration;
 }
 
-- (void)unloadAdsManager {
-//    if (self.adsManager) {
-//        [self.adsManager destroy];
-//    }
-}
 
 // Optional: receive updates about individual ad progress.
 - (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
@@ -1196,9 +1193,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             break;
         case VKVideoPlayerControlEventTapFullScreen:
             if (self.player.isFullScreen) {
-                self.player.view.frame = self.fullscreenVideoFrame;
+                [self viewDidEnterLandscape];
             } else {
-                self.player.view.frame = self.portraitVideoFrame;
+                [self viewDidEnterPortrait];
             }
             break;
         case VKVideoPlayerControlEventTapNext:
@@ -1292,8 +1289,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) openWithYoutubePlayerEmbed:(NSString *)videoIdString {
     [SVProgressHUD showWithStatus:@"Loading..."];
+    self.playButton.hidden = YES;
     self.webView.hidden = NO;
-    
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
                             <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
                             <body style=\"background-color:#000 ;\">\
