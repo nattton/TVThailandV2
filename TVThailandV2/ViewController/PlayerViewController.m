@@ -147,7 +147,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [self.skipAdsButton addTarget:self
                       action:@selector(skipAdsButtonTouched)
             forControlEvents:UIControlEventTouchUpInside];
-    [self.skipAdsButton setTitle:@"skip" forState:UIControlStateNormal];
+    [self.skipAdsButton setTitle:@"skip >" forState:UIControlStateNormal];
     [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
     [self.skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     CALayer * layer = [self.skipAdsButton layer];

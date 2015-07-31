@@ -102,11 +102,19 @@ static NSString *CellIdentifier = @"otv_part_cell";
         [partImageView setTag:101];
         [cell addSubview:partImageView];
         
-        UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
+        CGRect initialFrame = CGRectMake(0, 88, 155, 32);
+        UIEdgeInsets contentInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        CGRect paddedFrame = UIEdgeInsetsInsetRect(initialFrame, contentInsets);
+        UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:paddedFrame];
         [partTitleLabel setTag:102];
-        partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
         partTitleLabel.textColor = [UIColor whiteColor];
-        partTitleLabel.numberOfLines = 1;
+        partTitleLabel.font = [UIFont systemFontOfSize:12];
+        partTitleLabel.numberOfLines = 2;
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = CGRectMake(0, partTitleLabel.frame.origin.y - 10, partTitleLabel.frame.size.width + 5, partTitleLabel.frame.size.height + 10);
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f/255.0f] CGColor], (id)[[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:160/255.0f] CGColor], nil];
+        [partImageView.layer insertSublayer:gradient atIndex:0];
         [cell addSubview:partTitleLabel];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -119,7 +127,9 @@ static NSString *CellIdentifier = @"otv_part_cell";
     
     UILabel *titleLable = (UILabel *)[cell viewWithTag:102];
     if (self.otvEpisode.parts.count != 1 ) {
-        titleLable.text = [NSString stringWithFormat:@"%d/%d - %@", [[NSNumber numberWithInteger:indexPath.row+1] intValue], [[NSNumber numberWithInteger:self.otvEpisode.parts.count] intValue], [self.otvEpisode.parts[indexPath.row] nameTh]];
+        titleLable.text = [self.otvEpisode.parts[indexPath.row] nameTh];
+        
+//        titleLable.text = [NSString stringWithFormat:@"Part %d/%d", [[NSNumber numberWithInteger:indexPath.row+1] intValue], [[NSNumber numberWithInteger:self.otvEpisode.parts.count] intValue]];
         titleLable.hidden = NO;
     } else {
         titleLable.hidden = YES;

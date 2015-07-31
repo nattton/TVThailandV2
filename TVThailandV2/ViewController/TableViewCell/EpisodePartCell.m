@@ -82,17 +82,23 @@ static NSString *CellIdentifier = @"part_cell";
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.transform = CGAffineTransformMakeRotation(M_PI/2);
 
-
         UIImageView *partImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 155, 120)];
         [partImageView setTag:101];
         [cell addSubview:partImageView];
         
-        UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 155, 20)];
-        partTitleLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+        CGRect initialFrame = CGRectMake(0, 100, 155, 20);
+        UIEdgeInsets contentInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        CGRect paddedFrame = UIEdgeInsetsInsetRect(initialFrame, contentInsets);
+        UILabel *partTitleLabel = [[UILabel alloc]initWithFrame:paddedFrame];
         [partTitleLabel setTag:102];
         partTitleLabel.textColor = [UIColor whiteColor];
-       
-        partTitleLabel.numberOfLines = 0;
+        partTitleLabel.font = [UIFont systemFontOfSize:12];
+        partTitleLabel.numberOfLines = 1;
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = CGRectMake(0, partTitleLabel.frame.origin.y - 10, partTitleLabel.frame.size.width + 5, partTitleLabel.frame.size.height + 10);
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f/255.0f] CGColor], (id)[[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:160/255.0f] CGColor], nil];
+        [partImageView.layer insertSublayer:gradient atIndex:0];
         [cell addSubview:partTitleLabel];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -113,7 +119,7 @@ static NSString *CellIdentifier = @"part_cell";
 
     
     
-    if (self.episode.videos.count*157 > self.frame.size.width ) {
+    if (self.episode.videos.count * 157 > self.frame.size.width ) {
         goForwardImgSlider.hidden = NO;
     } else {
         goForwardImgSlider.hidden = YES;
@@ -134,34 +140,25 @@ static NSString *CellIdentifier = @"part_cell";
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:currentEp:)]) {
         [self.delegate playVideoPart:indexPath episode:self.episode currentEp:_currentEpIndex];
-        
     }
-
 }
 
 
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    NSLog(@"Y=%f | contentHeight=%f | boundsHeight=%f",hortable.contentOffset.y,hortable.contentSize.height,hortable.bounds.size.height);
     
     if (hortable.contentOffset.y == 0) {
-
         [UIView animateWithDuration:0.3 animations:^{
             [goForwardImgSlider setTransform:CGAffineTransformMakeScale(1, -1)];
         }];
-        
     }
 
     if (hortable.contentOffset.y == floorf(hortable.contentSize.height - hortable.bounds.size.height)) {

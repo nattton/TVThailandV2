@@ -2213,11 +2213,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="mau-OU-PBV"/>
-        <segue reference="U1O-u5-wMC"/>
-        <segue reference="46G-Qc-OaU"/>
         <segue reference="hxP-b2-XDc"/>
         <segue reference="gcw-2o-Hcb"/>
-        <segue reference="551-Zy-Guf"/>
+        <segue reference="lNR-3f-Xrl"/>
+        <segue reference="lLI-Wr-qoe"/>
+        <segue reference="xdc-Rh-odR"/>
+        <segue reference="saQ-9b-nco"/>
     </inferredMetricsTieBreakers>
 </document>
