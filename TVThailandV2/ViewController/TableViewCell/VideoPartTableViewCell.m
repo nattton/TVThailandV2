@@ -37,13 +37,15 @@
 }
 
 - (void)configureWithVideoPart:(Episode *)episode partNumber:(NSInteger)partNumber {
+    NSString *partName;
     if ([episode.videos count] == 1) {
-        self.partNameLabel.text = @"";
+        partName = @"";
     } else {
-        self.partNameLabel.text = [NSString stringWithFormat:@"Part %d/%d", [[NSNumber numberWithInteger:partNumber+1] intValue], [[NSNumber numberWithInteger:episode.videos.count] intValue]];
+        partName = [NSString stringWithFormat:@"Part %d/%d", [[NSNumber numberWithInteger:partNumber+1] intValue], [[NSNumber numberWithInteger:episode.videos.count] intValue]];
     }
     
-    self.episodeNameLabel.text = episode.titleDisplay;
+    self.partNameLabel.text = [NSString stringWithFormat:@"%@ %@", episode.titleDisplay, partName];
+    
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:[episode videoThumbnail:partNumber]] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 }
 
@@ -54,13 +56,11 @@
         self.partNameLabel.text = [otvEpisode.parts[partNumber] nameTh];
     }
     
-    self.episodeNameLabel.text = [NSString stringWithFormat:@"%d/%d - %@", [[NSNumber numberWithInteger:partNumber+1] intValue], [[NSNumber numberWithInteger:otvEpisode.parts.count] intValue], otvEpisode.nameTh];
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:[otvEpisode.parts[partNumber] thumbnail]] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 }
 
 - (void)configureWithOTVRelateShows:(Show *)relateOTVShow {
     self.partNameLabel.text =  relateOTVShow.title;
-//    self.partNameLabel.text = @"";
     [self.thumbnailImageView setImageWithURL:[NSURL URLWithString:relateOTVShow.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"show_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 }
 

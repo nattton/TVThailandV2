@@ -22,11 +22,12 @@
 @property (nonatomic, readonly) NSString *password;
 @property (nonatomic, readonly) NSArray *videos;
 @property (nonatomic, readonly) NSString *titleDisplay;
+@property (nonatomic, readonly) NSString *defaultThumbnail;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithDictionary:(NSDictionary *)dictionary thumbnail:(NSString *)thumbnailURL;
 - (NSString *)videoThumbnail:(NSUInteger)idx;
 - (void)sendViewEpisode;
 
-+ (void)retrieveDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block;
++ (void)retrieveDataWithId:(Show *)show Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block;
 
 @end

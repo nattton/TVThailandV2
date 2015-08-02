@@ -153,7 +153,6 @@ static NSString *CellIdentifier = @"part_cell";
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"Y=%f | contentHeight=%f | boundsHeight=%f",hortable.contentOffset.y,hortable.contentSize.height,hortable.bounds.size.height);
     
     if (hortable.contentOffset.y == 0) {
         [UIView animateWithDuration:0.3 animations:^{

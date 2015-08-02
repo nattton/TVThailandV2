@@ -184,7 +184,7 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     }
     
     _isLoading = YES;
-    [Episode retrieveDataWithId:self.show.Id Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
+    [Episode retrieveDataWithId:self.show Start:start Block:^(Show *show, NSArray *tempEpisodes, NSError *error) {
         if (show) {
             self.show = show;
             self.show.isOTV = NO;

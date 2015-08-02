@@ -16,8 +16,11 @@
     NSString *_titleDisplay;
     NSArray *_videos;
 }
-
 - (id)initWithDictionary:(NSDictionary *)dictionary {
+    return [self initWithDictionary:dictionary];
+}
+
+- (id)initWithDictionary:(NSDictionary *)dictionary thumbnail:(NSString *)thumbnailURL; {
     self = [super init];
     if (self) {
         _Id = [dictionary objectForKey:@"id"];
@@ -25,7 +28,6 @@
         _title = [dictionary objectForKey:@"title"];
         _videoEncrypt = [dictionary objectForKey:@"video_encrypt"];
         _srcType = [dictionary objectForKey:@"src_type"];
-//        _date = [dictionary objectForKey:@"date"];
         _viewCount = [dictionary objectForKey:@"view_count"];
         _parts = [dictionary objectForKey:@"parts"];
         _password = [dictionary objectForKey:@"pwd"];
@@ -44,32 +46,35 @@
         _viewCount = [NSString stringWithFormat:@"%@ views",
                       [_numberFormatter stringFromNumber:[NSNumber numberWithInt:[[dictionary objectForKey:@"view_count"] intValue]]]];
         
+        _defaultThumbnail = thumbnailURL; 
     }
     return self;
 }
 
-+ (void)retrieveDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block {
++ (void)retrieveDataWithId:(Show *)show Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block {
     
-    if (!Id) return;
+    if (!show) return;
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, show.Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD]];
     IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
     [http retrieveURL:url successBlock:^(NSData *response) {
         NSError *error = nil;
         NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
                                                              options:0 error:&error];
         if (!error) {
-            Show *show;
+            Show *showInfo;
             id dictInfo = [data valueForKey:@"info"];
             NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
             if (dictShow) {
-                show = [[Show alloc] initWithDictionary:dictShow];
+                showInfo = [[Show alloc] initWithDictionary:dictShow];
+            } else {
+                showInfo = show;
             }
             
             NSArray *episodes = [data valueForKeyPath:@"episodes"];
             NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[episodes count]];
             for (NSDictionary *dict in episodes) {
-                Episode *episode = [[Episode alloc] initWithDictionary:dict];
+                Episode *episode = [[Episode alloc] initWithDictionary:dict thumbnail:show.thumbnailUrl];
                 [mutableEpisodes addObject:episode];
             }
             
@@ -84,42 +89,6 @@
         }
     }];
 }
-
-//+ (void)loadEpisodeDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(Show *show, NSArray *episodes, NSError *error))block {
-//    
-//    if (!Id) return;
-//    
-//    [[ApiClient sharedInstance]
-//         GET:[NSString stringWithFormat:@"api2/episode/%@/%@?device=ios&app_version=%@&build=%@", Id, [[NSNumber numberWithInteger:start] stringValue], kAPP_VERSION, kAPP_BUILD]
-//         parameters:nil
-//         success:^(AFHTTPRequestOperation *operation, id JSON) {
-//             Show *show;
-//             id dictInfo = [JSON valueForKey:@"info"];
-//             NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
-//             if (dictShow) {
-//                 show = [[Show alloc] initWithDictionary:dictShow];
-//             }
-//             
-//             NSArray *episodes = [JSON valueForKeyPath:@"episodes"];
-//             NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[episodes count]];
-//             for (NSDictionary *dict in episodes) {
-//                 Episode *episode = [[Episode alloc] initWithDictionary:dict];
-//                 [mutableEpisodes addObject:episode];
-//             }
-//             
-//             
-//             if (block) {
-//                 block(show, [NSArray arrayWithArray:mutableEpisodes], nil);
-//             }
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             if (block) {
-//                 block(nil, [NSArray array], error);
-//             }
-//         }
-//     ];
-//}
-
 
 
 - (void)sendViewEpisode {
@@ -192,30 +161,24 @@
 
 - (NSString *)videoThumbnailWithVideoId:(NSString *)videoId
 {
-    if([_srcType isEqualToString:@"0"])
-    {
+    if([_srcType isEqualToString:@"0"]) {
         return [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/0.jpg",videoId];
     }
-    else if([_srcType isEqualToString:@"1"])
-    {
+    else if([_srcType isEqualToString:@"1"]) {
         return [NSString stringWithFormat:@"http://www.dailymotion.com/thumbnail/video/%@",videoId];
     }
-    else if([_srcType isEqualToString:@"2"])
-    {
+    else if([_srcType isEqualToString:@"2"]) {
         return [NSString stringWithFormat:@"http://video.mthai.com/thumbnail/%@.jpg",
                 [videoId substringWithRange:NSMakeRange(3, ([videoId length]-2))]];
     }
     else if ([_srcType isEqualToString:@"13"]
              || [_srcType isEqualToString:@"14"]
              || [_srcType isEqualToString:@"15"]
-             || [_srcType isEqualToString:@"mthai"])
-    {
+             || [_srcType isEqualToString:@"mthai"]) {
         return [NSString stringWithFormat:@"http://video.mthai.com/thumbnail/%@.jpg",videoId];
     }
-    else
-    {
-        return @"http://www.makathon.com/placeholder.png";
-    }
+    
+    return _defaultThumbnail;
 }
 
 @end

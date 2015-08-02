@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-
+@class Show;
 @interface Program : NSManagedObject
 
 @property (nonatomic, strong) NSString * program_id;
 @property (nonatomic, strong) NSString * program_title;
 @property (nonatomic, strong) NSString * program_thumbnail;
 @property (nonatomic, strong) NSString * program_time;
+
+- (Show *)toShow;
 
 @end
