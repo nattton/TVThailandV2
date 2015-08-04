@@ -10,11 +10,11 @@ PODS:
     - DTFoundation/DTAnimatedGIF (~> 1.7.5)
     - DTFoundation/DTHTMLParser (~> 1.7.5)
     - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation/Core (1.7.6)
-  - DTFoundation/DTAnimatedGIF (1.7.6)
-  - DTFoundation/DTHTMLParser (1.7.6):
+  - DTFoundation/Core (1.7.7)
+  - DTFoundation/DTAnimatedGIF (1.7.7)
+  - DTFoundation/DTHTMLParser (1.7.7):
     - DTFoundation/Core
-  - DTFoundation/UIKit (1.7.6):
+  - DTFoundation/UIKit (1.7.7):
     - DTFoundation/Core
   - FXImageView (1.3.5)
   - GoogleAds-IMA-iOS-SDK (3.0.beta.15)
@@ -46,7 +46,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   CocoaLumberjack: a2213b8410917a1a5ecfc5c63a4206edc24d3a5b
   DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
-  DTFoundation: bf431de2292484461ff7d92295fdae7dc15a3820
+  DTFoundation: c9b3362b83f0017389082ec067ede719826a579d
   FXImageView: 7d84722b37f0afea9a64f12fdd4a6c7f9ecc4b16
   GoogleAds-IMA-iOS-SDK: d723b569ec7b7f0ac7cfc118c27ed209c1e61206
   Objective-C-HMTL-Parser: cc468311d0ae434646c56aae3b62426977f19ca0

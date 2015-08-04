@@ -14,9 +14,7 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
-#import "DVInlineVideoAd.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CMVideoAds.h"
 
 #import "VideoPartTableViewCell.h"
 #import "OTVEpisodePartViewController.h"
@@ -33,25 +31,12 @@
 #import "VKVideoPlayerLayerView.h"
 #import "VKVideoPlayerAirPlay.h"
 
-const char* AdEventNames[] = {
-    "All Ads Complete",
-    "Clicked",
-    "Complete",
-    "First Quartile",
-    "Loaded",
-    "Midpoint",
-    "Pause",
-    "Resume",
-    "Third Quartile",
-    "Started",
+const char *AdEventNames[] = {
+    "Ad Break Ready", "All Ads Completed", "Clicked", "Complete", "First Quartile", "Loaded",
+    "Midpoint", "Pause", "Resume", "Skipped", "Started", "Tapped", "Third Quartile",
 };
 
-typedef enum {
-    PlayButton,
-    PauseButton
-} PlayButtonType;
-
-@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, CMVideoAdsDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate, IMAContentPlayhead>
+@interface PlayerViewController () <UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, IMAAdsLoaderDelegate, IMAAdsManagerDelegate, IMAWebOpenerDelegate, IMAContentPlayhead>
 
 @property (strong, nonatomic) IBOutlet UIButton *skipAdsButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoContainerWidth;
@@ -62,21 +47,6 @@ typedef enum {
 
 @property(nonatomic, assign) BOOL isFullscreen;
 @property(nonatomic, assign) BOOL isPhone;
-
-@property (strong, nonatomic) MPMoviePlayerController *movieController;
-
-@property (strong, nonatomic) CMVideoAds *videoAds;
-
-
-- (void)moviePlayBackDidFinish:(NSNotification*)notification;
-- (void)loadStateDidChange:(NSNotification *)notification;
-- (void)moviePlayBackStateDidChange:(NSNotification*)notification;
-- (void)mediaIsPreparedToPlayDidChange:(NSNotification*)notification;
-- (void)installMovieNotificationObservers:(MPMoviePlayerController *)player;
-- (void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player;
-- (void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player;
-- (void) movieDurationAvailableDidChange:(NSNotification*)notification;
-
 
 //VK Property
 @property (nonatomic, strong) NSString *currentLanguageCode;
@@ -139,7 +109,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     }
     _isContent = YES;
     [self playCurrentVideo];
-    [self sendTrackerAdCompleted:self.videoAds.URL];
 }
 
 -(void)initSkipAdsButton {
@@ -521,256 +490,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     return 35;
 }
 
-
-#pragma mark - Delegate CM VideoAds
-
-- (void)didRequestVideoAds:(CMVideoAds *)videoAds success:(BOOL)success {
-    _isLoading = NO;
-    [SVProgressHUD dismiss];
-    //    DLog(@"%@", videoAds);
-    //    DLog(@"mediaFile : %@", [videoAds.ad.mediaFileURL absoluteString]);
-    //    DLog(@"streamURL : %@", _part.streamURL);
-    
-    if (success) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-            [self.videoAds hitTrackingEvent:START];
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 4 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-            [self.videoAds hitTrackingEvent:FIRST_QUARTILE];
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 6 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-            [self.videoAds hitTrackingEvent:MIDPOINT];
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-            [self.videoAds hitTrackingEvent:THIRD_QUARTILE];
-        });
-        
-        [self sendTrackerAdStarted:videoAds.URL];
-        [self playMovieStream:videoAds.ad.mediaFileURL];
-        
-        
-    }
-    else
-    {
-        _isContent = !_isContent;
-        [self playCurrentVideo];
-    }
-}
-
-- (void)didRequestVideoAds:(CMVideoAds *)videoAds error:(NSError *)error {
-    _isLoading = NO;
-    [SVProgressHUD dismiss];
-    
-    _isContent = !_isContent;
-    [self playCurrentVideo];
-}
-
-
-- (void)playMovieStream:(NSURL *)movieFileURL
-{
-//    if (self.movieController != nil) {
-//        [self.movieController stop];
-//    }
-    
-    MPMovieSourceType movieSourceType = MPMovieSourceTypeUnknown;
-    
-    if ([[movieFileURL pathExtension] compare:@"m3u8" options:NSCaseInsensitiveSearch] == NSOrderedSame)
-    {
-        movieSourceType = MPMovieSourceTypeStreaming;
-    }
-    self.movieController = [[MPMoviePlayerController alloc] initWithContentURL:movieFileURL];
-    [self installMovieNotificationObservers:self.movieController];
-    
-    self.movieController.allowsAirPlay = YES;
-    self.movieController.movieSourceType = movieSourceType;
-    [self.movieController prepareToPlay];
-    [self.movieController play];
-    
-    if (_isContent)
-    {
-        self.movieController.controlStyle = MPMovieControlStyleFullscreen;
-    }
-    else
-    {
-        self.movieController.controlStyle = MPMovieControlStyleNone;
-        
-        double delayInSeconds = 7.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            //code to be executed on the main queue after delay
-            self.movieController.controlStyle = MPMovieControlStyleFullscreen;
-        });
-    }
-    
-    [self.view addSubview:self.movieController.view];
-    [self.movieController setFullscreen:YES animated:NO];
-}
-
-/* Handle movie load state changes. */
-- (void)loadStateDidChange:(NSNotification *)notification
-{
-	MPMoviePlayerController *player = notification.object;
-	MPMovieLoadState loadState = player.loadState;
-    
-    //	/* The load state is not known at this time. */
-	if (loadState & MPMovieLoadStateUnknown)
-	{
-        //        [self.overlayController setLoadStateDisplayString:@"n/a"];
-        //
-        //        [overlayController setLoadStateDisplayString:@"unknown"];
-	}
-    //
-    //	/* The buffer has enough data that playback can begin, but it
-    //	 may run out of data before playback finishes. */
-	if (loadState & MPMovieLoadStatePlayable)
-	{
-        //        [overlayController setLoadStateDisplayString:@"playable"];
-	}
-    //
-    //	/* Enough data has been buffered for playback to continue uninterrupted. */
-	if (loadState & MPMovieLoadStatePlaythroughOK)
-	{
-        //        self.backgroundView.hidden = YES;
-        
-        // Add an overlay view on top of the movie view
-        //        [self addOverlayView];
-        //
-        //        [overlayController setLoadStateDisplayString:@"playthrough ok"];
-	}
-    //
-    //	/* The buffering of data has stalled. */
-	if (loadState & MPMovieLoadStateStalled)
-	{
-        //        self.backgroundView.hidden = NO;
-        //        [overlayController setLoadStateDisplayString:@"stalled"];
-	}
-}
-
-/* Called when the movie playback state has changed. */
-- (void) moviePlayBackStateDidChange:(NSNotification*)notification
-{
-	MPMoviePlayerController *player = notification.object;
-	/* Playback is currently stopped. */
-	if (player.playbackState == MPMoviePlaybackStateStopped)
-	{
-        DLog(@"%@", @"stopped");
-	}
-	/*  Playback is currently under way. */
-	else if (player.playbackState == MPMoviePlaybackStatePlaying)
-	{
-        DLog(@"%@", @"playing");
-	}
-	/* Playback is currently paused. */
-	else if (player.playbackState == MPMoviePlaybackStatePaused)
-	{
-        DLog(@"%@", @"paused");
-	}
-	/* Playback is temporarily interrupted, perhaps because the buffer
-	 ran out of content. */
-	else if (player.playbackState == MPMoviePlaybackStateInterrupted)
-	{
-        DLog(@"%@", @"interrupted");
-	}
-
-}
-
-/* Notifies observers of a change in the prepared-to-play state of an object
- conforming to the MPMediaPlayback protocol. */
-- (void) mediaIsPreparedToPlayDidChange:(NSNotification*)notification
-{
-	// Add an overlay view on top of the movie view
-    //    [self addOverlayView];
-}
-
-- (void) movieDurationAvailableDidChange:(NSNotification*)notification
-{
-	MPMoviePlayerController *player = notification.object;
-    DLog(@"%f", player.currentPlaybackTime);
-}
-
-/* Register observers for the various movie object notifications. */
--(void)installMovieNotificationObservers:(MPMoviePlayerController *)player
-{
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadStateDidChange:)
-                                                 name:MPMoviePlayerLoadStateDidChangeNotification
-                                               object:player];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:player];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
-                                                 name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification
-                                               object:player];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackStateDidChange:)
-                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
-                                               object:player];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(movieDurationAvailableDidChange:)
-                                                 name:MPMovieDurationAvailableNotification
-                                               object:player];
-    
-}
-
-#pragma mark Remove Movie Notification Handlers
-
-/* Remove the movie notification observers from the movie object. */
--(void)removeMovieNotificationHandlers:(MPMoviePlayerController *)player
-{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMovieDurationAvailableNotification object:player];
-}
-
-/* Delete the movie player object, and remove the movie notification observers. */
--(void)deletePlayerAndNotificationObservers:(MPMoviePlayerController *)player
-{
-    [self removeMovieNotificationHandlers:player];
-}
-
-
-
-- (void) moviePlayBackDidFinish:(NSNotification*)notification
-{
-    MPMoviePlayerController *player = [notification object];
-    if (player != self.movieController) {
-        return;
-    }
-    if (!_isContent && self.videoAds) {
-        [self.videoAds hitTrackingEvent:COMPLETE];
-        [self sendTrackerAdCompleted:self.videoAds.URL];
-    }
-    
-    [self removeMovieNotificationHandlers:player];
-    [self.movieController.view removeFromSuperview];
-    self.movieController = nil;
-
-    
-    _isContent = !_isContent;
-    
-    if (_isContent)
-    {
-        [self playCurrentVideo];
-    }
-//    else
-//    {
-//        if ([self moveNextVideo])
-//        {
-//            [self playCurrentVideo];
-//        }
-//    }
-    
-}
-
-
 - (void) openWithIFRAME:(NSString *)iframeText {
     //    [self performSegueWithIdentifier:webIFrameSegue sender:_part];
     self.videoContainerView.hidden = NO;
@@ -830,17 +549,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         switch (receivedEvent.subtype) {
             case UIEventSubtypeRemoteControlTogglePlayPause:
                 
-                if(self.movieController.playbackState == MPMoviePlaybackStatePlaying)
-                {
-                    [self.movieController pause];
-                }
-                else
-                {
-                    [self.movieController play];
+                if (self.player.state == VKVideoPlayerStateContentPlaying) {
+                    [self.player pauseButtonPressed];
+                } else {
+                    [self.player playButtonPressed];
                 }
                 break;
             case UIEventSubtypeRemoteControlNextTrack:
-                [self.movieController setCurrentPlaybackTime:self.movieController.currentPlaybackTime + 10];
+                [self.player nextTrackButtonPressed];
                 break;
 
             default:
@@ -904,12 +620,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             }
           
             DLog(@"Ads Type: %@", _part.vastType);
-            if ([_part.vastType isEqualToString:@"videoplaza"] || [_part.vastType isEqualToString:@"google_ima"]) {
+//            if ([_part.vastType isEqualToString:@"videoplaza"] || [_part.vastType isEqualToString:@"google_ima"]) {
                 [self requestAdsWithTag:_part.vastURL];
-            } else {
-                self.videoAds = [[CMVideoAds alloc] initWithVastTagURL:_part.vastURL];
-                self.videoAds.delegate = self;
-            }
+//            }
         }
     }
 }
@@ -1011,10 +724,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         case kIMAAdEvent_LOADED:
             _isLoading = NO;
             [self.adsManager start];
-            [self sendTrackerAdStarted:self.videoAds.URL];
             [self.adDisplayContainer.adContainer addSubview:self.skipAdsButton];
             [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
             self.skipAdsButton.hidden = NO;
+//            [self sendTrackerAdStarted:self.videoAds.URL];
             break;
         case kIMAAdEvent_TAPPED:
 //            [self viewDidEnterLandscape];
@@ -1022,7 +735,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         case kIMAAdEvent_ALL_ADS_COMPLETED:
             self.skipAdsButton.hidden = YES;
             [self.adsLoader contentComplete];
-            [self sendTrackerAdCompleted:self.videoAds.URL];
+//            [self sendTrackerAdCompleted:self.videoAds.URL];
             break;
         case kIMAAdEvent_SKIPPED:
             self.skipAdsButton.hidden = YES;

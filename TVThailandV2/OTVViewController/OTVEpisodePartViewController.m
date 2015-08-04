@@ -14,7 +14,6 @@
 #import "OTVEpisodePartViewController.h"
 #import "DetailViewController.h"
 #import "OTVEpisodePartTableViewCell.h"
-#import "OTVVideoPlayerViewController.h"
 #import "PlayerViewController.h"
 #import "EpisodePartViewController.h"
 
@@ -420,15 +419,6 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
         playerViewController.idx = [(NSIndexPath *)sender row];
         playerViewController.otvEPController = self;
         
-    }
-    else if ([segue.identifier isEqualToString:otvEpAndPartToShowPlayerSegue]) {
-        OTVVideoPlayerViewController *videoPlayer = segue.destinationViewController;
-        videoPlayer.show = self.show;
-        videoPlayer.otvEpisode = _otvEpisode;
-        NSIndexPath *idx = (NSIndexPath *)sender;
-        videoPlayer.idx = idx.row;
-        videoPlayer.relateShows = _relateShows;
-        videoPlayer.otvEPController = self;
     }
     else if ([segue.identifier isEqualToString:showDetailSegue]) {
         DetailViewController *detailViewController = segue.destinationViewController;
