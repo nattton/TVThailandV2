@@ -123,7 +123,7 @@ static NSString *CellIdentifier = @"otv_part_cell";
     
     NSString *imageUrl = [[self.otvEpisode.parts objectAtIndex:indexPath.row] thumbnail];
     UIImageView *thumbnailImageView = (UIImageView *)[cell viewWithTag:101];
-    [thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
+    [thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
     
     UILabel *titleLable = (UILabel *)[cell viewWithTag:102];
     if (self.otvEpisode.parts.count != 1 ) {

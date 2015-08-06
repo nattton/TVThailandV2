@@ -106,7 +106,7 @@ static NSString *CellIdentifier = @"part_cell";
 	}
     
     UIImageView *thumbnailImageView = (UIImageView *)[cell viewWithTag:101];
-    [thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
+    [thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
     
     UILabel *titleLable = (UILabel *)[cell viewWithTag:102];
     if (self.episode.videos.count != 1 ){

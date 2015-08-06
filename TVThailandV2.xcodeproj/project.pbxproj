@@ -37,7 +37,6 @@
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
 		3B55AECB1A19DE35005E4A85 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B55AECA1A19DE35005E4A85 /* libz.1.2.5.dylib */; };
 		3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83615BB21AB000CD962 /* MobileCoreServices.framework */; };
-		3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B581E961979C76700F300C3 /* SDWebImage.framework */; };
 		3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */; };
 		3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */; };
 		3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BC1711CCD8009B4B65 /* Security.framework */; };
@@ -65,6 +64,8 @@
 		3B910C341733FE25008F67ED /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B910C331733FE25008F67ED /* CFNetwork.framework */; };
 		3B910C3D17340387008F67ED /* ShowCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3917340387008F67ED /* ShowCategory.m */; };
 		3B910C3E17340387008F67ED /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B910C3B17340387008F67ED /* Channel.m */; };
+		3B92E9521B73B2EF00BF903D /* OTVEpisodePartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B92E9511B73B2EF00BF903D /* OTVEpisodePartViewController.m */; };
+		3B92E9551B73B31200BF903D /* OTVEpisodePartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B92E9541B73B31200BF903D /* OTVEpisodePartTableViewCell.m */; };
 		3B9587A7193848F5002C303F /* UIImage+RoundedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */; };
 		3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */; };
 		3B976CBE19822DCF0011DF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0B4AC01161DF0BB00CF843A /* AdSupport.framework */; };
@@ -77,13 +78,11 @@
 		3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */; };
 		3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496818ED3C030083C32B /* EventKit.framework */; };
 		3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */; };
-		3BD1394D190F691A004F6785 /* OTVEpisodePartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13941190F691A004F6785 /* OTVEpisodePartViewController.m */; };
 		3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1395F190F6E46004F6785 /* EpisodePartCell.m */; };
 		3BD13969190F6E46004F6785 /* EpisodeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13961190F6E46004F6785 /* EpisodeTableViewCell.m */; };
 		3BD1396A190F6E46004F6785 /* PartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13963190F6E46004F6785 /* PartTableViewCell.m */; };
 		3BD1396B190F6E46004F6785 /* ShowCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */; };
 		3BD1396C190F6E46004F6785 /* ShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13967190F6E46004F6785 /* ShowTableViewCell.m */; };
-		3BD36F131B7155A000264DD4 /* OTVEpisodePartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD36F121B7155A000264DD4 /* OTVEpisodePartTableViewCell.m */; };
 		3BD4795F1A5DA9A300639B9B /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD4795A1A5DA9A300639B9B /* libAdIdAccess.a */; };
 		3BD479601A5DA9A300639B9B /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD4795B1A5DA9A300639B9B /* libGoogleAnalyticsServices.a */; };
 		3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6091517FB57D100497D39 /* ChannelViewController.m */; };
@@ -156,7 +155,6 @@
 		3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		3B55AECA1A19DE35005E4A85 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
-		3B581E961979C76700F300C3 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = TVThailandV2/Frameworks/SDWebImage.framework; sourceTree = "<group>"; };
 		3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B63C8BC1711CCD8009B4B65 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -192,6 +190,10 @@
 		3B910C3917340387008F67ED /* ShowCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowCategory.m; sourceTree = "<group>"; };
 		3B910C3A17340387008F67ED /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		3B910C3B17340387008F67ED /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		3B92E9501B73B2EF00BF903D /* OTVEpisodePartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVEpisodePartViewController.h; sourceTree = "<group>"; };
+		3B92E9511B73B2EF00BF903D /* OTVEpisodePartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVEpisodePartViewController.m; sourceTree = "<group>"; };
+		3B92E9531B73B31200BF903D /* OTVEpisodePartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVEpisodePartTableViewCell.h; sourceTree = "<group>"; };
+		3B92E9541B73B31200BF903D /* OTVEpisodePartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVEpisodePartTableViewCell.m; sourceTree = "<group>"; };
 		3B9587A5193848F5002C303F /* UIImage+RoundedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedImage.h"; sourceTree = "<group>"; };
 		3B9587A6193848F5002C303F /* UIImage+RoundedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedImage.m"; sourceTree = "<group>"; };
 		3B9587AA19385829002C303F /* UIImageView+WebCacheRounded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCacheRounded.h"; sourceTree = "<group>"; };
@@ -211,8 +213,6 @@
 		3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionViewCell.m; sourceTree = "<group>"; };
 		3BD0496818ED3C030083C32B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		3BD13940190F691A004F6785 /* OTVEpisodePartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVEpisodePartViewController.h; sourceTree = "<group>"; };
-		3BD13941190F691A004F6785 /* OTVEpisodePartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVEpisodePartViewController.m; sourceTree = "<group>"; };
 		3BD1395E190F6E46004F6785 /* EpisodePartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodePartCell.h; sourceTree = "<group>"; };
 		3BD1395F190F6E46004F6785 /* EpisodePartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodePartCell.m; sourceTree = "<group>"; };
 		3BD13960190F6E46004F6785 /* EpisodeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeTableViewCell.h; sourceTree = "<group>"; };
@@ -223,8 +223,6 @@
 		3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowCategoryTableViewCell.m; sourceTree = "<group>"; };
 		3BD13966190F6E46004F6785 /* ShowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTableViewCell.h; sourceTree = "<group>"; };
 		3BD13967190F6E46004F6785 /* ShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewCell.m; sourceTree = "<group>"; };
-		3BD36F111B7155A000264DD4 /* OTVEpisodePartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTVEpisodePartTableViewCell.h; sourceTree = "<group>"; };
-		3BD36F121B7155A000264DD4 /* OTVEpisodePartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTVEpisodePartTableViewCell.m; sourceTree = "<group>"; };
 		3BD4794F1A5DA9A300639B9B /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		3BD479501A5DA9A300639B9B /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		3BD479511A5DA9A300639B9B /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
@@ -295,7 +293,6 @@
 				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
 				3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */,
 				3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */,
-				3B581E971979C76700F300C3 /* SDWebImage.framework in Frameworks */,
 				3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */,
 				3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */,
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
@@ -352,6 +349,8 @@
 				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
 				3BBA068E1940549C0049BFD3 /* PlayerViewController.h */,
 				3BBA068F1940549C0049BFD3 /* PlayerViewController.m */,
+				3B92E9501B73B2EF00BF903D /* OTVEpisodePartViewController.h */,
+				3B92E9511B73B2EF00BF903D /* OTVEpisodePartViewController.m */,
 				11DCB020195447FF000D76D1 /* InfoOfEpisodeViewController.h */,
 				11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */,
 				116ADEE219599C82009167E7 /* WebViewController.h */,
@@ -425,16 +424,6 @@
 			path = CollectionItemView;
 			sourceTree = "<group>";
 		};
-		3BD1393D190F691A004F6785 /* OTVViewController */ = {
-			isa = PBXGroup;
-			children = (
-				3BD36F101B7155A000264DD4 /* TableViewCell */,
-				3BD13940190F691A004F6785 /* OTVEpisodePartViewController.h */,
-				3BD13941190F691A004F6785 /* OTVEpisodePartViewController.m */,
-			);
-			path = OTVViewController;
-			sourceTree = "<group>";
-		};
 		3BD1395D190F6E46004F6785 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,17 +439,10 @@
 				3BD13967190F6E46004F6785 /* ShowTableViewCell.m */,
 				1100E2DD192F1354009189C2 /* FBTableViewCell.h */,
 				1100E2DE192F1354009189C2 /* FBTableViewCell.m */,
+				3B92E9531B73B31200BF903D /* OTVEpisodePartTableViewCell.h */,
+				3B92E9541B73B31200BF903D /* OTVEpisodePartTableViewCell.m */,
 				116816851941AB2E0013F5BB /* VideoPartTableViewCell.h */,
 				116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */,
-			);
-			path = TableViewCell;
-			sourceTree = "<group>";
-		};
-		3BD36F101B7155A000264DD4 /* TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				3BD36F111B7155A000264DD4 /* OTVEpisodePartTableViewCell.h */,
-				3BD36F121B7155A000264DD4 /* OTVEpisodePartTableViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -566,7 +548,6 @@
 				3B37265F1A152C5F00BADF4F /* Crashlytics.framework */,
 				3B3726601A152C5F00BADF4F /* Fabric.framework */,
 				3B4872E119E6BDA900E30999 /* FacebookSDK.framework */,
-				3B581E961979C76700F300C3 /* SDWebImage.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
 				3BD0496818ED3C030083C32B /* EventKit.framework */,
 				3B688EC518B239EC0009050B /* libxml2.2.dylib */,
@@ -608,7 +589,6 @@
 				3B67F69917E03A9900C9CD23 /* Images.xcassets */,
 				3B86572A1805F29F00BC61AC /* Images */,
 				3B67F7A117E09A1D00C9CD23 /* ViewController */,
-				3BD1393D190F691A004F6785 /* OTVViewController */,
 				3B910C3517340387008F67ED /* Models */,
 				F0D4C5A515CB1D4B00988376 /* CoreData */,
 				F0A3C85F15BB258D000CD962 /* Utility */,
@@ -803,13 +783,12 @@
 				3B1D74991A5D06BE000B0D8B /* IAHTTPCommunication.m in Sources */,
 				F0A3C86815BB258D000CD962 /* UserAgent.m in Sources */,
 				3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */,
-				3BD36F131B7155A000264DD4 /* OTVEpisodePartTableViewCell.m in Sources */,
+				3B92E9551B73B31200BF903D /* OTVEpisodePartTableViewCell.m in Sources */,
 				1136AC4318D81D98004BFE4D /* OTVCategory.m in Sources */,
 				3B67F7A717E09C6600C9CD23 /* ShowListViewController.m in Sources */,
 				115CDAAA182E19A900402D6B /* EpisodePartViewController.m in Sources */,
 				1136AC4918D81DC4004BFE4D /* OTVEpisode.m in Sources */,
 				F042D51015BCA5590037E120 /* Base64.m in Sources */,
-				3BD1394D190F691A004F6785 /* OTVEpisodePartViewController.m in Sources */,
 				3B67F7BA17E0E9A300C9CD23 /* Show.m in Sources */,
 				116816871941AB2E0013F5BB /* VideoPartTableViewCell.m in Sources */,
 				F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */,
@@ -823,6 +802,7 @@
 				3B910C3E17340387008F67ED /* Channel.m in Sources */,
 				3B9587AC19385829002C303F /* UIImageView+WebCacheRounded.m in Sources */,
 				3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */,
+				3B92E9521B73B2EF00BF903D /* OTVEpisodePartViewController.m in Sources */,
 				116ADEE419599C82009167E7 /* WebViewController.m in Sources */,
 				3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */,
 			);

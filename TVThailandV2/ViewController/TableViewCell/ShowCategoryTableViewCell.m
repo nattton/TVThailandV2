@@ -39,7 +39,7 @@
 - (void)configureWithGenre:(ShowCategory *)genre {
     self.titleLabel.text = genre.title;
     
-    [self.imageThumbView setImageWithURL:[NSURL URLWithString:genre.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"ic_cate_empty"]];
+    [self.imageThumbView sd_setImageWithURL:[NSURL URLWithString:genre.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"ic_cate_empty"]];
     self.imageThumbView.contentMode = UIViewContentModeScaleAspectFit;
 
 }
