@@ -12,9 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <QuartzCore/QuartzCore.h>
 #import "SVProgressHUD.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 #import "AppDelegate.h"
 #import "EpisodePartCell.h"
@@ -63,30 +61,20 @@ static NSString *showDetailSegue = @"ShowDetailSegue";
     [SVProgressHUD showWithStatus:@"Loading..."];
     
     [self reload];
-    
-    [self sendTracker];
 }
 
-- (void)sendTracker
-{
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-           value:@"Episode"];
-    [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
-                                                      forKey:[GAIFields customDimensionForIndex:2]] build]];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.portTableView reloadData];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Episode"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [self.portTableView reloadData];
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.portTableView reloadData];
-}
-
 
 - (void)refreshView:(UIRefreshControl *)refresh {
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];

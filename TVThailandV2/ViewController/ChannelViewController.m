@@ -13,9 +13,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
 
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 #import "VideoPlayerViewController.h"
 #import "ChannelCollectionViewCell.h"
@@ -43,8 +41,13 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ยกเลิก" otherButtonTitles:@"ย้อนหลัง", @"รายการสด", nil];
 
     [self refresh];
-    
-    [self sendTracker];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Channel"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,13 +58,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 
 #pragma mark - Private Method
-
-- (void)sendTracker {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-           value:@"Channel"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1){
@@ -139,7 +135,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             id tracker = [[GAI sharedInstance] defaultTracker];
             [tracker set:kGAIScreenName
                    value:@"Channel"];
-            [tracker send:[[[GAIDictionaryBuilder createAppView] set:channel.title
+            [tracker send:[[[GAIDictionaryBuilder createScreenView] set:channel.title
                                                               forKey:[GAIFields customDimensionForIndex:5]] build]];
         }
     }

@@ -18,9 +18,7 @@
 
 #import "SVProgressHUD.h"
 
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 @interface FavoriteViewController () <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -46,11 +44,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         EpisodePartViewController *episodeAndPartListViewController = segue.destinationViewController;
         episodeAndPartListViewController.show = show;
         
-        id tracker = [[GAI sharedInstance] defaultTracker];
-        [tracker set:kGAIScreenName
-               value:@"Favorite"];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
-                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName value:@"Favorite"];
+        [tracker send:[[[GAIDictionaryBuilder createScreenView] set:show.title
+                                                             forKey:[GAIFields customDimensionForIndex:2]] build]];
     }
     else if ([segue.identifier isEqualToString:OTVEPAndPartIdentifier])
     {
@@ -58,7 +55,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         
         OTVEpisodePartViewController *otvEpAndPartViewController = segue.destinationViewController;
         otvEpAndPartViewController.navigationItem.title = show.title;
-        
         otvEpAndPartViewController.show = show;
     }
     
@@ -77,16 +73,13 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    }
-    
-	
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-           value:@"Favorite"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Favorite"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)didReceiveMemoryWarning

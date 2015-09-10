@@ -17,9 +17,7 @@
 #import "EpisodePartViewController.h"
 #import "OTVEpisodePartViewController.h"
 
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 @interface ShowCategoryViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -65,22 +63,14 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 //    [_refreshControl beginRefreshing];
     
     [self reload];
-    
-    [self sendTracker];
 }
 
-
-- (void)sendTracker {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-            value:@"Main"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Main"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -179,7 +169,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
                value:@"Category"];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:selectedCat.title
+        [tracker send:[[[GAIDictionaryBuilder createScreenView] set:selectedCat.title
                                                           forKey:[GAIFields customDimensionForIndex:1]] build]];
     }
     else if ([segue.identifier isEqualToString:EPAndPartIdentifier]) {
@@ -190,7 +180,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
                value:@"Search"];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+        [tracker send:[[[GAIDictionaryBuilder createScreenView] set:show.title
                                                           forKey:[GAIFields customDimensionForIndex:2]] build]];
         
     }

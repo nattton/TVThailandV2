@@ -7,9 +7,7 @@
 //
 
 #import "SVProgressHUD.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 #import "OTVEpisodePartViewController.h"
 #import "DetailViewController.h"
@@ -121,6 +119,15 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 {
     [super viewWillAppear:animated];
     [self.portTableView reloadData];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"OTVEpisode"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
+    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
+                                                         trackingId:kOTVTracker];
+    [tracker2 set:kGAIScreenName value:@"OTVEpisode"];
+    [tracker2 send:[[[GAIDictionaryBuilder createScreenView] set:self.show.title
+                                                       forKey:[GAIFields customDimensionForIndex:1]] build]];
 
 }
 
@@ -141,22 +148,6 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
         }];
     }
     
-}
-
-- (void)sendTracker
-{
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-           value:@"OTVEpisode"];
-    [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
-                                                      forKey:[GAIFields customDimensionForIndex:2]] build]];
-    
-    id<GAITracker> tracker2 = [[GAI sharedInstance] trackerWithName:@"OTV"
-                                                         trackingId:kOTVTracker];
-    [tracker2 set:kGAIScreenName
-            value:@"OTVEpisode"];
-    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:self.show.title
-                                                       forKey:[GAIFields customDimensionForIndex:1]] build]];
 }
 
 - (void)didReceiveMemoryWarning

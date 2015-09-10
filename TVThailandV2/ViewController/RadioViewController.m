@@ -15,9 +15,7 @@
 #import "RadioCollectionHeaderView.h"
 #import "RadioCollectionViewCell.h"
 
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 @interface RadioViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -60,18 +58,16 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
     [self initializeRadioPlayer];
     
     [self refresh];
-    
-    [self sendTracker];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Radio"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark - Private Method
-
-- (void)sendTracker {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-           value:@"Radio"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
 
 - (void)initializeRadioPlayer {
     self.radioPlayer = [[AVPlayer alloc] init];
@@ -185,7 +181,7 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
             id tracker = [[GAI sharedInstance] defaultTracker];
             [tracker set:kGAIScreenName
                    value:@"Radio"];
-            [tracker send:[[[GAIDictionaryBuilder createAppView] set:_radioSelected.title
+            [tracker send:[[[GAIDictionaryBuilder createScreenView] set:_radioSelected.title
                                                               forKey:[GAIFields customDimensionForIndex:6]] build]];
             
             AVPlayerItem *currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioSelected.radioUrl]];

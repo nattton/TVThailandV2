@@ -15,9 +15,7 @@
 
 #import "SVProgressHUD.h"
 
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 #import "EpisodePartViewController.h"
 
@@ -78,7 +76,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName
               value:_screenName];
-        [tracker send:[[[GAIDictionaryBuilder createAppView] set:show.title
+        [tracker send:[[[GAIDictionaryBuilder createScreenView] set:show.title
                                                          forKey:[GAIFields customDimensionForIndex:2]] build]];
         
     }
@@ -140,16 +138,18 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         default:
             break;
     }
-
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName
-           value:_screenName];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
     self.tableView.separatorColor = [UIColor clearColor];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:_screenName];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)setUpGoToTop

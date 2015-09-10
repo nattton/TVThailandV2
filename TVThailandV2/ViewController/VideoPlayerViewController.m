@@ -19,9 +19,7 @@
 
 #import "MakathonAdView.h"
 
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 
 #import "Channel.h"
 
@@ -68,7 +66,7 @@
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"VideoPlayer"];
-    [tracker send:[[[GAIDictionaryBuilder createAppView] set:self.channel.title
+    [tracker send:[[[GAIDictionaryBuilder createScreenView] set:self.channel.title
                                                       forKey:[GAIFields customDimensionForIndex:3]] build]];
 }
 

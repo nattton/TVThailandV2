@@ -11,9 +11,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
 #import "HTMLParser.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import <Google/Analytics.h>
 #import <QuartzCore/QuartzCore.h>
 
 #import "VideoPartTableViewCell.h"
@@ -963,7 +961,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                                                          trackingId:kOTVTracker];
     [tracker2 set:kGAIScreenName
             value:@"Player"];
-    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
+    [tracker2 send:[[[GAIDictionaryBuilder createScreenView] set:url
                                                        forKey:[GAIFields customDimensionForIndex:4]] build]];
 }
 
@@ -972,7 +970,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                                                          trackingId:kOTVTracker];
     [tracker2 set:kGAIScreenName
             value:@"Player"];
-    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
+    [tracker2 send:[[[GAIDictionaryBuilder createScreenView] set:url
                                                        forKey:[GAIFields customDimensionForIndex:5]] build]];
 }
 
@@ -981,7 +979,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                                                          trackingId:kOTVTracker];
     [tracker2 set:kGAIScreenName
             value:@"Player"];
-    [tracker2 send:[[[GAIDictionaryBuilder createAppView] set:url
+    [tracker2 send:[[[GAIDictionaryBuilder createScreenView] set:url
                                                        forKey:[GAIFields customDimensionForIndex:6]] build]];
 }
 
