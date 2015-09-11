@@ -175,7 +175,7 @@
                                                         <constraint firstAttribute="height" constant="85" id="ek1-K8-62E"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part Name" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzj-wz-r2x">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part Name" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="181" translatesAutoresizingMaskIntoConstraints="NO" id="rzj-wz-r2x">
                                                     <rect key="frame" x="113" y="5" width="181" height="83"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="83" id="eYc-vA-z8V"/>
@@ -274,16 +274,7 @@
                                             <action selector="partInfoButtonTapped:" destination="Wob-mq-FaN" eventType="touchUpInside" id="ykd-Rc-hJj"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ztg-DU-BNi">
-                                        <rect key="frame" x="13" y="8" width="644" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="e1e-Bx-CnW"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="24"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCj-mY-wYV">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="644" translatesAutoresizingMaskIntoConstraints="NO" id="RCj-mY-wYV">
                                         <rect key="frame" x="13" y="47" width="644" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="BAM-QB-xKL"/>
@@ -325,6 +316,15 @@
                                             <action selector="openWithButtonTapped:" destination="Wob-mq-FaN" eventType="touchUpInside" id="v5O-yS-RVi"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="644" translatesAutoresizingMaskIntoConstraints="NO" id="Ztg-DU-BNi">
+                                        <rect key="frame" x="13" y="8" width="644" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="e1e-Bx-CnW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="24"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -402,16 +402,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQN-db-bkY">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-YX-E5g">
-                                        <rect key="frame" x="51" y="67" width="922" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="Kk3-iB-KXa"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="28"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYW-RU-TXq" userLabel="Label - Update Date">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="922" translatesAutoresizingMaskIntoConstraints="NO" id="tYW-RU-TXq" userLabel="Label - Update Date">
                                         <rect key="frame" x="51" y="106" width="922" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="0gY-4f-QbH"/>
@@ -431,6 +422,15 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="922" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-YX-E5g">
+                                        <rect key="frame" x="51" y="67" width="922" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="Kk3-iB-KXa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="28"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="JAT-wT-csE" secondAttribute="trailing" constant="51" id="7ae-W9-XUJ"/>
@@ -2059,11 +2059,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qIP-8M-6fw"/>
-        <segue reference="lwT-fV-NuI"/>
-        <segue reference="9af-dL-MCq"/>
-        <segue reference="u1W-45-WPs"/>
-        <segue reference="T45-my-NO6"/>
+        <segue reference="VVt-JL-17e"/>
+        <segue reference="RnK-NN-E9l"/>
         <segue reference="VxL-lD-BYg"/>
+        <segue reference="T45-my-NO6"/>
+        <segue reference="qIP-8M-6fw"/>
+        <segue reference="9af-dL-MCq"/>
     </inferredMetricsTieBreakers>
 </document>

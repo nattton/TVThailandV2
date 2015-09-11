@@ -39,11 +39,11 @@
     self.webView.scrollView.scrollEnabled = NO;
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _size = CGSizeMake(680.0f, 380.0f);
+        _size = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     }
     else
     {
-        _size = CGSizeMake(320, 240);
+        _size = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     }
     
     [self sendTracker];

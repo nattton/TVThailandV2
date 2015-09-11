@@ -32,7 +32,7 @@ static NSString *CellIdentifier = @"part_cell";
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
         } else {
-            hortable = [[UITableView alloc]initWithFrame:CGRectMake(90, -90, 140, width) style:UITableViewStylePlain];
+            hortable = [[UITableView alloc]initWithFrame:CGRectMake(120, -120, 140, width) style:UITableViewStylePlain];
         }
         
         hortable.delegate = self;
