@@ -45,7 +45,6 @@
 
 #pragma mark - Staic Variable
 static NSString *cellname = @"cell";
-static NSString *otvEpAndPartToShowPlayerSegue = @"OTVEpAndPartToShowPlayerSegue";
 static NSString *PlayerSegue = @"PlayerSegue";
 static NSString *showDetailSegue = @"ShowDetailSegue";
 static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
@@ -391,7 +390,6 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
     
     _otvEpisode = episode;
 
-//    [self performSegueWithIdentifier:otvEpAndPartToShowPlayerSegue sender:indexPath];
     [self performSegueWithIdentifier:PlayerSegue sender:indexPath];
 
 }
