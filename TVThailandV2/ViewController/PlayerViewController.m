@@ -91,9 +91,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)initInstance {
-    self.isPhone = !([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
-    self.portraitVideoFrame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
     CGRect screenRect = [[UIScreen mainScreen] bounds];
+    self.isPhone = !([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
+    if (self.isPhone) {
+        self.videoContainerWidth.constant = screenRect.size.width;
+        self.videoContainerHeight.constant = self.videoContainerWidth.constant * 4 / 6;
+    }
+    self.portraitVideoFrame = CGRectMake(0, 0, self.videoContainerWidth.constant, self.videoContainerHeight.constant);
     self.fullscreenVideoFrame = (self.isPhone) ? CGRectMake(0, 0, screenRect.size.height, screenRect.size.width): CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
     self.webView.delegate = self;
 }
@@ -116,6 +120,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             forControlEvents:UIControlEventTouchUpInside];
     [self.skipAdsButton setTitle:@"skip >" forState:UIControlStateNormal];
     [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+    [self.skipAdsButton setEnabled:NO];
     [self.skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     CALayer * layer = [self.skipAdsButton layer];
     [layer setMasksToBounds:YES];
@@ -1050,25 +1055,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void) openWithVideoUrl:(NSString *)videoUrl {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    
-    // HTML to embed YouTube video
-    NSString *htmlString = @"<html><head>\
-    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
-    <body style=\"background-color:#000 ;\">\
-    <video style=\"margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
-    </video></body></html>";
-    
-    // Populate HTML with the URL and requested frame size
-    NSString *html = [NSString stringWithFormat:htmlString,
-                      [self.episode videoThumbnail:_idx],
-                      self.portraitVideoFrame.size.height,
-                      self.portraitVideoFrame.size.width,
-                      videoUrl
-                      ];
-    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
-    [self.webView.scrollView setScrollEnabled:NO];
-    [SVProgressHUD dismiss];
+    [self setUpVKContentPlayer];
+    [self playStream:[NSURL URLWithString:videoUrl]];
 }
 
 #pragma mark - Load Video Mthai

@@ -58,14 +58,9 @@ static NSString *CellIdentifier = @"otv_part_cell";
     [goForwardImgSlider setImage:[UIImage animatedImageNamed:@"forwardImg" duration:0.8]];
     [self addSubview:goForwardImgSlider];
     
-    
-    
     if (episode.parts.count == 1) {
         goForwardImgSlider.hidden = YES;
     }
-    
-    
-    
 }
 
 - (void)awakeFromNib
@@ -85,8 +80,6 @@ static NSString *CellIdentifier = @"otv_part_cell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return  [self.otvEpisode.parts count];
-    
-    
 }
 
 
@@ -158,15 +151,12 @@ static NSString *CellIdentifier = @"otv_part_cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playVideoPart:episode:)]) {
         [self.delegate playVideoPart:indexPath episode:self.otvEpisode];
     }
-    
-    
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     if (hortable.contentOffset.y == 0) {
         
