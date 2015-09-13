@@ -8,7 +8,7 @@
 
 #import "Show.h"
 #import "Program.h"
-#import "IAHTTPCommunication.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation Show
 
@@ -64,172 +64,92 @@
 
 #pragma mark - Load Data
 
++ (void)loadShowDataWithURL:(NSString *)URLString Block:(void (^)(NSArray *shows, NSError *error))block {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:URLString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSArray *programs = [responseObject valueForKeyPath:@"programs"];
+        
+        NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
+        for (NSDictionary *dictShow in programs) {
+            Show *show = [[Show alloc] initWithDictionary:dictShow];
+            [mutablePrograms addObject:show];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutablePrograms], nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
+}
+
 + (void)loadWhatsNewDataWithStart:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/whatsnew/%@?device=ios&time%@",
+    NSString *url = [NSString stringWithFormat:@"%@/api2/whatsnew/%@?device=ios&time%@",
                                        kAPI_URL_BASE,
                                        [[NSNumber numberWithInteger:start] stringValue],
-                                       [df stringFromDate:[NSDate date]]]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *programs = [data valueForKeyPath:@"programs"];
-            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-            for (NSDictionary *dictShow in programs) {
-                Show *show = [[Show alloc] initWithDictionary:dictShow];
-                [mutablePrograms addObject:show];
-            }
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutablePrograms], nil);
-            }
-        } else {
-            if (block) {
-                block([NSArray array], error);
-            }
-        }
-    }];
+                                       [df stringFromDate:[NSDate date]]];
+    
+    [Show loadShowDataWithURL:url Block:block];
 }
 
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/category/%@/%@?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE,
+    NSString *url = [NSString stringWithFormat:@"%@/api2/category/%@/%@?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE,
                                        Id,
                                        [[NSNumber numberWithInteger:start] stringValue],
                                        kAPP_VERSION,
                                        kAPP_BUILD,
-                                       [df stringFromDate:[NSDate date]]]];
+                                       [df stringFromDate:[NSDate date]]];
     
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *programs = [data valueForKeyPath:@"programs"];
-            
-            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-            for (NSDictionary *dictShow in programs) {
-                Show *show = [[Show alloc] initWithDictionary:dictShow];
-                [mutablePrograms addObject:show];
-            }
-            
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutablePrograms], nil);
-            }
-        } else {
-            if (block) {
-                block([NSArray array], error);
-            }
-        }
-    }];
+    [Show loadShowDataWithURL:url Block:block];
 }
-
-
 
 + (void)loadChannelDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/channel/%@/%@?device=ios&time=%@",
-                                      kAPI_URL_BASE,
-                                      Id,
-                                      [[NSNumber numberWithInteger:start] stringValue],
-                                      [df stringFromDate:[NSDate date]]]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *programs = [data valueForKeyPath:@"programs"];
-            
-            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-            for (NSDictionary *dictShow in programs) {
-                Show *show = [[Show alloc] initWithDictionary:dictShow];
-                [mutablePrograms addObject:show];
-            }
-            
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutablePrograms], nil);
-            }
-        } else {
-            if (block) {
-                block([NSArray array], error);
-            }
-        }
-    }];
+    NSString *url = [NSString stringWithFormat:@"%@/api2/channel/%@/%@?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE,
+                                        Id,
+                                        [[NSNumber numberWithInteger:start] stringValue],
+                                        kAPP_VERSION,
+                                        kAPP_BUILD,
+                                        [df stringFromDate:[NSDate date]]];
+    
+    [Show loadShowDataWithURL:url Block:block];
 }
 
 + (void)loadSearchDataWithKeyword:(NSString *)keyword Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"%@/api2/search/0?keyword=%@&device=ios&time%@", kAPI_URL_BASE, keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *programs = [data valueForKeyPath:@"programs"];
-            NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
-            for (NSDictionary *dictShow in programs) {
-                Show *show = [[Show alloc] initWithDictionary:dictShow];
-                [mutablePrograms addObject:show];
-            }
-            
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutablePrograms], nil);
-            }
-        } else {
-            if (block) {
-                block([NSArray array], error);
-            }
-        }
-    }];
+    NSString *url = [[NSString stringWithFormat:@"%@/api2/search/0?keyword=%@&device=ios&time%@", kAPI_URL_BASE, keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [Show loadShowDataWithURL:url Block:block];
 }
 
 + (void)loadShowDataWithOtvId:(NSString *)Id Block:(void (^)(Show *show, NSError *error))block {
-    
     if (!Id) return;
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/program_info_otv/%@?device=ios", kAPI_URL_BASE, Id]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            Show *show;
-            
-            NSDictionary *dictShow = [data isKindOfClass:[NSDictionary class]] ? data : nil;
-            if (dictShow) {
-                show = [[Show alloc] initWithDictionary:dictShow];
-                show.isOTV = YES;
-            }
-            
-            if (block) {
-                block(show, nil);
-            }
-        } else {
-            if (block) {
-                block(nil, error);
-            }
+    NSString *url = [NSString stringWithFormat:@"%@/api2/program_info_otv/%@?device=ios", kAPI_URL_BASE, Id];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        Show *show;
+        NSDictionary *dictShow = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject : nil;
+        if (dictShow) {
+            show = [[Show alloc] initWithDictionary:dictShow];
+            show.isOTV = YES;
+        }
+        
+        if (block) {
+            block(show, nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        if (block) {
+            block(nil, error);
         }
     }];
 }

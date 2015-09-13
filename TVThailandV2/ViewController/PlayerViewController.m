@@ -8,6 +8,8 @@
 
 #import "PlayerViewController.h"
 #import "IAHTTPCommunication.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "AFURLSessionManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
 #import "HTMLParser.h"
@@ -1062,34 +1064,64 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 #pragma mark - Load Video Mthai
 
 - (void) loadMThaiWebVideo {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url
-            userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
-         successBlock:^(NSData *response) {
-             [self startMThaiVideoFromData:response];
-             [SVProgressHUD dismiss];
-         }];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"] forHTTPHeaderField:@"User-Agent"];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [self startMThaiVideoFromData:responseObject];
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        [SVProgressHUD showErrorWithStatus:@"Video cannot play!"];
+    }];
+    [[NSOperationQueue mainQueue] addOperation:op];
 }
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
-    [SVProgressHUD showWithStatus:@"Loading..."];
-    
+    NSString *userAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http postURL:url userAgent:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"]
-           params:@{@"clip_password": password}
-     successBlock:^(NSData *response) {
-         [self startMThaiVideoFromData:response];
-         [SVProgressHUD dismiss];
-     }];
+    NSURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [op setRedirectResponseBlock:^NSURLRequest * _Nonnull(NSURLConnection * _Nonnull connection, NSURLRequest * _Nonnull request, NSURLResponse * _Nonnull redirectResponse) {
+        if (redirectResponse) {
+            NSLog(@"%@",request.URL);
+            [self loadMThaiWebVideoWithURL:request.URL Password:password UserAgent:userAgent];
+        }
+        
+        return request;
+    }];
+    [[NSOperationQueue mainQueue] addOperation:op];
+}
+
+- (void) loadMThaiWebVideoWithURL:(NSURL *)url Password:(NSString *)password UserAgent:(NSString *)userAgent  {
+    NSDictionary *params = @{@"clip_password": password};
+    NSMutableArray *parameterArray = [NSMutableArray arrayWithCapacity:[params count]];
+    for (NSString *key in params) {
+        [parameterArray addObject:[NSString stringWithFormat:@"%@=%@", key, params[key]]];
+    }
+    
+    NSString *postBodyString = [parameterArray componentsJoinedByString:@"&"];
+    NSData *postBodyData = [NSData dataWithBytes:[postBodyString UTF8String] length:[postBodyString length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody:postBodyData];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [op setRedirectResponseBlock:^NSURLRequest * _Nonnull(NSURLConnection * _Nonnull connection, NSURLRequest * _Nonnull request, NSURLResponse * _Nonnull redirectResponse) {
+        if (redirectResponse) {
+            NSLog(@"%@",request.URL);
+        }
+        return request;
+    }];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [self startMThaiVideoFromData:responseObject];
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        [SVProgressHUD showErrorWithStatus:@"Video cannot play!"];
+    }];
+    [[NSOperationQueue mainQueue] addOperation:op];
 }
 
 - (void) startMThaiVideoFromData:(NSData *)data {
-    
-    
     NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString *clipUrl = nil;
     NSString *varKey = @"{ mp4:  \"http";
@@ -1113,7 +1145,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             return;
         }
     }
-    
     
     NSError *error = nil;
     HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];

@@ -8,9 +8,9 @@
 
 #import "ShowCategoryList.h"
 #import "ShowCategory.h"
-#import "IAHTTPCommunication.h"
 
 #import "NSString+Utils.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation ShowCategoryList {
     NSArray *categories;
@@ -46,71 +46,29 @@
 #pragma mark - Load Data
 
 - (void)retrieveData:(void (^)(NSError *error))block {
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"%@/api2/category?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE, kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]]];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *jCategories = [data valueForKeyPath:@"categories"];
-            
-            NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
-            for (NSDictionary *dictCategory in jCategories) {
-                ShowCategory * category = [[ShowCategory alloc] initWithDictionary:dictCategory];
-                [mutableCategories addObject:category];
-            }
-            
-            if ([mutableCategories count] == 0) {
-                [mutableCategories addObject:[[ShowCategory alloc] initWithDictionary:[self whatsNewData]]];
-            }
-            
-            categories = [NSArray arrayWithArray:mutableCategories];
-            
-            if (block) {
-                block(nil);
-            }
-            
-        } else {
-            if (block) {
-                block(error);
-            }
+    NSString *url = [NSString stringWithFormat:@"%@/api2/category?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE, kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSArray *jCategories = [responseObject valueForKeyPath:@"categories"];
+        NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
+        for (NSDictionary *dictCategory in jCategories) {
+            ShowCategory * category = [[ShowCategory alloc] initWithDictionary:dictCategory];
+            [mutableCategories addObject:category];
+        }
+        
+        if ([mutableCategories count] == 0) {
+            [mutableCategories addObject:[[ShowCategory alloc] initWithDictionary:[self whatsNewData]]];
+        }
+        
+        categories = [NSArray arrayWithArray:mutableCategories];
+        if (block) {
+            block(nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        if (block) {
+            block(error);
         }
     }];
 }
-
-//- (void)loadData:(void (^)(NSError *error))block {
-//    NSString *url = [NSString stringWithFormat:@"api2/category?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
-//    [[ApiClient sharedInstance]
-//            GET:url
-//     parameters:nil
-//        success:^(AFHTTPRequestOperation *operation, id JSON) {
-//             NSArray *jCategories = [JSON valueForKeyPath:@"categories"];
-//             
-//             NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
-//             for (NSDictionary *dictCategory in jCategories) {
-//                 ShowCategory * category = [[ShowCategory alloc] initWithDictionary:dictCategory];
-//                 [mutableCategories addObject:category];
-//             }
-//             
-//             if ([mutableCategories count] == 0) {
-//                 [mutableCategories addObject:[[ShowCategory alloc] initWithDictionary:[self whatsNewData]]];
-//             }
-//             
-//             categories = [NSArray arrayWithArray:mutableCategories];
-//             
-//             
-//             if (block) {
-//                 block(nil);
-//             }
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             if (block) {
-//                 block(error);
-//             }
-//         }
-//     ];
-//}
 
 @end

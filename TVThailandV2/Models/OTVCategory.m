@@ -7,7 +7,7 @@
 //
 
 #import "OTVCategory.h"
-#import "IAHTTPCommunication.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation OTVCategory {
 
@@ -42,41 +42,33 @@
     }
     return self;
 }
+
 + (OTVCategory *)initWithCH7{
     return [[OTVCategory alloc]initWithId:kOTV_CH7 CateName:kOTV_CH7 Title:@"ช่อง 7" ThumbnailURL:@""];
 }
 
 + (void)retrieveData:(void (^)(NSArray *otvCategories, NSError *error)) block {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/CategoryList/index/%@/%@/%@/", kOTV_URL_BASE,kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION ]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *jcategories = [data valueForKeyPath:@"items"];
-            
-            // Capacity + (1)Ch7
-            NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count] + 1];
-            OTVCategory * category = [OTVCategory initWithCH7];
-            
+    NSString *url = [NSString stringWithFormat:@"%@/CategoryList/index/%@/%@/%@/", kOTV_URL_BASE,kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
+        
+        // Capacity + (1)Ch7
+        NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jcategories count] + 1];
+        OTVCategory * category = [OTVCategory initWithCH7];
+        
+        [mutableCategories addObject:category];
+        for (NSDictionary *dictCategory in jcategories){
+            OTVCategory * category = [[OTVCategory alloc] initWithDictionary:dictCategory];
             [mutableCategories addObject:category];
-            for (NSDictionary *dictCategory in jcategories){
-                OTVCategory * category = [[OTVCategory alloc] initWithDictionary:dictCategory];
-                [mutableCategories addObject:category];
-            }
-            
-            
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutableCategories], nil);
-            }
-        } else {
-            block([NSArray array], error);
-            
-            DLog(@"failure loadOTVCategory: %@", error);
         }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutableCategories], nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        block([NSArray array], error);
+        DLog(@"failure loadOTVCategory: %@", error);
     }];
 }
 

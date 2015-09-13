@@ -3,6 +3,7 @@ workspace 'TVThailandV2.xcworkspace'
 
 platform :ios, '7.0'
 
+pod 'AFNetworking', '~> 2.0'
 pod 'SDWebImage', '~>3.7'
 pod 'SVProgressHUD', :head
 pod 'Objective-C-HMTL-Parser'

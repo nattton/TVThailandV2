@@ -43,8 +43,11 @@
     [super viewDidLoad];
     [self initializeUI];
     
-    
-    id tracker = [[GAI sharedInstance] defaultTracker];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName
            value:@"Detail"];
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];

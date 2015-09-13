@@ -7,7 +7,7 @@
 //
 
 #import "MakathonAd.h"
-#import "IAHTTPCommunication.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation MakathonAd
 
@@ -27,29 +27,23 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/advertise?device=ios&time%@", kAPI_URL_BASE, [df stringFromDate:[NSDate date]]]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0
-                                                               error:&error];
-        if (!error) {
-            NSArray *jAds = [data valueForKeyPath:@"ads"];
-            
-            NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
-            for (NSDictionary *dictAd in jAds) {
-                MakathonAd * ad = [[MakathonAd alloc] initWithDictionary:dictAd];
-                [mutableAdss addObject:ad];
-            }
-            
-            if (block) {
-                block([NSArray arrayWithArray:mutableAdss], nil);
-            }
-        } else {
-            if (block) {
-                block([NSArray array], error);
-            }
+    NSString *url = [NSString stringWithFormat:@"%@/api2/advertise?device=ios&time%@", kAPI_URL_BASE, [df stringFromDate:[NSDate date]]];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSArray *jAds = [responseObject valueForKeyPath:@"ads"];
+        
+        NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
+        for (NSDictionary *dictAd in jAds) {
+            MakathonAd * ad = [[MakathonAd alloc] initWithDictionary:dictAd];
+            [mutableAdss addObject:ad];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutableAdss], nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        if (block) {
+            block([NSArray array], error);
         }
     }];
 }

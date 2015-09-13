@@ -7,7 +7,7 @@
 //
 
 #import "Episode.h"
-#import "IAHTTPCommunication.h"
+#import "AFHTTPRequestOperationManager.h"
 #import "Show.h"
 
 #import "Base64.h"
@@ -55,46 +55,42 @@
     
     if (!show) return;
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, show.Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
-        NSError *error = nil;
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:0 error:&error];
-        if (!error) {
-            Show *showInfo;
-            id dictInfo = [data valueForKey:@"info"];
-            NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
-            if (dictShow) {
-                showInfo = [[Show alloc] initWithDictionary:dictShow];
-            } else {
-                showInfo = show;
-            }
-            
-            NSArray *episodes = [data valueForKeyPath:@"episodes"];
-            NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[episodes count]];
-            for (NSDictionary *dict in episodes) {
-                Episode *episode = [[Episode alloc] initWithDictionary:dict thumbnail:show.thumbnailUrl];
-                [mutableEpisodes addObject:episode];
-            }
-            
-            
-            if (block) {
-                block(show, [NSArray arrayWithArray:mutableEpisodes], nil);
-            }
+    NSString *url = [NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, show.Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        Show *showInfo;
+        id dictInfo = [responseObject valueForKey:@"info"];
+        NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
+        if (dictShow) {
+            showInfo = [[Show alloc] initWithDictionary:dictShow];
         } else {
-            if (block) {
-                block(nil, [NSArray array], error);
-            }
+            showInfo = show;
+        }
+        
+        NSArray *episodes = [responseObject valueForKeyPath:@"episodes"];
+        NSMutableArray *mutableEpisodes = [NSMutableArray arrayWithCapacity:[episodes count]];
+        for (NSDictionary *dict in episodes) {
+            Episode *episode = [[Episode alloc] initWithDictionary:dict thumbnail:show.thumbnailUrl];
+            [mutableEpisodes addObject:episode];
+        }
+        
+        if (block) {
+            block(showInfo, [NSArray arrayWithArray:mutableEpisodes], nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        if (block) {
+            block(nil, [NSArray array], error);
         }
     }];
 }
 
 
 - (void)sendViewEpisode {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api2/view_episode/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, self.Id, kAPP_VERSION, kAPP_BUILD]];
-    IAHTTPCommunication *http = [[IAHTTPCommunication alloc] init];
-    [http retrieveURL:url successBlock:^(NSData *response) {
+    NSString *url = [NSString stringWithFormat:@"%@/api2/view_episode/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, self.Id, kAPP_VERSION, kAPP_BUILD];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
 }

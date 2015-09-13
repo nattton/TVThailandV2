@@ -150,12 +150,9 @@ static NSInteger tagSearchTable = 999;
         
         [_refreshControl endRefreshing];
         _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-        if (error != nil) {
-            double delayInSeconds = 10.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self reload];
-            });
+        if (error) {
+            NSLog(@"Error : %@", error.localizedDescription);
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }
     }];
 }
