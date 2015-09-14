@@ -13,6 +13,7 @@
 @interface HomeSlideMenuViewController : SASlideMenuViewController
 
 - (void)searchTapped;
+- (void)reload;
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 

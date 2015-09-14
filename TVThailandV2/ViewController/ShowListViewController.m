@@ -14,7 +14,7 @@
 #import "VideoPlayerViewController.h"
 
 #import "SVProgressHUD.h"
-
+#import "AFHTTPRequestOperationManager.h"
 #import <Google/Analytics.h>
 
 #import "EpisodePartViewController.h"
@@ -38,7 +38,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *goToTopButton;
 @property (weak, nonatomic) IBOutlet MakathonAdView *mkAdView;
-
+@property (assign, nonatomic) ShowModeType mode;
 
 @end
 
@@ -47,7 +47,6 @@
     NSArray *_shows;
     NSArray *_searchShows;
     NSString *_Id;
-    ShowModeType _mode;
     bool isLoading;
     bool isEnding;
     UIRefreshControl *_refreshControl;
@@ -117,7 +116,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self.mkAdView requestAd];
     
     /** Alert View & Refresh Button - connection fail, try again **/
-    self.alertTitleView.alpha = 0;
+    [self.alertTitleView setHidden:YES];
     
     [SVProgressHUD showWithStatus:@"Loading..."];
     [self reload];
@@ -127,7 +126,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [_refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
     
-    switch (_mode) {
+    switch (self.mode) {
         case kWhatsNew:
             _screenName = @"WhatsNew";
             break;
@@ -143,6 +142,31 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
+    [self startReachabilityStatusMonitoring];
+}
+
+-(void)startReachabilityStatusMonitoring {
+    NSURL *baseURL = [NSURL URLWithString:kAPI_URL_BASE];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+    NSOperationQueue *operationQueue = manager.operationQueue;
+    [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                [operationQueue setSuspended:NO];
+                [self.alertTitleView setHidden:YES];
+                [self reload];
+                [self.homeSlideMenuViewController reload];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            default:
+                [operationQueue setSuspended:YES];
+                [self.alertTitleView setHidden:NO];
+                [self.alertTitle setText:@"No Internet Connection"];
+                break;
+        }
+    }];
+    [manager.reachabilityManager startMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -190,8 +214,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 #pragma mark - Function
 
 - (void)reload {
-
-    self.alertTitleView.alpha = 0;
+    [self.alertTitleView setHidden:YES];
     [SVProgressHUD showWithStatus:@"Loading..."];
     isEnding = NO;
     [self reload:0];
@@ -200,19 +223,6 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 - (void)reloadWithMode:(ShowModeType) mode Id:(NSString *)Id {
     _mode = mode;
     _Id = Id;
-    
-//    if (_mode == kChannel) {
-//        if (self.channel != nil && self.channel.videoUrl != nil && ![self.channel.videoUrl isEqualToString:@""]) {
-//            UIBarButtonItem *liveButton = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(playLive:)];
-//            liveButton.tintColor = [UIColor colorWithRed:248/255.0 green:126/255.0 blue:122/255.0 alpha:1.0];
-//            self.navigationItem.rightBarButtonItem = liveButton;
-//        }else{
-//            self.navigationItem.rightBarButtonItem = nil;
-//        }
-//    }else if(_mode == kCategory){
-//         self.navigationItem.rightBarButtonItem = nil;
-//    }
-
 }
 
 - (void)playLive:(id)sender {
@@ -225,122 +235,56 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
     
     isLoading = YES;
-    if (_mode == kWhatsNew) {
-        [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
-            
-            [SVProgressHUD dismiss];
-            
-            
-            if (error != nil) {
-                self.alertTitleView.alpha = 0.85;
-            }
-            
-            if ([tempShows count] == 0 ) {
-                isEnding = YES;
-            }
-            
-            if (start == 0) {
-                _shows = tempShows;
-            } else {
-                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
-                [mergeArray addObjectsFromArray:tempShows];
-                _shows = [NSArray arrayWithArray:mergeArray];
-            }
-            
-            [self.tableView reloadData];
-            isLoading = NO;
-            
-            
-            [_refreshControl endRefreshing];
-            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-            
-            if (error != nil) {
-                double delayInSeconds = 10.0;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-                    [self reload];
-                });
-            }
-        }];
+    switch (self.mode) {
+        case kWhatsNew: {
+            [Show loadWhatsNewDataWithStart:start Block:^(NSArray *tempShows, NSError *error) {
+                [self insertShowData:start Shows:tempShows Error:error];
+            }];
+        }
+            break;
+        case kCategory: {
+            [Show loadCategoryDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+                [self insertShowData:start Shows:tempShows Error:error];
+            }];
+        }
+            break;
+        case kChannel: {
+            [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
+                [self insertShowData:start Shows:tempShows Error:error];
+                if (_shows.count == 0 ) {
+                    [self performSegueWithIdentifier:showPlayerSegue sender:self];
+                }
+            }];
+        }
+            break;
     }
-    else if (_mode == kCategory) {
-        [Show loadCategoryDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
-            
-            [SVProgressHUD dismiss];
-            
-            
-            if (error != nil) {
-                self.alertTitleView.alpha = 0.85;
-            }
-            
-            if ([tempShows count] == 0) {
-                isEnding = YES;
-            }
-            
-            if (start == 0) {
-                _shows = tempShows;
-            } else {
-                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
-                [mergeArray addObjectsFromArray:tempShows];
-                _shows = [NSArray arrayWithArray:mergeArray];
-            }
-            
-            [self.tableView reloadData];
-            isLoading = NO;
-            
-            [_refreshControl endRefreshing];
-            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-            
-            if (error != nil) {
-                double delayInSeconds = 10.0;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-                    [self reload];
-                });
-            }
-        }];
+
+}
+
+- (void)insertShowData:(NSUInteger)start Shows:(NSArray *)tempShows Error:(NSError *)error {
+    [SVProgressHUD dismiss];
+    if (error != nil) {
+        [self.alertTitleView setHidden:NO];
+        [self.alertTitle setText:error.localizedDescription];
     }
-    else if (_mode == kChannel) {
-        [Show loadChannelDataWithId:_Id Start:start Block:^(NSArray *tempShows, NSError *error) {
-            
-            [SVProgressHUD dismiss];
-            
-            
-            if (error != nil) {
-                self.alertTitleView.alpha = 0.85;
-            }
-            
-            if ([tempShows count] == 0) {
-                isEnding = YES;
-            }
-            
-            if (start == 0) {
-                _shows = tempShows;
-            } else {
-                NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
-                [mergeArray addObjectsFromArray:tempShows];
-                _shows = [NSArray arrayWithArray:mergeArray];
-            }
-            
-            [self.tableView reloadData];
-            isLoading = NO;
-            
-            [_refreshControl endRefreshing];
-            _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-            
-            if (_shows.count == 0 ) {
-                [self performSegueWithIdentifier:showPlayerSegue sender:self];
-            }
-            
-            if (error != nil) {
-                double delayInSeconds = 10.0;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-                    [self reload];
-                });
-            }
-        }];
+    
+    if ([tempShows count] == 0) {
+        isEnding = YES;
     }
+    
+    if (start == 0) {
+        _shows = tempShows;
+    } else {
+        NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];
+        [mergeArray addObjectsFromArray:tempShows];
+        _shows = [NSArray arrayWithArray:mergeArray];
+    }
+    
+    [self.tableView reloadData];
+    isLoading = NO;
+    
+    [_refreshControl endRefreshing];
+    _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
 }
 
 

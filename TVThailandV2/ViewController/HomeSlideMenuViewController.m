@@ -11,6 +11,7 @@
 #import "ShowCategoryTableViewCell.h"
 #import "FBTableViewCell.h"
 #import "SVProgressHUD.h"
+#import "AFHTTPRequestOperationManager.h"
 
 #import "ShowListViewController.h"
 #import "ChannelViewController.h"
@@ -31,6 +32,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *clearSearchFieldButton;
 @property (weak, nonatomic) IBOutlet UILabel *tvThailandLabel;
 @property (weak, nonatomic) IBOutlet UILabel *searchLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *alertTitleView;
+@property (weak, nonatomic) IBOutlet UILabel *alertTitle;
 
 @end
 
@@ -95,20 +99,10 @@ static NSInteger tagSearchTable = 999;
     [super loadView];
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-    
-    
-    
-//    UISearchBar *search = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 45)];
-//    self.tableView.tableHeaderView = search;
-
-    [SVProgressHUD showWithStatus:@"Loading..."];
+    [self.alertTitleView setHidden:YES];
     
     _numSection = (int)totalSection;
     self.searchTextField.delegate = self;
@@ -126,10 +120,8 @@ static NSInteger tagSearchTable = 999;
     [self.tableView addSubview:_refreshControl];
     self.tableView.separatorColor = [UIColor clearColor];
     
-    
     [self reload];
-    
-
+    [self startReachabilityStatusMonitoring];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -141,18 +133,42 @@ static NSInteger tagSearchTable = 999;
     
 }
 
+-(void)startReachabilityStatusMonitoring {
+    NSURL *baseURL = [NSURL URLWithString:kAPI_URL_BASE];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+    NSOperationQueue *operationQueue = manager.operationQueue;
+    [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                [operationQueue setSuspended:NO];
+                [self.alertTitleView setHidden:YES];
+                [self reload];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            default:
+                [operationQueue setSuspended:YES];
+                [self.alertTitleView setHidden:NO];
+                [self.alertTitle setText:@"No Internet Connection"];
+                break;
+        }
+    }];
+    [manager.reachabilityManager startMonitoring];
+}
 
 - (void)reload
 {
+    [self.alertTitleView setHidden:YES];
     [_categoryList retrieveData:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self.tableView reloadData];
-        
         [_refreshControl endRefreshing];
         _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
         if (error) {
-            NSLog(@"Error : %@", error.localizedDescription);
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            if (error != nil) {
+                [self.alertTitleView setHidden:NO];
+                [self.alertTitle setText:error.localizedDescription];
+            }
         }
     }];
 }

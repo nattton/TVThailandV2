@@ -11,11 +11,11 @@
 #import "SASlideMenuViewController.h"
 #import "HomeSlideMenuViewController.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ShowModeType) {
     kWhatsNew = 0,
     kCategory = 1,
-    kChannel = 2
-} ShowModeType;
+    kChannel = 2,
+};
 
 @class Channel;
 @interface ShowListViewController : UIViewController
