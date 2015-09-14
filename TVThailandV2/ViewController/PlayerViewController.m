@@ -7,7 +7,6 @@
 //
 
 #import "PlayerViewController.h"
-#import "IAHTTPCommunication.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLSessionManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -25,6 +24,8 @@
 #import "Episode.h"
 #import "OTVEpisode.h"
 #import "OTVPart.h"
+
+#import "IMAAdPlaybackInfo.h"
 
 #import "VKVideoPlayerCaptionSRT.h"
 #import "VKVideoPlayerView.h"
@@ -726,13 +727,18 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // When the SDK notified us that ads have been loaded, play them.
     // Perform different actions based on the event type.
     switch (event.type) {
-        case kIMAAdEvent_LOADED:
+        case kIMAAdEvent_LOADED: {
             _isLoading = NO;
             [self.adsManager start];
-            [self.adDisplayContainer.adContainer addSubview:self.skipAdsButton];
+//            [self sendTrackerAdStarted:self.videoAds.URL];
+        }
+            break;
+        case kIMAAdEvent_STARTED: {
+            self.skipAdsButton.enabled = NO;
             [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
             self.skipAdsButton.hidden = NO;
-//            [self sendTrackerAdStarted:self.videoAds.URL];
+            [self.adDisplayContainer.adContainer addSubview:self.skipAdsButton];
+        }
             break;
         case kIMAAdEvent_TAPPED:
 //            [self viewDidEnterLandscape];
@@ -747,6 +753,24 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             break;
         default:
             break;
+    }
+}
+
+- (void)adsManager:(IMAAdsManager *)adsManager adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime
+{
+    int skipTime = 8;
+    if (totalTime > 20) {
+        skipTime = 15;
+    }
+    
+    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
+    int currentTime = (int)CMTimeGetSeconds(time);
+    if (currentTime <= skipTime) {
+        self.skipAdsButton.enabled = NO;
+        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", skipTime - currentTime] forState:UIControlStateDisabled];
+    } else {
+        self.skipAdsButton.enabled = YES;
+        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", skipTime] forState:UIControlStateDisabled];
     }
 }
 
@@ -816,20 +840,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         }
     }
     return itemDuration;
-}
-
-
-// Optional: receive updates about individual ad progress.
-- (void)adDidProgressToTime:(NSTimeInterval)mediaTime totalTime:(NSTimeInterval)totalTime {
-    CMTime time = CMTimeMakeWithSeconds(mediaTime, 1000);
-    int s = (int)CMTimeGetSeconds(time);
-    if (s <= 8) {
-        self.skipAdsButton.enabled = NO;
-        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", 8 - s] forState:UIControlStateDisabled];
-    } else {
-        self.skipAdsButton.enabled = YES;
-        [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
-    }
 }
 
 #pragma mark IMABrowser delegate functions
