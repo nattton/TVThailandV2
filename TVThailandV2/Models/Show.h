@@ -22,6 +22,7 @@
 @property (nonatomic, unsafe_unretained) BOOL isOTV;
 @property (nonatomic, readonly) NSString *otvId;
 @property (nonatomic, readonly) NSString *otvApiName;
+@property (nonatomic, readonly) NSString *otvLogo;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 - (id)initWithProgram:(Program *)program;

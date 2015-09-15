@@ -6,10 +6,12 @@
 //  Copyright (c) 2557 luciferultram@gmail.com. All rights reserved.
 //
 
+#import "OTVEpisodePartViewController.h"
+
 #import "SVProgressHUD.h"
 #import <Google/Analytics.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
-#import "OTVEpisodePartViewController.h"
 #import "DetailViewController.h"
 #import "OTVEpisodePartTableViewCell.h"
 #import "PlayerViewController.h"
@@ -105,11 +107,8 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 }
 
 - (void)setShow:(Show *)show {
-
     _show = show;
     self.navigationItem.title = show.title;
-
-    
 }
 
 
@@ -239,7 +238,12 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
     /* Create custom view to display section header... */
     
     UIImageView *epScrType = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 25, 25)];
-    [epScrType setImage:[UIImage imageNamed:@"ic_otv"]];
+    if (_show && ![_show.otvLogo isEqualToString:@""]) {
+        [epScrType sd_setImageWithURL:[NSURL URLWithString:_show.otvLogo] placeholderImage:[UIImage imageNamed:@"ic_otv"]];
+    }
+    else {
+        [epScrType setImage:[UIImage imageNamed:@"ic_otv"]];
+    }
     [view addSubview:epScrType];
     
     

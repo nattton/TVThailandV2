@@ -26,6 +26,7 @@
         _isOTV = [[dictionary objectForKey:@"is_otv"] isEqualToString:@"1"];
         _otvId = [dictionary objectForKey:@"otv_id"];
         _otvApiName = [dictionary objectForKey:@"otv_api_name"];
+        _otvLogo = [dictionary objectForKey:@"otv_logo"];
         
     }
     return self;
@@ -59,7 +60,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Id: %@, OTV_Id: %@, isOTV: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _otvId,_isOTV?@"YES":@"NO" ,_title, _thumbnailUrl, _desc];
+    return [NSString stringWithFormat:@"Id: %@, OTV_Id: %@, isOTV: %@, Title: %@, Thumbnail: %@, Description: %@", _Id, _otvId, _isOTV?@"YES":@"NO" ,_title, _thumbnailUrl, _desc];
 }
 
 #pragma mark - Load Data
