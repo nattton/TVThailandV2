@@ -122,7 +122,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                       action:@selector(skipAdsButtonTouched)
             forControlEvents:UIControlEventTouchUpInside];
     [self.skipAdsButton setTitle:@"skip >" forState:UIControlStateNormal];
-    [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
+    [self.skipAdsButton setTitle:@"skip in 8" forState:UIControlStateDisabled];
     [self.skipAdsButton setEnabled:NO];
     [self.skipAdsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     CALayer * layer = [self.skipAdsButton layer];
@@ -735,7 +735,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             break;
         case kIMAAdEvent_STARTED: {
             self.skipAdsButton.enabled = NO;
-            [self.skipAdsButton setTitle:@"skip in 8 s" forState:UIControlStateDisabled];
             self.skipAdsButton.hidden = NO;
             [self.adDisplayContainer.adContainer addSubview:self.skipAdsButton];
         }
@@ -767,10 +766,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     int currentTime = (int)CMTimeGetSeconds(time);
     if (currentTime <= skipTime) {
         self.skipAdsButton.enabled = NO;
-        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", skipTime - currentTime] forState:UIControlStateDisabled];
+        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d", skipTime - currentTime] forState:UIControlStateDisabled];
     } else {
         self.skipAdsButton.enabled = YES;
-        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d s", skipTime] forState:UIControlStateDisabled];
+        [self.skipAdsButton setTitle:[NSString stringWithFormat:@"skip in %d", skipTime] forState:UIControlStateDisabled];
     }
 }
 
