@@ -157,6 +157,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
                 [self.alertTitleView setHidden:YES];
                 [self reload];
                 [self.homeSlideMenuViewController reload];
+                [self.mkAdView requestAd];
                 break;
             case AFNetworkReachabilityStatusNotReachable:
             default:

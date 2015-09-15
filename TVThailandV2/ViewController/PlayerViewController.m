@@ -1047,11 +1047,13 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)openWebSite:(NSString *)stringUrl {
     if ([_sourceType isEqualToString:@"0"]) {
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
+//        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]];
     } else if ([_sourceType isEqualToString:@"1"]) {
         [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
     } else if ([_sourceType isEqualToString:@"11"]) {
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
+//        [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringUrl]];
     } else if ([_sourceType isEqualToString:@"13"] || [_sourceType isEqualToString:@"14"] || [_sourceType isEqualToString:@"15"]) {
         if ([_sourceType isEqualToString:@"15"]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video has password"

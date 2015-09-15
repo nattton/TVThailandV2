@@ -7,7 +7,6 @@
 //
 
 #import "WebViewController.h"
-#import "SVProgressHUD.h"
 
 @interface WebViewController ()
 
@@ -32,17 +31,12 @@
 #pragma mark - Public Method
 
 - (void)openWebSiteUrl:(NSString *)stringUrl {
-    [SVProgressHUD showWithStatus:@"Loading..."];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:stringUrl]]];
-    [SVProgressHUD dismiss];
-    
 }
 
 #pragma mark - IBAction
 
 - (IBAction)closeButtonTapped:(id)sender {
-    
-    [SVProgressHUD dismiss];
     
     [self dismissViewControllerAnimated:YES completion:^{
         
