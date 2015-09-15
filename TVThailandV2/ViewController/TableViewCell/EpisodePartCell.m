@@ -35,9 +35,13 @@ static NSString *CellIdentifier = @"part_cell";
         else {
             CGFloat x = 90;
             CGFloat y = -90;
-            if (width > 320) {
+            if (width == 375) {
                 x = 118;
                 y = -118;
+            }
+            else if (width == 414) {
+                x = 138;
+                y = -138;
             }
             hortable = [[UITableView alloc] initWithFrame:CGRectMake(x, y, 140, width) style:UITableViewStylePlain];
         }
