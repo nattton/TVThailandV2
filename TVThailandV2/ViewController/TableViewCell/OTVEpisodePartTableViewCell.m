@@ -24,8 +24,15 @@ static NSString *CellIdentifier = @"otv_part_cell";
     if (self) {
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
-        } else {
-            hortable = [[UITableView alloc]initWithFrame:CGRectMake(120, -120, 140, width) style:UITableViewStylePlain];
+        }
+        else {
+            CGFloat x = 90;
+            CGFloat y = -90;
+            if (width > 320) {
+                x = 118;
+                y = -118;
+            }
+            hortable = [[UITableView alloc] initWithFrame:CGRectMake(x, y, 140, width) style:UITableViewStylePlain];
         }
         
         hortable.delegate = self;
