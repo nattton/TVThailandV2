@@ -132,11 +132,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [layer setBorderColor:[[UIColor whiteColor] CGColor]];
     
     if (self.isFullscreen) {
-        self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width - 100.0f, self.fullscreenVideoFrame.size.height - 70.0f, 90.0f, 25.0f);
+        self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width - 100.0f, self.fullscreenVideoFrame.size.height - 50.0f, 90.0f, 25.0f);
     } else {
-        self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width - 100.0f, self.portraitVideoFrame.size.height - 70.0f, 90.0f, 25.0f);
+        self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width - 100.0f, self.portraitVideoFrame.size.height - 50.0f, 90.0f, 25.0f);
     }
-
 }
 
 
@@ -161,7 +160,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.isFullscreen = NO;
     self.player.view.frame = self.portraitVideoFrame;
     self.videoContainerView.frame = self.portraitVideoFrame;
-    self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width-100, self.portraitVideoFrame.size.height-70, 90, 25);
+    self.skipAdsButton.frame = CGRectMake(self.portraitVideoFrame.size.width-100, self.portraitVideoFrame.size.height-50, 90, 25);
     [self.tableOfVideoPart reloadData];
 }
 
@@ -169,7 +168,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.isFullscreen = YES;
     self.player.view.frame = self.fullscreenVideoFrame;
     self.videoContainerView.frame = self.fullscreenVideoFrame;
-    self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width-100, self.fullscreenVideoFrame.size.height-70, 90, 25);
+    self.skipAdsButton.frame = CGRectMake(self.fullscreenVideoFrame.size.width-100, self.fullscreenVideoFrame.size.height-50, 90, 25);
     [self.tableOfVideoPart reloadData];
 }
 
@@ -894,6 +893,12 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     self.player.view.rewindButton.hidden = NO;
 }
 
+- (void)playVideoStream:(NSURL*)url {
+    VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
+    [self.player loadVideoWithTrack:track];
+    [self setVideoTitleToTopLayer];
+}
+
 - (void) setVideoTitleToTopLayer {
     self.player.view.titleLabel.frame = CGRectMake(30,8, self.view.bounds.size.width - 50, 30);
     self.player.view.titleLabel.text = _part.nameTh;
@@ -951,21 +956,31 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (void)videoPlayer:(VKVideoPlayer*)videoPlayer willChangeOrientationTo:(UIInterfaceOrientation)orientation {
-
-}
-
-- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeOrientationFrom:(UIInterfaceOrientation)fromInterfaceOrientation {
-    switch (fromInterfaceOrientation) {
+    switch (orientation) {
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
-            [self viewDidEnterPortrait];
+            [self viewDidEnterLandscape];
             break;
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
-            [self viewDidEnterLandscape];
+            [self viewDidEnterPortrait];
         case UIInterfaceOrientationUnknown:
             break;
     }
+}
+
+- (void)videoPlayer:(VKVideoPlayer*)videoPlayer didChangeOrientationFrom:(UIInterfaceOrientation)fromInterfaceOrientation {
+//    switch (fromInterfaceOrientation) {
+//        case UIInterfaceOrientationLandscapeLeft:
+//        case UIInterfaceOrientationLandscapeRight:
+//            [self viewDidEnterPortrait];
+//            break;
+//        case UIInterfaceOrientationPortrait:
+//        case UIInterfaceOrientationPortraitUpsideDown:
+//            [self viewDidEnterLandscape];
+//        case UIInterfaceOrientationUnknown:
+//            break;
+//    }
 }
 
      
@@ -1069,7 +1084,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) openWithVideoUrl:(NSString *)videoUrl {
     [self setUpVKContentPlayer];
-    [self playStream:[NSURL URLWithString:videoUrl]];
+    [self playVideoStream:[NSURL URLWithString:videoUrl]];
 }
 
 #pragma mark - Load Video Mthai

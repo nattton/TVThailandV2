@@ -119,7 +119,7 @@
 		115CDAA9182E19A900402D6B /* EpisodePartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodePartViewController.m; sourceTree = "<group>"; };
 		116816851941AB2E0013F5BB /* VideoPartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPartTableViewCell.h; sourceTree = "<group>"; };
 		116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPartTableViewCell.m; sourceTree = "<group>"; };
-		116ADEE219599C82009167E7 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		116ADEE219599C82009167E7 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = ../ViewController/WebViewController.h; sourceTree = "<group>"; };
 		116ADEE319599C82009167E7 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
 		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
@@ -339,7 +339,6 @@
 				3B92E9511B73B2EF00BF903D /* OTVEpisodePartViewController.m */,
 				11DCB020195447FF000D76D1 /* InfoOfEpisodeViewController.h */,
 				11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */,
-				116ADEE219599C82009167E7 /* WebViewController.h */,
 				116ADEE319599C82009167E7 /* WebViewController.m */,
 				1179B5E0198269C7009A0F1F /* SettingViewController.h */,
 				1179B5E1198269C7009A0F1F /* SettingViewController.m */,
@@ -390,6 +389,7 @@
 				1136AC4718D81DC4004BFE4D /* OTVEpisode.h */,
 				1136AC4818D81DC4004BFE4D /* OTVEpisode.m */,
 				1136AC4A18D81DD7004BFE4D /* OTVPart.h */,
+				116ADEE219599C82009167E7 /* WebViewController.h */,
 				1136AC4B18D81DD7004BFE4D /* OTVPart.m */,
 				3B0A75B91A6845FE00660933 /* PreRollAd.h */,
 				3B0A75BA1A6845FE00660933 /* PreRollAd.m */,
