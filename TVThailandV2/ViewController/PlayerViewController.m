@@ -52,6 +52,9 @@ const char *AdEventNames[] = {
 //VK Property
 @property (nonatomic, strong) NSString *currentLanguageCode;
 
+
+@property (nonatomic, strong) NSArray *objClipArray;
+
 @end
 
 @implementation PlayerViewController {
@@ -866,16 +869,17 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 #pragma mark - VK Player
 
 - (void)setUpVKContentPlayer {
-
-    self.player = [[VKVideoPlayer alloc] init];
-    self.player.delegate = self;
-    self.player.forceRotate = self.isPhone;
-    self.player.view.frame = self.portraitVideoFrame;
-    self.player.portraitFrame = self.portraitVideoFrame;
-    self.player.landscapeFrame = self.fullscreenVideoFrame;
-    self.player.view.fullscreenButton.hidden = NO;
-    
-    [self.view addSubview:self.player.view];
+    if (!self.player) {
+        self.player = [[VKVideoPlayer alloc] init];
+        self.player.delegate = self;
+        self.player.forceRotate = self.isPhone;
+        self.player.view.frame = self.portraitVideoFrame;
+        self.player.portraitFrame = self.portraitVideoFrame;
+        self.player.landscapeFrame = self.fullscreenVideoFrame;
+        self.player.view.fullscreenButton.hidden = NO;
+        
+        [self.view addSubview:self.player.view];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -938,9 +942,40 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         case VKVideoPlayerControlEventSwipePrevious:
             [self playPreviousOTVVideo];
             break;
+        case VKVideoPlayerControlEventTapVideoQuality:
+            [self tapVideoQuality];
+            break;
         default:
             break;
     }
+}
+
+- (void) tapVideoQuality {
+    
+    if (self.objClipArray) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Quality" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        for (NSDictionary *objClip in self.objClipArray) {
+            NSString *res = [objClip objectForKey:@"data-res"];
+            if (![res isEqualToString:@"auto"]) {
+                res = [NSString stringWithFormat:@"%@p", [objClip objectForKey:@"data-res"]];
+            }
+            NSString *src = [objClip objectForKey:@"src"];
+            NSString *type = [objClip objectForKey:@"type"];
+            if ([type isEqualToString:@"video/mp4"]) {
+                UIAlertAction *selectQualityAction = [UIAlertAction actionWithTitle:res style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self playVideoStream:[NSURL URLWithString:src]];
+                    self.player.view.videoQualityButton.titleLabel.text = res;
+                }];
+                [alert addAction:selectQualityAction];
+            }
+        }
+        
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+    }
+
 }
 
 /** This method is called finished to play video. You can start to play next video here. **/
@@ -1036,9 +1071,9 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     NSString *htmlString = [NSString stringWithFormat:@"<html><head>\
                             <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
                             <body style=\"background-color:#000 ;\">\
-                            <iframe  style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\"  id=\"player\" type=\"text/html\" width=\"%0.0f\" height=\"%0.0f\" src=\"http://www.youtube.com/embed/%@?enablejsapi=1&origin=http://www.code-mobi.com\" frameborder=\"0\"></iframe></body></html>", self.portraitVideoFrame.size.width, self.portraitVideoFrame.size.height, _videoId];
+                            <iframe  style=\"margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;\"  id=\"player\" type=\"text/html\" width=\"%0.0f\" height=\"%0.0f\" src=\"https://www.youtube.com/embed/%@?enablejsapi=1&origin=http://www.code-mobi.com\" frameborder=\"0\"></iframe></body></html>", self.portraitVideoFrame.size.width, self.portraitVideoFrame.size.height, _videoId];
     [self.webView loadHTMLString:htmlString
-                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]];
+                         baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.youtube.com/watch?v=%@",_videoId]]];
     
     [self.webView.scrollView setScrollEnabled:NO];
     [SVProgressHUD dismiss];
@@ -1061,24 +1096,32 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)openWebSite:(NSString *)stringUrl {
     if ([_sourceType isEqualToString:@"0"]) {
-//        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.youtube.com/watch?v=%@",_videoId]]];
+//        [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"https://www.youtube.com/watch?v=%@",_videoId]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.youtube.com/watch?v=%@",_videoId]]];
     } else if ([_sourceType isEqualToString:@"1"]) {
         [self performSegueWithIdentifier:ShowWebViewSegue sender:[NSString stringWithFormat:@"http://www.dailymotion.com/video/%@",_videoId]];
     } else if ([_sourceType isEqualToString:@"11"]) {
 //        [self performSegueWithIdentifier:ShowWebViewSegue sender:stringUrl];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringUrl]];
     } else if ([_sourceType isEqualToString:@"13"] || [_sourceType isEqualToString:@"14"] || [_sourceType isEqualToString:@"15"]) {
+                NSString *mthaiUrl = [NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html", stringUrl];
+        
         if ([_sourceType isEqualToString:@"15"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Video has password"
-                                                            message:[NSString stringWithFormat:@"Password : %@", self.episode.password]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Video has password"
+                                                                           message:[NSString stringWithFormat:@"Password : %@", self.episode.password]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mthaiUrl]];
+                    }];
+            [alert addAction:alertAction];
+            [self presentViewController:alert animated:YES completion:^{
+                
+            }];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mthaiUrl]];
         }
-        NSString *mthaiUrl = [NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html", stringUrl];
-        [self performSegueWithIdentifier:ShowWebViewSegue sender:mthaiUrl];
+//        [self performSegueWithIdentifier:ShowWebViewSegue sender:mthaiUrl];
+
     }
 }
 
@@ -1149,13 +1192,64 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) startMThaiVideoFromData:(NSData *)data {
     NSString *responseDataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *clipUrl = nil;
-    NSString *varKey = @"{ mp4:  \"http";
+    
+    if ([self mThaiSeperateByObClip:responseDataString])
+        return;
+    
+    if([self mThaiSeperateByDefaultClip:responseDataString])
+        return;
+
+    
+    [self openWebSite:_videoId];
+}
+
+- (BOOL) mThaiSeperateByObClip:(NSString *)responseDataString {
+    NSString *varKey = @"obClip = ";
     NSRange indexStart = [responseDataString rangeOfString:varKey];
     if (indexStart.location != NSNotFound)
     {
-        clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length - 4];
-        NSRange indexEnd = [clipUrl rangeOfString:@"}"];
+        NSString *clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length];
+        NSRange indexEnd = [clipUrl rangeOfString:@";"];
+        if (indexEnd.location != NSNotFound)
+        {
+            NSString *obClipString = [clipUrl substringToIndex:indexEnd.location];
+            NSError *error = nil;
+            obClipString = [[[[[obClipString
+                                stringByReplacingOccurrencesOfString:@"src" withString:@"\"src\""]
+                               stringByReplacingOccurrencesOfString:@"type" withString:@"\"type\""]
+                              stringByReplacingOccurrencesOfString:@"\t" withString:@""]
+                             stringByReplacingOccurrencesOfString:@"\n" withString:@""]
+                            stringByReplacingOccurrencesOfString:@"'" withString:@"\""];
+            NSData *jsonData = [obClipString dataUsingEncoding:NSUTF8StringEncoding];
+            NSMutableArray *objClipArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+            if (objClipArray && obClipString.length > 0) {
+                self.objClipArray = [NSArray arrayWithArray:objClipArray];
+                for (NSDictionary *objClip in self.objClipArray) {
+                    NSString *res = [objClip objectForKey:@"data-res"];
+                    if (![res isEqualToString:@"auto"]) {
+                        res = [NSString stringWithFormat:@"%@p", [objClip objectForKey:@"data-res"]];
+                    }
+                    NSString *clipUrl = [objClip objectForKey:@"src"];
+                    NSString *type = [objClip objectForKey:@"type"];
+                    if ([type isEqualToString:@"video/mp4"]) {
+                        [self openWithVideoUrl:clipUrl];
+                        self.player.view.videoQualityButton.titleLabel.text = res;
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    return NO;
+}
+
+- (BOOL) mThaiSeperateByDefaultClip:(NSString *)responseDataString {
+    NSString *varKey = @"defaultClip";
+    NSRange indexStart = [responseDataString rangeOfString:varKey];
+    if (indexStart.location != NSNotFound)
+    {
+        NSString *clipUrl = [responseDataString substringFromIndex:indexStart.location + indexStart.length];
+        NSRange indexEnd = [clipUrl rangeOfString:@";"];
         if (indexEnd.location != NSNotFound)
         {
             clipUrl = [clipUrl substringToIndex:indexEnd.location];
@@ -1164,56 +1258,10 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
                        stringByReplacingOccurrencesOfString:@"'" withString:@""];
             
         }
-        
-        NSArray *seperateUrl = [clipUrl componentsSeparatedByString:@"/"];
-        if ([seperateUrl[seperateUrl.count - 1] hasPrefix:_videoId]) {
-            [self openWithVideoUrl:clipUrl];
-            return;
-        }
-    }
-    
-    NSError *error = nil;
-    HTMLParser *parser = [[HTMLParser alloc] initWithData:data error:&error];
-    if (error) {
-        DLog(@"Error: %@", error);
-    }
-    
-    HTMLNode *bodyNode = [parser body];
-    NSArray *sourceNodes = [bodyNode findChildTags:@"source"];
-    NSString *videoUrl = nil;
-    for (HTMLNode *sourceNode in sourceNodes)
-    {
-        if ([sourceNode getAttributeNamed:@"src"]) {
-            NSString *videoUrl = [NSString stringWithString:[sourceNode getAttributeNamed:@"src"]];
-            if ([videoUrl rangeOfString:_videoId].location != NSNotFound) {
-                if ([videoUrl hasSuffix:@"flv"]) {
-                    DLog(@"FLV");
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
-                    });
-                    return;
-                }
-                else
-                {
-                    [self openWithVideoUrl:videoUrl];
-                    DLog(@"videoUrl : %@", videoUrl);
-                }
-                return;
-            }
-        }
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [SVProgressHUD  showErrorWithStatus:@"Video have problem!"];
-    });
-    
-    if (clipUrl != nil && clipUrl.length > 0) {
         [self openWithVideoUrl:clipUrl];
-    } else if (videoUrl != nil && videoUrl.length > 0) {
-        [self openWithVideoUrl:videoUrl];
+        return YES;
     }
-    
+    return NO;
 }
-
 
 @end
