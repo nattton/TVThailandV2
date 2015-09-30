@@ -7,7 +7,7 @@
 //
 
 #import "Channel.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFMakathonClient.h"
 #import "NSString+Utils.h"
 
 @implementation Channel
@@ -31,9 +31,8 @@
 #pragma mark - Load Data
 
 + (void)retrieveData:(void (^)(NSArray *channels ,NSError *error))block {
-    NSString *url = [NSString stringWithFormat:@"%@/api2/channel?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE, kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSString *url = [NSString stringWithFormat:@"api2/channel?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSArray *jCategories = [responseObject valueForKeyPath:@"channels"];
         NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
         for (NSDictionary *dictGenre in jCategories) {
@@ -44,7 +43,7 @@
         if (block) {
             block([NSArray arrayWithArray:mutableCategories], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         if (block) {
             block([NSArray array], error);
         }

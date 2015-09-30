@@ -158,7 +158,7 @@
 - (NSString *)videoThumbnailWithVideoId:(NSString *)videoId
 {
     if([_srcType isEqualToString:@"0"]) {
-        return [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/0.jpg",videoId];
+        return [NSString stringWithFormat:@"https://i.ytimg.com/vi/%@/0.jpg",videoId];
     }
     else if([_srcType isEqualToString:@"1"]) {
         return [NSString stringWithFormat:@"http://www.dailymotion.com/thumbnail/video/%@",videoId];

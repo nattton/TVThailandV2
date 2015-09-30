@@ -10,7 +10,7 @@
 #import "ShowCategory.h"
 
 #import "NSString+Utils.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFMakathonClient.h"
 
 @implementation ShowCategoryList {
     NSArray *categories;
@@ -46,9 +46,8 @@
 #pragma mark - Load Data
 
 - (void)retrieveData:(void (^)(NSError *error))block {
-    NSString *url = [NSString stringWithFormat:@"%@/api2/category?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE, kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSString *url = [NSString stringWithFormat:@"api2/category?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jCategories = [responseObject valueForKeyPath:@"categories"];
         NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
         for (NSDictionary *dictCategory in jCategories) {
@@ -64,7 +63,7 @@
         if (block) {
             block(nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block(error);
         }

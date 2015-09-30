@@ -8,7 +8,7 @@
 
 #import "Show.h"
 #import "Program.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFMakathonClient.h"
 
 @implementation Show
 
@@ -66,8 +66,7 @@
 #pragma mark - Load Data
 
 + (void)loadShowDataWithURL:(NSString *)URLString Block:(void (^)(NSArray *shows, NSError *error))block {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:URLString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:URLString parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *programs = [responseObject valueForKeyPath:@"programs"];
         
         NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
@@ -79,7 +78,7 @@
         if (block) {
             block([NSArray arrayWithArray:mutablePrograms], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block([NSArray array], error);
         }
@@ -89,8 +88,7 @@
 + (void)loadWhatsNewDataWithStart:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    NSString *url = [NSString stringWithFormat:@"%@/api2/whatsnew/%@?device=ios&time%@",
-                                       kAPI_URL_BASE,
+    NSString *url = [NSString stringWithFormat:@"api2/whatsnew/%@?device=ios&time%@",
                                        [[NSNumber numberWithInteger:start] stringValue],
                                        [df stringFromDate:[NSDate date]]];
     
@@ -100,13 +98,12 @@
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    NSString *url = [NSString stringWithFormat:@"%@/api2/category/%@/%@?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE,
-                                       Id,
+    NSString *url = [NSString stringWithFormat:@"api2/category/%@/%@?device=ios&app_version=%@&build=%@&time=%@",
+                                        Id,
                                        [[NSNumber numberWithInteger:start] stringValue],
                                        kAPP_VERSION,
                                        kAPP_BUILD,
                                        [df stringFromDate:[NSDate date]]];
-    
     [Show loadShowDataWithURL:url Block:block];
 }
 
@@ -114,7 +111,7 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/api2/channel/%@/%@?device=ios&app_version=%@&build=%@&time=%@", kAPI_URL_BASE,
+    NSString *url = [NSString stringWithFormat:@"api2/channel/%@/%@?device=ios&app_version=%@&build=%@&time=%@",
                                         Id,
                                         [[NSNumber numberWithInteger:start] stringValue],
                                         kAPP_VERSION,
@@ -127,7 +124,7 @@
 + (void)loadSearchDataWithKeyword:(NSString *)keyword Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    NSString *url = [[NSString stringWithFormat:@"%@/api2/search/0?keyword=%@&device=ios&time%@", kAPI_URL_BASE, keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *url = [[NSString stringWithFormat:@"api2/search/0?keyword=%@&device=ios&time%@", keyword, [df stringFromDate:[NSDate date]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     [Show loadShowDataWithURL:url Block:block];
 }
@@ -135,9 +132,8 @@
 + (void)loadShowDataWithOtvId:(NSString *)Id Block:(void (^)(Show *show, NSError *error))block {
     if (!Id) return;
     
-    NSString *url = [NSString stringWithFormat:@"%@/api2/program_info_otv/%@?device=ios", kAPI_URL_BASE, Id];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSString *url = [NSString stringWithFormat:@"api2/program_info_otv/%@?device=ios", Id];
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         Show *show;
         NSDictionary *dictShow = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject : nil;
         if (dictShow) {
@@ -148,7 +144,7 @@
         if (block) {
             block(show, nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block(nil, error);
         }

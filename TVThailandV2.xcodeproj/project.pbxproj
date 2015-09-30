@@ -37,6 +37,7 @@
 		3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4872E119E6BDA900E30999 /* FacebookSDK.framework */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
 		3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83615BB21AB000CD962 /* MobileCoreServices.framework */; };
+		3B599A6C1BBB1B370002D8B2 /* AFMakathonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B599A6B1BBB1B370002D8B2 /* AFMakathonClient.m */; settings = {ASSET_TAGS = (); }; };
 		3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */; };
 		3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */; };
 		3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BC1711CCD8009B4B65 /* Security.framework */; };
@@ -154,6 +155,8 @@
 		3B4872E119E6BDA900E30999 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
+		3B599A6A1BBB1B370002D8B2 /* AFMakathonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMakathonClient.h; sourceTree = "<group>"; };
+		3B599A6B1BBB1B370002D8B2 /* AFMakathonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMakathonClient.m; sourceTree = "<group>"; };
 		3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B63C8BC1711CCD8009B4B65 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -445,6 +448,7 @@
 		F0A3C85F15BB258D000CD962 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				F0D4C5A515CB1D4B00988376 /* CoreData */,
 				F0A3C86015BB258D000CD962 /* NSString+Utils.h */,
 				F0A3C86115BB258D000CD962 /* NSString+Utils.m */,
 				F0A3C86415BB258D000CD962 /* UserAgent.h */,
@@ -459,6 +463,8 @@
 				3B9587AB19385829002C303F /* UIImageView+WebCacheRounded.m */,
 				3B1D74971A5D06BE000B0D8B /* IAHTTPCommunication.h */,
 				3B1D74981A5D06BE000B0D8B /* IAHTTPCommunication.m */,
+				3B599A6A1BBB1B370002D8B2 /* AFMakathonClient.h */,
+				3B599A6B1BBB1B370002D8B2 /* AFMakathonClient.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -470,7 +476,8 @@
 				F0D4C5A715CB1F0E00988376 /* Program.m */,
 				F0927FE015CC4A180045EDBA /* tvthai2.xcdatamodeld */,
 			);
-			path = CoreData;
+			name = CoreData;
+			path = ../CoreData;
 			sourceTree = "<group>";
 		};
 		F0DC4DE015BA012E0009BFCD = {
@@ -543,7 +550,6 @@
 				3B86572A1805F29F00BC61AC /* Images */,
 				3B67F7A117E09A1D00C9CD23 /* ViewController */,
 				3B910C3517340387008F67ED /* Models */,
-				F0D4C5A515CB1D4B00988376 /* CoreData */,
 				F0A3C85F15BB258D000CD962 /* Utility */,
 				F0DC4E0F15BA01DD0009BFCD /* Library */,
 				F0DC4DF615BA012E0009BFCD /* Supporting Files */,
@@ -724,6 +730,7 @@
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
 				3B976CC1198276060011DF75 /* AboutViewController.m in Sources */,
+				3B599A6C1BBB1B370002D8B2 /* AFMakathonClient.m in Sources */,
 				1136AC4C18D81DD7004BFE4D /* OTVPart.m in Sources */,
 				F0A3C86615BB258D000CD962 /* NSString+Utils.m in Sources */,
 				3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */,

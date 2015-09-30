@@ -7,7 +7,7 @@
 //
 
 #import "MakathonAd.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFMakathonClient.h"
 
 @implementation MakathonAd
 
@@ -28,8 +28,7 @@
     [df setDateFormat:@"yyyyMMddHHmm"];
     
     NSString *url = [NSString stringWithFormat:@"%@/api2/advertise?device=ios&time%@", kAPI_URL_BASE, [df stringFromDate:[NSDate date]]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jAds = [responseObject valueForKeyPath:@"ads"];
         
         NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];
@@ -41,7 +40,7 @@
         if (block) {
             block([NSArray arrayWithArray:mutableAdss], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block([NSArray array], error);
         }
