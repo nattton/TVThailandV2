@@ -121,7 +121,6 @@ static NSInteger tagSearchTable = 999;
     self.tableView.separatorColor = [UIColor clearColor];
     
     [self reload];
-    [self startReachabilityStatusMonitoring];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -131,29 +130,35 @@ static NSInteger tagSearchTable = 999;
         [self revealLeftMenu];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification
+                                               object:nil];
 }
 
--(void)startReachabilityStatusMonitoring {
-    NSURL *baseURL = [NSURL URLWithString:kAPI_URL_BASE];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
-    NSOperationQueue *operationQueue = manager.operationQueue;
-    [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                [operationQueue setSuspended:NO];
-                [self.alertTitleView setHidden:YES];
-                [self reload];
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-            default:
-                [operationQueue setSuspended:YES];
-                [self.alertTitleView setHidden:NO];
-                [self.alertTitle setText:@"No Internet Connection"];
-                break;
-        }
-    }];
-    [manager.reachabilityManager startMonitoring];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AFNetworkingReachabilityDidChangeNotification
+                                                  object:nil];
+}
+
+- (void)reachabilityChanged:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    NSNumber *statusNumber = [dict objectForKey:AFNetworkingReachabilityNotificationStatusItem];
+    AFNetworkReachabilityStatus status = (AFNetworkReachabilityStatus)statusNumber.intValue;
+    switch (status) {
+        case AFNetworkReachabilityStatusReachableViaWWAN:
+        case AFNetworkReachabilityStatusReachableViaWiFi:
+            [self.alertTitleView setHidden:YES];
+            [self reload];
+            break;
+        case AFNetworkReachabilityStatusNotReachable:
+        default:
+            [self.alertTitleView setHidden:NO];
+            [self.alertTitle setText:@"No Internet Connection"];
+            break;
+    }
 }
 
 - (void)reload

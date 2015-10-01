@@ -11,6 +11,11 @@
 @class Episode;
 @interface EpisodeTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *airedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *viewLabel;
+
 - (void)configureWithEpisode:(Episode *)episode;
 
 @end

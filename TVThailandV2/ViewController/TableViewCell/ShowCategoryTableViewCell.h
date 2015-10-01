@@ -11,6 +11,9 @@
 @class ShowCategory;
 @interface ShowCategoryTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
+
 - (void)configureWithGenre:(ShowCategory *)genre;
 
 @end

@@ -264,7 +264,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.webView.hidden = YES;
             self.openWithButton.hidden = YES;
             [self.thumbnailOTV sd_setImageWithURL:[NSURL URLWithString: [self.show thumbnailUrl] ]
-                              placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
+                              placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 
             [SVProgressHUD dismiss];
         }
@@ -302,7 +302,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
             self.viewCountLabel.text = _part.nameTh;
             self.partNameLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)row + 1, (long)self.otvEpisode.parts.count ];
             [self.thumbnailOTV sd_setImageWithURL:[NSURL URLWithString: _part.thumbnail]
-                              placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"]];
+                              placeholderImage:[UIImage imageNamed:@"part_thumb_wide_s"] options:SDWebImageProgressiveDownload];
 
         }
         

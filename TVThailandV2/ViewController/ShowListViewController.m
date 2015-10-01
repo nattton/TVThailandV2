@@ -7,27 +7,24 @@
 //
 
 #import "ShowListViewController.h"
-#import "ShowTableViewCell.h"
-#import "Show.h"
-
-#import "ShowCategoryViewController.h"
-#import "VideoPlayerViewController.h"
 
 #import "SVProgressHUD.h"
 #import "AFHTTPRequestOperationManager.h"
 #import <Google/Analytics.h>
-
-#import "EpisodePartViewController.h"
-
 #import <FacebookSDK/FacebookSDK.h>
-#import "AppDelegate.h"
-#import "OTVShow.h"
-
-#import "OTVEpisodePartViewController.h"
 
 #import "MakathonAdView.h"
 
+#import "Show.h"
+#import "OTVShow.h"
 #import "Channel.h"
+
+#import "AppDelegate.h"
+#import "ShowCategoryViewController.h"
+#import "VideoPlayerViewController.h"
+#import "EpisodePartViewController.h"
+#import "OTVEpisodePartViewController.h"
+#import "ShowTableViewCell.h"
 
 @interface ShowListViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
@@ -142,32 +139,42 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
-    [self startReachabilityStatusMonitoring];
+    
 }
 
--(void)startReachabilityStatusMonitoring {
-    NSURL *baseURL = [NSURL URLWithString:kAPI_URL_BASE];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
-    NSOperationQueue *operationQueue = manager.operationQueue;
-    [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                [operationQueue setSuspended:NO];
-                [self.alertTitleView setHidden:YES];
-                [self reload];
-                [self.homeSlideMenuViewController reload];
-                [self.mkAdView requestAd];
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-            default:
-                [operationQueue setSuspended:YES];
-                [self.alertTitleView setHidden:NO];
-                [self.alertTitle setText:@"No Internet Connection"];
-                break;
-        }
-    }];
-    [manager.reachabilityManager startMonitoring];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AFNetworkingReachabilityDidChangeNotification
+                                                  object:nil];
+}
+
+- (void)reachabilityChanged:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    NSNumber *statusNumber = [dict objectForKey:AFNetworkingReachabilityNotificationStatusItem];
+    AFNetworkReachabilityStatus status = (AFNetworkReachabilityStatus)statusNumber.intValue;
+    switch (status) {
+        case AFNetworkReachabilityStatusReachableViaWWAN:
+        case AFNetworkReachabilityStatusReachableViaWiFi:
+            [self.alertTitleView setHidden:YES];
+            [self reload];
+            [self.homeSlideMenuViewController reload];
+            [self.mkAdView requestAd];
+            break;
+        case AFNetworkReachabilityStatusNotReachable:
+        default:
+            [self.alertTitleView setHidden:NO];
+            [self.alertTitle setText:@"No Internet Connection"];
+            break;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

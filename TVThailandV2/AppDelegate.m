@@ -13,6 +13,7 @@
 #import "NSString+Utils.h"
 #import "CMUser.h"
 #import "UIImage+RoundedImage.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation AppDelegate
 
@@ -44,6 +45,8 @@
     GAI *gai = [GAI sharedInstance];
     gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
 //    gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
+    
+//    [self startReachabilityStatusMonitoring];
     
     return YES;
 }
@@ -169,5 +172,27 @@
     }
 }
 
+-(void)startReachabilityStatusMonitoring {
+    NSURL *baseURL = [NSURL URLWithString:kAPI_URL_BASE];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+    NSOperationQueue *operationQueue = manager.operationQueue;
+    [manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                [operationQueue setSuspended:NO];
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            default:
+                [operationQueue setSuspended:YES];
+                break;
+        }
+
+//        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+//        [notificationCenter postNotificationName:AFNetworkingReachabilityDidChangeNotification object:nil userInfo:@{ AFNetworkingReachabilityNotificationStatusItem: @(status) }];
+
+    }];
+    [manager.reachabilityManager startMonitoring];
+}
 
 @end

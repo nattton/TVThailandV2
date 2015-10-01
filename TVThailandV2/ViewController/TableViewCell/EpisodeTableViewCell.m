@@ -10,10 +10,6 @@
 #import "Episode.h"
 
 @interface EpisodeTableViewCell()
-@property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *airedLabel;
-@property (weak, nonatomic) IBOutlet UILabel *viewLabel;
 
 @end
 

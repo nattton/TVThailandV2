@@ -12,7 +12,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
-
+#import "VKVideoPlayerViewController.h"
 #import <Google/Analytics.h>
 
 #import "VideoPlayerViewController.h"
@@ -24,7 +24,6 @@
 
 @implementation ChannelViewController {
     NSArray *_channels;
-    UIAlertView *alert;
     Channel *channelSelected;
 }
 
@@ -37,8 +36,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    alert = [[UIAlertView alloc] initWithTitle:@"เลือกรายการ" message:@"" delegate:self cancelButtonTitle:@"ยกเลิก" otherButtonTitles:@"ย้อนหลัง", @"รายการสด", nil];
 
     [self refresh];
 }
@@ -66,8 +63,11 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
     }
     else if (buttonIndex == 2) {
         //Watch on LIVE program
-        [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
-        
+//        [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+        VKVideoPlayerViewController *vkViewController = [[VKVideoPlayerViewController alloc] init];
+        [self presentViewController:vkViewController animated:YES completion:^{
+            
+        }];
     }
 }
 
@@ -112,8 +112,21 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
             [self performSegueWithIdentifier:showListSegue sender:channelSelected];
         } else {
             if ([channelSelected.isHasEp  isEqual: @"1"]) {
-                [alert show];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"เลือกรายการ" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *selectOnDemand = [UIAlertAction actionWithTitle:@"รายการสด" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self performSegueWithIdentifier:showListSegue sender:channelSelected];
+                }];
+                [alert addAction:selectOnDemand];
+                UIAlertAction *selectLive = [UIAlertAction actionWithTitle:@"ย้อนหลัง" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self performSegueWithIdentifier:showListSegue sender:channelSelected];
+                }];
+                [alert addAction:selectLive];
+                [self presentViewController:alert animated:YES completion:^{
+                    
+                }];
             } else {
+                
                 [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
             }
         }

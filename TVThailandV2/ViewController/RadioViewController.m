@@ -172,7 +172,7 @@ static NSString *radioCellIdentifier = @"RadioCollectionViewCell";
     bool isChanged = (_radioSelected != _radios[indexPath.section][indexPath.row]);
     _radioSelected = _radios[indexPath.section][indexPath.row];
     [self.radioTitleLabel setText:_radioSelected.title];
-    [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:_radioSelected.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:_radioSelected.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload];
     
     if (_radioSelected.radioUrl == nil || [_radioSelected.radioUrl length] == 0 )  {
         [alert show];

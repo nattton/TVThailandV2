@@ -239,7 +239,7 @@ static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
     
     UIImageView *epScrType = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 25, 25)];
     if (_show && ![_show.otvLogo isEqualToString:@""]) {
-        [epScrType sd_setImageWithURL:[NSURL URLWithString:_show.otvLogo] placeholderImage:[UIImage imageNamed:@"ic_otv"]];
+        [epScrType sd_setImageWithURL:[NSURL URLWithString:_show.otvLogo] placeholderImage:[UIImage imageNamed:@"ic_otv"] options:SDWebImageProgressiveDownload];
     }
     else {
         [epScrType setImage:[UIImage imageNamed:@"ic_otv"]];

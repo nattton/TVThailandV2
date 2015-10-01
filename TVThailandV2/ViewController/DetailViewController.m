@@ -65,13 +65,13 @@
     if (self.show) {
         self.titleLabel.text = self.show.title;
         self.detailTextView.text = self.show.detail;
-        [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:self.show.thumbnailUrl] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload];
     }
     else if (self.otvShow)
     {
         self.titleLabel.text = self.otvShow.title;
         self.detailTextView.text = self.otvShow.detail;
-        [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:self.otvShow.thumbnail] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:self.otvShow.thumbnail] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload];
 
     }
     

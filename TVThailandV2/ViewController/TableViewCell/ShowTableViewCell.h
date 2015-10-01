@@ -12,6 +12,10 @@
 @class Program;
 @interface ShowTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageThumbView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLable;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+
 - (void)configureWhatsNewWithShow:(Show *)show;
 - (void)configureWithShow:(Show *)show;
 - (void)configureWithProgram:(Program *)program;

@@ -21,6 +21,9 @@
 #define kAppTracker @"UA-22403997-3"
 #define kOTVTracker @"UA-22403997-4"
 
+#define kAdMobInterstitial @"ca-app-pub-6286183933093345/3016582496"
+#define kAdMobBanner @"ca-app-pub-6286183933093345/4493315696"
+
 #define kMessageID @"MessageID"
 #define kYoutubeAutoPlay @"YoutubeAutoPlay"
 #define kYoutubeWeb @"YoutubeWeb"
