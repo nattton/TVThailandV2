@@ -7,7 +7,7 @@
 //
 
 #import "Radio.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFMakathonClient.h"
 #import "NSString+Utils.h"
 
 @implementation Radio
@@ -32,9 +32,8 @@
 #pragma mark - Load Data
 
 + (void)retrieveData:(void (^)(NSArray *radioCategories, NSArray *radios, NSError *error))block {
-    NSString *url = [NSString stringWithFormat:@"%@/api2/radio?device=ios&app_version=%@&build=%@&time=%@",kAPI_URL_BASE, kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSString *url = [NSString stringWithFormat:@"api2/radio?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jRadioes = [responseObject valueForKeyPath:@"radios"];
         NSSet *categorySet = [NSSet setWithArray:[jRadioes valueForKeyPath:@"category"]];
         NSArray *radioCategories = [[categorySet allObjects] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
@@ -55,7 +54,7 @@
         if (block) {
             block(radioCategories, [NSArray arrayWithArray:mutableRadios], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block([NSArray array], [NSArray array], error);
         }

@@ -514,6 +514,26 @@
             </objects>
             <point key="canvasLocation" x="5026" y="-36"/>
         </scene>
+        <!--Live Player View Controller-->
+        <scene sceneID="KEj-JB-Zzn">
+            <objects>
+                <viewController id="C5M-2z-3yp" customClass="LivePlayerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E2Q-cK-Ugo"/>
+                        <viewControllerLayoutGuide type="bottom" id="HcX-dm-z2c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MTD-dV-EEl">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="C86-19-dcI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w5f-VI-RO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3937" y="2085"/>
+        </scene>
         <!--Video Player View Controller-->
         <scene sceneID="ea7-Rp-PIo">
             <objects>
@@ -523,41 +543,30 @@
                         <viewControllerLayoutGuide type="bottom" id="Vf9-a1-Xsm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="y5d-xr-MWE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAU-4h-Odv">
-                                <rect key="frame" x="34" y="232" width="700" height="500"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="700" id="5VI-Y1-P56"/>
-                                    <constraint firstAttribute="height" constant="500" id="sgG-TA-WzM"/>
-                                </constraints>
-                            </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ef-fZ-L73">
-                                <rect key="frame" x="34" y="232" width="700" height="500"/>
+                                <rect key="frame" x="112" y="84" width="800" height="600"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="500" id="4WL-PL-h4S"/>
+                                    <constraint firstAttribute="height" constant="600" id="OJZ-op-gsH"/>
+                                    <constraint firstAttribute="width" constant="800" id="VQj-qT-qHV"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="TAU-4h-Odv" secondAttribute="centerX" id="4vI-vT-YUB"/>
-                            <constraint firstItem="8ef-fZ-L73" firstAttribute="leading" secondItem="TAU-4h-Odv" secondAttribute="leading" id="9rN-Th-wiM"/>
-                            <constraint firstAttribute="centerY" secondItem="TAU-4h-Odv" secondAttribute="centerY" constant="30" id="S5R-FF-c7i"/>
-                            <constraint firstItem="8ef-fZ-L73" firstAttribute="top" secondItem="TAU-4h-Odv" secondAttribute="top" id="eeK-VJ-XWq"/>
-                            <constraint firstItem="8ef-fZ-L73" firstAttribute="trailing" secondItem="TAU-4h-Odv" secondAttribute="trailing" id="fFj-Wa-ujh"/>
+                            <constraint firstItem="8ef-fZ-L73" firstAttribute="centerX" secondItem="y5d-xr-MWE" secondAttribute="centerX" id="MXZ-na-XC9"/>
+                            <constraint firstItem="8ef-fZ-L73" firstAttribute="centerY" secondItem="y5d-xr-MWE" secondAttribute="centerY" id="w4f-lR-tyy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GlS-Xw-t89"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="videoView" destination="8ef-fZ-L73" id="rub-a0-vPO"/>
-                        <outlet property="webView" destination="TAU-4h-Odv" id="pml-7E-E3P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WW0-9A-sDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -612,7 +621,6 @@
                     <connections>
                         <outlet property="noContentLabel" destination="uI1-IM-ZS0" id="259-lH-ahV"/>
                         <outlet property="portTableView" destination="gQ8-zr-b7V" id="ky6-Sd-s0f"/>
-                        <segue destination="nWF-q7-qV2" kind="push" identifier="EPPartShowPlayerSegue" id="RnK-NN-E9l"/>
                         <segue destination="GoH-3d-stL" kind="modal" identifier="ShowDetailSegue" id="VxL-lD-BYg"/>
                         <segue destination="Wob-mq-FaN" kind="modal" identifier="PlayerSegue" id="T45-my-NO6"/>
                     </connections>
@@ -942,7 +950,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Channels" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Id-w9-Sgx">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Channel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Id-w9-Sgx">
                                             <rect key="frame" x="49" y="11" width="251" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -983,7 +991,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Radios" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1T-tz-N6O">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Radio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1T-tz-N6O">
                                             <rect key="frame" x="49" y="11" width="251" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -1496,10 +1504,9 @@
                                             <outlet property="delegate" destination="J81-OE-jis" id="70c-IZ-E4j"/>
                                         </connections>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lm-xn-TCV" customClass="MakathonAdView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lm-xn-TCV" customClass="GADBannerView">
                                         <rect key="frame" x="0.0" y="870" width="768" height="90"/>
                                         <animations/>
-                                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="egU-f8-tSJ"/>
                                             <constraint firstAttribute="width" constant="768" id="lGZ-si-bio"/>
@@ -1511,6 +1518,7 @@
                                 <constraints>
                                     <constraint firstItem="7Lm-xn-TCV" firstAttribute="centerX" secondItem="nch-fU-EQ6" secondAttribute="centerX" id="831-UB-guc"/>
                                     <constraint firstItem="nch-fU-EQ6" firstAttribute="top" secondItem="wO6-FH-2Ct" secondAttribute="top" id="YsV-ey-yXp"/>
+                                    <constraint firstItem="7Lm-xn-TCV" firstAttribute="centerX" secondItem="wO6-FH-2Ct" secondAttribute="centerX" id="aTv-OT-VNl"/>
                                     <constraint firstAttribute="bottom" secondItem="nch-fU-EQ6" secondAttribute="bottom" id="as9-3p-EA0"/>
                                     <constraint firstAttribute="bottom" secondItem="7Lm-xn-TCV" secondAttribute="bottom" id="dvO-eM-6Et"/>
                                     <constraint firstAttribute="trailing" secondItem="nch-fU-EQ6" secondAttribute="trailing" id="nPy-6f-fC2"/>
@@ -1591,8 +1599,8 @@
                     <connections>
                         <outlet property="alertTitle" destination="dhQ-qu-2qn" id="k33-Ui-ogm"/>
                         <outlet property="alertTitleView" destination="u7Z-wl-ZTP" id="PeQ-ae-iSU"/>
+                        <outlet property="bannerView" destination="7Lm-xn-TCV" id="Ya5-8A-faI"/>
                         <outlet property="goToTopButton" destination="gJL-RV-wcD" id="rma-t7-cpq"/>
-                        <outlet property="mkAdView" destination="7Lm-xn-TCV" id="kjZ-rR-5ud"/>
                         <outlet property="tableView" destination="nch-fU-EQ6" id="Ft6-oE-z06"/>
                         <segue destination="j48-3v-fnT" kind="push" identifier="EPAndPartIdentifier" id="EJu-lf-Pgw"/>
                         <segue destination="aBE-f4-3nf" kind="push" identifier="OTVEPAndPartIdentifier" id="9af-dL-MCq"/>
@@ -1773,7 +1781,7 @@
             </objects>
             <point key="canvasLocation" x="-204" y="3523"/>
         </scene>
-        <!--Channels-->
+        <!--Channel-->
         <scene sceneID="Xhb-7Y-3fr">
             <objects>
                 <collectionViewController autoresizesArchivedViewToFullSize="NO" id="g2j-b3-SuR" customClass="ChannelViewController" sceneMemberID="viewController">
@@ -1837,7 +1845,7 @@
                             <outlet property="delegate" destination="g2j-b3-SuR" id="88C-tl-N7V"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Channels" id="vns-JM-Ut0">
+                    <navigationItem key="navigationItem" title="Channel" id="vns-JM-Ut0">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="JxD-NH-cW9">
                             <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -1847,7 +1855,8 @@
                     </navigationItem>
                     <connections>
                         <segue destination="J81-OE-jis" kind="push" identifier="ShowListSegue" id="qIP-8M-6fw"/>
-                        <segue destination="nWF-q7-qV2" kind="push" identifier="ShowPlayerSegue" id="RWe-MQ-riI"/>
+                        <segue destination="nWF-q7-qV2" kind="push" identifier="ShowPlayerSegueTemp" id="RWe-MQ-riI"/>
+                        <segue destination="C5M-2z-3yp" kind="push" identifier="ShowPlayerSegue" id="tgk-dS-Wrq"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSx-rL-0QR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2309,11 +2318,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="VVt-JL-17e"/>
-        <segue reference="RnK-NN-E9l"/>
+        <segue reference="9af-dL-MCq"/>
+        <segue reference="qIP-8M-6fw"/>
+        <segue reference="RWe-MQ-riI"/>
+        <segue reference="EJu-lf-Pgw"/>
         <segue reference="VxL-lD-BYg"/>
         <segue reference="T45-my-NO6"/>
-        <segue reference="qIP-8M-6fw"/>
-        <segue reference="9af-dL-MCq"/>
     </inferredMetricsTieBreakers>
 </document>

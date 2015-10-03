@@ -120,27 +120,12 @@ static NSInteger tagSearchTable = 999;
     [self.tableView addSubview:_refreshControl];
     self.tableView.separatorColor = [UIColor clearColor];
     
-    [self reload];
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (!appDelegate.isOpened) {
-        appDelegate.isOpened = YES;
-        [self revealLeftMenu];
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:AFNetworkingReachabilityDidChangeNotification
                                                object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:AFNetworkingReachabilityDidChangeNotification
-                                                  object:nil];
+    
+    [self reload];
 }
 
 - (void)reachabilityChanged:(NSNotification *)notification {

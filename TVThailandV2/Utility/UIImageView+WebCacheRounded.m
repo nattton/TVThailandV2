@@ -26,22 +26,17 @@
             self.image = placeholderImage;
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:imageURL
-                                  options:0
-                                 progress:^(NSInteger receivedSize, NSInteger expectedSize)
-             {
-                 // progression tracking code
-             }
-                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
-             {
-                 if (image && finished)
-                 {
-                     UIImage *newImage = [UIImage roundedRectImageFromImage:image withRadious:radius];
-                     
-                     [[SDImageCache sharedImageCache] storeImage:newImage
-                                                          forKey:imageURL.absoluteString];
-                     
-                     self.image = newImage;
-                 }
+                                  options:SDWebImageProgressiveDownload
+                                 progress:^(NSInteger receivedSize, NSInteger expectedSize) { /* progression tracking code */ }
+                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                     if (image && finished) {
+                                         UIImage *newImage = [UIImage roundedRectImageFromImage:image withRadious:radius];
+                                         
+                                         [[SDImageCache sharedImageCache] storeImage:newImage
+                                                                              forKey:imageURL.absoluteString];
+                                         
+                                         self.image = newImage;
+                                     }
              }];
         }
     }];

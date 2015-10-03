@@ -7,7 +7,7 @@
 //
 
 #import "Episode.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFMakathonClient.h"
 #import "Show.h"
 
 #import "Base64.h"
@@ -55,9 +55,8 @@
     
     if (!show) return;
     
-    NSString *url = [NSString stringWithFormat:@"%@/api2/episode/%@/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, show.Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSString *url = [NSString stringWithFormat:@"api2/episode/%@/%@?device=ios&app_version=%@&build=%@", show.Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD];
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         Show *showInfo;
         id dictInfo = [responseObject valueForKey:@"info"];
         NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
@@ -77,7 +76,7 @@
         if (block) {
             block(showInfo, [NSArray arrayWithArray:mutableEpisodes], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block(nil, [NSArray array], error);
         }
@@ -86,11 +85,10 @@
 
 
 - (void)sendViewEpisode {
-    NSString *url = [NSString stringWithFormat:@"%@/api2/view_episode/%@?device=ios&app_version=%@&build=%@", kAPI_URL_BASE, self.Id, kAPP_VERSION, kAPP_BUILD];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSString *url = [NSString stringWithFormat:@"api2/view_episode/%@?device=ios&app_version=%@&build=%@", self.Id, kAPP_VERSION, kAPP_BUILD];
+    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
 }

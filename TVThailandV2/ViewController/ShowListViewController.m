@@ -99,6 +99,10 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
+    self.bannerView.adUnitID = kAdMobBanner;
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[GADRequest request]];
+    
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     }
@@ -139,22 +143,26 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     
     [self.tableView setSeparatorColor:[UIColor colorWithRed: 240/255.0 green:240/255.0 blue:240/255.0 alpha:0.7]];
-    
+
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:_screenName];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:AFNetworkingReachabilityDidChangeNotification
                                                object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:AFNetworkingReachabilityDidChangeNotification
                                                   object:nil];
+    [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
 }
 
 - (void)reachabilityChanged:(NSNotification *)notification {
@@ -166,8 +174,8 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
         case AFNetworkReachabilityStatusReachableViaWiFi:
             [self.alertTitleView setHidden:YES];
             [self reload];
-            [self.homeSlideMenuViewController reload];
             [self.mkAdView requestAd];
+            [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
             break;
         case AFNetworkReachabilityStatusNotReachable:
         default:
@@ -177,12 +185,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:_screenName];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-}
+
 
 - (void)setUpGoToTop
 {
@@ -274,13 +277,14 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
     if (error != nil) {
         [self.alertTitleView setHidden:NO];
         [self.alertTitle setText:error.localizedDescription];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
     
     if ([tempShows count] == 0) {
         isEnding = YES;
     }
     
-    if (start == 0) {
+    if (start == 0 && [tempShows count] > 0) {
         _shows = tempShows;
     } else {
         NSMutableArray *mergeArray = [NSMutableArray arrayWithArray:_shows];

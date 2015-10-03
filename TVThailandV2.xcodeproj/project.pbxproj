@@ -34,6 +34,7 @@
 		3B3726621A152C5F00BADF4F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3726601A152C5F00BADF4F /* Fabric.framework */; };
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
+		3B3E76001BBEF10C0051A5F9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3E75FF1BBEF10C0051A5F9 /* CoreMedia.framework */; };
 		3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4872E119E6BDA900E30999 /* FacebookSDK.framework */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
 		3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83615BB21AB000CD962 /* MobileCoreServices.framework */; };
@@ -81,6 +82,7 @@
 		3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */; };
 		3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */; };
 		3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */; };
+		3BCD16421BC0613700119E45 /* LivePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCD16411BC0613700119E45 /* LivePlayerViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496818ED3C030083C32B /* EventKit.framework */; };
 		3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */; };
 		3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1395F190F6E46004F6785 /* EpisodePartCell.m */; };
@@ -152,6 +154,7 @@
 		3B39B0A517E322EE0027B242 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
+		3B3E75FF1BBEF10C0051A5F9 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3B4872E119E6BDA900E30999 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 		3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioCollectionViewCell.m; sourceTree = "<group>"; };
 		3BC52546193497AD00596F92 /* ChannelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionViewCell.h; sourceTree = "<group>"; };
 		3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionViewCell.m; sourceTree = "<group>"; };
+		3BCD16401BC0613700119E45 /* LivePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivePlayerViewController.h; sourceTree = "<group>"; };
+		3BCD16411BC0613700119E45 /* LivePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivePlayerViewController.m; sourceTree = "<group>"; };
 		3BD0496818ED3C030083C32B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		3BD1395E190F6E46004F6785 /* EpisodePartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodePartCell.h; sourceTree = "<group>"; };
@@ -268,34 +273,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */,
+				3B976CBE19822DCF0011DF75 /* AdSupport.framework in Frameworks */,
+				F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */,
+				3B910C341733FE25008F67ED /* CFNetwork.framework in Frameworks */,
+				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
+				F0DC4DF415BA012E0009BFCD /* CoreGraphics.framework in Frameworks */,
+				3B3E76001BBEF10C0051A5F9 /* CoreMedia.framework in Frameworks */,
+				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
+				3B688EC218B2399B0009050B /* CoreLocation.framework in Frameworks */,
+				3B3726611A152C5F00BADF4F /* Crashlytics.framework in Frameworks */,
+				3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */,
+				3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */,
+				3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */,
+				3B3726621A152C5F00BADF4F /* Fabric.framework in Frameworks */,
+				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
+				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
+				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
+				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
+				3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */,
+				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
+				3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */,
+				3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */,
+				1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */,
+				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
 				3BB428121BA1ADF400F876C8 /* libz.tbd in Frameworks */,
 				3BB428101BA1ADCF00F876C8 /* libsqlite3.0.tbd in Frameworks */,
 				3BB4280C1BA1ADB000F876C8 /* libxml2.2.tbd in Frameworks */,
 				3BB4280A1BA1AD9D00F876C8 /* libz.1.2.5.tbd in Frameworks */,
 				214F7B9772537A88ABAFA979 /* libPods.a in Frameworks */,
-				3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */,
-				3B910C341733FE25008F67ED /* CFNetwork.framework in Frameworks */,
-				3B976CBE19822DCF0011DF75 /* AdSupport.framework in Frameworks */,
-				3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */,
-				3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */,
-				F0DC4DF415BA012E0009BFCD /* CoreGraphics.framework in Frameworks */,
-				3B688EC218B2399B0009050B /* CoreLocation.framework in Frameworks */,
-				1152BABF18AC896500E9E5E6 /* SystemConfiguration.framework in Frameworks */,
-				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
-				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
-				3B67F74B17E06D5000C9CD23 /* StoreKit.framework in Frameworks */,
-				3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */,
-				3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */,
-				3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */,
-				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
-				F0D4C5A015CB028000988376 /* CoreData.framework in Frameworks */,
-				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
-				F0BD0C6115BC2A9F00B56EE4 /* MessageUI.framework in Frameworks */,
-				F0BD0C5E15BC2A9200B56EE4 /* AudioToolbox.framework in Frameworks */,
-				3B3726611A152C5F00BADF4F /* Crashlytics.framework in Frameworks */,
-				F0DC4DF015BA012E0009BFCD /* UIKit.framework in Frameworks */,
-				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
-				3B3726621A152C5F00BADF4F /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +344,8 @@
 				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
 				3BBA068E1940549C0049BFD3 /* PlayerViewController.h */,
 				3BBA068F1940549C0049BFD3 /* PlayerViewController.m */,
+				3BCD16401BC0613700119E45 /* LivePlayerViewController.h */,
+				3BCD16411BC0613700119E45 /* LivePlayerViewController.m */,
 				3B92E9501B73B2EF00BF903D /* OTVEpisodePartViewController.h */,
 				3B92E9511B73B2EF00BF903D /* OTVEpisodePartViewController.m */,
 				11DCB020195447FF000D76D1 /* InfoOfEpisodeViewController.h */,
@@ -502,6 +510,7 @@
 		F0DC4DEE15BA012E0009BFCD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B3E75FF1BBEF10C0051A5F9 /* CoreMedia.framework */,
 				3BB428111BA1ADF400F876C8 /* libz.tbd */,
 				3BB4280D1BA1ADC200F876C8 /* libz.1.1.3.tbd */,
 				3BB428091BA1AD9D00F876C8 /* libz.1.2.5.tbd */,
@@ -748,6 +757,7 @@
 				1136AC4318D81D98004BFE4D /* OTVCategory.m in Sources */,
 				3B67F7A717E09C6600C9CD23 /* ShowListViewController.m in Sources */,
 				115CDAAA182E19A900402D6B /* EpisodePartViewController.m in Sources */,
+				3BCD16421BC0613700119E45 /* LivePlayerViewController.m in Sources */,
 				1136AC4918D81DC4004BFE4D /* OTVEpisode.m in Sources */,
 				F042D51015BCA5590037E120 /* Base64.m in Sources */,
 				3B67F7BA17E0E9A300C9CD23 /* Show.m in Sources */,
@@ -881,6 +891,8 @@
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Frameworks",
 					"$(PROJECT_DIR)/TVThailandV2",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleMobileAdsSdkiOS-7.5.1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
@@ -926,6 +938,8 @@
 					"$(PROJECT_DIR)/TVThailandV2/Library",
 					"$(PROJECT_DIR)/TVThailandV2/Frameworks",
 					"$(PROJECT_DIR)/TVThailandV2",
+					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleMobileAdsSdkiOS-7.5.1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";

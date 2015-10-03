@@ -12,13 +12,16 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
-#import "VKVideoPlayerViewController.h"
 #import <Google/Analytics.h>
 
 #import "VideoPlayerViewController.h"
 #import "ChannelCollectionViewCell.h"
 
-@interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@import GoogleMobileAds;
+
+@interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate, GADInterstitialDelegate>
+
+@property(nonatomic, strong) GADInterstitial *interstitial;
 
 @end
 
@@ -36,7 +39,9 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.interstitial = [self createAndLoadInterstitial];
+    
     [self refresh];
 }
 
@@ -55,21 +60,6 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 
 #pragma mark - Private Method
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1){
-        //Watch on demand program
-        [self performSegueWithIdentifier:showListSegue sender:channelSelected];
-    }
-    else if (buttonIndex == 2) {
-        //Watch on LIVE program
-//        [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
-        VKVideoPlayerViewController *vkViewController = [[VKVideoPlayerViewController alloc] init];
-        [self presentViewController:vkViewController animated:YES completion:^{
-            
-        }];
-    }
-}
 
 - (void)refresh {
     [SVProgressHUD showWithStatus:@"Loading..."];
@@ -107,7 +97,7 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
      channelSelected = _channels[indexPath.row];
-    DLog(@"channelSelected.isHasEp:%@",channelSelected.isHasEp);
+    DLog(@"channelSelected.isHasEp:%@", channelSelected.isHasEp);
         if (channelSelected.videoUrl == nil || [channelSelected.videoUrl length] == 0) {
             [self performSegueWithIdentifier:showListSegue sender:channelSelected];
         } else {
@@ -115,13 +105,17 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"เลือกรายการ" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *selectOnDemand = [UIAlertAction actionWithTitle:@"รายการสด" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self performSegueWithIdentifier:showListSegue sender:channelSelected];
+                    [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
                 }];
                 [alert addAction:selectOnDemand];
                 UIAlertAction *selectLive = [UIAlertAction actionWithTitle:@"ย้อนหลัง" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self performSegueWithIdentifier:showListSegue sender:channelSelected];
                 }];
                 [alert addAction:selectLive];
+                UIAlertAction *selectCancel = [UIAlertAction actionWithTitle:@"ยกเลิก" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alert addAction:selectCancel];
                 [self presentViewController:alert animated:YES completion:^{
                     
                 }];
@@ -158,9 +152,32 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
         if (sender) {
             Channel *channel = (Channel *)sender;
             videoPlayerViewController.channel = channel;
+            videoPlayerViewController.channelViewController = self;
         }
     }
     
+}
+
+- (void) displayInterstitialAds {
+    if ([self.interstitial isReady]) {
+        [self.interstitial presentFromRootViewController:self];
+    }
+}
+
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial = [[GADInterstitial alloc] initWithAdUnitID:kAdMobInterstitial];
+    interstitial.delegate = self;
+    [interstitial loadRequest:[GADRequest request]];
+    return interstitial;
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+//    [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+    self.interstitial = [self createAndLoadInterstitial];
+}
+
+- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error {
+//    [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
 }
 
 @end

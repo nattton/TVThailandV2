@@ -26,7 +26,7 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/api2/preroll_advertise?device=ios&time%@", kAPI_URL_BASE, [df stringFromDate:[NSDate date]]];
+    NSString *url = [NSString stringWithFormat:@"api2/preroll_advertise?device=ios&time%@", [df stringFromDate:[NSDate date]]];
     [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jAds = [responseObject valueForKeyPath:@"ads"];
         

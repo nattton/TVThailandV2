@@ -8,6 +8,7 @@
 
 #import "VideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
 #import "Episode.h"
@@ -23,7 +24,11 @@
 
 #import "Channel.h"
 
+#import "ChannelViewController.h"
+
 @interface VideoPlayerViewController ()
+
+@property (nonatomic, retain) AVPlayerViewController *avPlayerViewcontroller;
 
 @end
 
@@ -36,14 +41,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.webView.scrollView.scrollEnabled = NO;
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        _size = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+        _size = CGSizeMake(CGRectGetWidth(self.videoView.frame), CGRectGetHeight(self.videoView.frame));
     }
     else
     {
-        _size = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+        _size = CGSizeMake(CGRectGetWidth(self.videoView.frame), CGRectGetHeight(self.videoView.frame));
     }
     
     [self sendTracker];
@@ -51,9 +55,22 @@
     [self setUpContentPlayer];
     
     [self requestAds];
+
+//    [self playMovie];
     
     NSError *setCategoryError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: &setCategoryError];
+}
+
+- (void) playMovie {
+    NSURL *url = [NSURL URLWithString:self.channel.videoUrl];
+    MPMoviePlayerController *controller = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    
+    self.moviePlayerController = controller; //Super important
+    controller.view.frame = self.view.bounds; //Set the size
+    
+    [self.view addSubview:controller.view]; //Show the view
+    [controller play]; //Start playing
 }
 
 - (void) setChannel:(Channel *)channel {
@@ -71,26 +88,6 @@
 }
 
 
-- (void) openWithVideoUrl:(NSString *)videoUrl {
-    // HTML to embed YouTube video
-    
-    NSString *htmlString = @"<html><head>\
-    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 100%%\"/></head>\
-    <body style=\"background-color: #000;\">\
-    <video style=\"margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 0;\" poster=\"%@\" height=\"%0.0f\" width=\"%0.0f\" src=\"%@\" controls autoplay>\
-    </video></body></html>";
-    
-    // Populate HTML with the URL and requested frame size
-    NSString *html = [NSString stringWithFormat:htmlString,
-                      self.channel.thumbnailUrl,
-                      _size.height,
-                      _size.width,
-                      videoUrl
-                      ];
-    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:videoUrl]];
-    [SVProgressHUD dismiss];
-
-}
 
 
 - (void)didReceiveMemoryWarning
@@ -117,7 +114,6 @@
 #pragma mark SDK Setup
 
 - (void)setupAdsLoader {
-    self.webView.hidden = YES;
     self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:nil];
     self.adsLoader.delegate = self;
 }
@@ -209,9 +205,18 @@
 }
 
 - (void)playContent {
-    self.webView.hidden = NO;
-    self.videoView.hidden = YES;
-    [self openWithVideoUrl:self.channel.videoUrl];
+//    [self.contentPlayer play];
+//    self.videoView.hidden = YES;
+    [self playMovie];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+    if (![parent isEqual:self.parentViewController] ) {
+        if (self.channelViewController) {
+            [self.channelViewController displayInterstitialAds];
+        }
+        NSLog(@"Back pressed");
+    }
 }
 
 @end

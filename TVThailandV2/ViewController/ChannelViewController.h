@@ -13,4 +13,6 @@
 
 @property (nonatomic, weak) HomeSlideMenuViewController *homeSlideMenuViewController;
 
+
+- (void) displayInterstitialAds;
 @end

@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @import GoogleInteractiveMediaAds;
 
 @class Channel;
+@class ChannelViewController;
 @interface VideoPlayerViewController : UIViewController<IMAAdsLoaderDelegate, IMAAdsManagerDelegate>
 
 @property (nonatomic, weak) Channel *channel;
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic, assign) ChannelViewController *channelViewController;
+
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
 
 // Content Player
 /// UIView in which we will render our AVPlayer for content.
