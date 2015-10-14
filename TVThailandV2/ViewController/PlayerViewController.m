@@ -25,8 +25,6 @@
 #import "OTVEpisode.h"
 #import "OTVPart.h"
 
-#import "IMAAdPlaybackInfo.h"
-
 #import "VKVideoPlayerCaptionSRT.h"
 #import "VKVideoPlayerView.h"
 #import "VKVideoPlayerLayerView.h"
@@ -361,7 +359,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (IBAction)closeButtonTapped:(id)sender {
     [SVProgressHUD dismiss];
 
-    [self close];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
@@ -461,7 +458,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     /* re assign value to _idx inorder to use in openWithVideoUrl method to show thumbnail of video */
     _idx = indexPath.row;
     if (indexPath.section == SECTION_VIDEO || !self.show.isOTV) {
-        [self close];
         [self initVideoPlayer:_idx sectionOfVideo:indexPath.section];
         [self startOTV];
     }
@@ -924,7 +920,6 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     DLog(@"%s videoPlayer :%d", __FUNCTION__, event);
     switch (event) {
         case VKVideoPlayerControlEventTapDone:
-            [self close];
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
         case VKVideoPlayerControlEventTapFullScreen:

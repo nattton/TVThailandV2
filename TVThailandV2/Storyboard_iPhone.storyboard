@@ -1615,7 +1615,7 @@
                                             <outlet property="delegate" destination="4ei-xy-CaA" id="eNn-wJ-xJr"/>
                                         </connections>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7DL-Xj-FtK" customClass="GADBannerView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7DL-Xj-FtK" customClass="MakathonAdView">
                                         <rect key="frame" x="0.0" y="454" width="320" height="50"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1709,7 +1709,7 @@
                     <connections>
                         <outlet property="alertTitle" destination="9GR-gy-Rem" id="xlK-Jk-cBX"/>
                         <outlet property="alertTitleView" destination="QR5-Rc-rop" id="T40-q4-JIA"/>
-                        <outlet property="bannerView" destination="7DL-Xj-FtK" id="Q7v-hV-Cda"/>
+                        <outlet property="bannerView" destination="7DL-Xj-FtK" id="yIS-tT-bI4"/>
                         <outlet property="goToTopButton" destination="iIP-9y-zB8" id="CiZ-Vk-Hpo"/>
                         <outlet property="tableView" destination="7lr-cT-TD7" id="6uD-eB-y3M"/>
                         <segue destination="Jb5-3U-4hm" kind="push" identifier="EPAndPartIdentifier" id="rKb-JG-vfa"/>
@@ -2299,11 +2299,11 @@
         <image name="tab_setting" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mau-OU-PBV"/>
         <segue reference="U1O-u5-wMC"/>
-        <segue reference="46G-Qc-OaU"/>
+        <segue reference="rKb-JG-vfa"/>
         <segue reference="tRJ-5v-ocZ"/>
-        <segue reference="Cgi-Je-4Dr"/>
+        <segue reference="551-Zy-Guf"/>
         <segue reference="gcw-2o-Hcb"/>
+        <segue reference="46G-Qc-OaU"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -98,7 +98,7 @@
 + (void)loadCategoryDataWithId:(NSString *)Id Start:(NSUInteger)start Block:(void (^)(NSArray *shows, NSError *error))block {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
-    NSString *url = [NSString stringWithFormat:@"api2/category/%@/%@?device=ios&app_version=%@&build=%@&time=%@",
+    NSString *url = [NSString stringWithFormat:@"api2/category/%@/%@?device=ios&version=%@&build=%@&time=%@",
                                         Id,
                                        [[NSNumber numberWithInteger:start] stringValue],
                                        kAPP_VERSION,
@@ -111,7 +111,7 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyyMMddHHmm"];
     
-    NSString *url = [NSString stringWithFormat:@"api2/channel/%@/%@?device=ios&app_version=%@&build=%@&time=%@",
+    NSString *url = [NSString stringWithFormat:@"api2/channel/%@/%@?device=ios&version=%@&build=%@&time=%@",
                                         Id,
                                         [[NSNumber numberWithInteger:start] stringValue],
                                         kAPP_VERSION,

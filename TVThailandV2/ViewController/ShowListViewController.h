@@ -10,8 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "SASlideMenuViewController.h"
 #import "HomeSlideMenuViewController.h"
-
-@import GoogleMobileAds;
+#import "MakathonAdView.h"
 
 typedef NS_ENUM(NSInteger, ShowModeType) {
     kWhatsNew = 0,
@@ -22,7 +21,7 @@ typedef NS_ENUM(NSInteger, ShowModeType) {
 @class Channel;
 @interface ShowListViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
+@property (weak, nonatomic) IBOutlet MakathonAdView *bannerView;
 
 @property (nonatomic, weak) Channel *channel;
 @property (nonatomic, weak) HomeSlideMenuViewController *homeSlideMenuViewController;

@@ -1504,7 +1504,7 @@
                                             <outlet property="delegate" destination="J81-OE-jis" id="70c-IZ-E4j"/>
                                         </connections>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lm-xn-TCV" customClass="GADBannerView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lm-xn-TCV" customClass="MakathonAdView">
                                         <rect key="frame" x="0.0" y="870" width="768" height="90"/>
                                         <animations/>
                                         <constraints>
@@ -2318,10 +2318,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9af-dL-MCq"/>
         <segue reference="qIP-8M-6fw"/>
-        <segue reference="RWe-MQ-riI"/>
+        <segue reference="lwT-fV-NuI"/>
         <segue reference="EJu-lf-Pgw"/>
+        <segue reference="9af-dL-MCq"/>
         <segue reference="VxL-lD-BYg"/>
         <segue reference="T45-my-NO6"/>
     </inferredMetricsTieBreakers>

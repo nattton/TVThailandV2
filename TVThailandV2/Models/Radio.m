@@ -32,7 +32,7 @@
 #pragma mark - Load Data
 
 + (void)retrieveData:(void (^)(NSArray *radioCategories, NSArray *radios, NSError *error))block {
-    NSString *url = [NSString stringWithFormat:@"api2/radio?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
+    NSString *url = [NSString stringWithFormat:@"api2/radio?device=ios&version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
     [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jRadioes = [responseObject valueForKeyPath:@"radios"];
         NSSet *categorySet = [NSSet setWithArray:[jRadioes valueForKeyPath:@"category"]];

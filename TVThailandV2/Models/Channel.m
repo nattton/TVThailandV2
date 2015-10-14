@@ -31,7 +31,7 @@
 #pragma mark - Load Data
 
 + (void)retrieveData:(void (^)(NSArray *channels ,NSError *error))block {
-    NSString *url = [NSString stringWithFormat:@"api2/channel?device=ios&app_version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
+    NSString *url = [NSString stringWithFormat:@"api2/channel?device=ios&version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
     [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSArray *jCategories = [responseObject valueForKeyPath:@"channels"];
         NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];

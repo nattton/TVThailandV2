@@ -53,10 +53,7 @@
 
 static NSString *cellIdentifier = @"ShowCellIdentifier";
 static NSString *searchCellIdentifier = @"SearchCellIdentifier";
-
-//static NSString *showEpisodeSegue = @"ShowEpisodeSegue";
 static NSString *showPlayerSegue = @"ShowPlayerSegue";
-
 static NSString *EPAndPartIdentifier = @"EPAndPartIdentifier";
 static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 
@@ -99,9 +96,7 @@ static NSString *OTVEPAndPartIdentifier = @"OTVEPAndPartIdentifier";
 {
     [super viewDidLoad];
     
-    self.bannerView.adUnitID = kAdMobBanner;
-    self.bannerView.rootViewController = self;
-    [self.bannerView loadRequest:[GADRequest request]];
+    [self.bannerView requestAd];
     
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
