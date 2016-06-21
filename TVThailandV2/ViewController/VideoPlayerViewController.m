@@ -109,6 +109,20 @@
     // Size, position, and display the AVPlayer.
     playerLayer.frame = self.videoView.layer.bounds;
     [self.videoView.layer addSublayer:playerLayer];
+    
+    self.contentPlayhead = [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.contentPlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(contentDidFinishPlaying:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:self.contentPlayer.currentItem];
+}
+
+- (void)contentDidFinishPlaying:(NSNotification *)notification {
+    // Make sure we don't call contentComplete as a result of an ad completing.
+    if (notification.object == self.contentPlayer.currentItem) {
+        // NOTE: This line will cause an error until the next step, "Request Ads".
+        [self.adsLoader contentComplete];
+    }
 }
 
 #pragma mark SDK Setup
@@ -136,6 +150,7 @@
                 IMAAdsRequest *request =
                 [[IMAAdsRequest alloc] initWithAdTagUrl:ad.url
                                      adDisplayContainer:self.adDisplayContainer
+                                        contentPlayhead:self.contentPlayhead
                                             userContext:nil];
                 [self.adsLoader requestAdsWithRequest:request];
                 return;
@@ -146,15 +161,6 @@
     }];
 }
 
-- (void)createAdsRenderingSettings {
-    self.adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
-    self.adsRenderingSettings.webOpenerPresentingController = self;
-}
-
-- (void)createContentPlayhead {
-    self.contentPlayhead = [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.contentPlayer];
-}
-
 #pragma mark AdsLoader Delegates
 
 - (void)adsLoader:(IMAAdsLoader *)loader adsLoadedWithData:(IMAAdsLoadedData *)adsLoadedData {
@@ -162,12 +168,10 @@
     self.adsManager = adsLoadedData.adsManager;
     self.adsManager.delegate = self;
     // Create ads rendering settings to tell the SDK to use the in-app browser.
-    [self createAdsRenderingSettings];
-    // Create a content playhead so the SDK can track our content for VMAP and ad rules.
-    [self createContentPlayhead];
+    IMAAdsRenderingSettings *adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
+    adsRenderingSettings.webOpenerPresentingController = self;
     // Initialize the ads manager.
-    [self.adsManager initializeWithContentPlayhead:self.contentPlayhead
-                              adsRenderingSettings:self.adsRenderingSettings];
+    [self.adsManager initializeWithAdsRenderingSettings:adsRenderingSettings];
 }
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {

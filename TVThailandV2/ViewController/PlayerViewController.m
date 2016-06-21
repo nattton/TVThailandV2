@@ -7,7 +7,7 @@
 //
 
 #import "PlayerViewController.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "AFURLSessionManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SVProgressHUD.h"
@@ -603,7 +603,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         self.webView.hidden = YES;
         
         DLog(@"vastURL : %@", _part.vastURL);
-        if (self.player.view == nil && ![_part.mediaCode isEqualToString: kCodeIframe]) {
+        //  && ![_part.mediaCode isEqualToString: kCodeIframe]
+        if (self.player.view == nil) {
             [self setUpVKContentPlayer];
         }
         
@@ -650,7 +651,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // will result in ads being displayed over our content video.
     
     if (!self.adDisplayContainer) {
-        self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.player.view companionSlots:nil];
+        self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:self.player.view
+                                                                      companionSlots:nil];
     }
     
     return self.adDisplayContainer;
@@ -683,6 +685,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // Create an ad request with our ad tag, display container, and optional user context.
     IMAAdsRequest *request = [[IMAAdsRequest alloc] initWithAdTagUrl:adTagUrl
                                                   adDisplayContainer:[self createAdDisplayContainer]
+                                                     contentPlayhead:self.contentPlayhead
                                                          userContext:nil];
     [self.adsLoader requestAdsWithRequest:request];
 }
@@ -705,9 +708,8 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     // Create ads rendering settings to tell the SDK to use the in-app browser.
     IMAAdsRenderingSettings *adsRenderingSettings = [[IMAAdsRenderingSettings alloc] init];
     adsRenderingSettings.webOpenerPresentingController = self;
-    // Create a content playhead so the SDK can track our content for VMAP and ad rules.
     // Initialize the ads manager.
-    [self.adsManager initializeWithContentPlayhead:self adsRenderingSettings:adsRenderingSettings];
+    [self.adsManager initializeWithAdsRenderingSettings:adsRenderingSettings];
 }
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
@@ -876,6 +878,14 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         
         [self.view addSubview:self.player.view];
     }
+    
+    if (!self.contentPlayhead) {
+//        self.contentPlayhead = [[IMAAVPlayerContentPlayhead alloc] initWithAVPlayer:self.player.avPlayer];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(contentDidFinishPlaying:)
+//                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+//                                               object:self.player.avPlayer.currentItem];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -885,6 +895,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 - (void)playStream:(NSURL*)url {
     VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
     track.hasNext = YES;
+    [self.player pauseContent];
     [self.player loadVideoWithTrack:track];
     
     [self setVideoTitleToTopLayer];
@@ -895,6 +906,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void)playVideoStream:(NSURL*)url {
     VKVideoPlayerTrack *track = [[VKVideoPlayerTrack alloc] initWithStreamURL:url];
+    [self.player pauseContent];
     [self.player loadVideoWithTrack:track];
     [self setVideoTitleToTopLayer];
 }
@@ -951,19 +963,16 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Quality" message:nil preferredStyle:UIAlertControllerStyleAlert];
         
         for (NSDictionary *objClip in self.objClipArray) {
-            NSString *res = [objClip objectForKey:@"data-res"];
+            NSString *res = [objClip objectForKey:@"label"];
             if (![res isEqualToString:@"auto"]) {
-                res = [NSString stringWithFormat:@"%@p", [objClip objectForKey:@"data-res"]];
+                res = [NSString stringWithFormat:@"%@p", [objClip objectForKey:@"label"]];
             }
-            NSString *src = [objClip objectForKey:@"src"];
-            NSString *type = [objClip objectForKey:@"type"];
-            if ([type isEqualToString:@"video/mp4"]) {
-                UIAlertAction *selectQualityAction = [UIAlertAction actionWithTitle:res style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self playVideoStream:[NSURL URLWithString:src]];
-                    self.player.view.videoQualityButton.titleLabel.text = res;
-                }];
-                [alert addAction:selectQualityAction];
-            }
+            NSString *src = [objClip objectForKey:@"file"];
+            UIAlertAction *selectQualityAction = [UIAlertAction actionWithTitle:res style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self playVideoStream:[NSURL URLWithString:src]];
+                self.player.view.videoQualityButton.titleLabel.text = res;
+            }];
+            [alert addAction:selectQualityAction];
         }
         
         [self presentViewController:alert animated:YES completion:^{
@@ -1129,31 +1138,33 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 
 - (void) loadMThaiWebVideo {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"] forHTTPHeaderField:@"User-Agent"];
-    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        [self startMThaiVideoFromData:responseObject];
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        [SVProgressHUD showErrorWithStatus:@"Video cannot play!"];
-    }];
-    [[NSOperationQueue mainQueue] addOperation:op];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager.requestSerializer setValue:[self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"] forHTTPHeaderField:@"User-Agent"];
+    [manager GET:url.absoluteString
+      parameters:nil progress:nil
+         success:^(NSURLSessionDataTask *task, id responseObject) {
+             [self startMThaiVideoFromData:responseObject];
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             [SVProgressHUD showErrorWithStatus:@"Video cannot play!"];
+         }];
 }
 
 - (void) loadMThaiWebVideoWithPassword:(NSString *)password {
     NSString *userAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://video.mthai.com/cool/player/%@.html",_videoId]];
-    NSURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [op setRedirectResponseBlock:^NSURLRequest * _Nonnull(NSURLConnection * _Nonnull connection, NSURLRequest * _Nonnull request, NSURLResponse * _Nonnull redirectResponse) {
-        if (redirectResponse) {
-            NSLog(@"%@",request.URL);
-            [self loadMThaiWebVideoWithURL:request.URL Password:password UserAgent:userAgent];
-        }
-        
-        return request;
-    }];
-    [[NSOperationQueue mainQueue] addOperation:op];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url.absoluteString
+      parameters:nil progress:nil
+         success:^(NSURLSessionDataTask *task, id responseObject) {
+             if (url.absoluteString != [task response].URL.absoluteString)
+             {
+                 NSLog(@"%@", [task response].URL.absoluteString);
+                 [self loadMThaiWebVideoWithURL:[task response].URL Password:password UserAgent:userAgent];
+             }
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             
+         }];
 }
 
 - (void) loadMThaiWebVideoWithURL:(NSURL *)url Password:(NSString *)password UserAgent:(NSString *)userAgent  {
@@ -1170,19 +1181,27 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
     [request setHTTPBody:postBodyData];
-    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [op setRedirectResponseBlock:^NSURLRequest * _Nonnull(NSURLConnection * _Nonnull connection, NSURLRequest * _Nonnull request, NSURLResponse * _Nonnull redirectResponse) {
-        if (redirectResponse) {
-            NSLog(@"%@",request.URL);
-        }
-        return request;
-    }];
-    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager POST:url.absoluteString parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self startMThaiVideoFromData:responseObject];
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [SVProgressHUD showErrorWithStatus:@"Video cannot play!"];
     }];
-    [[NSOperationQueue mainQueue] addOperation:op];
+    
+//    NSURLSessionTask *op = [[NSURLSessionTask alloc] initWithRequest:request];
+//    [op setRedirectResponseBlock:^NSURLRequest * _Nonnull(NSURLConnection * _Nonnull connection, NSURLRequest * _Nonnull request, NSURLResponse * _Nonnull redirectResponse) {
+//        if (redirectResponse) {
+//            NSLog(@"%@",request.URL);
+//        }
+//        return request;
+//    }];
+//    [op setCompletionBlockWithSuccess:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+//        [self startMThaiVideoFromData:responseObject];
+//    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
+//        [SVProgressHUD showErrorWithStatus:@"Video cannot play!"];
+//    }];
+//    [[NSOperationQueue mainQueue] addOperation:op];
 }
 
 - (void) startMThaiVideoFromData:(NSData *)data {
@@ -1199,7 +1218,7 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
 }
 
 - (BOOL) mThaiSeperateByObClip:(NSString *)responseDataString {
-    NSString *varKey = @"obClip = ";
+    NSString *varKey = @"sources_temp = ";
     NSRange indexStart = [responseDataString rangeOfString:varKey];
     if (indexStart.location != NSNotFound)
     {
@@ -1209,28 +1228,19 @@ static NSString *ShowWebViewSegue = @"ShowWebViewSegue";
         {
             NSString *obClipString = [clipUrl substringToIndex:indexEnd.location];
             NSError *error = nil;
-            obClipString = [[[[[obClipString
-                                stringByReplacingOccurrencesOfString:@"src" withString:@"\"src\""]
-                               stringByReplacingOccurrencesOfString:@"type" withString:@"\"type\""]
-                              stringByReplacingOccurrencesOfString:@"\t" withString:@""]
-                             stringByReplacingOccurrencesOfString:@"\n" withString:@""]
-                            stringByReplacingOccurrencesOfString:@"'" withString:@"\""];
             NSData *jsonData = [obClipString dataUsingEncoding:NSUTF8StringEncoding];
             NSMutableArray *objClipArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
             if (objClipArray && obClipString.length > 0) {
                 self.objClipArray = [NSArray arrayWithArray:objClipArray];
                 for (NSDictionary *objClip in self.objClipArray) {
-                    NSString *res = [objClip objectForKey:@"data-res"];
+                    NSString *res = [objClip objectForKey:@"label"];
                     if (![res isEqualToString:@"auto"]) {
-                        res = [NSString stringWithFormat:@"%@p", [objClip objectForKey:@"data-res"]];
+                        res = [NSString stringWithFormat:@"%@p", [objClip objectForKey:@"label"]];
                     }
-                    NSString *clipUrl = [objClip objectForKey:@"src"];
-                    NSString *type = [objClip objectForKey:@"type"];
-                    if ([type isEqualToString:@"video/mp4"]) {
-                        [self openWithVideoUrl:clipUrl];
-                        self.player.view.videoQualityButton.titleLabel.text = res;
-                        return YES;
-                    }
+                    NSString *clipUrl = [objClip objectForKey:@"file"];
+                    [self openWithVideoUrl:clipUrl];
+                    self.player.view.videoQualityButton.titleLabel.text = res;
+                    return YES;
                 }
             }
         }

@@ -23,7 +23,11 @@ static NSString *CellIdentifier = @"otv_part_cell";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
+            if (width == 1366) {
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(612, -612, 140, width) style:UITableViewStylePlain];
+            } else {
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
+            }
         }
         else {
             CGFloat x = 90;

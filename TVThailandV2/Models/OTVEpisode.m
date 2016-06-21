@@ -10,7 +10,7 @@
 #import "OTVShow.h"
 #import "OTVPart.h"
 #import "Show.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 
 @implementation OTVEpisode
 
@@ -54,8 +54,8 @@
                                     start:(NSInteger)start
                                     Block:(void (^)(OTVShow *otvShow, NSArray *otvEpisodes, NSArray *ralateShows, NSError *error)) block {
     NSString *url = [NSString stringWithFormat:@"%@/Content/index/%@/%@/%@/%@/0/50/0", kOTV_URL_BASE,kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, showID];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         OTVShow *otvShow = [[OTVShow alloc] initWithDictionary:responseObject];
         
         /** OTV Episode content **/
@@ -117,7 +117,7 @@
         if (block) {
             block(otvShow, [NSArray arrayWithArray:mutableEpisodes], [NSArray arrayWithArray:mutableRelateShows], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block(nil, [NSArray array], [NSArray array], error);
             

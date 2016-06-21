@@ -27,7 +27,7 @@
     [df setDateFormat:@"yyyyMMddHHmm"];
     
     NSString *url = [NSString stringWithFormat:@"api2/preroll_advertise?device=ios&version=%@&build=%@&time%@", kAPP_VERSION, kAPP_BUILD, [df stringFromDate:[NSDate date]]];
-    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jAds = [responseObject valueForKeyPath:@"ads"];
         
         NSMutableArray *mutableAdss = [NSMutableArray arrayWithCapacity:[jAds count]];

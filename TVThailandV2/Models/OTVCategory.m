@@ -7,7 +7,7 @@
 //
 
 #import "OTVCategory.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 
 @implementation OTVCategory {
 
@@ -49,8 +49,8 @@
 
 + (void)retrieveData:(void (^)(NSArray *otvCategories, NSError *error)) block {
     NSString *url = [NSString stringWithFormat:@"%@/CategoryList/index/%@/%@/%@/", kOTV_URL_BASE,kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jcategories = [responseObject valueForKeyPath:@"items"];
         
         // Capacity + (1)Ch7
@@ -66,7 +66,7 @@
         if (block) {
             block([NSArray arrayWithArray:mutableCategories], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         block([NSArray array], error);
         DLog(@"failure loadOTVCategory: %@", error);
     }];

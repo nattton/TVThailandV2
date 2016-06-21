@@ -30,7 +30,11 @@ static NSString *CellIdentifier = @"part_cell";
     if (self) {
         
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
+            if (width == 1366) {
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(612, -612, 140, width) style:UITableViewStylePlain];
+            } else {
+                hortable = [[UITableView alloc]initWithFrame:CGRectMake(442, -442, 140, width) style:UITableViewStylePlain];
+            }
         }
         else {
             CGFloat x = 90;
@@ -38,8 +42,7 @@ static NSString *CellIdentifier = @"part_cell";
             if (width == 375) {
                 x = 118;
                 y = -118;
-            }
-            else if (width == 414) {
+            } else if (width == 414) {
                 x = 138;
                 y = -138;
             }

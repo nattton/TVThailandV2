@@ -66,7 +66,7 @@
 #pragma mark - Load Data
 
 + (void)loadShowDataWithURL:(NSString *)URLString Block:(void (^)(NSArray *shows, NSError *error))block {
-    [[AFMakathonClient sharedClient] GET:URLString parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:URLString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *programs = [responseObject valueForKeyPath:@"programs"];
         
         NSMutableArray *mutablePrograms = [NSMutableArray arrayWithCapacity:[programs count]];
@@ -133,7 +133,7 @@
     if (!Id) return;
     
     NSString *url = [NSString stringWithFormat:@"api2/program_info_otv/%@?device=ios", Id];
-    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         Show *show;
         NSDictionary *dictShow = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject : nil;
         if (dictShow) {

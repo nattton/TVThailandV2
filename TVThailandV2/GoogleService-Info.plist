@@ -18,5 +18,9 @@
 	<false/>
 	<key>IS_SIGNIN_ENABLED</key>
 	<false/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:714003470718:ios:a21ac501b3b122e7</string>
+	<key>PROJECT_ID</key>
+	<string>code-mobi-tvthailand</string>
 </dict>
 </plist>

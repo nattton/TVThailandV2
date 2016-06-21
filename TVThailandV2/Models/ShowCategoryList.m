@@ -47,7 +47,7 @@
 
 - (void)retrieveData:(void (^)(NSError *error))block {
     NSString *url = [NSString stringWithFormat:@"api2/category?device=ios&version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
-    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jCategories = [responseObject valueForKeyPath:@"categories"];
         NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
         for (NSDictionary *dictCategory in jCategories) {

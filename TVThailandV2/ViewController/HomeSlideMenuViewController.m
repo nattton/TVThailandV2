@@ -11,7 +11,7 @@
 #import "ShowCategoryTableViewCell.h"
 #import "FBTableViewCell.h"
 #import "SVProgressHUD.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 
 #import "ShowListViewController.h"
 #import "ChannelViewController.h"

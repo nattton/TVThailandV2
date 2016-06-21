@@ -32,7 +32,7 @@
 
 + (void)retrieveData:(void (^)(NSArray *channels ,NSError *error))block {
     NSString *url = [NSString stringWithFormat:@"api2/channel?device=ios&version=%@&build=%@&time=%@", kAPP_VERSION, kAPP_BUILD, [NSString getUnixTimeKey]];
-    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSArray *jCategories = [responseObject valueForKeyPath:@"channels"];
         NSMutableArray *mutableCategories = [NSMutableArray arrayWithCapacity:[jCategories count]];
         for (NSDictionary *dictGenre in jCategories) {

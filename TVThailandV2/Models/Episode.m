@@ -56,7 +56,7 @@
     if (!show) return;
     
     NSString *url = [NSString stringWithFormat:@"api2/episode/%@/%@?device=ios&version=%@&build=%@", show.Id, [[NSNumber numberWithInteger:start] stringValue] , kAPP_VERSION, kAPP_BUILD];
-    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         Show *showInfo;
         id dictInfo = [responseObject valueForKey:@"info"];
         NSDictionary *dictShow = [dictInfo isKindOfClass:[NSDictionary class]] ? dictInfo : nil;
@@ -86,7 +86,7 @@
 
 - (void)sendViewEpisode {
     NSString *url = [NSString stringWithFormat:@"api2/view_episode/%@?device=ios&version=%@&build=%@", self.Id, kAPP_VERSION, kAPP_BUILD];
-    [[AFMakathonClient sharedClient] GET:url parameters:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFMakathonClient sharedClient] GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         
     } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         

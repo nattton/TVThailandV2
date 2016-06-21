@@ -13,7 +13,6 @@
 #import "NSString+Utils.h"
 #import "CMUser.h"
 #import "UIImage+RoundedImage.h"
-#import "AFHTTPRequestOperationManager.h"
 
 @implementation AppDelegate
 
@@ -24,7 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Fabric with:@[CrashlyticsKit]];
+    [Fabric with:@[[Crashlytics class]]];
     
     [[UINavigationBar appearance] setTintColor:kThemeColor];
     

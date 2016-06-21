@@ -22,7 +22,6 @@
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */; };
 		11DCB022195447FF000D76D1 /* InfoOfEpisodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */; };
-		214F7B9772537A88ABAFA979 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2EB0925A5094553A025770B /* libPods.a */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		3B0A75BB1A6845FE00660933 /* PreRollAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0A75BA1A6845FE00660933 /* PreRollAd.m */; };
 		3B15D22C17FD86FB006FA479 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D22B17FD86FB006FA479 /* DetailViewController.m */; };
@@ -38,7 +37,7 @@
 		3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4872E119E6BDA900E30999 /* FacebookSDK.framework */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
 		3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83615BB21AB000CD962 /* MobileCoreServices.framework */; };
-		3B599A6C1BBB1B370002D8B2 /* AFMakathonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B599A6B1BBB1B370002D8B2 /* AFMakathonClient.m */; settings = {ASSET_TAGS = (); }; };
+		3B599A6C1BBB1B370002D8B2 /* AFMakathonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B599A6B1BBB1B370002D8B2 /* AFMakathonClient.m */; };
 		3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */; };
 		3B63C8BB1711CCC3009B4B65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */; };
 		3B63C8BD1711CCD9009B4B65 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B63C8BC1711CCD8009B4B65 /* Security.framework */; };
@@ -76,13 +75,15 @@
 		3BB4280C1BA1ADB000F876C8 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB4280B1BA1ADB000F876C8 /* libxml2.2.tbd */; };
 		3BB428101BA1ADCF00F876C8 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB4280F1BA1ADCF00F876C8 /* libsqlite3.0.tbd */; };
 		3BB428121BA1ADF400F876C8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB428111BA1ADF400F876C8 /* libz.tbd */; };
-		3BB428161BA1B8E700F876C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BB428151BA1B8E700F876C8 /* GoogleService-Info.plist */; settings = {ASSET_TAGS = (); }; };
+		3BB428161BA1B8E700F876C8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BB428151BA1B8E700F876C8 /* GoogleService-Info.plist */; };
 		3BBA06901940549C0049BFD3 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA068F1940549C0049BFD3 /* PlayerViewController.m */; };
 		3BC5253E1934864700596F92 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5253D1934864700596F92 /* RadioViewController.m */; };
 		3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC525411934892A00596F92 /* RadioCollectionHeaderView.m */; };
 		3BC5254519348DAD00596F92 /* RadioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */; };
 		3BC52548193497AD00596F92 /* ChannelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */; };
-		3BCD16421BC0613700119E45 /* LivePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCD16411BC0613700119E45 /* LivePlayerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3BC8E8331C1A216B002C6B00 /* EpisodeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E8321C1A216B002C6B00 /* EpisodeCollectionViewController.m */; };
+		3BC8E8361C1A2EB3002C6B00 /* EpisodeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E8351C1A2EB3002C6B00 /* EpisodeCollectionViewCell.m */; };
+		3BCD16421BC0613700119E45 /* LivePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCD16411BC0613700119E45 /* LivePlayerViewController.m */; };
 		3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496818ED3C030083C32B /* EventKit.framework */; };
 		3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */; };
 		3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1395F190F6E46004F6785 /* EpisodePartCell.m */; };
@@ -91,6 +92,7 @@
 		3BD1396B190F6E46004F6785 /* ShowCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */; };
 		3BD1396C190F6E46004F6785 /* ShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13967190F6E46004F6785 /* ShowTableViewCell.m */; };
 		3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6091517FB57D100497D39 /* ChannelViewController.m */; };
+		C6668722227961681F0A5E0D /* libPods-TVThailandV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD39945CFE95FB0AFAC83955 /* libPods-TVThailandV2.a */; };
 		F042D51015BCA5590037E120 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F042D50F15BCA5590037E120 /* Base64.m */; };
 		F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F084C89E15BFF1A500CD7F70 /* MediaPlayer.framework */; };
 		F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0927FE015CC4A180045EDBA /* tvthai2.xcdatamodeld */; };
@@ -130,7 +132,6 @@
 		1179B5E1198269C7009A0F1F /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
 		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
-		11B5451D80C3148E7A38E308 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		11D011F41924726300216898 /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
 		11D011F51924726300216898 /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
 		11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSlideMenuViewController.h; sourceTree = "<group>"; };
@@ -221,6 +222,10 @@
 		3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioCollectionViewCell.m; sourceTree = "<group>"; };
 		3BC52546193497AD00596F92 /* ChannelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionViewCell.h; sourceTree = "<group>"; };
 		3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionViewCell.m; sourceTree = "<group>"; };
+		3BC8E8311C1A216B002C6B00 /* EpisodeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeCollectionViewController.h; sourceTree = "<group>"; };
+		3BC8E8321C1A216B002C6B00 /* EpisodeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeCollectionViewController.m; sourceTree = "<group>"; };
+		3BC8E8341C1A2EB3002C6B00 /* EpisodeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeCollectionViewCell.h; sourceTree = "<group>"; };
+		3BC8E8351C1A2EB3002C6B00 /* EpisodeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeCollectionViewCell.m; sourceTree = "<group>"; };
 		3BCD16401BC0613700119E45 /* LivePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivePlayerViewController.h; sourceTree = "<group>"; };
 		3BCD16411BC0613700119E45 /* LivePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivePlayerViewController.m; sourceTree = "<group>"; };
 		3BD0496818ED3C030083C32B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -237,8 +242,8 @@
 		3BD13967190F6E46004F6785 /* ShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewCell.m; sourceTree = "<group>"; };
 		3BE6091417FB57D100497D39 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		3BE6091517FB57D100497D39 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
-		6E57CAB1517084A7FC7C25CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		A2EB0925A5094553A025770B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F349E210491ED5B2B8FEDE1 /* Pods-TVThailandV2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVThailandV2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2.debug.xcconfig"; sourceTree = "<group>"; };
+		ADB95DE3965615347BB2DE2E /* Pods-TVThailandV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVThailandV2.release.xcconfig"; path = "Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2.release.xcconfig"; sourceTree = "<group>"; };
 		F042D50E15BCA5590037E120 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		F042D50F15BCA5590037E120 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		F084C89E15BFF1A500CD7F70 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -266,6 +271,7 @@
 		F0DC4DFE15BA012E0009BFCD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F0DC4DFF15BA012E0009BFCD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F0DC4E6315BA0EC10009BFCD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FD39945CFE95FB0AFAC83955 /* libPods-TVThailandV2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TVThailandV2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,22 +307,13 @@
 				3BB428101BA1ADCF00F876C8 /* libsqlite3.0.tbd in Frameworks */,
 				3BB4280C1BA1ADB000F876C8 /* libxml2.2.tbd in Frameworks */,
 				3BB4280A1BA1AD9D00F876C8 /* libz.1.2.5.tbd in Frameworks */,
-				214F7B9772537A88ABAFA979 /* libPods.a in Frameworks */,
+				C6668722227961681F0A5E0D /* libPods-TVThailandV2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2BC8AB4B9DEC87E2CAC73AD2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6E57CAB1517084A7FC7C25CF /* Pods.debug.xcconfig */,
-				11B5451D80C3148E7A38E308 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		3B67F7A117E09A1D00C9CD23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,14 +329,16 @@
 				3B67F7A617E09C6600C9CD23 /* ShowListViewController.m */,
 				3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */,
 				3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */,
+				3BC8E8311C1A216B002C6B00 /* EpisodeCollectionViewController.h */,
+				3BC8E8321C1A216B002C6B00 /* EpisodeCollectionViewController.m */,
 				115CDAA8182E19A900402D6B /* EpisodePartViewController.h */,
 				115CDAA9182E19A900402D6B /* EpisodePartViewController.m */,
 				3B15D22A17FD86FB006FA479 /* DetailViewController.h */,
 				3B15D22B17FD86FB006FA479 /* DetailViewController.m */,
 				117388B218C8364000D4F187 /* CMAccountViewController.h */,
 				117388B318C8364000D4F187 /* CMAccountViewController.m */,
-				11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */,
 				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
+				11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */,
 				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
 				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
 				3BBA068E1940549C0049BFD3 /* PlayerViewController.h */,
@@ -417,6 +416,8 @@
 				3BC5254419348DAD00596F92 /* RadioCollectionViewCell.m */,
 				3BC52546193497AD00596F92 /* ChannelCollectionViewCell.h */,
 				3BC52547193497AD00596F92 /* ChannelCollectionViewCell.m */,
+				3BC8E8341C1A2EB3002C6B00 /* EpisodeCollectionViewCell.h */,
+				3BC8E8351C1A2EB3002C6B00 /* EpisodeCollectionViewCell.m */,
 			);
 			path = CollectionItemView;
 			sourceTree = "<group>";
@@ -442,6 +443,15 @@
 				116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		73DA08C27B465BFDC2C4575D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9F349E210491ED5B2B8FEDE1 /* Pods-TVThailandV2.debug.xcconfig */,
+				ADB95DE3965615347BB2DE2E /* Pods-TVThailandV2.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F042D50D15BCA5590037E120 /* Base64 */ = {
@@ -495,7 +505,7 @@
 				F0DC4DEE15BA012E0009BFCD /* Frameworks */,
 				F0DC4DEC15BA012E0009BFCD /* Products */,
 				3BA59C061806930F0094D758 /* Podfile */,
-				2BC8AB4B9DEC87E2CAC73AD2 /* Pods */,
+				73DA08C27B465BFDC2C4575D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -541,7 +551,7 @@
 				3B63C8BC1711CCD8009B4B65 /* Security.framework */,
 				3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */,
 				3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */,
-				A2EB0925A5094553A025770B /* libPods.a */,
+				FD39945CFE95FB0AFAC83955 /* libPods-TVThailandV2.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -552,8 +562,8 @@
 				3BB428151BA1B8E700F876C8 /* GoogleService-Info.plist */,
 				F0DC4DFE15BA012E0009BFCD /* AppDelegate.h */,
 				F0DC4DFF15BA012E0009BFCD /* AppDelegate.m */,
-				3B67F69B17E03B3000C9CD23 /* Storyboard_iPhone.storyboard */,
 				3B743BD617E25DA40086C519 /* Storyboard_iPad.storyboard */,
+				3B67F69B17E03B3000C9CD23 /* Storyboard_iPhone.storyboard */,
 				3B1681521B749CDD0011C37C /* LaunchScreen.xib */,
 				3B67F69917E03A9900C9CD23 /* Images.xcassets */,
 				3B86572A1805F29F00BC61AC /* Images */,
@@ -592,13 +602,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0DC4E0C15BA012E0009BFCD /* Build configuration list for PBXNativeTarget "TVThailandV2" */;
 			buildPhases = (
-				466A41D1CF5149DAB9C9B44E /* Check Pods Manifest.lock */,
+				E6D561B75B04BF1E60E609FB /* 📦 Check Pods Manifest.lock */,
 				F0DC4DE715BA012E0009BFCD /* Sources */,
 				F0DC4DE815BA012E0009BFCD /* Frameworks */,
 				F0DC4DE915BA012E0009BFCD /* Resources */,
-				8231CE30F115401F9136DAB9 /* Copy Pods Resources */,
 				3B3726561A152B0D00BADF4F /* ShellScript */,
-				8B40CE5BB6FECD627AC49D1F /* Embed Pods Frameworks */,
+				14515C1F353461F3E2FEEF03 /* 📦 Embed Pods Frameworks */,
+				85BD18EF6B46CCF0579529FF /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -676,6 +686,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		14515C1F353461F3E2FEEF03 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3B3726561A152B0D00BADF4F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -689,48 +714,34 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 3120d8f68ae38afbc965e336f679243187ec8cd9 ac9033157d2b3cf92595c9a443de9c6db2f1bb3584b915f9a55a72c445c6c752";
 		};
-		466A41D1CF5149DAB9C9B44E /* Check Pods Manifest.lock */ = {
+		85BD18EF6B46CCF0579529FF /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6D561B75B04BF1E60E609FB /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-		};
-		8231CE30F115401F9136DAB9 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8B40CE5BB6FECD627AC49D1F /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -748,11 +759,13 @@
 				3BC5253E1934864700596F92 /* RadioViewController.m in Sources */,
 				3BD13968190F6E46004F6785 /* EpisodePartCell.m in Sources */,
 				3B743BD017E1D8060086C519 /* Episode.m in Sources */,
+				3BC8E8331C1A216B002C6B00 /* EpisodeCollectionViewController.m in Sources */,
 				11D011F61924726300216898 /* Radio.m in Sources */,
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
 				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
+				3BC8E8361C1A2EB3002C6B00 /* EpisodeCollectionViewCell.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
 				3B976CC1198276060011DF75 /* AboutViewController.m in Sources */,
 				3B599A6C1BBB1B370002D8B2 /* AFMakathonClient.m in Sources */,
@@ -890,7 +903,7 @@
 		};
 		F0DC4E0D15BA012E0009BFCD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E57CAB1517084A7FC7C25CF /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 9F349E210491ED5B2B8FEDE1 /* Pods-TVThailandV2.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -937,14 +950,14 @@
 		};
 		F0DC4E0E15BA012E0009BFCD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11B5451D80C3148E7A38E308 /* Pods.release.xcconfig */;
+			baseConfigurationReference = ADB95DE3965615347BB2DE2E /* Pods-TVThailandV2.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nattapong Tonprasert (3G244XJS59)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nattapong Tonprasert (3G244XJS59)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

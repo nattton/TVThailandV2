@@ -9,7 +9,7 @@
 #import "ShowListViewController.h"
 
 #import "SVProgressHUD.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import <Google/Analytics.h>
 #import <FacebookSDK/FacebookSDK.h>
 

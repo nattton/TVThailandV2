@@ -7,7 +7,7 @@
 //
 
 #import "OTVShow.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 
 @implementation OTVShow
 
@@ -33,8 +33,8 @@
 
 + (void)retrieveData:(NSString *)categoryName Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block {
     NSString *url = [NSString stringWithFormat:@"%@/%@/index/%@/%@/%@/%@/50/", kOTV_URL_BASE, categoryName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, [[NSNumber numberWithInteger:start] stringValue]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jShows = [responseObject valueForKeyPath:@"items"];
         NSMutableArray *mutableShows = [NSMutableArray arrayWithCapacity:[jShows count]];
         
@@ -46,7 +46,7 @@
         if (block) {
             block([NSArray arrayWithArray:mutableShows], nil);
         }
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull operation, NSError * _Nonnull error) {
         if (block) {
             block([NSArray array], error);
             
