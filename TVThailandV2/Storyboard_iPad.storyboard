@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="H3t-UD-75f">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="H3t-UD-75f">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1385,7 +1385,7 @@
                                             <outlet property="delegate" destination="J81-OE-jis" id="70c-IZ-E4j"/>
                                         </connections>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lm-xn-TCV" customClass="MakathonAdView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lm-xn-TCV" customClass="GADBannerView">
                                         <rect key="frame" x="0.0" y="870" width="768" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="90" id="egU-f8-tSJ"/>
@@ -1473,7 +1473,7 @@
                     <connections>
                         <outlet property="alertTitle" destination="dhQ-qu-2qn" id="k33-Ui-ogm"/>
                         <outlet property="alertTitleView" destination="u7Z-wl-ZTP" id="PeQ-ae-iSU"/>
-                        <outlet property="bannerView" destination="7Lm-xn-TCV" id="Ya5-8A-faI"/>
+                        <outlet property="bannerView" destination="7Lm-xn-TCV" id="yPt-QA-O15"/>
                         <outlet property="goToTopButton" destination="gJL-RV-wcD" id="rma-t7-cpq"/>
                         <outlet property="tableView" destination="nch-fU-EQ6" id="Ft6-oE-z06"/>
                         <segue destination="j48-3v-fnT" kind="push" identifier="EPAndPartIdentifier" id="EJu-lf-Pgw"/>
@@ -2197,9 +2197,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="qIP-8M-6fw"/>
-        <segue reference="lwT-fV-NuI"/>
         <segue reference="9af-dL-MCq"/>
-        <segue reference="u1W-45-WPs"/>
+        <segue reference="lwT-fV-NuI"/>
+        <segue reference="EJu-lf-Pgw"/>
         <segue reference="pw3-vt-0Bo"/>
         <segue reference="idi-Wp-ZFY"/>
     </inferredMetricsTieBreakers>

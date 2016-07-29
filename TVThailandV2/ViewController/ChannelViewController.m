@@ -17,7 +17,11 @@
 #import "VideoPlayerViewController.h"
 #import "ChannelCollectionViewCell.h"
 
-@interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@import GoogleMobileAds;
+
+@interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate, GADInterstitialDelegate>
+
+@property(nonatomic, strong) GADInterstitial *interstitial;
 
 @end
 
@@ -35,6 +39,8 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.interstitial = [self createAndLoadInterstitial];
     
     [self refresh];
 }
@@ -153,9 +159,25 @@ static NSString *showPlayerSegue = @"ShowPlayerSegue";
 }
 
 - (void) displayInterstitialAds {
-
+    if ([self.interstitial isReady]) {
+        [self.interstitial presentFromRootViewController:self];
+    }
 }
 
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial = [[GADInterstitial alloc] initWithAdUnitID:kAdMobInterstitial];
+    interstitial.delegate = self;
+    [interstitial loadRequest:[GADRequest request]];
+    return interstitial;
+}
 
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+//    [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+    self.interstitial = [self createAndLoadInterstitial];
+}
+
+- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error {
+//    [self performSegueWithIdentifier:showPlayerSegue sender:channelSelected];
+}
 
 @end

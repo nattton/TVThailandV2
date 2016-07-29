@@ -33,7 +33,9 @@
 
 + (void)retrieveData:(NSString *)categoryName Start:(NSInteger)start Block:(void (^)(NSArray *otvShows, NSError *error)) block {
     NSString *url = [NSString stringWithFormat:@"%@/%@/index/%@/%@/%@/%@/50/", kOTV_URL_BASE, categoryName, kOTV_APP_ID, kAPP_VERSION, kOTV_API_VERSION, [[NSNumber numberWithInteger:start] stringValue]];
+    NSString  *currentDeviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer setValue:currentDeviceId forHTTPHeaderField:@"X-Device-ID"];
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull operation, id  _Nonnull responseObject) {
         NSArray *jShows = [responseObject valueForKeyPath:@"items"];
         NSMutableArray *mutableShows = [NSMutableArray arrayWithCapacity:[jShows count]];

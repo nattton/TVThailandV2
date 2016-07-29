@@ -602,13 +602,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0DC4E0C15BA012E0009BFCD /* Build configuration list for PBXNativeTarget "TVThailandV2" */;
 			buildPhases = (
-				E6D561B75B04BF1E60E609FB /* 📦 Check Pods Manifest.lock */,
+				E6D561B75B04BF1E60E609FB /* [CP] Check Pods Manifest.lock */,
 				F0DC4DE715BA012E0009BFCD /* Sources */,
 				F0DC4DE815BA012E0009BFCD /* Frameworks */,
 				F0DC4DE915BA012E0009BFCD /* Resources */,
 				3B3726561A152B0D00BADF4F /* ShellScript */,
-				14515C1F353461F3E2FEEF03 /* 📦 Embed Pods Frameworks */,
-				85BD18EF6B46CCF0579529FF /* 📦 Copy Pods Resources */,
+				14515C1F353461F3E2FEEF03 /* [CP] Embed Pods Frameworks */,
+				85BD18EF6B46CCF0579529FF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -686,14 +686,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14515C1F353461F3E2FEEF03 /* 📦 Embed Pods Frameworks */ = {
+		14515C1F353461F3E2FEEF03 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,14 +714,14 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 3120d8f68ae38afbc965e336f679243187ec8cd9 ac9033157d2b3cf92595c9a443de9c6db2f1bb3584b915f9a55a72c445c6c752";
 		};
-		85BD18EF6B46CCF0579529FF /* 📦 Copy Pods Resources */ = {
+		85BD18EF6B46CCF0579529FF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,14 +729,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E6D561B75B04BF1E60E609FB /* 📦 Check Pods Manifest.lock */ = {
+		E6D561B75B04BF1E60E609FB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -957,8 +957,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nattapong Tonprasert (3G244XJS59)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -987,8 +987,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.makathon.tv;
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "4180320c-3e80-495d-b9f9-a2686e2f1613";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4180320c-3e80-495d-b9f9-a2686e2f1613";
+				PROVISIONING_PROFILE = "e4a82aab-a807-42d8-834b-bb6451aed321";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e4a82aab-a807-42d8-834b-bb6451aed321";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

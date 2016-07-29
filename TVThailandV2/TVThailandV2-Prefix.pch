@@ -39,6 +39,12 @@
 #define kOTV_API_VERSION @"2.0.1.2"
 #define kOTV_CH7 @"Ch7"
 
+#define kOtvDomain      @"http://api.otv.co.th/api/index.php/v3"
+#define kOtvDevCode     @"53336900268229151911"
+#define kOtvSecretKey   @"8540c45823b738220ab09764645e0c82"
+#define kOtvAppID       @"75"
+#define kOtvAppVersion  @"1.0"
+
 #define kPrivacyPolicy_URL @"http://tv.makathon.com/privacy/mobile"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
