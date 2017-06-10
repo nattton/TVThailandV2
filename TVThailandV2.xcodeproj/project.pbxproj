@@ -27,8 +27,6 @@
 		3B15D24C17FF346C006FA479 /* MakathonAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B15D24B17FF346C006FA479 /* MakathonAd.m */; };
 		3B1681531B749CDD0011C37C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1681521B749CDD0011C37C /* LaunchScreen.xib */; };
 		3B1D74991A5D06BE000B0D8B /* IAHTTPCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D74981A5D06BE000B0D8B /* IAHTTPCommunication.m */; };
-		3B3726611A152C5F00BADF4F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B37265F1A152C5F00BADF4F /* Crashlytics.framework */; };
-		3B3726621A152C5F00BADF4F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3726601A152C5F00BADF4F /* Fabric.framework */; };
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
 		3B3E76001BBEF10C0051A5F9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3E75FF1BBEF10C0051A5F9 /* CoreMedia.framework */; };
@@ -89,7 +87,7 @@
 		3BD1396B190F6E46004F6785 /* ShowCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13965190F6E46004F6785 /* ShowCategoryTableViewCell.m */; };
 		3BD1396C190F6E46004F6785 /* ShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD13967190F6E46004F6785 /* ShowTableViewCell.m */; };
 		3BE6091617FB57D100497D39 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6091517FB57D100497D39 /* ChannelViewController.m */; };
-		C6668722227961681F0A5E0D /* libPods-TVThailandV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD39945CFE95FB0AFAC83955 /* libPods-TVThailandV2.a */; };
+		536E4E2C9C0DE15B98C88E1A /* libPods-TVThailandV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A964B02D56BDE1D4639C6CB0 /* libPods-TVThailandV2.a */; };
 		F042D51015BCA5590037E120 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F042D50F15BCA5590037E120 /* Base64.m */; };
 		F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F084C89E15BFF1A500CD7F70 /* MediaPlayer.framework */; };
 		F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0927FE015CC4A180045EDBA /* tvthai2.xcdatamodeld */; };
@@ -143,8 +141,6 @@
 		3B1681521B749CDD0011C37C /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		3B1D74971A5D06BE000B0D8B /* IAHTTPCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAHTTPCommunication.h; sourceTree = "<group>"; };
 		3B1D74981A5D06BE000B0D8B /* IAHTTPCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAHTTPCommunication.m; sourceTree = "<group>"; };
-		3B37265F1A152C5F00BADF4F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		3B3726601A152C5F00BADF4F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		3B39B0A517E322EE0027B242 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
@@ -235,6 +231,7 @@
 		3BE6091417FB57D100497D39 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		3BE6091517FB57D100497D39 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
 		9F349E210491ED5B2B8FEDE1 /* Pods-TVThailandV2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVThailandV2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2.debug.xcconfig"; sourceTree = "<group>"; };
+		A964B02D56BDE1D4639C6CB0 /* libPods-TVThailandV2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TVThailandV2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB95DE3965615347BB2DE2E /* Pods-TVThailandV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVThailandV2.release.xcconfig"; path = "Pods/Target Support Files/Pods-TVThailandV2/Pods-TVThailandV2.release.xcconfig"; sourceTree = "<group>"; };
 		F042D50E15BCA5590037E120 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		F042D50F15BCA5590037E120 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
@@ -263,7 +260,6 @@
 		F0DC4DFE15BA012E0009BFCD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F0DC4DFF15BA012E0009BFCD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F0DC4E6315BA0EC10009BFCD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		FD39945CFE95FB0AFAC83955 /* libPods-TVThailandV2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TVThailandV2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,10 +276,8 @@
 				3B3E76001BBEF10C0051A5F9 /* CoreMedia.framework in Frameworks */,
 				3B63C8B91711CCBA009B4B65 /* CoreTelephony.framework in Frameworks */,
 				3B688EC218B2399B0009050B /* CoreLocation.framework in Frameworks */,
-				3B3726611A152C5F00BADF4F /* Crashlytics.framework in Frameworks */,
 				3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */,
 				3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */,
-				3B3726621A152C5F00BADF4F /* Fabric.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
 				F084C89F15BFF1A500CD7F70 /* MediaPlayer.framework in Frameworks */,
@@ -298,7 +292,7 @@
 				3BB428101BA1ADCF00F876C8 /* libsqlite3.0.tbd in Frameworks */,
 				3BB4280C1BA1ADB000F876C8 /* libxml2.2.tbd in Frameworks */,
 				3BB4280A1BA1AD9D00F876C8 /* libz.1.2.5.tbd in Frameworks */,
-				C6668722227961681F0A5E0D /* libPods-TVThailandV2.a in Frameworks */,
+				536E4E2C9C0DE15B98C88E1A /* libPods-TVThailandV2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,8 +508,6 @@
 				3BB4280F1BA1ADCF00F876C8 /* libsqlite3.0.tbd */,
 				3BB428131BA1AE3D00F876C8 /* libxml2.tbd */,
 				3BB4280B1BA1ADB000F876C8 /* libxml2.2.tbd */,
-				3B37265F1A152C5F00BADF4F /* Crashlytics.framework */,
-				3B3726601A152C5F00BADF4F /* Fabric.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
 				3BD0496818ED3C030083C32B /* EventKit.framework */,
 				3B688EC118B2399B0009050B /* CoreLocation.framework */,
@@ -537,7 +529,7 @@
 				3B63C8BC1711CCD8009B4B65 /* Security.framework */,
 				3B63C8BA1711CCC3009B4B65 /* AVFoundation.framework */,
 				3B63C8B81711CCBA009B4B65 /* CoreTelephony.framework */,
-				FD39945CFE95FB0AFAC83955 /* libPods-TVThailandV2.a */,
+				A964B02D56BDE1D4639C6CB0 /* libPods-TVThailandV2.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -699,7 +691,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 3120d8f68ae38afbc965e336f679243187ec8cd9 ac9033157d2b3cf92595c9a443de9c6db2f1bb3584b915f9a55a72c445c6c752";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3120d8f68ae38afbc965e336f679243187ec8cd9 ac9033157d2b3cf92595c9a443de9c6db2f1bb3584b915f9a55a72c445c6c752";
 		};
 		85BD18EF6B46CCF0579529FF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -824,6 +816,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -869,6 +862,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -901,17 +895,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(SRCROOT)/TVThailandV2/Frameworks",
-					"$(PROJECT_DIR)/TVThailandV2/Library",
-					"$(PROJECT_DIR)/TVThailandV2/Frameworks",
-					"$(PROJECT_DIR)/TVThailandV2",
-					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleMobileAdsSdkiOS-7.5.1",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -920,11 +906,7 @@
 				);
 				INFOPLIST_FILE = "TVThailandV2/TVThailandV2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(PROJECT_DIR)/TVThailandV2/Library",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.makathon.tv;
@@ -950,16 +932,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(SRCROOT)/TVThailandV2/Frameworks",
-					"$(PROJECT_DIR)/TVThailandV2/Library",
-					"$(PROJECT_DIR)/TVThailandV2/Frameworks",
-					"$(PROJECT_DIR)/TVThailandV2",
-					"$(PROJECT_DIR)/TVThailandV2/Library/GoogleMobileAdsSdkiOS-7.5.1",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TVThailandV2/TVThailandV2-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -968,11 +941,7 @@
 				);
 				INFOPLIST_FILE = "TVThailandV2/TVThailandV2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(PROJECT_DIR)/TVThailandV2/Library",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.makathon.tv;
@@ -981,6 +950,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e4a82aab-a807-42d8-834b-bb6451aed321";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

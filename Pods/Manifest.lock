@@ -20,6 +20,8 @@ PODS:
   - CocoaLumberjack/Core (1.7.0)
   - CocoaLumberjack/Extensions (1.7.0):
     - CocoaLumberjack/Core
+  - Crashlytics (3.8.4):
+    - Fabric (~> 1.6.3)
   - DTCoreText (1.6.20):
     - DTCoreText/Core (= 1.6.20)
     - DTFoundation/Core (~> 1.7.5)
@@ -37,6 +39,7 @@ PODS:
     - DTFoundation/Core
   - DTFoundation/UIKit (1.7.12):
     - DTFoundation/Core
+  - Fabric (1.6.11)
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
@@ -79,6 +82,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - Crashlytics
+  - Fabric
   - Google/Analytics
   - GoogleAds-IMA-iOS-SDK-For-AdMob
   - Objective-C-HMTL-Parser
@@ -92,8 +97,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CocoaLumberjack: a2213b8410917a1a5ecfc5c63a4206edc24d3a5b
+  Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   DTCoreText: 51904f2374af443e0d270d6fdc76035ab6f9ef8a
   DTFoundation: 26a164ef510877387906fb92bff524a792db4bf8
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
@@ -113,6 +120,6 @@ SPEC CHECKSUMS:
   VKVideoPlayer: 75d0c44d8cd208dd01ae397d2e75c52cfc51dd19
   XLMediaZoom: 52f8f473066d0a3e09572fbee6c84f25c1ed0bca
 
-PODFILE CHECKSUM: bedfa07187b82593e7bba668722e32778f8b8c74
+PODFILE CHECKSUM: c47028c52706ab68c6918923979953fdb698cb41
 
 COCOAPODS: 1.2.1
