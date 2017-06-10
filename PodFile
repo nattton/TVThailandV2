@@ -1,4 +1,4 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 target 'TVThailandV2' do
     pod 'AFNetworking', '~> 3.0'
@@ -9,6 +9,6 @@ target 'TVThailandV2' do
     pod 'SASlideMenu'
     pod 'SVWebViewController'
     pod 'Google/Analytics'
-    pod 'GoogleAds-IMA-iOS-SDK-For-AdMob', '~> 3.2.1'
+    pod 'GoogleAds-IMA-iOS-SDK-For-AdMob'
     pod 'VKVideoPlayer', '~> 0.1.4'
 end

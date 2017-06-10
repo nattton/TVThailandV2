@@ -16,9 +16,7 @@
 		115CDAAA182E19A900402D6B /* EpisodePartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115CDAA9182E19A900402D6B /* EpisodePartViewController.m */; };
 		116816871941AB2E0013F5BB /* VideoPartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */; };
 		116ADEE419599C82009167E7 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116ADEE319599C82009167E7 /* WebViewController.m */; };
-		117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117388B318C8364000D4F187 /* CMAccountViewController.m */; };
 		1179B5E2198269C7009A0F1F /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1179B5E1198269C7009A0F1F /* SettingViewController.m */; };
-		11A263AB18C604BB0059C17D /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A263AA18C604BB0059C17D /* CMUser.m */; };
 		11D011F61924726300216898 /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D011F51924726300216898 /* Radio.m */; };
 		11D1DCE21910CB5D00A51026 /* HomeSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */; };
 		11DCB022195447FF000D76D1 /* InfoOfEpisodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DCB021195447FF000D76D1 /* InfoOfEpisodeViewController.m */; };
@@ -34,7 +32,6 @@
 		3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B39B0A517E322EE0027B242 /* ImageIO.framework */; };
 		3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */; };
 		3B3E76001BBEF10C0051A5F9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3E75FF1BBEF10C0051A5F9 /* CoreMedia.framework */; };
-		3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4872E119E6BDA900E30999 /* FacebookSDK.framework */; };
 		3B54241B17FD3D5B008E4E37 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */; };
 		3B55AECC1A19DE69005E4A85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A3C83615BB21AB000CD962 /* MobileCoreServices.framework */; };
 		3B599A6C1BBB1B370002D8B2 /* AFMakathonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B599A6B1BBB1B370002D8B2 /* AFMakathonClient.m */; };
@@ -126,12 +123,8 @@
 		116816861941AB2E0013F5BB /* VideoPartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPartTableViewCell.m; sourceTree = "<group>"; };
 		116ADEE219599C82009167E7 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		116ADEE319599C82009167E7 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		117388B218C8364000D4F187 /* CMAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAccountViewController.h; sourceTree = "<group>"; };
-		117388B318C8364000D4F187 /* CMAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAccountViewController.m; sourceTree = "<group>"; };
 		1179B5E0198269C7009A0F1F /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		1179B5E1198269C7009A0F1F /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		11A263A918C604BB0059C17D /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
-		11A263AA18C604BB0059C17D /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		11D011F41924726300216898 /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
 		11D011F51924726300216898 /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
 		11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSlideMenuViewController.h; sourceTree = "<group>"; };
@@ -156,7 +149,6 @@
 		3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		3B3E75FF1BBEF10C0051A5F9 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		3B4872E119E6BDA900E30999 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = TVThailandV2/Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		3B54241917FD3D5B008E4E37 /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		3B54241A17FD3D5B008E4E37 /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		3B599A6A1BBB1B370002D8B2 /* AFMakathonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMakathonClient.h; sourceTree = "<group>"; };
@@ -291,7 +283,6 @@
 				3B3726611A152C5F00BADF4F /* Crashlytics.framework in Frameworks */,
 				3BD0496918ED3C030083C32B /* EventKit.framework in Frameworks */,
 				3BD0496B18ED3C2B0083C32B /* EventKitUI.framework in Frameworks */,
-				3B4872E219E6BDAA00E30999 /* FacebookSDK.framework in Frameworks */,
 				3B3726621A152C5F00BADF4F /* Fabric.framework in Frameworks */,
 				F0DC4DF215BA012E0009BFCD /* Foundation.framework in Frameworks */,
 				3B39B0A617E322EE0027B242 /* ImageIO.framework in Frameworks */,
@@ -335,10 +326,8 @@
 				115CDAA9182E19A900402D6B /* EpisodePartViewController.m */,
 				3B15D22A17FD86FB006FA479 /* DetailViewController.h */,
 				3B15D22B17FD86FB006FA479 /* DetailViewController.m */,
-				117388B218C8364000D4F187 /* CMAccountViewController.h */,
-				117388B318C8364000D4F187 /* CMAccountViewController.m */,
-				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				11D1DCE01910CB5D00A51026 /* HomeSlideMenuViewController.h */,
+				11D1DCE11910CB5D00A51026 /* HomeSlideMenuViewController.m */,
 				3B39B0A717E34C560027B242 /* VideoPlayerViewController.h */,
 				3B39B0A817E34C560027B242 /* VideoPlayerViewController.m */,
 				3BBA068E1940549C0049BFD3 /* PlayerViewController.h */,
@@ -393,8 +382,6 @@
 				3B743BCF17E1D8060086C519 /* Episode.m */,
 				3B0A75B91A6845FE00660933 /* PreRollAd.h */,
 				3B0A75BA1A6845FE00660933 /* PreRollAd.m */,
-				11A263A918C604BB0059C17D /* CMUser.h */,
-				11A263AA18C604BB0059C17D /* CMUser.m */,
 				1136AC4118D81D98004BFE4D /* OTVCategory.h */,
 				1136AC4218D81D98004BFE4D /* OTVCategory.m */,
 				1136AC4418D81DAD004BFE4D /* OTVShow.h */,
@@ -502,8 +489,8 @@
 			isa = PBXGroup;
 			children = (
 				F0DC4DF515BA012E0009BFCD /* TVThailandV2 */,
-				F0DC4DEE15BA012E0009BFCD /* Frameworks */,
 				F0DC4DEC15BA012E0009BFCD /* Products */,
+				F0DC4DEE15BA012E0009BFCD /* Frameworks */,
 				3BA59C061806930F0094D758 /* Podfile */,
 				73DA08C27B465BFDC2C4575D /* Pods */,
 			);
@@ -529,7 +516,6 @@
 				3BB4280B1BA1ADB000F876C8 /* libxml2.2.tbd */,
 				3B37265F1A152C5F00BADF4F /* Crashlytics.framework */,
 				3B3726601A152C5F00BADF4F /* Fabric.framework */,
-				3B4872E119E6BDA900E30999 /* FacebookSDK.framework */,
 				3BD0496A18ED3C2B0083C32B /* EventKitUI.framework */,
 				3BD0496818ED3C030083C32B /* EventKit.framework */,
 				3B688EC118B2399B0009050B /* CoreLocation.framework */,
@@ -625,11 +611,12 @@
 		F0DC4DE215BA012E0009BFCD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "luciferultram@gmail.com";
 				TargetAttributes = {
 					F0DC4DEA15BA012E0009BFCD = {
 						DevelopmentTeam = 3G244XJS59;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -741,7 +728,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -764,7 +751,6 @@
 				3B67F7A417E09A5200C9CD23 /* ShowCategoryViewController.m in Sources */,
 				3BC525421934892A00596F92 /* RadioCollectionHeaderView.m in Sources */,
 				3B15D24917FF328A006FA479 /* MakathonAdView.m in Sources */,
-				11A263AB18C604BB0059C17D /* CMUser.m in Sources */,
 				3BC8E8361C1A2EB3002C6B00 /* EpisodeCollectionViewCell.m in Sources */,
 				3B39B0A917E34C560027B242 /* VideoPlayerViewController.m in Sources */,
 				3B976CC1198276060011DF75 /* AboutViewController.m in Sources */,
@@ -793,7 +779,6 @@
 				116816871941AB2E0013F5BB /* VideoPartTableViewCell.m in Sources */,
 				F0927FE215CC4A180045EDBA /* tvthai2.xcdatamodeld in Sources */,
 				1100E2DF192F1354009189C2 /* FBTableViewCell.m in Sources */,
-				117388B418C8364000D4F187 /* CMAccountViewController.m in Sources */,
 				3BD1396A190F6E46004F6785 /* PartTableViewCell.m in Sources */,
 				11DCB022195447FF000D76D1 /* InfoOfEpisodeViewController.m in Sources */,
 				3B910C3D17340387008F67ED /* ShowCategory.m in Sources */,
@@ -831,7 +816,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nattapong Tonprasert (HERS8ZPDPS)";
@@ -856,7 +843,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -874,7 +861,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -891,7 +880,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -930,7 +919,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "TVThailandV2/TVThailandV2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -958,7 +947,8 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -977,7 +967,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "TVThailandV2/TVThailandV2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -987,8 +977,9 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.makathon.tv;
 				PRODUCT_NAME = "TV Thailand";
-				PROVISIONING_PROFILE = "e4a82aab-a807-42d8-834b-bb6451aed321";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e4a82aab-a807-42d8-834b-bb6451aed321";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

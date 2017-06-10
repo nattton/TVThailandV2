@@ -11,7 +11,6 @@
 #import "SVProgressHUD.h"
 #import "AFHTTPSessionManager.h"
 #import <Google/Analytics.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 #import "MakathonAdView.h"
 

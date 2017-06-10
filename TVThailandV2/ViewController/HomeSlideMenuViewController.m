@@ -17,7 +17,6 @@
 #import "ChannelViewController.h"
 #import "ShowCategory.h"
 #import "Show.h"
-#import "CMUser.h"
 #import "AppDelegate.h"
 
 #import "FavoriteViewController.h"
@@ -394,15 +393,6 @@ static NSInteger tagSearchTable = 999;
         if (section == secFacebook) {
             FBTableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
             cellOfFB.selectedBackgroundView = selectedBackgroundViewForCell;
-            
-            CMUser *cm_user = [CMUser sharedInstance];
-            
-            if (cm_user.fbId == nil || [cm_user.fbId isEqualToString: @""]) {
-                [cellOfFB configureWithTitle:@"Login"];
-            }else{
-//                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"Hello, %@", cm_user.firstName]];
-                [cellOfFB configureWithTitle:[NSString stringWithFormat:@"My Profile"]];
-            }
             
             return cellOfFB;
         } else if (section == secFavorite){
