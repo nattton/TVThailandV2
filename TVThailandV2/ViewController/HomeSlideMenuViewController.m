@@ -79,13 +79,12 @@ static NSString *showListSegue = @"ShowListSegue";
 
 
 /** sequence of section Header **/
-static NSInteger secFacebook = 0;
-static NSInteger secFavorite = 1;
-static NSInteger secChannel = 2;
-static NSInteger secRadio = 3;
-static NSInteger secSetting = 4;
-static NSInteger secCategory = 5;
-static NSInteger totalSection = 6;
+static NSInteger secFavorite = 0;
+static NSInteger secChannel = 1;
+static NSInteger secRadio = 2;
+static NSInteger secSetting = 3;
+static NSInteger secCategory = 4;
+static NSInteger totalSection = 5;
 
 /** TAG of tableview **/
 static NSInteger tagSearchTable = 999;
@@ -300,7 +299,7 @@ static NSInteger tagSearchTable = 999;
 // This is the segue you want visibile when the controller is loaded the first time
 -(NSIndexPath*) selectedIndexPath{
 
-        return [NSIndexPath indexPathForRow:0 inSection:5];
+        return [NSIndexPath indexPathForRow:0 inSection:secCategory];
     
 }
 
@@ -310,9 +309,7 @@ static NSInteger tagSearchTable = 999;
 
 
     NSInteger section = indexPath.section;
-    if (section == secFacebook) {
-        return FBContentSegue;
-    } else if (section == secCategory) {
+    if (section == secCategory) {
         return showListContentSegue;
     } else if (section == secFavorite) {
         return favoriteContentSegue;
@@ -352,7 +349,7 @@ static NSInteger tagSearchTable = 999;
         return _searchShows.count;
     }
 
-    if (section == secFacebook || section == secFavorite || section == secChannel || section == secRadio || section == secSetting) {
+    if (section == secFavorite || section == secChannel || section == secRadio || section == secSetting) {
         return 1;
     } else if (section == secCategory){
         return [_categoryList count];
@@ -390,12 +387,7 @@ static NSInteger tagSearchTable = 999;
         
     } else {
     
-        if (section == secFacebook) {
-            FBTableViewCell* cellOfFB = [self.tableView dequeueReusableCellWithIdentifier:fbCellIdentifier];
-            cellOfFB.selectedBackgroundView = selectedBackgroundViewForCell;
-            
-            return cellOfFB;
-        } else if (section == secFavorite){
+        if (section == secFavorite){
             UITableViewCell* cellOfFavorite = [self.tableView dequeueReusableCellWithIdentifier:favoriteCellIdentifier];
             cellOfFavorite.selectedBackgroundView = selectedBackgroundViewForCell;
             return cellOfFavorite;
@@ -472,10 +464,6 @@ static NSInteger tagSearchTable = 999;
         }else if (section == secRadio) {
         
             [self performSegueWithIdentifier:radioContentSegue sender:nil];
-        
-        }else if (section == secFacebook) {
-        
-            [self performSegueWithIdentifier:FBContentSegue sender:nil];
         
         }else if (section == secSetting) {
             
@@ -584,9 +572,7 @@ static NSInteger tagSearchTable = 999;
     [view setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]];
     [underline setBackgroundColor:[UIColor colorWithRed: 246/255.0 green:246/255.0 blue:246/255.0 alpha:0.7]];
     
-    if (section == secFacebook) {
-        return underline;
-    } else if (section == secFavorite){
+    if (section == secFavorite){
         return underline;
     } else if (section == secChannel){
         return underline;
@@ -604,9 +590,7 @@ static NSInteger tagSearchTable = 999;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == secFacebook) {
-        return 5;
-    } else if (section == secFavorite){
+    if (section == secFavorite){
         return 0;
     } else if (section == secChannel){
         return 0;
